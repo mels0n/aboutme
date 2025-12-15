@@ -1,0 +1,448 @@
+{
+  "basics": {
+    "name": "Chris Melson",
+    "headline": "Global Operations Executive | Strategic Support Leader | Driving Operational Turnaround & Scale",
+    "email": "chris.m.melson@gmail.com",
+    "phone": "+1 (314) 504-1142",
+    "location": "Saint Louis, MO USA",
+    "url": {
+      "label": "LinkedIn",
+      "href": "https://www.linkedin.com/in/chris-melson-45a88244/"
+    },
+    "customFields": [],
+    "picture": {
+      "url": "",
+      "size": 64,
+      "aspectRatio": 1,
+      "borderRadius": 0,
+      "effects": {
+        "hidden": false,
+        "border": false,
+        "grayscale": false
+      }
+    }
+  },
+  "sections": {
+    "summary": {
+      "name": "Summary",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "summary",
+      "content": "<p>Transformational Operations Executive specializing in stabilizing distressed environments and converting operational chaos into sustainable growth. I excel at diagnosing systemic failures and architecting Target Operating Models (TOM) that maximize efficiency, mitigate regulatory risk, and restore confidence in the customer experience. A proven leader through complex M&A integrations and digital transformations, I bridge the gap between strategic vision and tactical execution, building resilient, high-performance global organizations prepared for scale.</p>"
+    },
+    "awards": {
+      "name": "Awards",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "awards",
+      "items": []
+    },
+    "certifications": {
+      "name": "Certifications",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": false,
+      "id": "certifications",
+      "items": [
+        {
+          "id": "k76nsl09tzr3fvxwv7fnldjt",
+          "visible": true,
+          "name": "Azure Fundamentals",
+          "issuer": "Microsoft Credential ID: CCFA9C00A961141A",
+          "date": "Oct 2025",
+          "summary": "<p></p>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "ew5d0hwbhkmh7g7fwkvosojm",
+          "visible": true,
+          "name": "M365 Fundamentals",
+          "issuer": "Microsoft Credential ID: 275582BFF90219D9",
+          "date": "Oct 2025",
+          "summary": "<p></p>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        }
+      ]
+    },
+    "education": {
+      "name": "Education",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "education",
+      "items": [
+        {
+          "id": "yax8wzc9r0i0430tbyvgxrxm",
+          "visible": true,
+          "institution": "Webster University",
+          "studyType": "M.B.A.",
+          "area": "Master of Business Administration",
+          "score": "",
+          "date": "2015",
+          "summary": "",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "yc8aj1wnghnmgx5xeh6wxbgx",
+          "visible": true,
+          "institution": "Webster University",
+          "studyType": "Computer Science",
+          "area": "Bachelor of Science",
+          "score": "",
+          "date": "2005",
+          "summary": "",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "ktj2v82o3xd0xt9rvo95ou5y",
+          "visible": true,
+          "institution": "Webster University",
+          "studyType": "Management",
+          "area": "Bachelor of Art",
+          "score": "",
+          "date": "2005",
+          "summary": "",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "pniyby4rbkp71o1w1k3bsagh",
+          "visible": false,
+          "institution": "Ranken Technical College",
+          "studyType": "Computer Networking",
+          "area": "Associate of Technology",
+          "score": "",
+          "date": "2002",
+          "summary": "",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        }
+      ]
+    },
+    "experience": {
+      "name": "Experience",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "experience",
+      "items": [
+        {
+          "id": "ker6holx7fl5zh18jv2a0bse",
+          "visible": true,
+          "company": "London Stock Exchange Group",
+          "position": "Head of FX Operations Programs and Strategy",
+          "location": "Saint Louis, MO USA",
+          "date": "Oct 2023 - Nov 2025",
+          "summary": "<ul><li><p>Architected a global Target Operating Model (TOM) spanning Engineering, Venue, and Support operations, securing C-level alignment to drive organizational transformation and optimize Revenue Operations (RevOps), reclaiming ~30% of Sales capacity.</p></li><li><p>Operationalized the TOM by enforcing an EU DORA-compliant Accountability Framework between ServiceNow and Salesforce, reducing customer escalations by 90% through Venue Ops upskilling, knowledge transfer, and revised Job Descriptions.</p></li><li><p>Directed Product Strategy for the Operations domain during the global FXall-to-Workspace SaaS migration, defining user stories for critical platform logging and tooling while driving cross-divisional operational readiness for 10,000+ institutional users on Azure.</p></li><li><p>Championed a Zero-Trust support architecture for the SaaS platform, implementing Identity Emulation via Azure profiles to enable secure data access while eliminating client-side network risks.</p></li><li><p>Embedded an AI-driven help ecosystem (Self-Service, Chat, Agents) directly into the FXall Workspace GUI, reducing case volume by 25% and slashing response times from 20 minutes to under 60 seconds.</p></li><li><p>Stabilized the FXI program's NDF (Non-Deliverable Forward) venue following a launch with no operational readiness, establishing 150+ auditable actions and governance runbooks to ensure market health without increasing headcount.</p></li><li><p>Appointed to lead the operational remediation of a $100M initiative to diagnose missed targets, assuming Product Ownership of the Operations domain to rectify fragmented requirements and, as a steering committee member, drove the strategic decision to wind down the non-viable broader program.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "cohj659qt8db1bv3p0pnc33x",
+          "visible": true,
+          "company": "London Stock Exchange Group (formerly Refinitiv)",
+          "position": "Director, Global Trading Systems Support",
+          "location": "Saint Louis, MO USA",
+          "date": "Nov 2020 - Oct 2023",
+          "summary": "<ul><li><p>Selected by the CCOO to lead the post-merger turnaround of a 180-FTE global trading organization, reversing 40% attrition to 6% and restoring leadership stability while driving staff engagement scores to 85 (Glint).</p></li><li><p>Designed and executed a global operational hub strategy, consolidating teams from 13 fragmented locations into regional centers of excellence (EMEA, APAC, AMER) to strengthen Business Continuity Planning (BCP) and centralize talent development.</p></li><li><p>Dismantled organizational silos by unifying disparate systems into a centralized enterprise stack (Salesforce, PowerBI), establishing a single standard for customer issue management and operational data intelligence.</p></li><li><p>Innovated a proprietary performance measurement framework by creating novel metrics, specifically Mean Time to Acknowledge (MTTa) and Mean Time to Respond (MTTr), to replace ineffective legacy KPIs. This initiative slashed MTTa from 150 to under 10 minutes, MTTr from 300 to under 20 minutes, and Resolution Time (MTTR) from over 100 hours to under 20 hours.</p></li><li><p>Developed Experience Pulse, a strategic hybrid metric designed to align business partner NPS expectations with operational CSAT realities, driving reported satisfaction scores from the low 30s to the high 60s.</p></li><li><p>Established an ITIL-driven Post-Incident leadership framework to institutionalize Root Cause Solutions, mitigating multi-million dollar exposure by eliminating recurring trade anomalies and reducing execution failures from several weekly to near-zero.</p></li><li><p>Owned the risk and regulatory oversight for complex, high-impact customer complaints, presenting findings and remediation plans directly to the compliance board.</p></li><li><p>Leveraged Power Apps to reduce regulatory risk by implementing an automatic four-eye check for trade actions and automating the firm-wide data leak reporting process.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "t21ch0x0i9gevm1sryvngbi3",
+          "visible": true,
+          "company": "Refinitiv (formerly Thomson Reuters)",
+          "position": "Director, Technical Specialists",
+          "location": "Saint Louis, MO USA",
+          "date": "Jul 2017 - Nov 2020",
+          "summary": "<ul><li><p>Directed a geographically dispersed team of over 110 customer-facing technical professionals, providing operational oversight across Desktop Support, Network Last Mile, and Market Data Operations.</p></li><li><p>Owned end-to-end customer incident management, including leading incident and post-incident discussions with executive and C-level representatives at customer sites.</p></li><li><p>Lifted customer satisfaction (CSAT) from the low 60s to the low 90s by implementing a data-driven operational strategy that improved performance and engagement outcomes through targeted hiring and optimized escalation paths.</p></li><li><p>Maintained high staff engagement (above 80+ Glint Survey) and low annual attrition (4% per year) throughout periods of significant restructuring and market uncertainty.</p></li><li><p>Supported the successful $27B sale to LSEG by executing key strategic transformation and M&amp;A initiatives, optimizing efficiency by flattening the organization and increasing managerial spans of control.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "mtzl7rlk89w1yw7n05y0udrg",
+          "visible": true,
+          "company": "Thomson Reuters",
+          "position": "Technical Specialist Manager - Trading (Enterprise)",
+          "location": "Saint Louis, MO USA",
+          "date": "Aug 2012 - Jul 2017",
+          "summary": "<ul><li><p>Pioneered the organization's first global support team to drive global process optimization, breaking down regional silos by implementing a Follow-the-Sun approach that drastically improved workflow and customer incident management.</p></li><li><p>Managed a 19-professional, 24/7 integrated team providing product support and service automation for TRDFD low-latency data feed servers.</p></li><li><p>Spearheaded a service transformation to proactive, automated delivery, eliminating high-risk physical dispatches and human error by implementing a novel solution using HPE ILO and Rundeck.</p></li><li><p>Directed a 12-engineer specialized team focused on Americas TREP/RMDS engineering, enabling the efficient fan-out of market data infrastructure.</p></li><li><p>Targeted a novel metric of Mean Time to Close (MTTC) to reduce daily open issues from over 300 to under 50, significantly improving the credibility of CSAT values and driving global adoption of the metric.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "naucjk6r4t3ccvzb69enkda0",
+          "visible": true,
+          "company": "Thomson Reuters",
+          "position": "Customer Support Team Manager - Open Systems",
+          "location": "Saint Louis, MO USA",
+          "date": "Jun 2009 - Aug 2012",
+          "summary": "<ul><li><p>Managed the Open Systems Engineering team responsible for market data distribution systems, driving team leadership and performance through positive motivation and dynamic management.</p></li><li><p>Maintained over 90% customer satisfaction while merging two customer support teams into one fully functioning unit to drive efficiency and consolidation, resulting in a 15% headcount savings.</p></li><li><p>Successfully preserved employee morale during a period of change management, achieving a 0% attrition rate throughout a large-scale migration of the team's peers to a Manila call center.</p></li><li><p>Supervised all core management functions for the engineering support team, including weekly 1:1s, shift schedule management, and performance reviews.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "q4n1xsx8pkrm4sm2ruiv5ver",
+          "visible": false,
+          "company": "Thomson Reuters",
+          "position": "Open Systems Engineer",
+          "location": "Saint Louis, MO USA",
+          "date": "Apr 2009 - Jun 2009",
+          "summary": "<ul><li><p>Provided advanced remote troubleshooting for client-administered market data distribution systems (RMDS) running on Linux.</p></li><li><p>Partnered with customer engineers to conduct deep-level network analysis, diagnosing and resolving complex latency and connectivity issues using tools like tcpdump and Wireshark.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "gobu1bffqmjj44115np71vpm",
+          "visible": false,
+          "company": "Thomson Reuters (formerly Reuters)",
+          "position": "Escalation Engineer",
+          "location": "Saint Louis, MO USA",
+          "date": "Oct 2007 - Apr 2009",
+          "summary": "<ul><li><p>Acted as the responsible engineer for bridge channel farms, assuming technical infrastructure ownership for both Windows servers (IIS) and Radware load balancers.</p></li><li><p>Served as a critical escalation point for advanced resolution of complex issues, partnering with cross-functional teams to implement long-term fixes that reduced recurring incidents.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "w8mc6rl20i6pzirly72xohv4",
+          "visible": false,
+          "company": "Reuters",
+          "position": "Senior Technical Support Specialist",
+          "location": "Saint Louis, MO USA",
+          "date": "Apr 2007 - Oct 2007",
+          "summary": "<ul><li><p>Acted as a senior agent and mentor, training new hires on technical troubleshooting, operational best practices, and a customer-first service approach.</p></li><li><p>Concurrently maintained a full case queue as a top-performing agent, finishing as the team's top case closer and exceeding all quarterly CSAT targets.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "fovcig5dbwrko4jez42es1mm",
+          "visible": false,
+          "company": "Reuters",
+          "position": "Technical Support Specialist",
+          "location": "Saint Louis, MO USA",
+          "date": "May 2006 - Apr 2007",
+          "summary": "<ul><li><p>Delivered high-performance technical support for financial applications (Bridge Station, Bridge Channel), finishing as the team's top case closer.</p></li><li><p>Exceeded all quarterly customer satisfaction targets by managing the full issue lifecycle, from initial call documentation to final resolution, with minimal client disruption.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "ulp977awjnzffyrcrgquac1f",
+          "visible": true,
+          "company": "Thomson Reuters (formerly Reuters)",
+          "position": "Early Career: Engineering & Technical Support Roles",
+          "location": "Saint Louis, MO USA",
+          "date": "May 2006 - Jun 2009",
+          "summary": "<ul><li><p>Roles held: Open Systems Engineer, Escalation Engineer, Senior Technical Support Specialist, Technical Support Specialist.</p></li><li><p>Rapidly progressed from entry-level support to senior engineering roles within three years, consistently ranking as a top case closer with highest-tier CSAT scores.</p></li><li><p>Selected to serve as a technical escalation point for critical financial infrastructure (Bridge Station, IIS, Radware) and led deep-level network analysis for market data distribution systems.</p></li><li><p>Acted as a primary mentor for new hires, training staff on technical troubleshooting and operational best practices during the Reuters/Thomson merger.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        }
+      ]
+    },
+    "volunteer": {
+      "name": "Volunteering",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "volunteer",
+      "items": []
+    },
+    "interests": {
+      "name": "Interests",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "interests",
+      "items": []
+    },
+    "languages": {
+      "name": "Languages",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "languages",
+      "items": []
+    },
+    "profiles": {
+      "name": "Profiles",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "profiles",
+      "items": []
+    },
+    "projects": {
+      "name": "Projects",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "projects",
+      "items": []
+    },
+    "publications": {
+      "name": "Publications",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "publications",
+      "items": []
+    },
+    "references": {
+      "name": "References",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "references",
+      "items": []
+    },
+    "skills": {
+      "name": "Skills",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "skills",
+      "items": [
+        {
+          "id": "us146obzboi989d15aas6kr3",
+          "visible": true,
+          "name": "Strategic Leadership & Business Growth",
+          "description": "",
+          "level": 0,
+          "keywords": [
+            "Global P&L Management & Cost Optimization",
+            "Strategic Planning & Execution",
+            "M&A Integration & Due Diligence",
+            "Organizational Design & Change Management",
+            "Executive Stakeholder & Board Relations",
+            "Talent Strategy & Performance Culture"
+          ]
+        },
+        {
+          "id": "wqg6hcvf7zzmdw6uebggicpa",
+          "visible": true,
+          "name": "Operational Excellence & Governance",
+          "description": "",
+          "level": 0,
+          "keywords": [
+            "Target Operating Model (TOM) Architecture",
+            "Enterprise Risk Management",
+            "Business Continuity & Crisis Management",
+            "Process Engineering (Lean/Six Sigma principles)",
+            "KPI Framework Development",
+            "Regulatory Compliance (DORA GDPR MiFID II)"
+          ]
+        },
+        {
+          "id": "v0gmg6mxe3j611n0bex62lq1",
+          "visible": true,
+          "name": "Customer Experience & Technical Strategy",
+          "description": "",
+          "level": 0,
+          "keywords": [
+            "Digital Transformation & SaaS Migration",
+            "Customer Experience (CX) Strategy",
+            "Global Support Operations (Follow-the-Sun)",
+            "Tech Stack Strategy (CRM/ITSM/AI)",
+            "Vendor & Partner Management",
+            "CSAT & NPS Optimization",
+            "Service Level Management (SLA/OLA)",
+            "Sentiment Analysis"
+          ]
+        }
+      ]
+    },
+    "custom": {}
+  },
+  "metadata": {
+    "template": "rhyhorn",
+    "layout": [
+      [
+        [
+          "profiles",
+          "summary",
+          "experience",
+          "education",
+          "projects",
+          "volunteer",
+          "references"
+        ],
+        [
+          "skills",
+          "interests",
+          "certifications",
+          "awards",
+          "publications",
+          "languages"
+        ]
+      ]
+    ],
+    "css": {
+      "value": "* {\n\toutline: 1px solid #000;\n\toutline-offset: 4px;\n}",
+      "visible": false
+    },
+    "page": {
+      "margin": 18,
+      "format": "letter",
+      "options": {
+        "breakLine": true,
+        "pageNumbers": true
+      }
+    },
+    "theme": {
+      "background": "#ffffff",
+      "text": "#000000",
+      "primary": "#001EFF"
+    },
+    "typography": {
+      "font": {
+        "family": "Merriweather",
+        "subset": "latin",
+        "variants": [
+          "regular"
+        ],
+        "size": 14
+      },
+      "lineHeight": 1.5,
+      "hideIcons": true,
+      "underlineLinks": true
+    },
+    "notes": ""
+  }
+}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Young_Serif, Merriweather, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { JsonLd } from "@/components/JsonLd";
 
 /*
  * Font Configuration
@@ -54,6 +55,7 @@ export default function RootLayout({
             <body
                 className={`${inter.variable} ${youngSerif.variable} ${merriweather.variable} ${jetbrains.variable} antialiased`}
             >
+                <JsonLd />
                 {children}
             </body>
         </html>

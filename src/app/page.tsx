@@ -9,6 +9,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ArrowDownCircle } from "lucide-react";
 import { PowerPointArrow, MagicTapArrow } from "@/components/CustomArrows";
+import Image from "next/image";
+import chartSlide from "../../public/chart-slide.png";
 
 // --- Project Data ---
 /**
@@ -248,10 +250,11 @@ export default function Home() {
 
                                 {/* --- Chart Image (Frameless) --- */}
                                 <div className="w-full max-w-3xl relative">
-                                    <img
-                                        src="/chart-slide.png"
+                                    <Image
+                                        src={chartSlide}
                                         alt="Operational Chaos to Sustainable Growth Chart"
                                         className="w-full h-auto object-contain max-h-[50vh] drop-shadow-lg"
+                                        priority
                                     />
                                 </div>
                             </motion.div>

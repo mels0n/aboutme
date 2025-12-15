@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 /**
@@ -95,7 +96,13 @@ export function GameCard({ title, description, link, image, manaCost = "{3}", ty
                 {/* Art Box */}
                 <div className="mx-1 border border-[#1f1b16] bg-[#0c0c0c] h-[45%] shrink-0 relative overflow-hidden group-hover:brightness-110 transition-all">
                     {image ? (
-                        <img src={image} alt={title} className="w-full h-full object-cover" />
+                        <Image
+                            src={image}
+                            alt={title}
+                            fill
+                            style={{ objectFit: "cover" }}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
                     ) : (
                         <div className="absolute inset-0 flex items-center justify-center text-[#dcd0c0]/20 font-serif italic text-xs">
                             [Illustration]

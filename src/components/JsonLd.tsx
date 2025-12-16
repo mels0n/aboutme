@@ -5,7 +5,7 @@ export function JsonLd() {
         "name": "Chris Melson",
         "jobTitle": ["Executive", "Strategist", "Engineer"],
         "url": "https://chris.melson.us",
-        "knowsAbout": ["Software Engineering", "Strategy", "Portfolio Management", "Next.js", "System Architecture"],
+        "knowsAbout": ["Software Engineering", "Strategy", "Portfolio Management", "System Architecture", "PowerBi", "Salesforce", "Service Cloud", "DevOps", "Support", "Operations", "P&L", "NPS", "Glint", "M365", "ITIL", "CSAT", "M&A", "BCP"],
         "sameAs": [
             "https://github.com/mels0n"
         ]

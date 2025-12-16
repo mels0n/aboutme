@@ -37,8 +37,42 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "Chris Melson | Polymorphic Portfolio",
-    description: "Executive. Strategist. Engineer.",
+    metadataBase: new URL("https://chris.melson.us"),
+    alternates: {
+        canonical: "/",
+    },
+    title: {
+        default: "Chris Melson | Polymorphic Portfolio",
+        template: "%s | Chris Melson"
+    },
+    description: "Executive. Strategist. Engineer. A polymorphic portfolio showcasing the intersection of leadership, strategy, and engineering.",
+    keywords: ["Chris Melson", "Portfolio", "Executive", "Strategist", "Engineer", "Leader", "Ops", "Risk", "Resilient", "Culture"],
+    authors: [{ name: "Chris Melson" }],
+    creator: "Chris Melson",
+    openGraph: {
+        title: "Chris Melson | Polymorphic Portfolio",
+        description: "Executive. Strategist. Engineer.",
+        url: "https://chris.melson.us",
+        siteName: "Chris Melson Portfolio",
+        locale: "en_US",
+        type: "profile",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Chris Melson | Polymorphic Portfolio",
+        description: "Executive. Strategist. Engineer.",
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            "max-video-preview": -1,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+        },
+    },
 };
 
 /**

@@ -52,17 +52,7 @@ export default async function Image() {
 
 
 
-                    {/* "Prepared By" Intro */}
-                    <div
-                        style={{
-                            fontSize: 24,
-                            color: "#64748b", // Slate-500
-                            fontStyle: "italic",
-                            marginBottom: "10px",
-                        }}
-                    >
-                        Prepared By:
-                    </div>
+
 
                     {/* Name */}
                     <div

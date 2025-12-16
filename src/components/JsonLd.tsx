@@ -10,7 +10,8 @@ export function JsonLd() {
         "url": "https://chris.melson.us",
         "knowsAbout": ["Software Engineering", "Strategy", "Portfolio Management", "System Architecture", "PowerBi", "Salesforce", "Service Cloud", "DevOps", "Support", "Operations", "P&L", "NPS", "Glint", "M365", "ITIL", "CSAT", "M&A", "BCP"],
         "sameAs": [
-            "https://github.com/mels0n"
+            "https://github.com/mels0n",
+            "https://www.linkedin.com/in/chris-melson-45a88244/"
         ]
     };
 

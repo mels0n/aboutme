@@ -3,6 +3,8 @@ import { Inter, Young_Serif, Merriweather, JetBrains_Mono } from "next/font/goog
 import "./globals.css";
 import { JsonLd } from "@/components/JsonLd";
 
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+
 /*
  * Font Configuration
  * Pre-loading and configuring variable fonts for optimal performance and CLS prevention.
@@ -55,6 +57,7 @@ export default function RootLayout({
             <body
                 className={`${inter.variable} ${youngSerif.variable} ${merriweather.variable} ${jetbrains.variable} antialiased`}
             >
+                <GoogleAnalytics />
                 <JsonLd />
                 {children}
             </body>

@@ -328,7 +328,7 @@ export default function Home() {
                                     mode === 'engineer' ? 'sudo dmesg | tail' : 'Experience Log'}
                             </h3>
                             <a
-                                href="/resume.pdf"
+                                href="/christopher-melson-cv.pdf"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className={cn(

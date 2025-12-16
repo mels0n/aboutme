@@ -14,82 +14,77 @@ export const contentType = "image/png";
 
 // Image generation implementation
 export default async function Image() {
-    // Executive Blue: #2563eb (blue-600)
-    // Background: Slate-950 (#020617) for high contrast/premium feel
+    // Executive Theme Colors from globals.css:
+    // --background: #ffffff
+    // --foreground: #000000
+    // --accent: #1e293b (Navy Slate)
+    // --highlight: #b45309 (Amber/Gold)
 
     return new ImageResponse(
         (
             <div
                 style={{
-                    background: "#020617", // Slate-950
+                    background: "#ffffff",
                     width: "100%",
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontFamily: '"Inter", sans-serif',
+                    fontFamily: 'serif',
                 }}
             >
-                {/* Subtle Background Mesh/Grid Effect */}
+                {/* Decorative Document Border/Frame */}
                 <div
                     style={{
                         position: "absolute",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        backgroundImage: "radial-gradient(#1e293b 1px, transparent 1px)",
-                        backgroundSize: "40px 40px",
-                        opacity: 0.3,
+                        top: "20px",
+                        left: "20px",
+                        right: "20px",
+                        bottom: "20px",
+                        border: "2px solid #e2e8f0", // Soft Gray Border
+                        borderRadius: "12px",
+                        pointerEvents: "none",
                     }}
                 />
 
-                {/* Main Content Container */}
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", zIndex: 10 }}>
 
-                    {/* Executive Badge */}
+
+
+                    {/* "Prepared By" Intro */}
                     <div
                         style={{
-                            display: "flex",
-                            padding: "8px 24px",
-                            borderRadius: "9999px",
-                            border: "1px solid rgba(37, 99, 235, 0.3)", // blue-600 with opacity
-                            background: "rgba(37, 99, 235, 0.1)",
-                            color: "#60a5fa", // blue-400
-                            fontSize: 20,
-                            fontWeight: 600,
-                            letterSpacing: "0.15em",
-                            textTransform: "uppercase",
-                            marginBottom: "40px",
+                            fontSize: 24,
+                            color: "#64748b", // Slate-500
+                            fontStyle: "italic",
+                            marginBottom: "10px",
                         }}
                     >
-                        Executive Summary
+                        Prepared By:
                     </div>
 
                     {/* Name */}
                     <div
                         style={{
-                            fontSize: 84,
+                            fontSize: 80,
                             fontWeight: 900,
-                            letterSpacing: "-0.02em",
-                            color: "white",
-                            marginBottom: "10px",
+                            color: "#000000",
+                            marginBottom: "20px",
                             lineHeight: 1,
                             textAlign: "center",
+                            fontFamily: 'sans-serif', // Inter replacement for bold header
                         }}
                     >
                         CHRIS MELSON
                     </div>
 
-                    {/* Divider Line */}
+                    {/* Divider */}
                     <div
                         style={{
-                            width: "80px",
-                            height: "6px",
-                            background: "#2563eb", // blue-600
-                            borderRadius: "3px",
-                            marginTop: "20px",
+                            width: "60px",
+                            height: "4px",
+                            background: "#000000",
                             marginBottom: "30px",
                         }}
                     />
@@ -97,10 +92,10 @@ export default async function Image() {
                     {/* Tagline */}
                     <div
                         style={{
-                            fontSize: 36,
-                            color: "#94a3b8", // slate-400
-                            fontWeight: 500,
-                            letterSpacing: "-0.01em",
+                            fontSize: 32,
+                            color: "#334155", // Slate-700
+                            fontWeight: 400,
+                            letterSpacing: "0.02em",
                         }}
                     >
                         Executive. Strategist. Engineer.
@@ -112,19 +107,19 @@ export default async function Image() {
                     style={{
                         position: "absolute",
                         bottom: 60,
-                        fontSize: 24,
-                        color: "#475569", // slate-600
+                        fontSize: 20,
+                        color: "#2563eb", // Blue-600 link color
                         fontWeight: 600,
                         letterSpacing: "0.05em",
+                        fontFamily: 'sans-serif',
                     }}
                 >
-                    CHRIS.MELSON.US
+                    chris.melson.us
                 </div>
             </div>
         ),
         {
             ...size,
-            // We can import fonts here if needed, but system sans-serif works well for "Executive" clean look
         }
     );
 }

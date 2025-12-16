@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 // Image metadata
-export const alt = "Chris Melson | Polymorphic Portfolio";
+export const alt = "Christopher Melson | Polymorphic Portfolio";
 export const size = {
     width: 1200,
     height: 630,
@@ -66,7 +66,7 @@ export default async function Image() {
                             fontFamily: 'sans-serif', // Inter replacement for bold header
                         }}
                     >
-                        CHRIS MELSON
+                        CHRISTOPHER MELSON
                     </div>
 
                     {/* Divider */}
@@ -92,19 +92,25 @@ export default async function Image() {
                     </div>
                 </div>
 
-                {/* Footer URL */}
+                {/* CTA Button */}
                 <div
                     style={{
                         position: "absolute",
                         bottom: 60,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "12px 32px",
+                        background: "#000000",
+                        color: "#ffffff",
                         fontSize: 20,
-                        color: "#2563eb", // Blue-600 link color
                         fontWeight: 600,
-                        letterSpacing: "0.05em",
+                        borderRadius: "8px",
                         fontFamily: 'sans-serif',
+                        letterSpacing: "0.05em",
                     }}
                 >
-                    chris.melson.us
+                    View Portfolio
                 </div>
             </div>
         ),

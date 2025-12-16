@@ -42,18 +42,18 @@ export const metadata: Metadata = {
         canonical: "/",
     },
     title: {
-        default: "Chris Melson | Polymorphic Portfolio",
-        template: "%s | Chris Melson"
+        default: "Christopher Melson | Polymorphic Portfolio",
+        template: "%s | Christopher Melson"
     },
     description: "Executive. Strategist. Engineer. A polymorphic portfolio showcasing the intersection of leadership, strategy, and engineering.",
-    keywords: ["Chris Melson", "Portfolio", "Executive", "Strategist", "Engineer", "Leader", "Ops", "Risk", "Resilient", "Culture"],
-    authors: [{ name: "Chris Melson" }],
-    creator: "Chris Melson",
+    keywords: ["Christopher Melson", "Portfolio", "Executive", "Strategist", "Engineer", "Leader", "Ops", "Risk", "Resilient", "Culture"],
+    authors: [{ name: "Christopher Melson" }],
+    creator: "Christopher Melson",
     openGraph: {
-        title: "Chris Melson | Polymorphic Portfolio",
-        description: "Executive. Strategist. Engineer.",
+        title: "Christopher Melson | Polymorphic Portfolio",
+        description: "Executive. Strategist. Engineer. A polymorphic portfolio showcasing the intersection of leadership, strategy, and engineering.",
         url: "https://chris.melson.us",
-        siteName: "Chris Melson Portfolio",
+        siteName: "Christopher Melson Portfolio",
         locale: "en_US",
         type: "profile",
     },

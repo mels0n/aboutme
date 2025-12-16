@@ -339,7 +339,7 @@ export default function Home() {
                             >
                                 <ArrowDownCircle className="w-4 h-4" />
                                 {mode === 'strategist' ? 'Consult the Archives' :
-                                    mode === 'engineer' ? 'wget dmesg.log -O /resume.pdf' : 'Download Full CV'}
+                                    mode === 'engineer' ? 'wget dmesg -O resume.pdf' : 'Download Full CV'}
                             </a>
                         </div>
 

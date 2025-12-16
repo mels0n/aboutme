@@ -418,7 +418,7 @@ export default function Home() {
                                                     mode === 'executive' ? "text-foreground" :
                                                         mode === 'strategist' ? "text-foreground serif" : "text-highlight font-mono"
                                                 )}>{edu.institution}</h4>
-                                                <p className="text-sm text-foreground/70">{edu.area}</p>
+                                                <p className="text-sm text-foreground/70">{edu.area}, {edu.studyType}</p>
                                             </div>
                                             <span className="text-xs text-foreground/50">{edu.date}</span>
                                         </div>

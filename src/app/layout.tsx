@@ -54,10 +54,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
+            <GoogleAnalytics />
             <body
                 className={`${inter.variable} ${youngSerif.variable} ${merriweather.variable} ${jetbrains.variable} antialiased`}
             >
-                <GoogleAnalytics />
                 <JsonLd />
                 {children}
             </body>

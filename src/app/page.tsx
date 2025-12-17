@@ -94,6 +94,17 @@ const projects: ProjectData[] = [
         typeLine: "Artifact Land",
         flavorText: "Draw the lines before they draw you.",
         tags: ["gis", "data-viz", "civic-tech"]
+    },
+    {
+        title: "Device Mapping Manager",
+        description: "Orchestrates device mapping into Docker Swarm containers. Enforces cgroup v1/v2 compatibility for hardware passthrough.",
+        link: "github.com/mels0n/device-mapping-manager",
+        image: "/device_mapping.png",
+        kpis: [{ label: "Compatibility", value: "Linux" }, { label: "Target", value: "Swarm" }],
+        manaCost: "{1}",
+        typeLine: "Artifact Creature — Insect",
+        flavorText: "The hive mind grows specific.",
+        tags: ["docker", "swarm", "linux"]
     }
 ];
 

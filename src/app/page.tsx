@@ -12,6 +12,7 @@ import { PowerPointArrow, MagicTapArrow } from "@/components/CustomArrows";
 import { AiFaq } from "@/features/ai-faq";
 import Image from "next/image";
 import chartSlide from "../../public/chart-slide.png";
+import { PersonaExplanation } from "@/features/persona-explanation";
 
 // --- Project Data ---
 /**
@@ -170,6 +171,7 @@ export default function Home() {
                 if (info.offset.x < -50) cycleMode('next');
             }}
         >
+            <PersonaExplanation />
 
             {/* --- Sticky Header / Toggle --- */}
             <div className="sticky top-0 z-50 py-4 backdrop-blur-md bg-background/80 border-b border-border/50 flex justify-center items-center gap-2">

@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ArrowDownCircle } from "lucide-react";
 import { PowerPointArrow, MagicTapArrow } from "@/components/CustomArrows";
+import { AiFaq } from "@/features/ai-faq";
 import Image from "next/image";
 import chartSlide from "../../public/chart-slide.png";
 
@@ -452,6 +453,7 @@ export default function Home() {
 
                 </div>
             </div>
+            <AiFaq />
         </motion.main>
     );
 }

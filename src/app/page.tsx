@@ -234,7 +234,7 @@ export default function Home() {
                         {mode === "executive" && (
                             <motion.div
                                 key="exec-hero"
-                                initial={{ opacity: 0, y: 10 }}
+                                initial={{ opacity: 1, y: 0 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0 }}
                                 className="w-full max-w-5xl relative flex flex-col items-center text-center space-y-8"

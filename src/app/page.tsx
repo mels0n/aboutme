@@ -51,10 +51,10 @@ const projects: ProjectData[] = [
         tags: ["nextjs", "tailwind", "framer"]
     },
     {
-        title: "Distributed Swarm",
+        title: "Distributed Media Swarm",
         description: "Distributed transcoding construct using Docker Swarm. Parallelizes media processing across nodes for high-efficiency throughput.",
         link: "github.com/mels0n/jellyfin-rffmpeg-swarm",
-        image: "/distributed_swarm.png", // Docker Swarm Image (Confirmed Working)
+        image: "/distributed_swarm.png",
         kpis: [{ label: "Efficiency", value: "+400%" }, { label: "Nodes", value: "5 Active" }],
         manaCost: "{1}{U}",
         typeLine: "Legendary Artifact Creature — Equipment Jellyfish",
@@ -65,7 +65,7 @@ const projects: ProjectData[] = [
         title: "Tabletop Scheduler",
         description: "Automated conflict resolution protocol for social coordination. Ensures optimal quorum for recurring events.",
         link: "github.com/mels0n/tabletop_scheduler",
-        image: "/tabletop_scheduler.png", // User provided screenshot
+        image: "/tabletop_scheduler.png",
         kpis: [{ label: "Conflicts", value: "0 Detected" }, { label: "Uptime", value: "99.9%" }],
         manaCost: "{0}",
         typeLine: "Legendary Artifact",
@@ -76,7 +76,7 @@ const projects: ProjectData[] = [
         title: "Retirement Tax Planner",
         description: "Strategic forecasting engine for long-term capital preservation and tax liability minimization.",
         link: "github.com/mels0n/retirement_tax_plan",
-        image: "/retirement.png", // User provided screenshot
+        image: "/retirement.png",
         kpis: [{ label: "ROI", value: "Maximized" }, { label: "Risk", value: "Mitigated" }],
         manaCost: "{1}",
         typeLine: "Legendary Artifact — Equipment",
@@ -87,7 +87,7 @@ const projects: ProjectData[] = [
         title: "Stop Gerrymandering",
         description: "Geospatial analysis tool correcting grid logic errors to ensure fair representation borders.",
         link: "github.com/mels0n/stopgerrymandering",
-        image: "/gerrymandering.png", // User provided screenshot
+        image: "/gerrymandering.png",
         kpis: [{ label: "Fairness", value: "Optimized" }, { label: "Bias", value: "-100%" }],
         manaCost: "",
         typeLine: "Artifact Land",

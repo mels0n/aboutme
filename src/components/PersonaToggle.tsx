@@ -23,7 +23,7 @@ export function PersonaToggle() {
     ] as const;
 
     return (
-        <div className="relative flex items-center bg-surface/80 backdrop-blur-md p-1 rounded-lg border border-border w-fit shadow-xl z-50">
+        <div className="relative flex items-center bg-surface/95 backdrop-blur-md p-1 rounded-lg border border-border w-fit shadow-xl z-50">
             {options.map((opt) => {
                 const isActive = mode === opt.id;
                 return (
@@ -32,7 +32,7 @@ export function PersonaToggle() {
                         onClick={() => setMode(opt.id)}
                         className={cn(
                             "relative px-4 py-2 sm:px-6 sm:py-3 rounded-md text-sm font-semibold transition-colors z-10 flex items-center gap-2",
-                            isActive ? "text-foreground" : "text-foreground/50 hover:text-foreground/80"
+                            isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"
                         )}
                     >
                         {isActive && (

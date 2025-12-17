@@ -366,7 +366,7 @@ export default function Home() {
                                             </span>
                                             <span className={cn(
                                                 "text-xs",
-                                                mode === 'engineer' ? "text-foreground/60 font-mono" : "text-foreground/50 font-sans"
+                                                mode === 'engineer' ? "text-foreground/80 font-mono" : "text-foreground/70 font-sans"
                                             )}>
                                                 {job.date}
                                             </span>
@@ -394,8 +394,8 @@ export default function Home() {
                             <div className="flex justify-end mt-2 mb-6">
                                 <span className={cn(
                                     "text-xs italic",
-                                    mode === 'executive' ? "text-foreground/40 font-serif" :
-                                        mode === 'strategist' ? "text-accent/60 font-serif" : "text-highlight/60 font-mono"
+                                    mode === 'executive' ? "text-foreground/60 font-serif" :
+                                        mode === 'strategist' ? "text-accent/80 font-serif" : "text-highlight/80 font-mono"
                                 )}>
                                     {mode === 'strategist' ? '...complete history in the Archives' :
                                         mode === 'engineer' ? '// ...full output in logs' : '...continued on CV'}
@@ -422,7 +422,7 @@ export default function Home() {
                                                 )}>{edu.institution}</h4>
                                                 <p className="text-sm text-foreground/70">{edu.area}, {edu.studyType}</p>
                                             </div>
-                                            <span className="text-xs text-foreground/50">{edu.date}</span>
+                                            <span className="text-xs text-foreground/70">{edu.date}</span>
                                         </div>
                                     ))}
                                 </div>

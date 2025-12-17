@@ -30,6 +30,7 @@ export function PersonaToggle() {
                     <button
                         key={opt.id}
                         onClick={() => setMode(opt.id)}
+                        aria-label={opt.label}
                         className={cn(
                             "relative px-4 py-2 sm:px-6 sm:py-3 rounded-md text-sm font-semibold transition-colors z-10 flex items-center gap-2",
                             isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"

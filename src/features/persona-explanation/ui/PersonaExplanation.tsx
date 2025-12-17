@@ -95,7 +95,9 @@ export function PersonaExplanation() {
                     sendEvent('manifesto_opened', { context: mode });
                 }}
                 className={cn(
-                    "fixed top-4 right-4 z-[60] px-4 py-2 border rounded-md transition-all duration-300 backdrop-blur-md text-sm md:text-base cursor-pointer",
+                    "fixed z-[60] px-4 py-2 border rounded-md transition-all duration-300 backdrop-blur-md text-sm md:text-base cursor-pointer",
+                    // Position: Fixed Bottom-Right (Standard FAB)
+                    "bottom-4 right-4",
                     styles.button
                 )}
                 initial={{ opacity: 0, y: -20 }}

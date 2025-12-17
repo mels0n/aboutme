@@ -256,6 +256,7 @@ export default function Home() {
                                         alt="Operational Chaos to Sustainable Growth Chart"
                                         className="w-full h-auto object-contain max-h-[50vh] drop-shadow-lg"
                                         priority
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     />
                                 </div>
                             </motion.div>

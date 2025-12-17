@@ -273,9 +273,9 @@ export default function Home() {
                                 </h1>
                                 <div className="h-1 w-32 bg-highlight mx-auto rounded-full my-4" />
 
-                                <h3 className="text-xl md:text-2xl font-serif text-accent font-bold tracking-wide">
+                                <h2 className="text-xl md:text-2xl font-serif text-accent font-bold tracking-wide">
                                     Deckcraft • Tabletop • Logic
-                                </h3>
+                                </h2>
 
                                 <figure className="space-y-4">
                                     <blockquote className="text-lg text-foreground/80 italic font-serif">
@@ -322,13 +322,13 @@ export default function Home() {
                     {/* --- Left Column: Experience (Reduced Size) --- */}
                     <section className="w-full">
                         <div className="flex items-center justify-between mb-6 pb-2 border-b border-border">
-                            <h3 className={cn(
+                            <h2 className={cn(
                                 "text-lg uppercase tracking-widest",
                                 mode === 'engineer' ? "font-mono font-bold text-highlight normal-case" : "font-display font-bold text-foreground"
                             )}>
                                 {mode === 'strategist' ? 'Campaign History' :
                                     mode === 'engineer' ? 'sudo dmesg | tail' : 'Experience Log'}
-                            </h3>
+                            </h2>
                             <a
                                 href="/christopher-melson-cv.pdf"
                                 target="_blank"
@@ -349,13 +349,13 @@ export default function Home() {
                             {resume.sections.experience.items.slice(0, 3).map((job: any) => (
                                 <div key={job.id} className="group">
                                     <div className="flex flex-col mb-1">
-                                        <h4 className={cn(
+                                        <h3 className={cn(
                                             "text-lg font-bold leading-tight", // Reduced size
                                             mode === 'executive' ? "text-foreground font-display" :
                                                 mode === 'engineer' ? "text-highlight font-mono" : "text-foreground font-serif"
                                         )}>
                                             {job.company}
-                                        </h4>
+                                        </h3>
                                         <div className="flex justify-between items-baseline mt-1">
                                             <span className={cn(
                                                 "text-sm font-semibold",
@@ -404,22 +404,22 @@ export default function Home() {
 
                             {/* --- Education Section --- */}
                             <div className="pt-8 border-t border-border mt-8">
-                                <h3 className={cn(
+                                <h2 className={cn(
                                     "text-lg uppercase tracking-widest mb-4",
                                     mode === 'engineer' ? "font-mono font-bold text-highlight lowercase" : "font-display font-bold text-foreground"
                                 )}>
                                     {mode === 'strategist' ? 'Rulebook Mastery' :
                                         mode === 'engineer' ? 'source /etc/profile' : 'Training Log'}
-                                </h3>
+                                </h2>
                                 <div className="space-y-4">
                                     {resume.sections.education.items.map((edu: any) => (
                                         <div key={edu.id} className="flex justify-between items-baseline">
                                             <div>
-                                                <h4 className={cn(
+                                                <h3 className={cn(
                                                     "font-bold",
                                                     mode === 'executive' ? "text-foreground" :
                                                         mode === 'strategist' ? "text-foreground serif" : "text-highlight font-mono"
-                                                )}>{edu.institution}</h4>
+                                                )}>{edu.institution}</h3>
                                                 <p className="text-sm text-foreground/70">{edu.area}, {edu.studyType}</p>
                                             </div>
                                             <span className="text-xs text-foreground/70">{edu.date}</span>
@@ -433,13 +433,13 @@ export default function Home() {
                     {/* --- Right Column: Projects --- */}
                     <section className="w-full">
                         <div className="flex items-center gap-4 mb-6 pb-2 border-b border-border">
-                            <h3 className={cn(
+                            <h2 className={cn(
                                 "text-lg uppercase tracking-widest",
                                 mode === 'engineer' ? "font-mono font-bold text-highlight lowercase" : "font-display font-bold text-foreground"
                             )}>
                                 {mode === 'strategist' ? 'Artifacts' :
                                     mode === 'engineer' ? 'ls -ahl /projects' : 'Key Initiatives'}
-                            </h3>
+                            </h2>
                         </div>
 
                         <div className={cn(

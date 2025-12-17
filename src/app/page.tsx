@@ -185,7 +185,7 @@ export default function Home() {
             <PersonaExplanation />
 
             {/* --- Sticky Header / Toggle --- */}
-            <div className="sticky top-0 z-50 py-4 backdrop-blur-md bg-background/80 border-b border-border/50 flex justify-center items-center gap-2">
+            <div className="fixed top-0 left-0 w-full z-50 py-4 backdrop-blur-md bg-background/80 border-b border-border/50 flex justify-center items-center gap-2">
 
                 {/* External CTA (Left of Toggle) */}
                 <AnimatePresence mode="wait">
@@ -239,7 +239,7 @@ export default function Home() {
                 <PersonaToggle />
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col gap-12">
+            <div className="max-w-7xl mx-auto px-6 pt-32 pb-12 flex flex-col gap-12">
 
                 {/* --- Hero Section --- */}
                 <section className="min-h-[30vh] flex flex-col justify-center items-center text-center">

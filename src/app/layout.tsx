@@ -4,6 +4,7 @@ import "./globals.css";
 import { JsonLd } from "@/components/JsonLd";
 
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { ThemeMetadata } from "@/components/ThemeMetadata";
 
 /*
  * Font Configuration
@@ -45,13 +46,13 @@ export const metadata: Metadata = {
         default: "Christopher Melson | Polymorphic Portfolio",
         template: "%s | Christopher Melson"
     },
-    description: "Executive. Strategist. Engineer. A polymorphic portfolio showcasing the intersection of leadership, strategy, and engineering.",
+    description: "A polymorphic portfolio exploring the three personas of Christopher Melson: Executive, Strategist, and Engineer. This interactive experience re-renders the same professional history through different accessible lenses, demonstrating the intersection of leadership, strategy, and code.",
     keywords: ["Christopher Melson", "Portfolio", "Executive", "Strategist", "Engineer", "Leader", "Ops", "Risk", "Resilient", "Culture"],
     authors: [{ name: "Christopher Melson" }],
     creator: "Christopher Melson",
     openGraph: {
         title: "Christopher Melson | Polymorphic Portfolio",
-        description: "Executive. Strategist. Engineer. A polymorphic portfolio showcasing the intersection of leadership, strategy, and engineering.",
+        description: "A polymorphic portfolio exploring the three personas of Christopher Melson: Executive, Strategist, and Engineer. This interactive experience re-renders the same professional history through different accessible lenses, demonstrating the intersection of leadership, strategy, and code.",
         url: "https://chris.melson.us",
         siteName: "Christopher Melson Portfolio",
         locale: "en_US",
@@ -89,6 +90,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <GoogleAnalytics />
+            <ThemeMetadata />
             <body
                 className={`${inter.variable} ${youngSerif.variable} ${merriweather.variable} ${jetbrains.variable} antialiased`}
             >

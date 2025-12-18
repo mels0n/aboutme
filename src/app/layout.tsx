@@ -62,6 +62,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Chris Melson | Polymorphic Portfolio",
         description: "Executive. Strategist. Engineer.",
+        images: ["/opengraph-image"],
     },
     robots: {
         index: true,

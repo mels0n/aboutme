@@ -46,9 +46,9 @@ export function PersonaExplanation() {
      * Context-specific explanation text displayed in the modal.
      */
     const explanationText = {
-        executive: "This version of the interface is designed to look and feel like a high-level executive report and/or presentation.",
-        strategist: "This version of the interface is designed to look and feel like an RPG character sheet and/or board game player mat, featuring artifacts reminiscent of Magic: The Gathering.",
-        engineer: "This version of the interface is designed to look and feel like a Linux CLI and/or coding environment."
+        executive: "Executive: This version of the interface is designed to look and feel like a high-level executive report and/or presentation.",
+        strategist: "Strategist: This version of the interface is designed to look and feel like an RPG character sheet and/or board game player mat, featuring artifacts reminiscent of Magic: The Gathering.",
+        engineer: "Engineer: This version of the interface is designed to look and feel like a Linux CLI and/or coding environment."
     }[mode];
 
     /**

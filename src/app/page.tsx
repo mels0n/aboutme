@@ -185,7 +185,7 @@ export default function Home() {
             <PersonaExplanation />
 
             {/* --- Sticky Header / Toggle --- */}
-            <div className="fixed top-0 left-0 w-full z-50 py-4 backdrop-blur-md bg-background/80 border-b border-border/50 flex justify-center items-center gap-2">
+            <nav className="fixed top-0 left-0 w-full z-50 py-4 backdrop-blur-md bg-background/80 border-b border-border/50 flex justify-center items-center gap-2">
 
                 {/* External CTA (Left of Toggle) */}
                 <AnimatePresence mode="wait">
@@ -237,7 +237,7 @@ export default function Home() {
                 </AnimatePresence>
 
                 <PersonaToggle />
-            </div>
+            </nav>
 
             <div className="max-w-7xl mx-auto px-6 pt-32 pb-12 flex flex-col gap-12">
 
@@ -468,7 +468,9 @@ export default function Home() {
 
                 </div>
             </div>
-            <AiFaq />
+            <footer className="w-full">
+                <AiFaq />
+            </footer>
         </motion.main>
     );
 }

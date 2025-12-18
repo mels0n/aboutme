@@ -43,6 +43,15 @@ export function PersonaExplanation() {
     }[mode];
 
     /**
+     * Context-specific explanation text displayed in the modal.
+     */
+    const explanationText = {
+        executive: "The interface is designed to look and feel like a high-level executive report and/or presentation.",
+        strategist: "The interface is designed to read like an RPG character sheet or board game player mat, featuring artifacts reminiscent of Magic: The Gathering.",
+        engineer: "The interface is designed to feel like a Linux CLI and/or coding environment."
+    }[mode];
+
+    /**
      * Theming configuration for the component.
      * Centralizes style variations to keep the render logic clean.
      */
@@ -155,8 +164,11 @@ export function PersonaExplanation() {
                             </button>
 
                             <div className={cn("text-lg leading-relaxed", styles.text)} id="persona-modal-desc">
-                                <p>
+                                <p className="mb-4">
                                     The same information can be understood in many different ways. The three persona shown here are the core lenses with which I make decisions and understand the world. This isn't a fracture this is the intersection I live in. This is art as much as a portfolio.
+                                </p>
+                                <p>
+                                    {explanationText}
                                 </p>
                             </div>
                         </motion.div>

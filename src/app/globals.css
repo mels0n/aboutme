@@ -9,6 +9,7 @@
   --color-highlight: var(--highlight);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
+  --font-serif: var(--font-merriweather);
 }
 
 /* === THEME 1: EXECUTIVE (The Boardroom) === */

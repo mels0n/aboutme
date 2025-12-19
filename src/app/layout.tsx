@@ -89,12 +89,12 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <GoogleAnalytics />
-            <ThemeMetadata />
+        <html lang="en" suppressHydrationWarning>
             <body
                 className={`${inter.variable} ${youngSerif.variable} ${merriweather.variable} ${jetbrains.variable} antialiased`}
             >
+                <GoogleAnalytics />
+                <ThemeMetadata />
                 <JsonLd />
                 {children}
             </body>

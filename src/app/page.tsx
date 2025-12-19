@@ -105,6 +105,17 @@ const projects: ProjectData[] = [
         typeLine: "Artifact Creature — Insect",
         flavorText: "The hive mind grows specific.",
         tags: ["docker", "swarm", "linux"]
+    },
+    {
+        title: "Financial Independence Flow Chart",
+        description: "A visual guide to the stages of financial independence.",
+        link: "github.com/mels0n/Financial-Independence-Flow-Chart",
+        image: "/financial_flowchart.png",
+        kpis: [{ label: "Steps", value: "Infinite" }, { label: "Goal", value: "FIRE" }],
+        manaCost: "{1}{R}",
+        typeLine: "Artifact — Equipment",
+        flavorText: "The path to freedom is paved with compounding.",
+        tags: ["finance", "flowchart", "guide"]
     }
 ];
 

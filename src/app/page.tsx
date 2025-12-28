@@ -64,7 +64,7 @@ const projects: ProjectData[] = [
     },
     {
         title: "Tabletop Scheduler",
-        description: "Automated conflict resolution protocol for social coordination. Ensures optimal quorum for recurring events.",
+        description: "Automated conflict resolution protocol for social coordination. Features a novel magic link system with no login requirements.",
         link: "github.com/mels0n/tabletop_scheduler",
         image: "/tabletop_scheduler.png",
         kpis: [{ label: "Conflicts", value: "0 Detected" }, { label: "Uptime", value: "99.9%" }],

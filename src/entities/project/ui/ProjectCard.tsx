@@ -1,9 +1,9 @@
 "use client";
 
 import { usePersonaStore } from "@/lib/store";
-import { ExecutiveCard } from "./ExecutiveCard";
-import { GameCard } from "./GameCard";
-import { TerminalCard } from "./TerminalCard";
+import { ExecutiveCard } from "@/components/ExecutiveCard";
+import { GameCard } from "@/components/GameCard";
+import { TerminalCard } from "@/components/TerminalCard";
 import { AnimatePresence, motion } from "framer-motion";
 
 /**

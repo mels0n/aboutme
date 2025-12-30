@@ -22,8 +22,8 @@ This is a personal web space for **Chris Melson**, powered by **Next.js 14**, **
 
 ## Tech Stack
 
-*   **Framework:** Next.js 14 (App Router)
-*   **Styling:** Tailwind CSS + CSS Variables (Hot-swappable themes)
+*   **Framework:** Next.js 16 (App Router)
+*   **Styling:** Tailwind CSS 4 + CSS Variables (Hot-swappable themes)
 *   **Animation:** Framer Motion (Layout transitions & Intro sequence)
 *   **Icons:** Lucide React
 

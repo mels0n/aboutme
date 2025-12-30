@@ -151,10 +151,29 @@ export function JsonLd() {
         ]
     };
 
+    const applicationLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Polymorphic Portfolio",
+        "applicationCategory": "PortfolioApplication",
+        "operatingSystem": "Web Browser",
+        "offer": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "hasPart": {
+            "@type": "WebPage",
+            "name": "AI FAQ",
+            "url": "https://chris.melson.us/guide/ai-faq",
+            "description": "Semantic Twin for AI Answer Engines"
+        }
+    };
+
     return (
         <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify([jsonLd, faqLd]) }}
+            dangerouslySetInnerHTML={{ __html: JSON.stringify([jsonLd, faqLd, applicationLd]) }}
         />
     );
 }

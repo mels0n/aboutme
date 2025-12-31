@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePersonaStore } from "@/lib/store";
+import { usePersonaStore } from "@/shared/lib/store";
 
 export const ThemeMetadata = () => {
     const { mode } = usePersonaStore();

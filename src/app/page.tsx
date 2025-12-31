@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePersonaStore } from "@/lib/store";
-import { PersonaToggle } from "@/components/PersonaToggle";
+import { usePersonaStore } from "@/shared/lib/store";
+import { PersonaToggle } from "@/shared/ui/PersonaToggle";
 import { ProjectCard } from "@/entities/project/ui/ProjectCard";
 import { projects } from "@/entities/project/model/data";
-import resume from "@/data/resume.json";
+import resume from "@/shared/data/resume.json";
 import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 import { ArrowDownCircle } from "lucide-react";
-import { PowerPointArrow, MagicTapArrow } from "@/components/CustomArrows";
+import { PowerPointArrow, MagicTapArrow } from "@/shared/ui/CustomArrows";
 import { AiFaq } from "@/features/ai-faq";
 import Image from "next/image";
 import chartSlide from "../../public/chart-slide.png";

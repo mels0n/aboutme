@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { usePersonaStore } from '@/lib/store';
+import { usePersonaStore } from "@/shared/lib/store";
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/lib/utils';
-import { sendEvent } from '@/lib/analytics';
-import { X } from 'lucide-react';
+import { cn } from "@/shared/lib/utils";
+import { sendEvent } from '@/shared/lib/analytics';
+import { ChevronRight, X } from 'lucide-react';
 
 /**
  * # Persona Explanation Feature

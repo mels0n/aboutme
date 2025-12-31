@@ -1,4 +1,5 @@
-import resume from '../data/resume.json';
+import resume from '../../shared/data/resume.json';
+import { faqData } from '../../shared/data/faq';
 
 
 
@@ -115,40 +116,14 @@ export function JsonLd() {
     const faqLd = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "What does Christopher Melson specialize in?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Christopher Melson specializes in executive operations, organizational transformation, and product-led strategy within global financial and regulated technology environments."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What industries has Chris Melson worked in?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "He has led operational and engineering initiatives across financial markets, SaaS platforms, enterprise support systems, and regulated trading venues."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What is his leadership philosophy?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "He focuses on bridging the gap between technical complexity and business direction, fostering product-led cultures that prioritize operational resilience and strategic alignment."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What type of roles does he target?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "He targets senior leadership roles in Technical Operations, Support, Engineering, and COO capacities where high-touch execution and strategic vision are critical."
-                }
+        "mainEntity": faqData.map(item => ({
+            "@type": "Question",
+            "name": item.question,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.answer
             }
-        ]
+        }))
     };
 
     const applicationLd = {

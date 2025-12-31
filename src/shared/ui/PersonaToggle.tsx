@@ -1,7 +1,7 @@
 "use client";
 
-import { usePersonaStore } from "@/lib/store";
-import { cn } from "@/lib/utils";
+import { usePersonaStore } from "@/shared/lib/store";
+import { cn } from "@/shared/lib/utils";
 import { motion } from "framer-motion";
 import { Briefcase, Sword, Terminal } from "lucide-react";
 

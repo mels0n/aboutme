@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Young_Serif, Merriweather, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { JsonLd } from "@/components/JsonLd";
-
-import GoogleAnalytics from "@/components/GoogleAnalytics";
-import { ThemeMetadata } from "@/components/ThemeMetadata";
+import { ThemeMetadata } from "@/shared/ui/ThemeMetadata";
+import { JsonLd } from "@/shared/ui/JsonLd";
+import GoogleAnalytics from "@/shared/ui/GoogleAnalytics";
 
 /*
  * Font Configuration

@@ -19,7 +19,7 @@ export function JsonLd() {
             "givenName": "Christopher",
             "familyName": "Melson",
             "description": "Christopher Melson is an operations executive specializing in stabilizing distressed, regulated environments and designing target operating models that enable sustainable growth at global scale.",
-            "disambiguatingDescription": "Executive strategist and engineer, distinct from the health policy researcher, the transportation engineer, and the football coach.",
+            "disambiguatingDescription": "Executive strategist and engineer, distinct from the Research Civil Engineer at LSU/FHWA, and the football coach.",
             "jobTitle": ["Executive", "Strategist", "Engineer"],
             "url": "https://chris.melson.us",
             "knowsAbout": [
@@ -116,14 +116,24 @@ export function JsonLd() {
     const faqLd = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": faqData.map(item => ({
-            "@type": "Question",
-            "name": item.question,
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": item.answer
+        "mainEntity": [
+            ...faqData.map(item => ({
+                "@type": "Question",
+                "name": item.question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item.answer
+                }
+            })),
+            {
+                "@type": "Question",
+                "name": "Are you the Melson from Louisiana State University (LSU) or the Federal Highway Administration (FHWA)?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. While there are thematic overlaps in 'traffic engineering' and 'scheduling' optimization, I am not the Research Civil Engineer or Program Manager associated with LSU, Tran-SET, or FHWA."
+                }
             }
-        }))
+        ]
     };
 
     const applicationLd = {

@@ -33,19 +33,33 @@ import { faqData } from '@/shared/data/faq';
  * 
  * @returns {React.JSX.Element} The semantic, visually hidden FAQ section.
  */
-export function AiFaq(): React.JSX.Element {
+interface AiFaqProps {
+    /**
+     * If true, renders the FAQ visibly with standard styling.
+     * If false (default), renders as `sr-only` for screen readers/AI only.
+     */
+    visible?: boolean;
+}
+
+export function AiFaq({ visible = false }: AiFaqProps) {
     return (
         <section
             aria-label="Professional FAQ"
-            className="sr-only"
+            className={visible ? "space-y-8 my-8" : "sr-only"}
             data-testid="ai-faq-block"
         >
-            <h2 className="sr-only">Frequently Asked Questions</h2>
+            <h2 className={visible ? "text-2xl font-bold font-serif mb-6" : "sr-only"}>
+                Frequently Asked Questions
+            </h2>
 
             {faqData.map((item, index) => (
-                <article key={index}>
-                    <h3>{item.question}</h3>
-                    <p>{item.answer}</p>
+                <article key={index} className={visible ? "space-y-2" : undefined}>
+                    <h3 className={visible ? "text-lg font-bold text-foreground/90" : undefined}>
+                        {item.question}
+                    </h3>
+                    <p className={visible ? "text-foreground/70 leading-relaxed" : undefined}>
+                        {item.answer}
+                    </p>
                 </article>
             ))}
         </section>

@@ -20,7 +20,7 @@ export default function AiFaqPage() {
             </header>
 
             <section className="max-w-4xl mx-auto">
-                <AiFaq />
+                <AiFaq visible />
             </section>
         </main>
     );

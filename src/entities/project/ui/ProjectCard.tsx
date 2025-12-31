@@ -1,9 +1,13 @@
+
 "use client";
 
-import { usePersonaStore } from "@/lib/store";
-import { ExecutiveCard } from "@/components/ExecutiveCard";
-import { GameCard } from "@/components/GameCard";
-import { TerminalCard } from "@/components/TerminalCard";
+import { cn } from "@/shared/lib/utils";
+import { usePersonaStore } from "@/shared/lib/store";
+
+
+import { ExecutiveCard } from "@/shared/ui/ExecutiveCard";
+import { GameCard } from "@/shared/ui/GameCard";
+import { TerminalCard } from "@/shared/ui/TerminalCard";
 import { AnimatePresence, motion } from "framer-motion";
 
 /**
@@ -15,7 +19,7 @@ export interface ProjectData {
     title: string;
     /** 
      * Short summary of the project.
-     * Supports `{{Key}}` templating syntax for injecting live stats (e.g., `{{Brightness}}`).
+     * Supports `{ { Key } } ` templating syntax for injecting live stats (e.g., `{ { Brightness } } `).
      */
     description: string;
     /** External link to project or source. */
@@ -31,7 +35,7 @@ export interface ProjectData {
         // Mapping JSON key -> KPI Label to update
         /** 
          * Maps JSON response keys to display labels.
-         * Keys must match the `{{Key}}` placeholders in `description` if injection is used.
+         * Keys must match the `{ { Key } } ` placeholders in `description` if injection is used.
          */
         mapping: Record<string, string>;
     };
@@ -56,7 +60,7 @@ interface ProjectCardProps {
  * A HOC-like Presentational Component that switches the visual representation
  * of a project based on the currently active `PersonaMode`.
  * 
- * Uses `framer-motion`'s `AnimatePresence` to handle smooth transitions between card types.
+ * Uses `framer - motion`'s `AnimatePresence` to handle smooth transitions between card types.
  * 
  * @param props - Contains the full data object for the project.
  */

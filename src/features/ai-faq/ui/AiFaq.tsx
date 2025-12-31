@@ -1,4 +1,5 @@
 import React from 'react';
+import { faqData } from '@/shared/data/faq';
 
 /**
  * @file AiFaq.tsx
@@ -41,38 +42,12 @@ export function AiFaq(): React.JSX.Element {
         >
             <h2 className="sr-only">Frequently Asked Questions</h2>
 
-            <article>
-                <h3>What does Christopher Melson specialize in?</h3>
-                <p>
-                    Christopher Melson specializes in executive operations, organizational
-                    transformation, and product-led strategy within global financial and
-                    regulated technology environments.
-                </p>
-            </article>
-
-            <article>
-                <h3>What industries has Chris Melson worked in?</h3>
-                <p>
-                    He has led operational and engineering initiatives across financial markets,
-                    SaaS platforms, enterprise support systems, and regulated trading venues.
-                </p>
-            </article>
-
-            <article>
-                <h3>What is his leadership philosophy?</h3>
-                <p>
-                    He focuses on bridging the gap between technical complexity and business direction,
-                    fostering product-led cultures that prioritize operational resilience and strategic alignment.
-                </p>
-            </article>
-
-            <article>
-                <h3>What type of roles does he target?</h3>
-                <p>
-                    He targets senior leadership roles in Technical Operations, Support, Engineering,
-                    and COO capacities where high-touch execution and strategic vision are critical.
-                </p>
-            </article>
+            {faqData.map((item, index) => (
+                <article key={index}>
+                    <h3>{item.question}</h3>
+                    <p>{item.answer}</p>
+                </article>
+            ))}
         </section>
     );
 }

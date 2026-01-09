@@ -201,7 +201,7 @@ export const CaseStudiesGrid = () => {
                                         <div className="grid grid-cols-2 md:grid-cols-3 gap-6 p-6 bg-foreground/5 rounded-lg border border-foreground/10">
                                             {selectedStudy.study.stats[mode].map((stat, idx) => (
                                                 <div key={idx}>
-                                                    <div className="text-xs text-foreground/50 uppercase tracking-widest mb-1">
+                                                    <div className="text-xs text-foreground/70 uppercase tracking-widest mb-1">
                                                         {stat.label}
                                                     </div>
                                                     <div className="text-lg font-mono font-bold text-foreground">

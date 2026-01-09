@@ -7,7 +7,7 @@ export const OfficeExperience = () => {
     return (
         <section className="w-full max-w-4xl mx-auto pt-16 border-t border-border">
             <div className="flex items-center justify-between mb-8">
-                <h2 className="text-sm font-mono uppercase tracking-widest text-foreground/60">
+                <h2 className="text-sm font-mono uppercase tracking-widest text-foreground/70">
                     Operational History
                 </h2>
                 <a
@@ -31,7 +31,7 @@ export const OfficeExperience = () => {
                             <h3 className="text-xl font-bold font-display text-foreground">
                                 {job.company}
                             </h3>
-                            <span className="text-sm font-mono text-foreground/50">
+                            <span className="text-sm font-mono text-foreground/70">
                                 {job.date}
                             </span>
                         </div>

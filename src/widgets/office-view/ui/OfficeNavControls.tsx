@@ -36,6 +36,7 @@ export const OfficeNavControls = () => {
                 <button
                     key={ctrl.id}
                     onClick={() => setMode(ctrl.id)}
+                    aria-label={`Switch mode to ${ctrl.label}`}
                     className={cn(
                         "relative flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all duration-300 border border-transparent",
                         mode === ctrl.id

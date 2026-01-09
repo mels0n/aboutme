@@ -18,7 +18,7 @@ export async function generateMetadata(
 
     // Contact Card Defaults (Global Site OG)
     let title = "Christopher Melson";
-    let summary = "How can I help your firm?";
+    let summary = "A polymorphic portfolio exploring the three personas of Christopher Melson: Executive, Strategist, and Engineer. This interactive experience re-renders professional history through different accessible lenses.";
     let role = "Operational Architect";
     let date = "";
 

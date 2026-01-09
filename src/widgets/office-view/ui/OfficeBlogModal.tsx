@@ -166,7 +166,7 @@ export const OfficeBlogModal = ({ post, onClose }: OfficeBlogModalProps) => {
                                     // Citations
                                     if (/^\[\d+\]/.test(line)) {
                                         return (
-                                            <p key={i} className="mb-1 text-[10px] md:text-xs text-foreground/50 leading-relaxed font-mono">
+                                            <p key={i} className="mb-1 text-[10px] md:text-xs text-foreground/70 leading-relaxed font-mono">
                                                 {line}
                                             </p>
                                         );

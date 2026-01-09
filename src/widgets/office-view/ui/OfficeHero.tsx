@@ -62,7 +62,7 @@ export const OfficeHero = () => {
                         Do I need an Operational Architect? ↗
                     </button>
 
-                    <span className="text-foreground/50">for the Agentic Age.</span>
+                    <span className="text-foreground/70">for the Agentic Age.</span>
                 </h1>
 
                 {/* 2. Sub-Headline */}
@@ -70,7 +70,7 @@ export const OfficeHero = () => {
                     Tri-Modal Leadership: Strategic Design. Resilient Operations. Technical Execution.
                 </h2>
 
-                <p className="text-sm font-medium text-foreground/50 uppercase tracking-widest pt-4">
+                <p className="text-sm font-medium text-foreground/70 uppercase tracking-widest pt-4">
                     Use the Operating Mode toggle at the top <ArrowUp className="inline w-3 h-3 mb-1" /> to explore.
                 </p>
 

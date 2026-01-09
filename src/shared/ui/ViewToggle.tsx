@@ -16,7 +16,7 @@ export const ViewToggle = () => {
                 aria-label="The Office"
                 className={cn(
                     "relative z-10 px-3 py-1.5 sm:px-4 sm:py-1 text-xs font-medium tracking-wide transition-colors duration-300 flex items-center justify-center",
-                    viewMode === 'OFFICE' ? "text-background" : "text-foreground/50 hover:text-foreground"
+                    viewMode === 'OFFICE' ? "text-background" : "text-foreground/70 hover:text-foreground"
                 )}
             >
                 <span className="hidden sm:block">The Office</span>
@@ -27,7 +27,7 @@ export const ViewToggle = () => {
                 aria-label="The Lab"
                 className={cn(
                     "relative z-10 px-3 py-1.5 sm:px-4 sm:py-1 text-xs font-medium tracking-wide transition-colors duration-300 flex items-center justify-center",
-                    viewMode === 'LAB' ? "text-background" : "text-foreground/50 hover:text-foreground"
+                    viewMode === 'LAB' ? "text-background" : "text-foreground/70 hover:text-foreground"
                 )}
             >
                 <span className="hidden sm:block">The Lab</span>

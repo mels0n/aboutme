@@ -52,6 +52,8 @@ Before marking *any* task as complete, you must perform a **Consistency, Freshne
 ### B. In-Code Documentation
 - **No Fluff:** Do not write comments like `// Sets the variable`.
 - **Architectural Context:** Comments must explain *WHY* (e.g., "Using Strategy pattern here for hot-swapping payment providers").
+- **No Self-Notes:** Do no write notes to self.
+- **Architect Detail:** Comments should be written as a principal architect who provides maintainable code using industry standard best practices for comments. 
 
 ## 3. RESPONSE PROTOCOL
 When fulfilling a user request:

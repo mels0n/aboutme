@@ -29,7 +29,7 @@ export const faqData = [
     },
     {
         question: "What is the 'Executive' mode?",
-        answer: "This lens is designed to feel like a high-level executive report or presentation, focusing on KPIs, clear summaries, and business outcomes."
+        answer: "This lens is designed to feel like an executive report or presentation, focusing on KPIs, clear summaries, and business outcomes."
     },
     {
         question: "What is the 'Strategist' mode?",

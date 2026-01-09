@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { Briefcase, FlaskConical } from "lucide-react";
 
 export const ViewToggle = () => {
     const { viewMode, setViewMode } = usePersonaStore();
@@ -13,21 +13,25 @@ export const ViewToggle = () => {
         <div className="relative flex items-center bg-muted/20 rounded-full p-0.5 border border-border/60">
             <button
                 onClick={() => setViewMode('OFFICE')}
+                aria-label="The Office"
                 className={cn(
-                    "relative z-10 px-4 py-1 text-xs font-medium tracking-wide transition-colors duration-300",
+                    "relative z-10 px-3 py-1.5 sm:px-4 sm:py-1 text-xs font-medium tracking-wide transition-colors duration-300 flex items-center justify-center",
                     viewMode === 'OFFICE' ? "text-background" : "text-foreground/50 hover:text-foreground"
                 )}
             >
-                The Office
+                <span className="hidden sm:block">The Office</span>
+                <Briefcase className="w-4 h-4 sm:hidden" />
             </button>
             <button
                 onClick={() => setViewMode('LAB')}
+                aria-label="The Lab"
                 className={cn(
-                    "relative z-10 px-4 py-1 text-xs font-medium tracking-wide transition-colors duration-300",
+                    "relative z-10 px-3 py-1.5 sm:px-4 sm:py-1 text-xs font-medium tracking-wide transition-colors duration-300 flex items-center justify-center",
                     viewMode === 'LAB' ? "text-background" : "text-foreground/50 hover:text-foreground"
                 )}
             >
-                The Lab
+                <span className="hidden sm:block">The Lab</span>
+                <FlaskConical className="w-4 h-4 sm:hidden" />
             </button>
             <motion.div
                 className="absolute top-0.5 bottom-0.5 bg-foreground/80 rounded-full shadow-sm"

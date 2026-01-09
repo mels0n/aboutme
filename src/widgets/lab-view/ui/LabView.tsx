@@ -10,11 +10,11 @@ import { cn } from "@/shared/lib/utils";
 import { ArrowDownCircle } from "lucide-react";
 import { AiFaq } from "@/features/ai-faq";
 import Image from "next/image";
-import chartSlide from "../../../../public/chart-slide.png";
 import { PersonaExplanation } from "@/features/persona-explanation";
+import { LAB_CONTENT } from "@/shared/data/lab-content";
 
 export const LabView = () => {
-    const { mode, setMode } = usePersonaStore();
+    const { mode, setMode, introDismissed } = usePersonaStore();
 
     // Intro sequence logic was in Page.tsx. 
     // Since "The Lab" is now a sub-view, we might want to run the intro only if accessing Lab for the first time?
@@ -22,31 +22,10 @@ export const LabView = () => {
     // The user said "The Lab will house the current site".
     // I will preserve the useEffect logic here.
 
-    const [ctaFlash, setCtaFlash] = useState(false);
-
+    // Intro animation removed per user request
     useEffect(() => {
-        const hasPlayed = sessionStorage.getItem("hasPlayedIntro");
-
-        if (!hasPlayed) {
-            const runIntro = async () => {
-                setMode('executive');
-                await new Promise(r => setTimeout(r, 1000));
-                setMode('strategist');
-                await new Promise(r => setTimeout(r, 1000));
-                setMode('engineer');
-                await new Promise(r => setTimeout(r, 1000));
-                setMode('executive');
-                setTimeout(() => setCtaFlash(true), 500);
-                sessionStorage.setItem("hasPlayedIntro", "true");
-            };
-            runIntro();
-        } else {
-            // Ensure we respect the previously set mode or default to executive if null
-            // NOTE: Since the global store is shared, switching to Office and back to Lab 
-            // might keep the mode. This is good.
-            if (!mode) setMode('executive');
-        }
-    }, []);
+        if (!mode) setMode('executive');
+    }, [mode, setMode]);
 
     // Theme effect is now handled at the Page level to ensure clean switching?
     // Actually, Office view uses the same theme variables but cleaner usage?
@@ -66,7 +45,7 @@ export const LabView = () => {
         <motion.div
             key="lab-view"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            animate={introDismissed ? { opacity: 1 } : { opacity: 0 }}
             exit={{ opacity: 0 }}
             className="w-full"
         >
@@ -92,21 +71,33 @@ export const LabView = () => {
                                     <div className="inline-block px-4 py-1.5 border border-foreground/10 rounded-full text-sm font-bold uppercase tracking-widest text-highlight bg-background/50 backdrop-blur-sm">
                                         Executive Summary
                                     </div>
-                                    <h1 className="text-xl md:text-2xl font-serif text-foreground/60 italic">
-                                        Prepared By: <span className="text-foreground font-bold not-italic">Chris Melson</span>
-                                    </h1>
+
                                 </div>
 
-                                {/* --- Chart Image (Frameless) --- */}
-                                <div className="w-full max-w-3xl relative">
-                                    <Image
-                                        src={chartSlide}
-                                        alt="Operational Chaos to Sustainable Growth Chart"
-                                        className="w-full h-auto object-contain max-h-[50vh] drop-shadow-lg"
-                                        priority
-                                        fetchPriority="high"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                    />
+                                {/* --- Strategic Report (Text Replacement) --- */}
+                                <div className="w-full max-w-4xl relative text-left bg-surface/50 border border-border p-8 rounded-sm shadow-md backdrop-blur-sm">
+                                    <div className="border-b-2 border-foreground/10 pb-4 mb-6">
+                                        <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground tracking-tight">
+                                            {LAB_CONTENT.executive.report.title}
+                                        </h2>
+                                        <p className="text-sm md:text-base font-mono text-foreground/60 mt-2 uppercase tracking-wider">
+                                            {LAB_CONTENT.executive.report.subject}
+                                        </p>
+                                    </div>
+
+                                    <div className="prose prose-lg max-w-none text-foreground/80 font-serif leading-relaxed space-y-4">
+                                        {LAB_CONTENT.executive.report.body.map((paragraph, index) => (
+                                            <p key={index} dangerouslySetInnerHTML={{ __html: paragraph }} />
+                                        ))}
+                                    </div>
+
+                                    {/* Footer / Signature */}
+                                    <div className="mt-8 pt-6 border-t border-foreground/5 flex justify-end">
+                                        <div className="text-right">
+                                            <p className="text-xs text-foreground/40 uppercase tracking-widest font-bold mb-1">Prepared By</p>
+                                            <p className="text-lg font-serif text-foreground font-bold">{LAB_CONTENT.executive.report.preparedBy}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </motion.div>
                         )}
@@ -131,7 +122,7 @@ export const LabView = () => {
                                         "Victory is not found in strength alone, but in the optimal allocation of resources."
                                     </blockquote>
                                     <figcaption className="text-base font-serif text-foreground/60 flex flex-col items-center">
-                                        <span className="font-bold text-foreground">— Chris Melson</span>
+                                        <span className="font-bold text-foreground">- Chris Melson</span>
                                         <span className="text-xs uppercase tracking-wider opacity-75 text-center px-4">
                                             Operating Model Creator • Riverfolk Company C.E.O. • Owner of the Mox Opal
                                         </span>
@@ -182,8 +173,7 @@ export const LabView = () => {
                                 rel="noopener noreferrer"
                                 className={cn(
                                     "text-xs font-bold tracking-wider flex items-center gap-1 hover:underline",
-                                    mode === 'engineer' ? "normal-case" : "uppercase",
-                                    mode === 'executive' ? "text-blue-600" : mode === 'strategist' ? "text-emerald-700" : "text-green-500"
+                                    mode === 'engineer' ? "normal-case" : "uppercase"
                                 )}
                             >
                                 <ArrowDownCircle className="w-4 h-4" />

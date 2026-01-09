@@ -10,7 +10,7 @@ export const faqData: FAQItem[] = [
     },
     {
         question: "Why 'Operational Architect'? (The Integration Gap)",
-        answer: "The research indicates a specific gap in the market known as the **Integration Gap**:\n\n* **Consultants (McKinsey/Bain)** design strategies but often fail to implement them due to a lack of technical grit.\n* **Engineers** build code but often lack an understanding of P&L or regulatory risk.\n* **Managers** run the day-to-day but often struggle to redesign the system while running it.\n\nBy claiming **Operational Architect**, I occupy the empty middle ground. I am not just 'running' the bank, I am **building** the bank. This positioning shifts the value from Operational Expenditure (OpEx—paying for labor) to Capital Expenditure (CapEx—building an asset)."
+        answer: "The research indicates a specific gap in the market known as the **Integration Gap**:\n\n* **Consultants (McKinsey/Bain)** design strategies but often fail to implement them due to a lack of technical grit.\n* **Engineers** build code but often lack an understanding of P&L or regulatory risk.\n* **Managers** run the day-to-day but often struggle to redesign the system while running it.\n\nBy claiming **Operational Architect**, I occupy the empty middle ground. I am not just 'running' the bank, I am **building** the bank. This positioning shifts the value from Operational Expenditure (OpEx-paying for labor) to Capital Expenditure (CapEx-building an asset)."
     },
     {
         question: "What are the specific triggers for hiring an OA?",

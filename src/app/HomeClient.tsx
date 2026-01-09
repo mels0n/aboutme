@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { LabView } from "@/widgets/lab-view/ui/LabView";
 import { OfficeView } from "@/widgets/office-view/ui/OfficeView";
 import { OfficeNavControls } from "@/widgets/office-view/ui/OfficeNavControls";
+import { GatekeeperModal } from "@/widgets/gatekeeper/ui/GatekeeperModal"; // Adjust path if needed
 import { ModeTransitionGlitch } from "@/shared/ui/ModeTransitionGlitch";
 
 import { ChevronsRight, RefreshCw } from "lucide-react";
@@ -23,7 +24,7 @@ export function HomeClient() {
 
 function HomeContent() {
     const searchParams = useSearchParams();
-    const { mode, cycleMode, viewMode, setMode } = usePersonaStore();
+    const { mode, cycleMode, viewMode, setMode, introDismissed } = usePersonaStore();
 
     // Sync theme whenever mode changes and handle Deep Linking
     useEffect(() => {
@@ -51,29 +52,31 @@ function HomeContent() {
                 // Disable swipe on desktop (md breakpoint is 768px)
                 if (typeof window !== 'undefined' && window.innerWidth >= 768) return;
 
-                // Only cycle modes in LAB view
-                if (viewMode === 'LAB') {
-                    if (info.offset.x > 50) cycleMode('prev');
-                    if (info.offset.x < -50) cycleMode('next');
-                }
+                // Cycle modes on swipe (Global)
+                if (info.offset.x > 50) cycleMode('prev');
+                if (info.offset.x < -50) cycleMode('next');
             }}
         >
-            <ModeTransitionGlitch />
+            <AnimatePresence mode="wait">
+                {!introDismissed && <GatekeeperModal />}
+            </AnimatePresence>
+            {introDismissed && <ModeTransitionGlitch />}
 
             {/* --- Sticky Header / Toggle --- */}
-            <nav className="fixed top-0 left-0 w-full z-50 py-4 px-6 backdrop-blur-md bg-background/80 border-b border-border/50 flex items-center">
+            <nav className="fixed top-0 left-0 w-full z-50 py-4 px-6 backdrop-blur-md bg-background/80 border-b border-border/50 flex items-center justify-between gap-4">
 
-                {/* Left Side: Empty Spacer */}
-                <div className="flex-1" />
+                {/* Left Side: Empty Spacer (Hidden on mobile to save space, present on desktop for balance if needed) */}
+                <div className="hidden md:block flex-1" />
 
                 {/* Center: Controls (Office or Lab) */}
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center">
+                {/* On Mobile: It flows naturally. On Desktop: Absolute center. */}
+                <div className="md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 flex justify-center items-center">
                     <AnimatePresence mode="wait">
                         {viewMode === 'OFFICE' ? (
                             <motion.div
                                 key="office-nav"
                                 initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
+                                animate={introDismissed ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
                                 exit={{ opacity: 0, y: -10 }}
                             >
                                 <OfficeNavControls />
@@ -81,12 +84,12 @@ function HomeContent() {
                         ) : (
                             <motion.div
                                 key="lab-nav"
-                                initial={{ opacity: 0, y: 10 }} // Standard fade in from bottom for consistency or keep it simple
-                                animate={{ opacity: 1, y: 0 }}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={introDismissed ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                                 exit={{ opacity: 0, y: 10 }}
                                 className="flex items-center gap-4"
                             >
-                                <div className="hidden md:flex items-center">
+                                <div className="hidden lg:flex items-center">
                                     {mode === 'executive' && (
                                         <div className="flex items-center gap-1 text-blue-600 font-bold uppercase tracking-wider text-sm mr-4">
                                             <span>Drill Down</span>
@@ -113,7 +116,7 @@ function HomeContent() {
                 </div>
 
                 {/* Right Side: View Toggle */}
-                <div className="flex-1 flex justify-end">
+                <div className="flex-shrink-0 flex justify-end">
                     <ViewToggle />
                 </div>
             </nav>

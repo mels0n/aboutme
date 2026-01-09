@@ -171,16 +171,17 @@ export const CaseStudiesGrid = () => {
                                 <button
                                     onClick={() => setIsFullReport(true)}
                                     className={cn(
-                                        "pb-1 border-b-2 transition-colors flex items-center gap-2",
+                                        "pb-1 border-b-2 transition-all flex items-center gap-2",
                                         isFullReport
-                                            ? mode === 'engineer' ? "border-emerald-500 text-emerald-700"
-                                                : mode === 'strategist' ? "border-indigo-500 text-indigo-700"
-                                                    : "border-blue-600 text-blue-800"
-                                            : "border-transparent text-foreground/50 hover:text-foreground/80"
+                                            ? mode === 'engineer' ? "border-emerald-500 text-emerald-700 font-bold"
+                                                : mode === 'strategist' ? "border-indigo-500 text-indigo-700 font-bold"
+                                                    : "border-blue-600 text-blue-800 font-bold"
+                                            : "border-transparent text-foreground/60 hover:text-foreground hover:bg-foreground/5 px-2 rounded-md" // Added mild background on hover for better visibility
                                     )}
                                 >
-                                    <span>Detailed S.T.A.R. Report</span>
-                                    {!isFullReport && <ArrowUpRight className="w-3 h-3 opacity-50" />}
+                                    <span className="md:hidden">Tap to Expand S.T.A.R.</span>
+                                    <span className="hidden md:inline">Detailed S.T.A.R. Report</span>
+                                    {!isFullReport && <ArrowUpRight className="w-4 h-4 text-foreground/70" />}
                                 </button>
                             </div>
 

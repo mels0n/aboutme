@@ -8,8 +8,16 @@ export const ModeTransitionGlitch = () => {
     const { mode } = usePersonaStore();
     const [isActive, setIsActive] = useState(false);
     const prevMode = useRef(mode);
+    const isFirstRender = useRef(true);
 
     useEffect(() => {
+        // Skip the first render/mount to prevent "onload" glitches
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            prevMode.current = mode;
+            return;
+        }
+
         // Trigger glitch only when mode changes
         if (prevMode.current !== mode) {
             setIsActive(true);

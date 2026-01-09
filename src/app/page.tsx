@@ -73,37 +73,7 @@ export async function generateMetadata(
 }
 
 export default function Page() {
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Christopher Melson - Polymorphic Portfolio",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": "Web",
-        "softwareVersion": "2.0.0",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        },
-        "featureList": [
-            "Executive Mode (Boardroom)",
-            "Strategist Mode (Architect)",
-            "Engine Room Mode (Technical Execution)"
-        ],
-        "author": {
-            "@type": "Person",
-            "name": "Christopher Melson",
-            "url": "https://www.linkedin.com/in/chris-melson-45a88244/"
-        }
-    };
-
     return (
-        <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-            />
-            <HomeClient />
-        </>
+        <HomeClient />
     );
 }

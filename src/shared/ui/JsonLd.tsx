@@ -139,9 +139,20 @@ export function JsonLd() {
     const applicationLd = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "Polymorphic Portfolio",
-        "applicationCategory": "PortfolioApplication",
+        "name": "Christopher Melson - Polymorphic Portfolio",
+        "applicationCategory": "BusinessApplication",
         "operatingSystem": "Web Browser",
+        "softwareVersion": "2.0.0",
+        "author": {
+            "@type": "Person",
+            "name": "Christopher Melson",
+            "url": "https://www.linkedin.com/in/chris-melson-45a88244/"
+        },
+        "featureList": [
+            "Strategic Design",
+            "Resilient Operations",
+            "Technical Execution"
+        ],
         "offer": {
             "@type": "Offer",
             "price": "0",

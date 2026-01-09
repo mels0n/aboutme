@@ -1,15 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
 import { IconExecution, IconStrategy } from "./branding/ThreePillarsIcons";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Users } from "lucide-react";
+import { motion } from "framer-motion";
+import { Users } from "lucide-react";
 
 export const OfficeNavControls = () => {
     const { mode, setMode } = usePersonaStore();
-    const [showHint, setShowHint] = useState(false);
 
     const controls = [
         {
@@ -32,59 +30,8 @@ export const OfficeNavControls = () => {
         }
     ] as const;
 
-    useEffect(() => {
-        const hasPlayed = sessionStorage.getItem("office_intro_played");
-
-        if (!hasPlayed) {
-            const runIntro = async () => {
-                // Initial delay
-                await new Promise(r => setTimeout(r, 1000));
-
-                setMode('strategist');
-                await new Promise(r => setTimeout(r, 800));
-
-                setMode('engineer');
-                await new Promise(r => setTimeout(r, 800));
-
-                setMode('executive');
-                sessionStorage.setItem("office_intro_played", "true");
-
-                // Show hint after sequence
-                setTimeout(() => setShowHint(true), 500);
-            };
-            runIntro();
-        } else {
-            // Already played, just show hint
-            setShowHint(true);
-        }
-    }, []); // Run once on mount
-
-
-
     return (
         <div className="relative flex items-center gap-2 bg-surface/80 backdrop-blur-sm p-1 rounded-full border border-border/40 shadow-sm group">
-            {/* Hint Arrow (Left Side) */}
-            <AnimatePresence mode="wait">
-                {showHint && (
-                    <motion.div
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -10 }}
-                        className="absolute right-full mr-4 flex items-center gap-2 pointer-events-none z-50 whitespace-nowrap"
-                    >
-                        <span className="text-xs font-sans font-bold text-foreground/80 tracking-widest hidden md:inline-block uppercase">
-                            Operating Mode
-                        </span>
-                        <motion.div
-                            animate={{ x: [0, 4, 0] }}
-                            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut", repeatDelay: 1 }}
-                        >
-                            <ArrowRight className="w-5 h-5 text-foreground stroke-[3px]" />
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
             {controls.map((ctrl) => (
                 <button
                     key={ctrl.id}

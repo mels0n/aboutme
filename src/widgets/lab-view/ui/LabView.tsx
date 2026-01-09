@@ -124,7 +124,7 @@ export const LabView = () => {
                                     <figcaption className="text-base font-serif text-foreground/60 flex flex-col items-center">
                                         <span className="font-bold text-foreground">- Chris Melson</span>
                                         <span className="text-xs uppercase tracking-wider opacity-75 text-center px-4">
-                                            Operating Model Creator • Riverfolk Company C.E.O. • Owner of the Mox Opal
+                                            Riverfolk Company C.E.O. • V.P. of Engine Building • Owner of the Mox Opal
                                         </span>
                                     </figcaption>
                                 </figure>

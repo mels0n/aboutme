@@ -16,14 +16,14 @@ import { ChevronRight, X } from 'lucide-react';
  * 
  * ## Architecture
  * - **Layer**: Feature (Business logic + UI specific to the "Persona" domain)
- * - **State**: Consumes global `usePersonaStore` to determine the active theme (Executive, Strategist, Engineer).
+ * - **State**: Consumes global `usePersonaStore` to determine the active theme (Executive, Strategist, Engine Room).
  * - **UI Pattern**: Modal Overlay with backdrop blur.
  * 
  * ## Design System Integration
  * The component dynamically switches its Tailwind classes based on the `mode` state:
  * - `Executive`: Corporate blue, Serif type.
  * - `Strategist`: Emerald green, Italic Serif (Game/Fantasy feel).
- * - `Engineer`: Monospace terminal green, High contrast.
+ * - `Engine Room`: Monospace terminal green, High contrast.
  * 
  * @returns {JSX.Element} The floating action button and its associated modal portal.
  */
@@ -46,7 +46,7 @@ export function PersonaExplanation() {
      * Context-specific explanation text displayed in the modal.
      */
     const explanationText = {
-        executive: "Executive: This version of the interface is designed to feel like a high-level executive report and/or presentation.",
+        executive: "Executive: This version of the interface is designed to feel like a executive report and/or presentation.",
         strategist: "Strategist: This version of the interface is designed to feel like an RPG character sheet and/or board game player mat, featuring artifacts reminiscent of Magic: The Gathering.",
         engineer: "Engineer: This version of the interface is designed to feel like a Linux CLI and/or coding environment."
     }[mode];

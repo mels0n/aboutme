@@ -1,386 +1,109 @@
-"use client";
+import { Metadata, ResolvingMetadata } from "next";
+import { HomeClient } from "./HomeClient";
+import { officeBlogPosts } from "@/shared/data/office_blog_posts";
 
-import { useEffect, useState } from "react";
-import { usePersonaStore } from "@/shared/lib/store";
-import { PersonaToggle } from "@/shared/ui/PersonaToggle";
-import { ProjectCard } from "@/entities/project/ui/ProjectCard";
-import { projects } from "@/entities/project/model/data";
-import resume from "@/shared/data/resume.json";
-import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/shared/lib/utils";
-import { ArrowDownCircle } from "lucide-react";
-import { PowerPointArrow, MagicTapArrow } from "@/shared/ui/CustomArrows";
-import { AiFaq } from "@/features/ai-faq";
-import Image from "next/image";
-import chartSlide from "../../public/chart-slide.png";
-import { PersonaExplanation } from "@/features/persona-explanation";
+type Props = {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
 
-// --- Project Data ---
-// Extracted to @/entities/project/model/data.ts
+export async function generateMetadata(
+    { searchParams }: Props,
+    parent: ResolvingMetadata
+): Promise<Metadata> {
+    const params = await searchParams;
 
-/**
- * Main Page Component.
- * 
- * Responsible for:
- * 1. Intro sequence orchestration.
- * 2. Global "Persona Mode" state management via Zustand wrapper.
- * 3. Responsive layout and theme synchronization.
- * 4. Rendering the sticky header, hero section, experience log, and project grid.
- */
-export default function Home() {
-    const { mode, setMode, cycleMode } = usePersonaStore();
-    const [ctaFlash, setCtaFlash] = useState(false);
+    // 1. Determine Details
+    const mode = (params.mode as string) || 'executive';
+    const blogSlug = params.blog as string;
 
-    /*
-     * Side Effect: Intro Animation
-     * On first load (sessionStorage), cycles through all modes to demonstrate the polymorphic nature of the site.
-     * 
-     * Side Effects:
-     * - Reads/Writes to sessionStorage.
-     * - Mutates global persona state multiple times with delays.
-     */
-    useEffect(() => {
-        // Check if we've already played the intro this session
-        const hasPlayed = sessionStorage.getItem("hasPlayedIntro");
+    // Contact Card Defaults (Global Site OG)
+    let title = "Christopher Melson";
+    let summary = "How can I help your firm?";
+    let role = "Operational Architect";
+    let date = "";
 
-        if (!hasPlayed) {
-            // Start Intro Sequence
-            const runIntro = async () => {
-                // Ensure starting at executive
-                setMode('executive');
-
-                // Wait 1s
-                await new Promise(r => setTimeout(r, 1000));
-                setMode('strategist');
-
-                // Wait 1s
-                await new Promise(r => setTimeout(r, 1000));
-                setMode('engineer');
-
-                // Wait 1s
-                await new Promise(r => setTimeout(r, 1000));
-                setMode('executive');
-
-                // Trigger CTA Flash after a brief moment ensuring reuse
-                setTimeout(() => setCtaFlash(true), 500);
-
-                // Mark as played
-                sessionStorage.setItem("hasPlayedIntro", "true");
-            };
-
-            runIntro();
-        } else {
-            // Ensure we respect the previously set mode or default to executive if null
-            if (!mode) setMode('executive');
-            document.documentElement.setAttribute("data-theme", mode || 'executive');
+    if (blogSlug) {
+        const post = officeBlogPosts.find(p => p.slug === blogSlug);
+        if (post) {
+            title = post.title;
+            // Use the polymorphic summary if available for the mode, else fallback
+            // @ts-ignore
+            summary = (post.polymorphicSummary && post.polymorphicSummary[mode])
+                // @ts-ignore
+                ? post.polymorphicSummary[mode]
+                : post.summary;
+            role = "Operational Architect";
+            date = post.date;
         }
-    }, []); // Run once on mount
+    }
 
-    // Sync theme whenever mode changes (handled in the intro or by user)
-    useEffect(() => {
-        document.documentElement.setAttribute("data-theme", mode);
-    }, [mode]);
+    // 2. Construct OG Image URL
+    // We use absolute URL for production, but locally it might fail if we don't have base.
+    // Ideally use process.env.NEXT_PUBLIC_URL or hardcode for this portfolio.
+    const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://chris.melson.us';
+    const ogUrl = new URL(`${baseUrl}/api/og`);
+    ogUrl.searchParams.set('title', title);
+    ogUrl.searchParams.set('summary', summary);
+    ogUrl.searchParams.set('mode', mode);
+    ogUrl.searchParams.set('role', role);
+    if (date) ogUrl.searchParams.set('date', date);
+
+    return {
+        title: title,
+        description: summary,
+        openGraph: {
+            title: title,
+            description: summary,
+            images: [
+                {
+                    url: ogUrl.toString(),
+                    width: 1200,
+                    height: 630,
+                    alt: title,
+                },
+            ],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: title,
+            description: summary,
+            images: [ogUrl.toString()],
+        },
+    };
+}
+
+export default function Page() {
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Christopher Melson - Polymorphic Portfolio",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "softwareVersion": "2.0.0",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "Executive Mode (Boardroom)",
+            "Strategist Mode (Architect)",
+            "Engine Room Mode (Technical Execution)"
+        ],
+        "author": {
+            "@type": "Person",
+            "name": "Christopher Melson",
+            "url": "https://www.linkedin.com/in/chris-melson-45a88244/"
+        }
+    };
 
     return (
-        <motion.main
-            className="min-h-screen pb-20 transition-colors duration-500 overflow-x-hidden touch-pan-y"
-            onPanEnd={(e, info) => {
-                // Disable swipe on desktop (md breakpoint is 768px)
-                if (typeof window !== 'undefined' && window.innerWidth >= 768) return;
-
-                if (info.offset.x > 50) cycleMode('prev');
-                if (info.offset.x < -50) cycleMode('next');
-            }}
-        >
-            <PersonaExplanation />
-
-            {/* --- Sticky Header / Toggle --- */}
-            <nav className="fixed top-0 left-0 w-full z-50 py-4 backdrop-blur-md bg-background/80 border-b border-border/50 flex justify-center items-center gap-2">
-
-                {/* External CTA (Left of Toggle) */}
-                <AnimatePresence mode="wait">
-                    {mode === 'executive' && (
-                        <motion.div
-                            key="exec-cta"
-                            initial={{ opacity: 0, x: 10 }}
-                            animate={ctaFlash ? {
-                                opacity: [1, 0.3, 1, 0.3, 1, 0.3, 1],
-                                x: 0,
-                                transition: { duration: 2, ease: "easeInOut" }
-                            } : { opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -10 }}
-                            onAnimationComplete={() => {
-                                if (ctaFlash) setCtaFlash(false);
-                            }}
-                            className="flex items-center gap-1 text-blue-600 font-bold uppercase tracking-wider text-sm"
-                        >
-                            <span>Drill Down</span>
-                            <PowerPointArrow className="w-6 h-6" />
-                        </motion.div>
-                    )}
-
-                    {mode === 'strategist' && (
-                        <motion.div
-                            key="strat-cta"
-                            initial={{ opacity: 0, rotate: -45 }}
-                            animate={{ opacity: 1, rotate: 0 }}
-                            exit={{ opacity: 0, rotate: 45 }}
-                            className="flex items-center gap-1 text-emerald-700 font-serif font-bold italic text-lg"
-                        >
-                            <span>Reroll</span>
-                            <MagicTapArrow className="w-6 h-6 ml-1" />
-                        </motion.div>
-                    )}
-
-                    {mode === 'engineer' && (
-                        <motion.div
-                            key="eng-cta"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="flex items-center gap-2 text-green-500 font-mono text-lg"
-                        >
-                            <span>sudo</span>
-                            <span className="font-bold text-xl">&gt;</span>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
-                <PersonaToggle />
-            </nav>
-
-            <div className="max-w-7xl mx-auto px-6 pt-32 pb-12 flex flex-col gap-12">
-
-                {/* --- Hero Section --- */}
-                <section className="min-h-[30vh] flex flex-col justify-center items-center text-center">
-                    <AnimatePresence mode="wait">
-                        {mode === "executive" && (
-                            <motion.div
-                                key="exec-hero"
-                                initial={{ opacity: 1, y: 0 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0 }}
-                                className="w-full max-w-5xl relative flex flex-col items-center text-center space-y-8"
-                            >
-                                {/* --- Header --- */}
-                                <div className="space-y-4">
-                                    <div className="inline-block px-4 py-1.5 border border-foreground/10 rounded-full text-sm font-bold uppercase tracking-widest text-highlight bg-background/50 backdrop-blur-sm">
-                                        Executive Summary
-                                    </div>
-                                    <h1 className="text-xl md:text-2xl font-serif text-foreground/60 italic">
-                                        Prepared By: <span className="text-foreground font-bold not-italic">Chris Melson</span>
-                                    </h1>
-                                </div>
-
-                                {/* --- Chart Image (Frameless) --- */}
-                                <div className="w-full max-w-3xl relative">
-                                    <Image
-                                        src={chartSlide}
-                                        alt="Operational Chaos to Sustainable Growth Chart"
-                                        className="w-full h-auto object-contain max-h-[50vh] drop-shadow-lg"
-                                        priority
-                                        fetchPriority="high"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                    />
-                                </div>
-                            </motion.div>
-                        )}
-
-                        {mode === "strategist" && (
-                            <motion.div key="strat-hero" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="space-y-6 max-w-3xl relative">
-                                {/* Decorative Flourishes */}
-                                <div className="absolute -top-10 -left-10 text-6xl opacity-10 rotate-12">⚔️</div>
-                                <div className="absolute -bottom-10 -right-10 text-6xl opacity-10 -rotate-12">🛡️</div>
-
-                                <h1 className="text-6xl md:text-8xl font-display text-foreground drop-shadow-sm">
-                                    The Strategist
-                                </h1>
-                                <div className="h-1 w-32 bg-highlight mx-auto rounded-full my-4" />
-
-                                <h2 className="text-xl md:text-2xl font-serif text-accent font-bold tracking-wide">
-                                    Deckcraft • Tabletop • Logic
-                                </h2>
-
-                                <figure className="space-y-4">
-                                    <blockquote className="text-lg text-foreground/80 italic font-serif">
-                                        "Victory is not found in strength alone, but in the optimal allocation of resources."
-                                    </blockquote>
-                                    <figcaption className="text-base font-serif text-foreground/60 flex flex-col items-center">
-                                        <span className="font-bold text-foreground">— Chris Melson</span>
-                                        <span className="text-xs uppercase tracking-wider opacity-75 text-center px-4">
-                                            Operating Model Creator • Riverfolk Company C.E.O. • Owner of the Mox Opal
-                                        </span>
-                                    </figcaption>
-                                </figure>
-                            </motion.div>
-                        )}
-
-                        {mode === "engineer" && (
-                            <motion.div key="eng-hero" initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }} className="w-full max-w-4xl text-left font-mono">
-                                <div className="text-highlight mb-4">{`> initializing_portfolio_sequence...`}</div>
-                                <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
-                                    <span className="text-highlight">root@melson:</span><span className="text-foreground">~#</span> whoami
-                                </h1>
-                                <div className="bg-surface border border-border p-6 rounded-sm shadow-2xl relative overflow-hidden">
-                                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-highlight to-transparent opacity-50" />
-                                    <pre className="text-sm md:text-base text-foreground/90 whitespace-pre-wrap">
-                                        {`{
-  "user": "Chris Melson",
-  "role": "Homelab Enthusiast",
-  "stack": ["Docker Swarm", "Home Assistant", "UniFi", "Synology"],
-  "status": "ONLINE",
-  "uptime": "99.999%"
-}`}
-                                    </pre>
-                                </div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </section>
-
-                {/* --- Annual Report Check (Removed, integrated into Hero) --- */}
-
-                {/* --- Main Content Grid (Split Layout on Large Screens) --- */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-
-                    {/* --- Left Column: Experience (Reduced Size) --- */}
-                    <section className="w-full">
-                        <div className="flex items-center justify-between mb-6 pb-2 border-b border-border">
-                            <h2 className={cn(
-                                "text-lg uppercase tracking-widest",
-                                mode === 'engineer' ? "font-mono font-bold text-highlight normal-case" : "font-display font-bold text-foreground"
-                            )}>
-                                {mode === 'strategist' ? 'Campaign History' :
-                                    mode === 'engineer' ? 'sudo dmesg | tail' : 'Experience Log'}
-                            </h2>
-                            <a
-                                href="/christopher-melson-cv.pdf"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={cn(
-                                    "text-xs font-bold tracking-wider flex items-center gap-1 hover:underline",
-                                    mode === 'engineer' ? "normal-case" : "uppercase",
-                                    mode === 'executive' ? "text-blue-600" : mode === 'strategist' ? "text-emerald-700" : "text-green-500"
-                                )}
-                            >
-                                <ArrowDownCircle className="w-4 h-4" />
-                                {mode === 'strategist' ? 'Consult the Archives' :
-                                    mode === 'engineer' ? 'wget dmesg -O resume.pdf' : 'Download Full CV'}
-                            </a>
-                        </div>
-
-                        <div className="space-y-8">
-                            {resume.sections.experience.items.slice(0, 3).map((job: any) => (
-                                <div key={job.id} className="group">
-                                    <div className="flex flex-col mb-1">
-                                        <h3 className={cn(
-                                            "text-lg font-bold leading-tight", // Reduced size
-                                            mode === 'executive' ? "text-foreground font-display" :
-                                                mode === 'engineer' ? "text-highlight font-mono" : "text-foreground font-serif"
-                                        )}>
-                                            {job.company}
-                                        </h3>
-                                        <div className="flex justify-between items-baseline mt-1">
-                                            <span className={cn(
-                                                "text-sm font-semibold",
-                                                mode === 'executive' ? "text-highlight" :
-                                                    mode === 'strategist' ? "text-accent italic" : "text-foreground/80"
-                                            )}>
-                                                {job.position}
-                                            </span>
-                                            <span className={cn(
-                                                "text-xs",
-                                                mode === 'engineer' ? "text-foreground/80 font-mono" : "text-foreground/70 font-sans"
-                                            )}>
-                                                {job.date}
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    {/* Summary with Styled Bullets */}
-                                    <div
-                                        className={cn(
-                                            "prose prose-sm max-w-none text-foreground/70 dark:prose-invert text-xs leading-relaxed",
-                                            "[&_ul]:pl-5 [&_li]:mb-1", // Base padding
-
-                                            // Explicit Mode Styling
-                                            mode === 'executive' ? "[&_ul]:list-[square] marker:text-blue-600" :
-                                                mode === 'strategist' ? "[&_ul]:list-disc marker:text-emerald-700" :
-                                                    // Engineer: Tech style (Decimal with leading zero + mono font)
-                                                    "[&_ul]:list-[decimal-leading-zero] marker:text-green-500 font-mono"
-                                        )}
-                                        dangerouslySetInnerHTML={{ __html: job.summary }}
-                                    />
-                                </div>
-                            ))}
-
-                            {/* --- Experience Footer (Continued...) --- */}
-                            <div className="flex justify-end mt-2 mb-6">
-                                <span className={cn(
-                                    "text-xs italic",
-                                    mode === 'executive' ? "text-foreground/60 font-serif" :
-                                        mode === 'strategist' ? "text-accent/80 font-serif" : "text-highlight/80 font-mono"
-                                )}>
-                                    {mode === 'strategist' ? '...complete history in the Archives' :
-                                        mode === 'engineer' ? '// ...full output in logs' : '...continued on CV'}
-                                </span>
-                            </div>
-
-                            {/* --- Education Section --- */}
-                            <div className="pt-8 border-t border-border mt-8">
-                                <h2 className={cn(
-                                    "text-lg uppercase tracking-widest mb-4",
-                                    mode === 'engineer' ? "font-mono font-bold text-highlight lowercase" : "font-display font-bold text-foreground"
-                                )}>
-                                    {mode === 'strategist' ? 'Rulebook Mastery' :
-                                        mode === 'engineer' ? 'source /etc/profile' : 'Training Log'}
-                                </h2>
-                                <div className="space-y-4">
-                                    {resume.sections.education.items.map((edu: any) => (
-                                        <div key={edu.id} className="flex justify-between items-baseline">
-                                            <div>
-                                                <h3 className={cn(
-                                                    "font-bold",
-                                                    mode === 'executive' ? "text-foreground" :
-                                                        mode === 'strategist' ? "text-foreground serif" : "text-highlight font-mono"
-                                                )}>{edu.institution}</h3>
-                                                <p className="text-sm text-foreground/70">{edu.area}, {edu.studyType}</p>
-                                            </div>
-                                            <span className="text-xs text-foreground/70">{edu.date}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* --- Right Column: Projects --- */}
-                    <section className="w-full">
-                        <div className="flex items-center gap-4 mb-6 pb-2 border-b border-border">
-                            <h2 className={cn(
-                                "text-lg uppercase tracking-widest",
-                                mode === 'engineer' ? "font-mono font-bold text-highlight lowercase" : "font-display font-bold text-foreground"
-                            )}>
-                                {mode === 'strategist' ? 'Artifacts' :
-                                    mode === 'engineer' ? 'ls -ahl /projects' : 'Key Initiatives'}
-                            </h2>
-                        </div>
-
-                        <div className={cn(
-                            "grid gap-6",
-                            mode === 'executive' ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2" // Adjust grid for column width
-                        )}>
-                            {projects.map((project) => (
-                                <ProjectCard key={project.title} project={project} />
-                            ))}
-                        </div>
-                    </section>
-
-                </div>
-            </div>
-            <footer className="w-full">
-                <AiFaq />
-            </footer>
-        </motion.main>
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <HomeClient />
+        </>
     );
 }

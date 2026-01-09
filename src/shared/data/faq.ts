@@ -17,7 +17,15 @@ export const faqData = [
     },
     {
         question: "What is the 'Polymorphic Portfolio' concept?",
-        answer: "The portfolio features a 'Tri-modal' interface that presents the same underlying data through three distinct lenses: Executive, Strategist, and Engineer. This demonstrates the ability to communicate complex information to different audiences effectively."
+        answer: "The portfolio features a 'Dual Persona' architecture ('The Office' and 'The Lab') layered on top of a 'Tri-modal' content engine. This allows visitors to switch between a high-stakes professional view and a creative experimental view, while the underlying data adapts to three distinct lenses: Executive, Strategist, and Engine Room."
+    },
+    {
+        question: "What is 'The Office' view?",
+        answer: "The Office is a minimalist professional interface designed for C-Suite and Private Equity audiences. It focuses on value creation, architectural governance, and technical execution without the gamified elements."
+    },
+    {
+        question: "What is 'The Lab' view?",
+        answer: "The Lab is the creative playground where the 'Tri-modal' engine is fully unleashed, presenting professional history through gamified lenses (Annual Reports, RPG Character Sheets, and Terminal sessions)."
     },
     {
         question: "What is the 'Executive' mode?",
@@ -28,7 +36,7 @@ export const faqData = [
         answer: "This lens is designed to feel like an RPG character sheet or board game player mat, featuring artifacts reminiscent of Magic: The Gathering to highlight game theory and strategic resource allocation."
     },
     {
-        question: "What is the 'Engineer' mode?",
+        question: "What is the 'Engine Room' mode?",
         answer: "This lens is designed to feel like a Linux CLI and coding environment, emphasizing technical proficiency, system architecture, and 'under the hood' details."
     },
     {

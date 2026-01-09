@@ -14,7 +14,7 @@ interface OfficeBlogModalProps {
 }
 
 export const OfficeBlogModal = ({ post, onClose }: OfficeBlogModalProps) => {
-    const { mode } = usePersonaStore();
+    const { mode, cycleMode } = usePersonaStore();
     const [copied, setCopied] = useState(false);
 
     const handleShare = () => {
@@ -44,7 +44,11 @@ export const OfficeBlogModal = ({ post, onClose }: OfficeBlogModalProps) => {
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                        className="w-full max-w-4xl max-h-[90vh] overflow-hidden bg-surface border border-border shadow-2xl relative z-10 flex flex-col rounded-lg"
+                        className="w-full max-w-4xl max-h-[90vh] overflow-hidden bg-surface border border-border shadow-2xl relative z-10 flex flex-col rounded-lg touch-pan-y"
+                        onPanEnd={(e, info) => {
+                            if (info.offset.x > 50) cycleMode('prev');
+                            if (info.offset.x < -50) cycleMode('next');
+                        }}
                     >
                         {/* Polymorphic Background */}
                         <div className="absolute inset-0 opacity-30 pointer-events-none">

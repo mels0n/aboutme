@@ -15,6 +15,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.8,
         },
         {
+            url: 'https://chris.melson.us/guide/lab',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
             url: 'https://chris.melson.us/guide/operational-architecture/case-studies',
             lastModified: new Date(),
             changeFrequency: 'monthly',

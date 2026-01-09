@@ -29,7 +29,7 @@ export const projects: ProjectData[] = [
             }
         },
         manaCost: "{1}{U}{R}",
-        typeLine: "Artifact Creature — Robot",
+        typeLine: "Artifact Creature - Robot",
         flavorText: "The sun sets, but the light remains.",
         tags: ["home-assistant", "yaml", "automation"]
     },
@@ -40,7 +40,7 @@ export const projects: ProjectData[] = [
         image: "/aboutme_portfolio.png",
         kpis: [{ label: "Lighthouse", value: "100" }, { label: "Mode", value: "Trimodal" }],
         manaCost: "{5}{U}",
-        typeLine: "Artifact Creature — Turtle Warrior",
+        typeLine: "Artifact Creature - Turtle Warrior",
         flavorText: "It changes as you observe it.",
         tags: ["nextjs", "tailwind", "framer"]
     },
@@ -51,7 +51,7 @@ export const projects: ProjectData[] = [
         image: "/distributed_swarm.png",
         kpis: [{ label: "Efficiency", value: "+400%" }, { label: "Nodes", value: "5 Active" }],
         manaCost: "{1}{U}",
-        typeLine: "Legendary Artifact Creature — Equipment Jellyfish",
+        typeLine: "Legendary Artifact Creature - Equipment Jellyfish",
         flavorText: "The swarm consumes the queue.",
         tags: ["docker", "ffmpeg", "cluster"]
     },
@@ -73,7 +73,7 @@ export const projects: ProjectData[] = [
         image: "/retirement.png",
         kpis: [{ label: "ROI", value: "Maximized" }, { label: "Risk", value: "Mitigated" }],
         manaCost: "{1}",
-        typeLine: "Legendary Artifact — Equipment",
+        typeLine: "Legendary Artifact - Equipment",
         flavorText: "Death and taxes. One can be delayed.",
         tags: ["finance", "algorithm", "python"]
     },
@@ -95,7 +95,7 @@ export const projects: ProjectData[] = [
         image: "/device_mapping.png",
         kpis: [{ label: "Compatibility", value: "Linux" }, { label: "Target", value: "Swarm" }],
         manaCost: "{1}",
-        typeLine: "Artifact Creature — Insect",
+        typeLine: "Artifact Creature - Insect",
         flavorText: "The hive mind grows specific.",
         tags: ["docker", "swarm", "linux"]
     },
@@ -106,7 +106,7 @@ export const projects: ProjectData[] = [
         image: "/financial_flowchart.png",
         kpis: [{ label: "Steps", value: "Infinite" }, { label: "Goal", value: "FIRE" }],
         manaCost: "{1}{R}",
-        typeLine: "Artifact — Equipment",
+        typeLine: "Artifact - Equipment",
         flavorText: "The path to freedom is paved with compounding.",
         tags: ["finance", "flowchart", "guide"]
     }

@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
-import { IconExecution, IconResilience, IconStrategy } from "./branding/ThreePillarsIcons";
+import { IconExecution, IconStrategy } from "./branding/ThreePillarsIcons";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Users } from "lucide-react";
 
 export const OfficeNavControls = () => {
     const { mode, setMode } = usePersonaStore();
@@ -15,7 +15,7 @@ export const OfficeNavControls = () => {
         {
             id: 'executive',
             label: 'Boardroom',
-            icon: IconResilience,
+            icon: Users,
             activeClass: "text-blue-700 bg-blue-50 border-blue-200"
         },
         {

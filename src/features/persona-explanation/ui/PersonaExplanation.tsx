@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from "@/shared/lib/utils";
 import { sendEvent } from '@/shared/lib/analytics';
 import { ChevronRight, X } from 'lucide-react';
+import { MANIFESTO_CONTENT } from "@/shared/data/lab-content";
 
 /**
  * # Persona Explanation Feature
@@ -36,20 +37,15 @@ export function PersonaExplanation() {
     /**
      * Map of button labels corresponding to the active persona.
      */
-    const buttonText = {
-        executive: "The Prospectus",
-        strategist: "The Player Aid",
-        engineer: "$ man whoami"
-    }[mode];
+    /**
+     * Map of button labels corresponding to the active persona.
+     */
+    const buttonText = MANIFESTO_CONTENT.buttonText[mode];
 
     /**
      * Context-specific explanation text displayed in the modal.
      */
-    const explanationText = {
-        executive: "Executive: This version of the interface is designed to feel like a executive report and/or presentation.",
-        strategist: "Strategist: This version of the interface is designed to feel like an RPG character sheet and/or board game player mat, featuring artifacts reminiscent of Magic: The Gathering.",
-        engineer: "Engineer: This version of the interface is designed to feel like a Linux CLI and/or coding environment."
-    }[mode];
+    const explanationText = MANIFESTO_CONTENT.explanations[mode];
 
     /**
      * Theming configuration for the component.
@@ -165,7 +161,7 @@ export function PersonaExplanation() {
 
                             <div className={cn("text-lg leading-relaxed", styles.text)} id="persona-modal-desc">
                                 <p className="mb-4">
-                                    The same information can be understood in many different ways. The three persona shown here are the core lenses with which I make decisions and understand the world. This isn't a fracture this is the intersection I live in. This is art as much as a portfolio.
+                                    {MANIFESTO_CONTENT.intro}
                                 </p>
                                 <p>
                                     {explanationText}
@@ -173,8 +169,9 @@ export function PersonaExplanation() {
                             </div>
                         </motion.div>
                     </motion.div>
+
                 )}
-            </AnimatePresence>
+            </AnimatePresence >
         </>
     );
 }

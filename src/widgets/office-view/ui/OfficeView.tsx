@@ -13,15 +13,16 @@ import { cn } from "@/shared/lib/utils";
 import { OfficeAbout } from "./OfficeAbout";
 
 export const OfficeView = () => {
-    const { mode } = usePersonaStore();
+    const { mode, introDismissed } = usePersonaStore();
 
     return (
         <AnimatePresence mode="wait">
             <motion.div
                 key="office-view"
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                animate={introDismissed ? { opacity: 1 } : { opacity: 0 }}
                 exit={{ opacity: 0 }}
+                transition={{ duration: 0.7, ease: "easeInOut" }}
                 className={cn(
                     "w-full min-h-screen pt-32 pb-20 px-6 transition-colors duration-700 ease-in-out relative",
                     // Executive Mode (Default)

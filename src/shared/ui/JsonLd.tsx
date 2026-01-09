@@ -20,7 +20,7 @@ export function JsonLd() {
             "familyName": "Melson",
             "description": "Christopher Melson is an operations executive specializing in stabilizing distressed, regulated environments and designing target operating models that enable sustainable growth at global scale.",
             "disambiguatingDescription": "Executive strategist and engineer, distinct from the Research Civil Engineer at LSU/FHWA, and the football coach.",
-            "jobTitle": ["Executive", "Strategist", "Engineer"],
+            "jobTitle": ["Operational Architect", "Executive", "Board Advisor", "Strategist", "Engineer"],
             "url": "https://chris.melson.us",
             "knowsAbout": [
                 "Engineering",
@@ -147,12 +147,20 @@ export function JsonLd() {
             "price": "0",
             "priceCurrency": "USD"
         },
-        "hasPart": {
-            "@type": "WebPage",
-            "name": "AI FAQ",
-            "url": "https://chris.melson.us/guide/ai-faq",
-            "description": "Semantic Twin for AI Answer Engines"
-        }
+        "hasPart": [
+            {
+                "@type": "WebPage",
+                "name": "AI FAQ",
+                "url": "https://chris.melson.us/guide/ai-faq",
+                "description": "Semantic Twin for AI Answer Engines"
+            },
+            {
+                "@type": "WebPage",
+                "name": "The Lab",
+                "url": "https://chris.melson.us/guide/lab",
+                "description": "Semantic Twin for Experimental Projects & Manifesto"
+            }
+        ]
     };
 
     return (

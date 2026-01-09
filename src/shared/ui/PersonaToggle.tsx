@@ -2,6 +2,7 @@ import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
 import { motion } from "framer-motion";
 import { Briefcase, Sword, Terminal } from "lucide-react";
+import { useRouter, usePathname } from "next/navigation";
 
 /**
  * A floating control toggle that allows the user to switch between application personas
@@ -12,6 +13,8 @@ import { Briefcase, Sword, Terminal } from "lucide-react";
 export function PersonaToggle() {
     // Access global persona state
     const { mode, setMode } = usePersonaStore();
+    const router = useRouter();
+    const pathname = usePathname();
 
     // Configuration for the available toggle options
     const options = [
@@ -20,6 +23,17 @@ export function PersonaToggle() {
         { id: "engineer", label: "Engineer", icon: Terminal },
     ] as const;
 
+    const handleModeChange = (newMode: typeof options[number]["id"]) => {
+        setMode(newMode);
+
+        // If we are deep inside the site (e.g. reading a blog post), 
+        // switching the persona should redirect to the home view 
+        // to show the "Project/Resume" view for that persona.
+        if (pathname !== "/") {
+            router.push(`/?mode=${newMode}`);
+        }
+    };
+
     return (
         <div className="relative flex items-center bg-surface/95 backdrop-blur-md p-1 rounded-lg border border-border w-fit shadow-xl z-50">
             {options.map((opt) => {
@@ -27,7 +41,7 @@ export function PersonaToggle() {
                 return (
                     <button
                         key={opt.id}
-                        onClick={() => setMode(opt.id)}
+                        onClick={() => handleModeChange(opt.id)}
                         aria-label={opt.label}
                         className={cn(
                             "relative px-4 py-2 sm:px-6 sm:py-3 rounded-md text-sm font-semibold transition-colors z-10 flex items-center gap-2",

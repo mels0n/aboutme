@@ -15,7 +15,7 @@ interface OfficeFAQModalProps {
 }
 
 export const OfficeFAQModal = ({ isOpen, onClose }: OfficeFAQModalProps) => {
-    const { mode } = usePersonaStore();
+    const { mode, cycleMode } = usePersonaStore();
 
     const fontModeClass = mode === 'executive' ? "font-serif" :
         mode === 'strategist' ? "font-sans" : "font-mono";
@@ -40,9 +40,13 @@ export const OfficeFAQModal = ({ isOpen, onClose }: OfficeFAQModalProps) => {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
                         className={cn(
-                            "w-full max-w-4xl max-h-[90vh] overflow-hidden bg-surface border border-border shadow-2xl relative z-10 flex flex-col rounded-lg",
+                            "w-full max-w-4xl max-h-[90vh] overflow-hidden bg-surface border border-border shadow-2xl relative z-10 flex flex-col rounded-lg touch-pan-y",
                             fontModeClass // Apply font globally to the card
                         )}
+                        onPanEnd={(e, info) => {
+                            if (info.offset.x > 50) cycleMode('prev');
+                            if (info.offset.x < -50) cycleMode('next');
+                        }}
                     >
                         {/* Polymorphic Background */}
                         <div className="absolute inset-0 opacity-30 pointer-events-none">

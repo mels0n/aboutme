@@ -25,7 +25,7 @@ export const officeBlogPosts: BlogPost[] = [
         summary: "Why 90% of M&A deals fail due to 'Operational Incoherence,' and how the 'Tri-Modal' framework translates value across Fintech, Healthcare, and Industrial sectors.",
         polymorphicSummary: {
             executive: "70-90% of M&A deals fail due to 'Operational Incoherence.' Learn how Tri-Modal leadership protects capital and ensures realization of intended synergies.",
-            strategist: "A structural analysis of how Capital Markets, Healthcare, and Industrial Services share identical operating models—and how to design a 'Universal Translator'.",
+            strategist: "A structural analysis of how Capital Markets, Healthcare, and Industrial Services share identical operating models-and how to design a 'Universal Translator'.",
             engineer: "Deconstructing the 'Integration Gap': How to refactor legacy operations using 'Compliance as Code' and 'Latency-Aware' architecture across any vertical."
         },
         content: `If you have explored the navigation of this site, you have likely engaged the "Polymorphic" engine - the toggle that shifts the narrative lens between The Boardroom, The Architect, and The Engine Room.
@@ -157,7 +157,7 @@ Works Cited & Notes
         },
         content: `If you examine the "Polymorphic" navigation of this site, you will see a deliberate triangulation of perspectives: The Boardroom, The Architect, and The Engine Room. Nowhere is this triangulation more critical than in the high-stakes arena of Mergers and Acquisitions (M&A).
 
-The most immediate and financially quantifiable reason for engaging an Operational Architect is the mitigation of value destruction during Post-Merger Integration (PMI). We call this the "Integration Gap"—the dangerous disconnect between the deal thesis (the financial modeling used to justify the check) and the operational reality of Day 1 execution.
+The most immediate and financially quantifiable reason for engaging an Operational Architect is the mitigation of value destruction during Post-Merger Integration (PMI). We call this the "Integration Gap"-the dangerous disconnect between the deal thesis (the financial modeling used to justify the check) and the operational reality of Day 1 execution.
 
 ### 1.1 The Anatomy of Integration Failure
 
@@ -175,7 +175,7 @@ Research consistently shows that 70% to 90% of M&A deals fail to realize their i
 
 ### 1.2 The Cost of Delayed Integration
 
-Time is the enemy of value. Research from 2025 indicates that 30–50% of anticipated M&A value is lost due to slow or ineffective integration. [2] The longer an integration drags on, the more value slips away through "dis-synergies"—duplicate costs, frozen innovation, and customer churn.
+Time is the enemy of value. Research from 2025 indicates that 30–50% of anticipated M&A value is lost due to slow or ineffective integration. [2] The longer an integration drags on, the more value slips away through "dis-synergies"-duplicate costs, frozen innovation, and customer churn.
 
 * Delayed Revenue Recognition: When systems remain siloed, cross-sell and upsell opportunities identified in the deal thesis cannot be executed. The Operational Architect prioritizes the unification of the "Order-to-Cash" value stream to accelerate revenue capture.
 
@@ -191,7 +191,7 @@ The Operational Architect moves beyond the standard "PMI Checklist" to implement
 
 We make the hard technical decisions on which platforms to keep, kill, or bridge.
 
-* The Strategy: I often employ the "Strangler Fig" pattern—gradually replacing specific functions of a legacy system with new microservices rather than attempting a risky "Big Bang" migration. [3]
+* The Strategy: I often employ the "Strangler Fig" pattern-gradually replacing specific functions of a legacy system with new microservices rather than attempting a risky "Big Bang" migration. [3]
 * The Result: Risk is minimized, but modernization continues in the background.
 
 #### Harmonizing Data
@@ -266,7 +266,7 @@ The "Accidental" model organizes by function (e.g., "The Risk Department"). The 
 
 This is a shift from Vertical Optimization (making the department efficient) to Horizontal Flow (making the customer journey efficient).
 
-* **Cross-Functional Teams:** A value stream includes all the resources—sales, risk, tech, and ops—required to deliver a specific outcome. This reduces handoffs and accelerates "Flow Efficiency."
+* **Cross-Functional Teams:** A value stream includes all the resources-sales, risk, tech, and ops-required to deliver a specific outcome. This reduces handoffs and accelerates "Flow Efficiency."
 
 * **Product-Centric Funding:** We move away from project-based funding (which is temporary and disruptive) to product-based funding (which supports long-lived teams). This aligns financial resources with strategic priorities, treating the operating model as a product that is constantly iterated upon.
 
@@ -365,7 +365,7 @@ We encode "Constitutional AI" principles directly into the system architecture.
 
 ### 5.3 Addressing "Chained Vulnerabilities"
 
-In an agentic ecosystem, one agent's output is another agent's input. A small error in one agent can cascade into a systemic failure—a phenomenon known as "Chained Vulnerability."
+In an agentic ecosystem, one agent's output is another agent's input. A small error in one agent can cascade into a systemic failure-a phenomenon known as "Chained Vulnerability."
 
 **Scenario:** A data labeling agent feeds bad data to a risk analysis agent, which then feeds a flawed recommendation to a trading agent.
 

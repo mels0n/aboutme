@@ -35,7 +35,7 @@ export const brandCopy = {
             subhead: "Deep-dive technical leadership. Leveraging Next.js, Salesforce, and Service Cloud to build self-healing operational infrastructures."
         },
         about: {
-            bio: "Chris is an engineer at heart who creates systems that actually work. He doesn't just manage; he builds—automating workflows, sanitizing data pipelines, and implementing Zero-Trust security architectures. He speaks the language of the dev team because he is one."
+            bio: "Chris is an engineer at heart who creates systems that actually work. He doesn't just manage; he builds-automating workflows, sanitizing data pipelines, and implementing Zero-Trust security architectures. He speaks the language of the dev team because he is one."
         },
         cta: {
             primary: "View Source Code",

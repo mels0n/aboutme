@@ -38,7 +38,7 @@ export interface OfficeCaseStudy {
 
 export const officeCaseStudies: OfficeCaseStudy[] = [
     {
-        title: "The \"Glass Box\" & EU DORA Governance Architecture",
+        title: "The Integration Gap: 'Glass Box' Governance & DORA Compliance",
         summary: {
             executive: "Executed 'Zero-Cost' restructuring of FX Operations to close a $1.3M+ revenue risk gap. Transformed a 'perpetual startup' unit into a EU DORA-compliant enterprise function, returning 30% of Sales capacity to revenue generation.",
             strategist: "Designed the 'Two-Pillar' Target Operating Model (TOM), bifurcating 'Venue & API' (Machine) from 'GUI & UX' (Human) workflows. Solved critical visibility gaps via 'Glass Box' architecture.",
@@ -109,7 +109,7 @@ export const officeCaseStudies: OfficeCaseStudy[] = [
         }
     },
     {
-        title: "The $100M \"Kill Switch\" & Strategic Asset Rescue",
+        title: "The $100M 'Kill Switch': Strategic Asset Rescue",
         summary: {
             executive: "Overcame 'Sunk Cost Fallacy' to terminate a failing $80M program, saving ~$50M in future waste. Pivotally rescued the viable NDF asset via surgical 'hive off'.",
             strategist: "Unmasked 'Green-Shifted' reporting to reveal a 'House of Cards'. Executed a three-phase remediation: Stabilize (Firefight), Audit (Discovery), and Strategic Wind-Down.",
@@ -188,7 +188,7 @@ export const officeCaseStudies: OfficeCaseStudy[] = [
         }
     },
     {
-        title: "The \"Fog of War\" Protocol & Global Stabilization",
+        title: "Systemic Collapse: The 'Data Sovereignty' Protocol & Shadow IT Elimination",
         summary: {
             executive: "Stabilized a business unit in systemic collapse (100% leadership attrition). Engineered a 'Zero-Regulatory-Risk' environment by killing 'Shadow IT' & 'WhatsApp' trading. Reduced attrition from 40% to 6% via culture overhaul.",
             strategist: "Deployed a 'Mercenary Squad' strategy to bypass internal promotion paralysis. Divested the 'Toxic Asset' (NEST) to save the wider portfolio. Enforced Data Sovereignty to end 'Opinion-Based Management'.",

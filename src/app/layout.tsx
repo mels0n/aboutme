@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Young_Serif, Merriweather, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeMetadata } from "@/shared/ui/ThemeMetadata";
@@ -74,6 +74,13 @@ export const metadata: Metadata = {
             "max-snippet": -1,
         },
     },
+};
+
+export const viewport: Viewport = {
+    themeColor: "#ffffff",
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
 };
 
 /**

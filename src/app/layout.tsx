@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Young_Serif, Merriweather, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeMetadata } from "@/shared/ui/ThemeMetadata";
-import { JsonLd } from "@/shared/ui/JsonLd";
 import GoogleAnalytics from "@/shared/ui/GoogleAnalytics";
 
 /*
@@ -37,7 +36,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://chris.melson.us"),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://chris.melson.us"),
     alternates: {
         canonical: "/",
     },
@@ -46,7 +45,7 @@ export const metadata: Metadata = {
         template: "%s | Christopher Melson"
     },
     description: "Christopher Melson is an operations executive and architect specializing in stabilizing distressed environments.",
-    keywords: ["Christopher Melson", "Portfolio", "Executive", "Strategist", "Engineer", "Leader", "Ops", "Risk", "Resilient", "Culture", "M&A Integration Gap"],
+    keywords: ["Christopher Melson", "Portfolio", "Executive", "Strategist", "Engineer", "Leader", "Ops", "Risk", "Resilient", "Culture", "M&A Integration Gap", "Architect", "Agentic Age", "Strategic Design", "Resilient Operations", "Technical Execution"],
     authors: [{ name: "Christopher Melson" }],
     creator: "Christopher Melson",
     openGraph: {
@@ -101,7 +100,6 @@ export default function RootLayout({
             >
                 <GoogleAnalytics />
                 <ThemeMetadata />
-                <JsonLd />
                 {children}
             </body>
         </html>

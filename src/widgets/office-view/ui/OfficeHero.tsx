@@ -5,8 +5,13 @@ import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
 import { ArrowUp } from "lucide-react";
 
-export const OfficeHero = () => {
-    const { mode, introDismissed } = usePersonaStore();
+interface OfficeHeroProps {
+    mode?: 'executive' | 'strategist' | 'engineer';
+}
+
+export const OfficeHero = ({ mode: propMode }: OfficeHeroProps) => {
+    const { mode: storeMode, introDismissed } = usePersonaStore();
+    const mode = propMode || storeMode;
     const [showFaq, setShowFaq] = useState(false);
 
     return (

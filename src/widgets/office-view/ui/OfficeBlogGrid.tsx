@@ -10,8 +10,14 @@ import { TrustBadge } from "./branding/TrustBadge";
 import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
 
-export const OfficeBlogGrid = () => {
-    const { mode } = usePersonaStore();
+interface OfficeBlogGridProps {
+    mode?: 'executive' | 'strategist' | 'engineer';
+}
+
+export const OfficeBlogGrid = ({ mode: propMode }: OfficeBlogGridProps) => {
+    const { mode: storeMode } = usePersonaStore();
+    const mode = propMode || storeMode;
+
     const searchParams = useSearchParams();
     const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
 

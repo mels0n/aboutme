@@ -46,7 +46,7 @@ export const metadata: Metadata = {
         template: "%s | Christopher Melson"
     },
     description: "A polymorphic portfolio exploring the three personas of Christopher Melson: Executive, Strategist, and Engineer. This interactive experience re-renders the same professional history through different accessible lenses, demonstrating the intersection of leadership, strategy, and code.",
-    keywords: ["Christopher Melson", "Portfolio", "Executive", "Strategist", "Engineer", "Leader", "Ops", "Risk", "Resilient", "Culture"],
+    keywords: ["Christopher Melson", "Portfolio", "Executive", "Strategist", "Engineer", "Leader", "Ops", "Risk", "Resilient", "Culture", "M&A Integration Gap"],
     authors: [{ name: "Christopher Melson" }],
     creator: "Christopher Melson",
     openGraph: {

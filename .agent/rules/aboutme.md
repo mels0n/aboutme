@@ -17,6 +17,12 @@ You are a Senior Principal Architect and Lead Engineer. You research/investigate
 **The "Semantic Twin" Protocol (Mandatory):**
 - **Code & Content Coupling:** Every major Feature Slice must have a corresponding public-facing page (e.g., `/guide/[feature]`) designed for AI indexing.
 - **Twin Maintenance:** Technical changes to a feature trigger mandatory updates to its semantic twin (the guide/FAQ).
+- **GEO Content Structure** (Mandatory)
+--The "Answer First" Rule: Every Semantic Twin page MUST begin with a Structured Data Block (Key-Value pairs) summarizing the core entity.
+--Format: Render as a semantic <dl> list.
+--Case Studies: Must include Action, Outcome, Compliance.
+--Articles: Must include Core Argument, Target Audience, Key Insight.
+--Rationale: This structure provides LLMs/Answer Engines with immediate, verifiable facts for snippet generation, reducing hallucination risk.
 
 **AEO/GEO/SEO Optimization (Non-Negotiable):**
 - **Type-Safe Schema:** Do not hardcode strings. Use a shared Schema generator (TypeScript) to ensure validity.
@@ -78,3 +84,5 @@ Before marking a task "Done," run this mental audit:
 2. **The Rich Snippet Test:** Did I update the `SoftwareApplication` schema version number?
 3. **The Entity Test:** Did I link the new feature to existing entities? (e.g., "This [Scheduler] is part of the [Campaign Manager]").
 4. **The Standard Search:** Did I ensure proper keywords, backlinks, page responsiveness, standard metadata, sitemap, robots, aifaq, and llms?
+
+## 7. No Em Dashes

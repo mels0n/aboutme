@@ -14,26 +14,64 @@ import { ModeTransitionGlitch } from "@/shared/ui/ModeTransitionGlitch";
 
 import { ChevronsRight, RefreshCw } from "lucide-react";
 
-export function HomeClient() {
+import { officeBlogPosts } from "@/shared/data/office_blog_posts"; // Ensure this is imported if used, or keep existing imports
+
+interface HomeClientProps {
+    initialMode?: 'executive' | 'strategist' | 'engineer';
+    initialView?: 'OFFICE' | 'LAB';
+}
+
+export function HomeClient({ initialMode, initialView }: HomeClientProps) {
     return (
         <Suspense fallback={null}>
-            <HomeContent />
+            <HomeContent initialMode={initialMode} initialView={initialView} />
         </Suspense>
     );
 }
 
-function HomeContent() {
+function HomeContent({ initialMode, initialView }: HomeClientProps) {
     const searchParams = useSearchParams();
-    const { mode, cycleMode, viewMode, setMode, introDismissed } = usePersonaStore();
+    const { mode, cycleMode, viewMode, setMode, setViewMode, introDismissed } = usePersonaStore();
+
+    // Initialize state from props (Server-Side SEO / Direct Link)
+    useEffect(() => {
+        if (initialMode) setMode(initialMode);
+        if (initialView) setViewMode(initialView);
+    }, [initialMode, initialView, setMode, setViewMode]);
 
     // Sync theme whenever mode changes and handle Deep Linking
+    // 1. Deep Linking: Sync URL -> Store
+    // Only run when searchParams change (navigation), not when internal mode changes.
+    // 1. Deep Linking: Sync URL -> Store
+    // Only run when searchParams change (navigation), not when internal mode changes.
     useEffect(() => {
-        // Deep Linking for Mode
         const modeParam = searchParams.get('mode');
+        // If we are in Lab view, we generally ignore URL params or clean them up.
+        // But for "Entry", if a user lands on /?mode=engineer, we might want to respect it initially.
+        // However, the user specifically asked "Lab should only ever be /".
+        // So if we are in Lab view, we shouldn't act on parameters? Or maybe we should act once on mount?
+
         if (modeParam && ['executive', 'strategist', 'engineer'].includes(modeParam)) {
+            // Only sync if we are in a context that supports it (e.g. initial load or Office)
+            // Or if we just want to ensure local state matches URL.
             setMode(modeParam as 'executive' | 'strategist' | 'engineer');
         }
+    }, [searchParams, setMode]);
 
+    // 2. URL Cleanup for Lab View
+    // Effectively, if we switch to Lab View, we likely want to replace the URL with just '/'
+    useEffect(() => {
+        if (viewMode === 'LAB' && typeof window !== 'undefined') {
+            const url = new URL(window.location.href);
+            if (url.searchParams.has('mode')) {
+                url.searchParams.delete('mode');
+                window.history.replaceState({}, '', url.pathname + url.search); // maintain path, clear param
+            }
+        }
+    }, [viewMode]);
+
+    // 2. Theming: Sync Store -> DOM
+    useEffect(() => {
         // In OFFICE mode, we force 'executive' theme for a professional consistent look,
         // unless we strictly want to support thematic buttons.
         // The buttons in OfficeView use explicit colors (blue, emerald, indigo)
@@ -43,7 +81,9 @@ function HomeContent() {
         } else {
             document.documentElement.setAttribute("data-theme", mode);
         }
-    }, [mode, viewMode, searchParams, setMode]);
+    }, [mode, viewMode]);
+
+    const resolvedMode = initialMode || mode;
 
     return (
         <motion.main
@@ -124,7 +164,7 @@ function HomeContent() {
             {/* --- Main Content Area --- */}
             <AnimatePresence mode="wait">
                 {viewMode === 'OFFICE' ? (
-                    <OfficeView key="office" />
+                    <OfficeView key="office" mode={resolvedMode} />
                 ) : (
                     <LabView key="lab" />
                 )}

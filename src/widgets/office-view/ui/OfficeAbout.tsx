@@ -9,9 +9,16 @@ import { X, Info } from 'lucide-react';
 import { BlueprintGrid } from "./branding/BlueprintGrid";
 import { ExecutiveAbstract } from "./branding/ExecutiveAbstract";
 import { TechMatrix } from "./branding/TechMatrix";
+import { aboutContent } from "@/shared/data/about-content";
+import Image from "next/image";
 
-export const OfficeAbout = () => {
-    const { mode } = usePersonaStore();
+interface OfficeAboutProps {
+    mode?: 'executive' | 'strategist' | 'engineer';
+}
+
+export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
+    const { mode: storeMode } = usePersonaStore();
+    const mode = propMode || storeMode;
     const [isOpen, setIsOpen] = useState(false);
 
     // Context-aware styles
@@ -40,52 +47,7 @@ export const OfficeAbout = () => {
     }[mode];
 
     // Polymorphic Content Data
-    const content = {
-        executive: {
-
-            bio: (
-                <>
-                    <p className="font-bold text-lg mb-4">I bring engineering truth to the boardroom table.</p>
-                    <p>Standard governance often fails because it looks at P&L but ignores the 'black box' of technology that drives it. I don't just advise on strategy; I stress-test it against operational reality.</p>
-                    <p className="mt-4">Whether acting as a Board Advisor or Operating Partner, I am the bridge between the Investment Committee and the Server Room. I use my Computer Science background to de-risk capital deployment, ensuring that your governance structure is built on actual data, not just management optimism.</p>
-                </>
-            ),
-
-            stats: [
-                { label: "The Synthesis", value: "Strategy backed by Forensic Execution." },
-                { label: "The Outcome", value: "Investment theses that actually survive deployment." }
-            ]
-        },
-        strategist: {
-
-            bio: (
-                <>
-                    <p className="font-bold text-lg mb-4">I apply a Computer Science mindset to Organizational Design.</p>
-                    <p>Most COOs manage people. I engineer the machine that the people operate. I believe that operational incoherence is not a personnel issue; it is a systems failure.</p>
-                    <p className="mt-4">As an Interim or Fractional leader, I don't just 'run' operations. I dismantle functional silos and rebuild them as efficient Value Streams. I combine the commercial focus of an MBA with the architectural rigor of an engineer to design a Target Operating Model (TOM) that scales non-linearly.</p>
-                </>
-            ),
-
-            stats: [
-                { label: "The Synthesis", value: "Leadership backed by Systems Engineering." },
-                { label: "The Outcome", value: "Growth decoupled from Headcount." }
-            ]
-        },
-        engineer: {
-
-            bio: (
-                <>
-                    <p className="font-bold text-lg mb-4">I connect the Repository to the Revenue.</p>
-                    <p>Technical debt isn't just a code issue; it's a balance sheet liability. I am the executive who can walk into the engine room, read the documentation, and translate it directly into business risk.</p>
-                    <p className="mt-4">Whether leading a Due Diligence audit or fixing a stalled transformation, I ensure that 'Compliance' (EU DORA, HIPAA, GDPR) becomes an enabler of speed, not a blocker. I help engineering teams speak the language of the Board, turning technical constraints into commercial assets.</p>
-                </>
-            ),
-            stats: [
-                { label: "The Synthesis", value: "Code backed by Capital Strategy." },
-                { label: "The Outcome", value: "Velocity without Velocity Drop." }
-            ]
-        }
-    }[mode];
+    const content = aboutContent;
 
     return (
         <>
@@ -139,10 +101,13 @@ export const OfficeAbout = () => {
                             <div className="relative z-10 p-8 pb-6 border-b border-foreground/10 flex items-center gap-6 bg-surface/80 backdrop-blur-sm">
                                 {/* Headshot */}
                                 <div className={cn("w-20 h-20 rounded-full overflow-hidden border-2 bg-white", theme.border, theme.accent)}>
-                                    <img
+                                    <Image
                                         src="/chris-melson-headshot.jpg"
                                         alt="Christopher Melson"
+                                        width={80}
+                                        height={80}
                                         className="w-full h-full object-cover"
+                                        priority
                                     />
                                 </div>
                                 <div>
@@ -164,12 +129,16 @@ export const OfficeAbout = () => {
 
 
                                         <div className="text-foreground/90 space-y-4">
-                                            {content.bio}
+                                            {content[mode].bioParagraphs.map((paragraph, idx) => (
+                                                <p key={idx} className={idx === 0 ? "font-bold text-lg mb-4" : idx === 2 ? "mt-4" : ""}>
+                                                    {paragraph}
+                                                </p>
+                                            ))}
                                         </div>
 
                                         <div className="mt-8 grid gap-6">
 
-                                            {content.stats.map((stat, idx) => (
+                                            {content[mode].stats.map((stat, idx) => (
                                                 <div key={idx}>
                                                     <span className="text-xs font-bold uppercase tracking-wider opacity-60 block mb-1">{stat.label}</span>
                                                     <span className={cn("font-display font-bold text-lg", idx === 1 && theme.accent)}>

@@ -28,9 +28,12 @@ export function PersonaToggle() {
 
         // If we are deep inside the site (e.g. reading a blog post), 
         // switching the persona should redirect to the home view 
-        // to show the "Project/Resume" view for that persona.
         if (pathname !== "/") {
             router.push(`/?mode=${newMode}`);
+        } else {
+            // Lab View: Keep URL clean
+            // We do NOT push ?mode=xxx here for the Lab.
+            // The state is managed locally.
         }
     };
 

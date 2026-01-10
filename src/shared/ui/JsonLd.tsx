@@ -14,7 +14,7 @@ export function JsonLd() {
         "@id": `${domain}/#website`,
         "url": domain,
         "name": "Christopher Melson | Polymorphic Portfolio",
-        "description": "Executive. Strategist. Engineer.",
+        "description": "Executive. Strategist. Engineer. Architect. Leader. Designer. Builder. Innovator. Operator.",
         "publisher": {
             "@id": `${domain}/#person`
         },
@@ -26,7 +26,9 @@ export function JsonLd() {
         "@type": "Person",
         "@id": `${domain}/#person`,
         "image": {
-            "@id": `${domain}/#primaryimage`
+            "@id": `${domain}/#primaryimage`,
+            "url": `${domain}/chris-melson-headshot.jpg`,
+            "caption": "Christopher Melson"
         },
         "name": "Christopher Melson",
         "alternateName": [
@@ -37,8 +39,8 @@ export function JsonLd() {
         "givenName": "Christopher",
         "familyName": "Melson",
         "url": domain,
-        "description": "Christopher Melson is an operations executive and architect specializing in stabilizing distressed environments.",
-        "disambiguatingDescription": "Executive strategist and engineer, distinct from the Research Civil Engineer at LSU/FHWA.",
+        "description": "Christopher Melson is an Operational Architect who reconstructs distressed environments into resilient, high-velocity organizations.",
+        "disambiguatingDescription": "Operations Executive & Architect. Distinct from the Civil Engineer (LSU) and the Football Coach.",
         "jobTitle": ["Operational Architect", "Executive", "Board Advisor", "Strategist", "Engineer"],
         "sameAs": [
             "https://github.com/mels0n",
@@ -80,11 +82,18 @@ export function JsonLd() {
                 }
             };
         }),
-        "alumniOf": resume.sections.education.items.map((item: any) => ({
-            "@type": "CollegeOrUniversity",
-            "name": item.institution,
-            ...(item.url?.href ? { "sameAs": item.url.href } : {})
-        }))
+        "alumniOf": Array.from(
+            new Map(
+                resume.sections.education.items.map((item: any) => [
+                    item.institution, // The Key (e.g., "Webster University")
+                    {
+                        "@type": "CollegeOrUniversity",
+                        "name": item.institution,
+                        ...(item.url?.href ? { "sameAs": item.url.href } : {})
+                    }
+                ])
+            ).values()
+        )
     };
 
     // 3. Application Node (The Product)

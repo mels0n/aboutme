@@ -9,11 +9,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 1,
         },
         {
-            url: 'https://chris.melson.us/guide/ai-faq',
+            url: 'https://chris.melson.us/cv.json',
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 1,
+        },
+        {
+            url: 'https://chris.melson.us/mode/strategic-design',
             lastModified: new Date(),
             changeFrequency: 'monthly',
-            priority: 0.8,
+            priority: 0.9,
         },
+        {
+            url: 'https://chris.melson.us/mode/resilient-operations',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.9,
+        },
+        {
+            url: 'https://chris.melson.us/mode/technical-execution',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.9,
+        },
+
         {
             url: 'https://chris.melson.us/guide/lab',
             lastModified: new Date(),
@@ -27,11 +46,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.9,
         },
         {
-            url: 'https://chris.melson.us/guide/operational-architecture/faq',
+            url: 'https://chris.melson.us/guide/operational-architecture/case-studies/ma-integration-gap',
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.9,
         },
+        {
+            url: 'https://chris.melson.us/guide/operational-architecture/case-studies/strategic-asset-rescue',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.9,
+        },
+        {
+            url: 'https://chris.melson.us/guide/operational-architecture/case-studies/systemic-collapse-turnaround',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.9,
+        },
+
         {
             url: 'https://chris.melson.us/guide/operational-architecture/blog/tri-modal-brand-translation',
             lastModified: new Date(),
@@ -55,6 +87,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 0.7,
+        },
+        {
+            url: 'https://chris.melson.us/about',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        },
+        {
+            url: 'https://chris.melson.us/faq',
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.8,
         },
     ];
 }

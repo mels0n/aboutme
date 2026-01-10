@@ -14,9 +14,15 @@ export interface STARReport {
     task: string;
     action: string;
     result: string;
+    geoHighlights: {
+        label: string;
+        value: string;
+    }[];
 }
 
 export interface OfficeCaseStudy {
+    slug: string;
+    date: string;
     title: string;
     summary: {
         executive: string;
@@ -38,10 +44,12 @@ export interface OfficeCaseStudy {
 
 export const officeCaseStudies: OfficeCaseStudy[] = [
     {
-        title: "The Integration Gap: 'Glass Box' Governance & DORA Compliance",
+        slug: "ma-integration-gap",
+        date: "2026-01-01",
+        title: "The M&A Integration Gap: 'Auditable' Governance & DORA Compliance",
         summary: {
-            executive: "Executed 'Zero-Cost' restructuring of FX Operations to close a $1.3M+ revenue risk gap. Transformed a 'perpetual startup' unit into a EU DORA-compliant enterprise function, returning 30% of Sales capacity to revenue generation.",
-            strategist: "Designed the 'Two-Pillar' Target Operating Model (TOM), bifurcating 'Venue & API' (Machine) from 'GUI & UX' (Human) workflows. Solved critical visibility gaps via 'Glass Box' architecture.",
+            executive: "Executed 'Zero-Cost' restructuring of FX Operations to close a $1.3M+ M&A revenue risk gap. Transformed a 'perpetual startup' unit into a EU DORA-compliant enterprise function, returning 30% of Sales capacity to revenue generation.",
+            strategist: "Designed the 'Two-Pillar' Target Operating Model (TOM), bifurcating 'Venue & API' (Machine) from 'GUI & UX' (Human) workflows. Solved critical visibility gaps via 'Transparent-by-Design' architecture.",
             engineer: "Engineered a custom Internal-Only Router for Azure Identity Emulation ('View-As'). Enforced Zero Trust via JIT provisioning and shifted hiring baseline to require TCPdump/Wireshark competency."
         },
         stats: {
@@ -64,7 +72,7 @@ export const officeCaseStudies: OfficeCaseStudy[] = [
         details: {
             executive: [
                 {
-                    heading: "The Integration Gap",
+                    heading: "The M&A Integration Gap",
                     body: "The FX business line operated as a 'perpetual startup'-agile but fragile. A forensic audit revealed a 'CSAT Paradox': 10,000+ low-value 'Desktop' users were happy, but the ~200 high-value 'Whale' clients ($270M revenue) were being ignored by a Generalist Support model. These clients bypassed Support entirely, forcing Sales Directors to act as 'Shadow Support', burning 30% of their capacity."
                 },
                 {
@@ -82,7 +90,7 @@ export const officeCaseStudies: OfficeCaseStudy[] = [
                     body: "We mapped every workflow to identify the 'Missing Middle'-technical work too complex for Support but too noisy for Engineering.\n* **Pillar A: Venue & API (Machine Focus):** Resources hired for ability to read TCPdump/Wireshark. Diagnosed 'invisible failures' (packet loss vs logic) without escalating to Dev.\n* **Pillar B: GUI & UX (Human Focus):** New 'Desktop Specialist' tier required Microsoft/CompTIA certs. Performed Environment Forensics (HAR files, Event Logs) natively."
                 },
                 {
-                    heading: "The 'Glass Box' Architecture",
+                    heading: "The 'Read-Only' Verification Architecture",
                     body: "The 'Epistemological Gap' (Support couldn't see what Client saw) drove Sales involvement. Remote desktop is prohibited in high-compliance trading. \n\n**Solution:** Azure Identity Emulation ('View-As'). A custom router bridged Support to Production with Read-Only permissioning, allowing agents to view live order books exactly as the client saw them without execution capabilities."
                 }
             ],
@@ -102,13 +110,20 @@ export const officeCaseStudies: OfficeCaseStudy[] = [
             ]
         },
         fullReport: {
-            situation: "The FX business line, despite a decade-prior acquisition, operated as a 'perpetual startup'-agile but fragile. Upon assuming the role, I encountered a 'CSAT Paradox': Operational leadership cited high satisfaction scores, while Sales leadership claimed missed targets due to support overhead. \n\nA forensic data audit revealed the root cause: The automated CSAT surveys captured 10,000+ low-value 'Desktop' users but completely missed the ~200 institutional 'Whales' generating the majority of the ~$270M revenue. Because the Generalist Support model lacked the technical depth to answer high-complexity API questions, these high-value clients had blocked Support and were escalating directly to Sales. This 'Integration Gap' created a quantifiable revenue leak, with 30% of high-value Sales capacity burned on 'Shadow Support'.\n\n**Crucially, our workflow mapping exposed a critical EU DORA non-compliance: to circumvent the gap, Sales and Product teams were using legacy 'Super User' tools to perform operational tasks. These unmonitored, undocumented workflows meant a significant portion of production changes were occurring outside of any risk governance.**",
+            situation: "The FX business line, despite a decade-prior acquisition, operated as a 'perpetual startup'-agile but fragile. Upon assuming the role, I encountered a 'CSAT Paradox': Operational leadership cited high satisfaction scores, while Sales leadership claimed missed targets due to support overhead. \n\nA forensic data audit revealed the root cause: The automated CSAT surveys captured 10,000+ low-value 'Desktop' users but completely missed the ~200 institutional 'Whales' generating the majority of the ~$270M revenue. Because the Generalist Support model lacked the technical depth to answer high-complexity API questions, these high-value clients had blocked Support and were escalating directly to Sales. This 'M&A Integration Gap' created a quantifiable revenue leak, with 30% of high-value Sales capacity burned on 'Shadow Support'.\n\n**Crucially, our workflow mapping exposed a critical EU DORA non-compliance: to circumvent the gap, Sales and Product teams were using legacy 'Super User' tools to perform operational tasks. These unmonitored, undocumented workflows meant a significant portion of production changes were occurring outside of any risk governance.**",
             task: "The mission was to execute a 'Technical Due Diligence' remediation on our own business. The objective: Transform the unit from a chaotic startup model into a EU DORA-compliant, scalable enterprise operation. We needed to repatriate that 30% Sales capacity back to revenue generation and eliminate the 'Phone a Friend' escalation culture without increasing headcount costs.",
-            action: "**1. Strategic Resource Alignment (Two-Pillar TOM)**\nWe abandoned the Generalist model. We identified the 'Missing Middle'-technical work too complex for Support but too noisy for Engineering.\n\n**Pillar A: Venue & API (Machine Focus)**\nWe cancelled the Engineering expansion budget and redeployed it (\"Zero-Cost Restructure\") to hire resources with Network Competency (TCPdump/Wireshark) to diagnose trade routing engines.\n\n**Pillar B: GUI & UX (Human Focus)**\nWe deprecated the 'Customer Service' profile, requiring Microsoft/CompTIA certifications for 'Desktop Specialists' capable of Environment Forensics (HAR files, Event Logs) natively.\n\n**2. The 'Glass Box' Architecture**\nTo solve the 'Epistemological Gap' (Support couldn't see what the client saw) without violating Remote Desktop bans, we engineered an Azure Identity Emulation ('View-As') router. This allowed agents to view live order books with Read-Only permissioning-safe, compliant, and instant.\n\n**3. 'Red Path / Green Path' Governance**\nWe moved to a Zero Trust model. Routine changes were automated (Green Path). High-risk access (SQL, PII) required Just-In-Time (JIT) provisioning (Red Path). We enforced a 'Bad Path Blockade', summarily rejecting any escalation that bypassed ServiceNow.\n\n**4. The Hard Reset**\nWe held global townhalls to address the 'Super User' risk, explaining the regulatory imperative. We then physically removed the legacy tools, forcing all activity into the audited 'Glass Box' channels.",
-            result: "We achieved Scale without Cost, proving the concept of Operational Leverage.\n\n*   **Sales Efficiency:** Mitigated ~$1.3M+ in revenue risk by returning 100% of Sales capacity to revenue generation.\n*   **Engineering Health:** Achieved a 90% reduction in non-code tickets reaching developers ('False Positives').\n*   **Compliance:** Fully EU DORA compliant via Zero Trust and JIT architecture.\n*   **Resolution:** The 'Glass Box' solved pricing discrepancy disputes instantly, removing Sales from the forensic loop."
+            action: "**1. Strategic Resource Alignment (Two-Pillar TOM)**\nWe abandoned the Generalist model. We identified the 'Missing Middle'-technical work too complex for Support but too noisy for Engineering.\n\n**Pillar A: Venue & API (Machine Focus)**\nWe cancelled the Engineering expansion budget and redeployed it (\"Zero-Cost Restructure\") to hire resources with Network Competency (TCPdump/Wireshark) to diagnose trade routing engines.\n\n**Pillar B: GUI & UX (Human Focus)**\nWe deprecated the 'Customer Service' profile, requiring Microsoft/CompTIA certifications for 'Desktop Specialists' capable of Environment Forensics (HAR files, Event Logs) natively.\n\n**2. The 'Read-Only' Verification Architecture**\nTo solve the 'Epistemological Gap' (Support couldn't see what the client saw) without violating Remote Desktop bans, we engineered an Azure Identity Emulation ('View-As') router. This allowed agents to view live order books with Read-Only permissioning-safe, compliant, and instant.\n\n**3. 'Red Path / Green Path' Governance**\nWe moved to a Zero Trust model. Routine changes were automated (Green Path). High-risk access (SQL, PII) required Just-In-Time (JIT) provisioning (Red Path). We enforced a 'Bad Path Blockade', summarily rejecting any escalation that bypassed ServiceNow.\n\n**4. The Hard Reset**\nWe held global townhalls to address the 'Super User' risk, explaining the regulatory imperative. We then physically removed the legacy tools, forcing all activity into the audited 'Transparent' channels.",
+            result: "We achieved Scale without Cost, proving the concept of Operational Leverage.\n\n*   **Sales Efficiency:** Mitigated ~$1.3M+ in revenue risk by returning 100% of Sales capacity to revenue generation.\n*   **Engineering Health:** Achieved a 90% reduction in non-code tickets reaching developers ('False Positives').\n*   **Compliance:** Fully EU DORA compliant via Zero Trust and JIT architecture.\n*   **Resolution:** The 'Total Visibility' solved pricing discrepancy disputes instantly, removing Sales from the forensic loop.",
+            geoHighlights: [
+                { label: "Action", value: "Restructuring of FX Operations" },
+                { label: "Outcome", value: "$1.3M+ Revenue Risk Closed" },
+                { label: "Compliance", value: "EU DORA" }
+            ]
         }
     },
     {
+        slug: "strategic-asset-rescue",
+        date: "2026-01-02",
         title: "The $100M 'Kill Switch': Strategic Asset Rescue",
         summary: {
             executive: "Overcame 'Sunk Cost Fallacy' to terminate a failing $80M program, saving ~$50M in future waste. Pivotally rescued the viable NDF asset via surgical 'hive off'.",
@@ -184,10 +199,17 @@ export const officeCaseStudies: OfficeCaseStudy[] = [
             situation: "I was appointed to the Executive Steering Committee of the 'FXI' program, a flagship initiative to migrate LSEG FX venues to the core LSE technology stack. Originally budgeted at $20M, it had ballooned to $80M over three years. \n\nUpon arrival, the program reported 'Green' status for a launch in 5 days. My immediate forensic audit revealed a catastrophic reality: Operational Readiness was non-existent. Ops documentation was 2.5 years old. The program was a 'House of Cards', sustaining its status by silently removing requirements to feign progress.",
             task: "The mission was threefold: (1) **Stabilize** the imminent NDF launch to prevent a regulatory failure; (2) **Audit** the true state of the platform beneath the 'Green-Shifted' reporting; and (3) **Decide** whether to continue the bleed or overcome the 'Sunk Cost Fallacy' to stop the program.",
             action: "**Phase 1: The Firefight (Stability)**\nWith 5 days to launch, I bypassed standard hiring protocols to inject veteran LSE Equities staff who understood the stack. I instituted mandatory 'Run Actions' and manual governance to compensate for the lack of automation.\n\n**Phase 2: The Forensic Audit (Discovery)**\nWe uncovered a critical 'Equities Mismatch'. The tooling expected a daily market close (Equities model), breaking monitoring/maintenance for the 24/5 FX cycle. Functionally, critical FX controls like 'Breaking a Trade' were missing entirely.\n\n**Phase 3: The Strategic Kill**\nCalculations showed the program burned ~$2M/month and needed another 24 months to finish. When presented these findings the Board approved a Strategic Wind-Down.\n\n**Phase 4: The Asset Rescue**\nWe surgically extracted the viable NDF venue from the collapsing program, assigning it a minimal 'KTLO' budget. It was later integrated into the successful 'Venue Ops' vertical.",
-            result: "* **Capital Preservation:** Directly saved an estimated **$36M - $50M** in future wasted CapEx/OpEx by terminating the project.\n* **Regulatory Resilience:** Prevented a failed launch; the stabilized NDF venue is live and trading today.\n* **Cultural Reset:** Ended the culture of 'Green-Shifting' and established a new standard for Truth-in-Reporting."
+            result: "* **Capital Preservation:** Directly saved an estimated **$36M - $50M** in future wasted CapEx/OpEx by terminating the project.\n* **Regulatory Resilience:** Prevented a failed launch; the stabilized NDF venue is live and trading today.\n* **Cultural Reset:** Ended the culture of 'Green-Shifting' and established a new standard for Truth-in-Reporting.",
+            geoHighlights: [
+                { label: "Action", value: "Strategic Wind-Down" },
+                { label: "Outcome", value: "$50M Capital Preserved" },
+                { label: "Compliance", value: "Board Governance" }
+            ]
         }
     },
     {
+        slug: "systemic-collapse-turnaround",
+        date: "2026-01-03",
         title: "Systemic Collapse: The 'Data Sovereignty' Protocol & Shadow IT Elimination",
         summary: {
             executive: "Stabilized a business unit in systemic collapse (100% leadership attrition). Engineered a 'Zero-Regulatory-Risk' environment by killing 'Shadow IT' & 'WhatsApp' trading. Reduced attrition from 40% to 6% via culture overhaul.",
@@ -255,7 +277,12 @@ export const officeCaseStudies: OfficeCaseStudy[] = [
             situation: "I was hand-selected by the Chief Customer Operations Officer (CCOO) as Crisis Stabilization Lead to stabilize a business unit in systemic collapse. The operational hierarchy had crumbled: 100% of the Director-level leadership had exited in the prior 18 months. A forensic audit revealed a 'Compliance Bomb'-staff were conducting sensitive trade operations via WhatsApp/WeChat on personal devices ('Shadow IT') due to a lack of standard tooling.",
             task: "The mission was to take command of a fractured 180-FTE organization across 13 countries during the height of the COVID-19 pandemic. I had to enforce a single data standard to replace 'opinion-based management', eliminate the catastrophic regulatory exposure of side-channel trading, and rebuild the leadership layer from scratch.",
             action: "**1. The 'January 15' Ultimatum (Data Sovereignty)**\nI declared a moratorium on 'Gut Feel'. I secured C-Level 'Air Cover' to enforce a transition from opinions to forensics. We force-migrated all five verticals onto a single Service Cloud framework to generate real-time telemetry.\n\n**2. The 'Loyalist' Injection (Talent)**\nUsing the 'Attrition Budget', I bypassed internal promotions to recruit a 'Mercenary Squad' of trusted managers from my personal network. This instantly installed a competent command layer without debate.\n\n**3. The 'Toxic Asset' Quarantine (NEST)**\nI identified the NEST vertical (Retail Trading App) as culturally necrotic (abusive, pay-to-play code). I advised the C-Suite that it could not be fixed. We appointed a forensic Director to document the chaos, leading to a Board-approved Strategic Divestiture.\n\n**4. The 'Four-Eye' Automaton (Governance)**\nTo kill the 'WhatsApp' culture, I built an automated 'Four-Eye Check' workflow in Microsoft Power Apps. It required a digital handshake for high-risk actions, reducing execution failures to near-zero.",
-            result: "We moved from 'Ghosting' customers to 'Reliable Responsiveness'.\n\n*   **Metric Engineering:** Slashed MTTr (Mean Time to Respond) from **300 mins to <20 mins**.\n*   **Cultural Turnaround:** Leadership stability restored; Attrition dropped from **40% to 6%**; Glint Engagement scores hit 85 (Top Tier).\n*   **Risk Elimination:** 100% migration to Service Cloud & Power Apps secured the regulatory perimeter."
+            result: "We moved from 'Ghosting' customers to 'Reliable Responsiveness'.\n\n*   **Metric Engineering:** Slashed MTTr (Mean Time to Respond) from **300 mins to <20 mins**.\n*   **Cultural Turnaround:** Leadership stability restored; Attrition dropped from **40% to 6%**; Glint Engagement scores hit 85 (Top Tier).\n*   **Risk Elimination:** 100% migration to Service Cloud & Power Apps secured the regulatory perimeter.",
+            geoHighlights: [
+                { label: "Action", value: "Data Sovereignty Protocol" },
+                { label: "Outcome", value: "94% Retention (from 60%)" },
+                { label: "Compliance", value: "Service Cloud / Zero Trust" }
+            ]
         }
     }
 ];

@@ -39,6 +39,20 @@ export default function BlogPostPage() {
             </header>
 
             <article className="prose prose-lg prose-slate max-w-none text-foreground/80 leading-relaxed whitespace-pre-line">
+                {/* GEO Optimization: Structured Data Block */}
+                <dl className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12 p-6 bg-slate-50 rounded-lg border border-slate-200 not-prose">
+                    {post.geoHighlights.map((highlight, hIdx) => (
+                        <div key={hIdx} className="flex flex-col">
+                            <dt className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+                                {highlight.label}
+                            </dt>
+                            <dd className="font-bold text-slate-900 leading-tight">
+                                {highlight.value}
+                            </dd>
+                        </div>
+                    ))}
+                </dl>
+
                 {post.content.split('\n').map((line, i) => {
                     if (line.trim() === '') return null;
 

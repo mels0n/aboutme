@@ -46,6 +46,10 @@ The content is **Polymorphic**, meaning the same underlying reality is described
 
 All data is managed in `src/shared/data/office_blog_posts.ts` and rendered via the `OfficeBlogGrid` (Horizontal Scroll) and `OfficeBlogModal` (Deep Linking enabled).
 
+*   **Case Studies:** Detailed S.T.A.R. reports (`src/shared/data/office_case_studies.ts`) are rendered as semantic twin individual pages at `/guide/operational-architecture/case-studies/[slug]`.
+*   **FAQ Engine:** The Objection Handling Engine (`src/shared/data/faq_content.ts`) provides a deep-dive FAQ page (`/faq`) optimized for Answer Engines with structured Scheme.org markup.
+
+
 ## Getting Started
 
 

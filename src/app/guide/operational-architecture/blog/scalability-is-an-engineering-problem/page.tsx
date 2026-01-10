@@ -66,6 +66,20 @@ export default function BlogPostPage() {
 
             {/* Content */}
             <article className="prose prose-lg prose-slate max-w-none prose-headings:font-display prose-headings:font-bold prose-a:text-blue-600">
+                {/* GEO Optimization: Structured Data Block */}
+                <dl className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12 p-6 bg-slate-50 rounded-lg border border-slate-200 not-prose">
+                    {post.geoHighlights.map((highlight, hIdx) => (
+                        <div key={hIdx} className="flex flex-col">
+                            <dt className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+                                {highlight.label}
+                            </dt>
+                            <dd className="font-bold text-slate-900 leading-tight">
+                                {highlight.value}
+                            </dd>
+                        </div>
+                    ))}
+                </dl>
+
                 {post.content.split('\n').map((line, i) => {
                     if (line.startsWith('### ')) {
                         return <h3 key={i} className="mt-12 mb-6 text-2xl font-bold text-gray-900">{line.substring(4)}</h3>;

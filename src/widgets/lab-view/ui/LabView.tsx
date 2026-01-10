@@ -8,7 +8,7 @@ import resume from "@/shared/data/resume.json";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/shared/lib/utils";
 import { ArrowDownCircle } from "lucide-react";
-import { AiFaq } from "@/features/ai-faq";
+
 import Image from "next/image";
 import { PersonaExplanation } from "@/features/persona-explanation";
 import { LAB_CONTENT } from "@/shared/data/lab-content";
@@ -290,9 +290,7 @@ export const LabView = () => {
                     </section>
                 </div>
             </div>
-            <footer className="w-full">
-                <AiFaq />
-            </footer>
+
         </motion.div>
     );
 };

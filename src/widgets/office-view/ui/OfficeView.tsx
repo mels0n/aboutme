@@ -12,8 +12,13 @@ import { TechMatrix } from "./branding/TechMatrix";
 import { cn } from "@/shared/lib/utils";
 import { OfficeAbout } from "./OfficeAbout";
 
-export const OfficeView = () => {
-    const { mode, introDismissed } = usePersonaStore();
+interface OfficeViewProps {
+    mode?: 'executive' | 'strategist' | 'engineer';
+}
+
+export const OfficeView = ({ mode: propMode }: OfficeViewProps) => {
+    const { mode: storeMode, introDismissed } = usePersonaStore();
+    const mode = propMode || storeMode;
 
     return (
         <AnimatePresence mode="wait">
@@ -68,11 +73,11 @@ export const OfficeView = () => {
                     mode === 'strategist' && "[&_h1]:font-sans [&_h2]:font-sans",
                     mode === 'engineer' && "font-mono"
                 )}>
-                    <OfficeHero />
-                    <CaseStudiesGrid />
-                    <OfficeBlogGrid />
+                    <OfficeHero mode={mode} />
+                    <CaseStudiesGrid mode={mode} />
+                    <OfficeBlogGrid mode={mode} />
                     <OfficeExperience />
-                    <OfficeAbout />
+                    <OfficeAbout mode={mode} />
                 </div>
             </motion.div>
         </AnimatePresence>

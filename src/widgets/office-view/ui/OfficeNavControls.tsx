@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
 import { IconExecution, IconStrategy } from "./branding/ThreePillarsIcons";
@@ -7,24 +8,27 @@ import { motion } from "framer-motion";
 import { Users } from "lucide-react";
 
 export const OfficeNavControls = () => {
-    const { mode, setMode } = usePersonaStore();
+    const { mode } = usePersonaStore();
 
     const controls = [
         {
             id: 'executive',
             label: 'Boardroom',
+            slug: 'strategic-design',
             icon: Users,
             activeClass: "text-blue-700 bg-blue-50 border-blue-200"
         },
         {
             id: 'strategist',
             label: 'Architect',
+            slug: 'resilient-operations',
             icon: IconStrategy,
             activeClass: "text-indigo-900 bg-indigo-50 border-indigo-200"
         },
         {
             id: 'engineer',
             label: 'Engine Room',
+            slug: 'technical-execution',
             icon: IconExecution,
             activeClass: "text-emerald-800 bg-emerald-50 border-emerald-200"
         }
@@ -33,9 +37,9 @@ export const OfficeNavControls = () => {
     return (
         <div className="relative flex items-center gap-2 bg-surface/80 backdrop-blur-sm p-1 rounded-full border border-border/40 shadow-sm group">
             {controls.map((ctrl) => (
-                <button
+                <Link
                     key={ctrl.id}
-                    onClick={() => setMode(ctrl.id)}
+                    href={`/mode/${ctrl.slug}`}
                     aria-label={`Switch mode to ${ctrl.label}`}
                     className={cn(
                         "relative flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all duration-300 border border-transparent",
@@ -59,7 +63,7 @@ export const OfficeNavControls = () => {
                             transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                         />
                     )}
-                </button>
+                </Link>
             ))}
         </div>
     );

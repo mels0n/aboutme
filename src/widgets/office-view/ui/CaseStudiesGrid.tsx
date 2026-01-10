@@ -11,8 +11,13 @@ import { ExecutiveAbstract } from "./branding/ExecutiveAbstract";
 import { TechMatrix } from "./branding/TechMatrix";
 import { cn } from "@/shared/lib/utils";
 
-export const CaseStudiesGrid = () => {
-    const { mode } = usePersonaStore();
+interface CaseStudiesGridProps {
+    mode?: 'executive' | 'strategist' | 'engineer';
+}
+
+export const CaseStudiesGrid = ({ mode: propMode }: CaseStudiesGridProps) => {
+    const { mode: storeMode } = usePersonaStore();
+    const mode = propMode || storeMode;
     const [selectedStudy, setSelectedStudy] = useState<{ study: OfficeCaseStudy, idx: number } | null>(null);
     const [isFullReport, setIsFullReport] = useState(false);
 

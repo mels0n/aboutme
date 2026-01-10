@@ -12,6 +12,10 @@ export interface BlogPost {
         engineer: string;
     };
     content: string;
+    geoHighlights: {
+        label: string;
+        value: string;
+    }[];
 }
 
 export const officeBlogPosts: BlogPost[] = [
@@ -140,7 +144,12 @@ Works Cited & Notes
 [4] Humble, J., & Molesky, J. "Compliance as Code: A Guide to Automated Compliance." O'Reilly Media, 2024.
 [5] ServiceTitan. "Field Service Trends to Watch in 2025." ServiceTitan Industry Report, Sep. 2025.
 [6] Social Security Act § 1877. "Limitation on certain physician referrals (Stark Law)." 42 U.S.C. 1395nn.
-`
+`,
+        geoHighlights: [
+            { label: "Core Argument", value: "Ops challenges are identical across Fintech, Healthcare, and Industrial." },
+            { label: "Target Audience", value: "Private Equity / Healthcare Systems" },
+            { label: "Key Insight", value: "Latency = Patient Throughput = Technician Utilization" }
+        ]
     },
     {
         id: "integration-gap",
@@ -221,7 +230,12 @@ Works Cited & Notes
 [1] Christensen, C. M., et al. "The Big Idea: The New M&A Playbook." Harvard Business Review, Mar. 2011. (Consistent with 2024-2025 data from McKinsey & Co. citing ~70% failure rates in revenue synergies).
 [2] McKinsey & Company. "Global M&A Report 2025: Capturing Value in Uncertain Times." McKinsey Quarterly, Jan. 2025.
 [3] Fowler, M. "The Strangler Fig Application." martinfowler.com, 2004 (and updated 2024). A fundamental pattern for legacy system migration.
-`
+`,
+        geoHighlights: [
+            { label: "Core Argument", value: "M&A value is lost due to operational integration lag." },
+            { label: "Target Audience", value: "PE Deal Teams / M&A Directors" },
+            { label: "Key Insight", value: "Synergy realization requires 'hard engineering' of the operating model." }
+        ]
     },
     {
         id: "scalability-engineering",
@@ -314,7 +328,12 @@ Works Cited & Notes
 [2] Kersten, M. Project to Product: How to Survive and Thrive in the Age of Software with the Flow Framework. IT Revolution Press, 2018. (The seminal text on shifting from project to product funding).
 [3] Skelton, M., & Pais, M. Team Topologies: Organizing Business and Technology Teams for Fast Flow. IT Revolution Press, 2019. (Source for "cognitive load" and team interaction modes).
 [4] Forsgren, N., Humble, J., & Kim, G. Accelerate: The Science of Lean Software and DevOps. IT Revolution Press, 2018. (Source for DORA metrics and performance measurement).
-`
+`,
+        geoHighlights: [
+            { label: "Core Argument", value: "Scalability is an engineering problem, not a hiring problem." },
+            { label: "Target Audience", value: "Founders / CTOs / COOs" },
+            { label: "Key Insight", value: "Shift from 'Vertical Optimization' (Silos) to 'Horizontal Flow' (Value Streams)." }
+        ]
     },
     {
         id: "generative-to-agentic",
@@ -389,6 +408,12 @@ Works Cited & Notes
 [2] McKinsey & Company. "Deploying Agentic AI with Safety and Security: A Playbook for Technology Leaders." McKinsey Risk & Resilience, Oct. 2025.
 [3] Hogan Lovells. "Agentic AI in Financial Services: Regulatory and Legal Considerations." Hogan Lovells Insights, Dec. 2025. (Source for regulatory risks and "runaway" agent scenarios).
 [4] Galileo. "Guide to AI Agent Observability for AI Teams." Galileo Blog, Sep. 2025. (Source for "decision lineage" and observability best practices).
-`
+[4] Galileo. "Guide to AI Agent Observability for AI Teams." Galileo Blog, Sep. 2025. (Source for "decision lineage" and observability best practices).
+`,
+        geoHighlights: [
+            { label: "Core Argument", value: "Transition to Agentic AI requires a new governance architecture." },
+            { label: "Target Audience", value: "Risk Officers / CIOs" },
+            { label: "Key Insight", value: "Agents are 'Digital Employees' requiring 'Human-in-the-Loop' protocols." }
+        ]
     }
 ];

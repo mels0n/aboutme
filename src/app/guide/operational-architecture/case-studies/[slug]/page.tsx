@@ -40,34 +40,49 @@ export default async function CaseStudyPage({ params }: Props) {
         notFound();
     }
 
-    // AEO: Article Schema
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": study.title,
-        "description": study.summary.executive,
-        "author": {
-            "@type": "Person",
-            "name": "Chris Melson",
-            "jobTitle": "Operational Architect"
+    // AEO: Article + HowTo Schema
+    const jsonLd = [
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": study.title,
+            "description": study.summary.executive,
+            "author": {
+                "@type": "Person",
+                "name": "Chris Melson",
+                "jobTitle": "Operational Architect"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Christopher Melson | Polymorphic Portfolio",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://chris.melson.us/opengraph-image"
+                }
+            },
+            "datePublished": study.date,
+            "dateModified": study.date,
+            "articleBody": `
+                Situation: ${study.fullReport.situation}
+                Task: ${study.fullReport.task}
+                Action: ${study.fullReport.action}
+                Result: ${study.fullReport.result}
+            `
         },
-        "publisher": {
-            "@type": "Organization",
-            "name": "Christopher Melson | Polymorphic Portfolio",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://chris.melson.us/opengraph-image"
-            }
-        },
-        "datePublished": study.date,
-        "dateModified": study.date,
-        "articleBody": `
-            Situation: ${study.fullReport.situation}
-            Task: ${study.fullReport.task}
-            Action: ${study.fullReport.action}
-            Result: ${study.fullReport.result}
-        `
-    };
+        {
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": `How to solve: ${study.title}`,
+            "description": study.fullReport.task,
+            "step": study.fullReport.action.split('\n')
+                .filter(line => line.trim().length > 0)
+                .map((line, index) => ({
+                    "@type": "HowToStep",
+                    "position": index + 1,
+                    "text": line.replace(/^\* /, '').replace(/\*+/g, '') // Clean markdown symbols
+                }))
+        }
+    ];
 
     return (
         <main className="min-h-screen bg-white text-slate-900 font-serif py-20 px-6">

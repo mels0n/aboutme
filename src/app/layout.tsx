@@ -45,13 +45,13 @@ export const metadata: Metadata = {
         default: "Christopher Melson | Polymorphic Portfolio",
         template: "%s | Christopher Melson"
     },
-    description: "A polymorphic portfolio exploring the three personas of Christopher Melson: Executive, Strategist, and Engineer. This interactive experience re-renders the same professional history through different accessible lenses, demonstrating the intersection of leadership, strategy, and code.",
+    description: "Christopher Melson is an operations executive and architect specializing in stabilizing distressed environments.",
     keywords: ["Christopher Melson", "Portfolio", "Executive", "Strategist", "Engineer", "Leader", "Ops", "Risk", "Resilient", "Culture", "M&A Integration Gap"],
     authors: [{ name: "Christopher Melson" }],
     creator: "Christopher Melson",
     openGraph: {
         title: "Christopher Melson | Polymorphic Portfolio",
-        description: "A polymorphic portfolio exploring the three personas of Christopher Melson: Executive, Strategist, and Engineer. This interactive experience re-renders the same professional history through different accessible lenses, demonstrating the intersection of leadership, strategy, and code.",
+        description: "Operational Architect for the Agentic Age. Tri-Modal Leadership combining Strategic Design, Resilient Operations, and Technical Execution.",
         url: "https://chris.melson.us",
         siteName: "Christopher Melson Portfolio",
         locale: "en_US",

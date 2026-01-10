@@ -48,9 +48,7 @@ export default async function CaseStudyPage({ params }: Props) {
             "headline": study.title,
             "description": study.summary.executive,
             "author": {
-                "@type": "Person",
-                "name": "Chris Melson",
-                "jobTitle": "Operational Architect"
+                "@id": "https://chris.melson.us/#person"
             },
             "publisher": {
                 "@type": "Organization",

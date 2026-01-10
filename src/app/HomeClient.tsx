@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, Suspense } from "react";
+import { useEffect, Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { usePersonaStore } from "@/shared/lib/store";
 import { PersonaToggle } from "@/shared/ui/PersonaToggle";
@@ -34,11 +34,13 @@ export function HomeClient({ initialMode, initialView }: HomeClientProps) {
 function HomeContent({ initialMode, initialView }: HomeClientProps) {
     const searchParams = useSearchParams();
     const { mode, cycleMode, viewMode, setMode, setViewMode, introDismissed } = usePersonaStore();
+    const [hasHydrated, setHasHydrated] = useState(false);
 
     // Initialize state from props (Server-Side SEO / Direct Link)
     useEffect(() => {
         if (initialMode) setMode(initialMode);
         if (initialView) setViewMode(initialView);
+        setHasHydrated(true);
     }, [initialMode, initialView, setMode, setViewMode]);
 
     // Sync theme whenever mode changes and handle Deep Linking
@@ -73,7 +75,7 @@ function HomeContent({ initialMode, initialView }: HomeClientProps) {
         }
     }, [mode, viewMode]);
 
-    const resolvedMode = initialMode || mode;
+    const resolvedMode = (initialMode && !hasHydrated) ? initialMode : mode;
 
     return (
         <motion.main

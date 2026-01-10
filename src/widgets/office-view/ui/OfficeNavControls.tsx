@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
 import { IconExecution, IconStrategy } from "./branding/ThreePillarsIcons";
 import { motion } from "framer-motion";
-import { Users } from "lucide-react";
+import { Users, ArrowRight } from "lucide-react";
 
 export const OfficeNavControls = () => {
-    const { mode } = usePersonaStore();
+    const { mode, setMode } = usePersonaStore();
+    const searchParams = useSearchParams();
 
     const controls = [
         {
@@ -34,13 +36,33 @@ export const OfficeNavControls = () => {
         }
     ] as const;
 
+    const handleModeSwitch = (e: React.MouseEvent, id: any, slug: string) => {
+        e.preventDefault();
+        setMode(id);
+
+        // Soft Navigation: Update URL without refreshing/scrolling
+        const params = new URLSearchParams(searchParams.toString());
+        const newPath = `/mode/${slug}`;
+        const newUrl = params.toString() ? `${newPath}?${params.toString()}` : newPath;
+        window.history.pushState(null, '', newUrl);
+    };
+
     return (
-        <div className="relative flex items-center gap-2 bg-surface/80 backdrop-blur-sm p-1 rounded-full border border-border/40 shadow-sm group">
+        <div className="relative flex items-center gap-2 bg-surface/80 backdrop-blur-sm p-1 rounded-full border border-border/40 shadow-sm group pl-4">
+            <div className="hidden md:flex items-center gap-2 mr-2 text-xs font-mono uppercase tracking-widest text-foreground/80">
+                <span>Operating Mode</span>
+                <motion.div
+                    animate={{ x: [-2, 2, -2] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
+                    <ArrowRight className="w-3 h-3" />
+                </motion.div>
+            </div>
             {controls.map((ctrl) => (
-                <Link
+                <a
                     key={ctrl.id}
                     href={`/mode/${ctrl.slug}`}
-                    scroll={false}
+                    onClick={(e) => handleModeSwitch(e, ctrl.id, ctrl.slug)}
                     aria-label={`Switch mode to ${ctrl.label}`}
                     className={cn(
                         "relative flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all duration-300 border border-transparent",
@@ -64,7 +86,7 @@ export const OfficeNavControls = () => {
                             transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                         />
                     )}
-                </Link>
+                </a>
             ))}
         </div>
     );

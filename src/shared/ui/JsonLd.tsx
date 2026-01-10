@@ -39,9 +39,9 @@ export function JsonLd() {
         "givenName": "Christopher",
         "familyName": "Melson",
         "url": domain,
-        "description": "Christopher Melson is an Operational Architect who reconstructs distressed environments into resilient, high-velocity organizations.",
+        "description": "Christopher Melson is an Operational Architect who reconstructs distressed environments into resilient, high-velocity organizations. Ensuring Strategy Survives Contact with Reality.",
         "disambiguatingDescription": "Operations Executive & Architect. Distinct from the Civil Engineer (LSU) and the Football Coach.",
-        "jobTitle": ["Operational Architect", "Executive", "Board Advisor", "Strategist", "Engineer"],
+        "jobTitle": ["Executive", "Operational Architect", "Board Advisor", "Strategist", "Engineer"],
         "sameAs": [
             "https://github.com/mels0n",
             "https://www.linkedin.com/in/chris-melson-45a88244/"
@@ -130,6 +130,9 @@ export function JsonLd() {
             "@id": `${domain}/#website`
         },
         "about": {
+            "@id": `${domain}/#person`
+        },
+        "mainEntity": {
             "@id": `${domain}/#person`
         },
         "primaryImageOfPage": {

@@ -138,12 +138,12 @@ Don't let your operations be the bottleneck to your vision. Let's build a struct
 ---
 
 Works Cited & Notes
-[1] <a href="https://hbr.org/2011/03/the-big-idea-the-new-ma-playbook" rel="nofollow noreferrer" class="text-inherit no-underline">Christensen, C. M., et al. "The Big Idea: The New M&A Playbook." Harvard Business Review, Mar. 2011.</a>
-[2] <a href="https://eur-lex.europa.eu/eli/reg/2022/2554/oj" rel="nofollow noreferrer" class="text-inherit no-underline">European Parliament and Council. "Regulation (EU) 2022/2554 on digital operational resilience for the financial sector (EU DORA)." Official Journal of the European Union, Dec. 2022.</a>
-[3] <a href="https://www.healthit.gov/topic/interoperability/policy/tefca" rel="nofollow noreferrer" class="text-inherit no-underline">The Office of the National Coordinator for Health Information Technology (ONC). "Trusted Exchange Framework and Common Agreement (TEFCA)." HealthIT.gov, Jan. 2025.</a>
-[4] <a href="https://www.oreilly.com/library/view/compliance-as-code/9781098144498/" rel="nofollow noreferrer" class="text-inherit no-underline">Humble, J., & Molesky, J. "Compliance as Code: A Guide to Automated Compliance." O'Reilly Media, 2024.</a>
-[5] <a href="https://www.servicetitan.com/blog" rel="nofollow noreferrer" class="text-inherit no-underline">ServiceTitan. "Field Service Trends to Watch in 2025." ServiceTitan Industry Report, Sep. 2025.</a>
-[6] <a href="https://www.cms.gov/physician-self-referral" rel="nofollow noreferrer" class="text-inherit no-underline">Social Security Act § 1877. "Limitation on certain physician referrals (Stark Law)." 42 U.S.C. 1395nn.</a>
+[1] Christensen, C. M., et al. "The Big Idea: The New M&A Playbook." Harvard Business Review, Mar. 2011.
+[2] European Parliament and Council. "Regulation (EU) 2022/2554 on digital operational resilience for the financial sector (EU DORA)." Official Journal of the European Union, Dec. 2022.
+[3] The Office of the National Coordinator for Health Information Technology (ONC). "Trusted Exchange Framework and Common Agreement (TEFCA)." HealthIT.gov, Jan. 2025.
+[4] Humble, J., & Molesky, J. "Compliance as Code: A Guide to Automated Compliance." O'Reilly Media, 2024.
+[5] ServiceTitan. "Field Service Trends to Watch in 2025." ServiceTitan Industry Report, Sep. 2025.
+[6] Social Security Act § 1877. "Limitation on certain physician referrals (Stark Law)." 42 U.S.C. 1395nn.
 `,
         geoHighlights: [
             { label: "Core Argument", value: "Ops challenges are identical across Fintech, Healthcare, and Industrial." },
@@ -227,9 +227,9 @@ My role is to ensure that the acquisition does not become a distressed asset due
 
 Works Cited & Notes
 
-[1] <a href="https://hbr.org/2011/03/the-big-idea-the-new-ma-playbook" rel="nofollow noreferrer" class="text-inherit no-underline">Christensen, C. M., et al. "The Big Idea: The New M&A Playbook." Harvard Business Review, Mar. 2011. (Consistent with 2024-2025 data from McKinsey & Co. citing ~70% failure rates in revenue synergies).</a>
-[2] <a href="https://www.mckinsey.com/capabilities/m-and-a/our-insights" rel="nofollow noreferrer" class="text-inherit no-underline">McKinsey & Company. "Global M&A Report 2025: Capturing Value in Uncertain Times." McKinsey Quarterly, Jan. 2025.</a>
-[3] <a href="https://martinfowler.com/bliki/StranglerFigApplication.html" rel="nofollow noreferrer" class="text-inherit no-underline">Fowler, M. "The Strangler Fig Application." martinfowler.com, 2004 (and updated 2024). A fundamental pattern for legacy system migration.</a>
+[1] Christensen, C. M., et al. "The Big Idea: The New M&A Playbook." Harvard Business Review, Mar. 2011. (Consistent with 2024-2025 data from McKinsey & Co. citing ~70% failure rates in revenue synergies).
+[2] McKinsey & Company. "Global M&A Report 2025: Capturing Value in Uncertain Times." McKinsey Quarterly, Jan. 2025.
+[3] Fowler, M. "The Strangler Fig Application." martinfowler.com, 2004 (and updated 2024). A fundamental pattern for legacy system migration.
 `,
         geoHighlights: [
             { label: "Core Argument", value: "M&A value is lost due to operational integration lag." },
@@ -404,11 +404,10 @@ The adoption of Agentic AI is inevitable. The only variable is safety. My role i
 
 Works Cited & Notes
 
-[1] <a href="https://www.domo.com/learn" rel="nofollow noreferrer" class="text-inherit no-underline">Domo. "Agentic AI in Banking & Finance: Transforming Automation and Decision-Making." Domo Learning Center, July 2025.</a>
-[2] <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights" rel="nofollow noreferrer" class="text-inherit no-underline">McKinsey & Company. "Deploying Agentic AI with Safety and Security: A Playbook for Technology Leaders." McKinsey Risk & Resilience, Oct. 2025.</a>
-[3] <a href="https://www.hoganlovells.com/en/insights" rel="nofollow noreferrer" class="text-inherit no-underline">Hogan Lovells. "Agentic AI in Financial Services: Regulatory and Legal Considerations." Hogan Lovells Insights, Dec. 2025. (Source for regulatory risks and "runaway" agent scenarios).</a>
-[4] <a href="https://www.galileo.io/blog" rel="nofollow noreferrer" class="text-inherit no-underline">Galileo. "Guide to AI Agent Observability for AI Teams." Galileo Blog, Sep. 2025. (Source for "decision lineage" and observability best practices).</a>
-[4] <a href="https://www.galileo.io/blog" rel="nofollow noreferrer" class="text-inherit no-underline">Galileo. "Guide to AI Agent Observability for AI Teams." Galileo Blog, Sep. 2025. (Source for "decision lineage" and observability best practices).</a>
+[1] Domo. "Agentic AI in Banking & Finance: Transforming Automation and Decision-Making." Domo Learning Center, July 2025.
+[2] McKinsey & Company. "Deploying Agentic AI with Safety and Security: A Playbook for Technology Leaders." McKinsey Risk & Resilience, Oct. 2025.
+[3] Hogan Lovells. "Agentic AI in Financial Services: Regulatory and Legal Considerations." Hogan Lovells Insights, Dec. 2025. (Source for regulatory risks and "runaway" agent scenarios).
+[4] Galileo. "Guide to AI Agent Observability for AI Teams." Galileo Blog, Sep. 2025. (Source for "decision lineage" and observability best practices). In an agentic ecosystem, one agent's output is another agent's input. A small error in one agent can cascade into a systemic failure-a phenomenon known as "Chained Vulnerability."
 `,
         geoHighlights: [
             { label: "Core Argument", value: "Transition to Agentic AI requires a new governance architecture." },

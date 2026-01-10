@@ -2,7 +2,7 @@ import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
 import { motion } from "framer-motion";
 import { Briefcase, Sword, Terminal } from "lucide-react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 /**
  * A floating control toggle that allows the user to switch between application personas
@@ -15,6 +15,7 @@ export function PersonaToggle() {
     const { mode, setMode } = usePersonaStore();
     const router = useRouter();
     const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     // Configuration for the available toggle options
     const options = [
@@ -23,17 +24,28 @@ export function PersonaToggle() {
         { id: "engineer", label: "Engineer", icon: Terminal },
     ] as const;
 
+    const MODE_SLUGS = {
+        executive: 'strategic-design',
+        strategist: 'resilient-operations',
+        engineer: 'technical-execution'
+    };
+
     const handleModeChange = (newMode: typeof options[number]["id"]) => {
         setMode(newMode);
 
-        // If we are deep inside the site (e.g. reading a blog post), 
-        // switching the persona should redirect to the home view 
-        if (pathname !== "/") {
-            router.push(`/?mode=${newMode}`);
+        const isOfficeView = pathname === '/' || pathname.startsWith('/mode/');
+
+        if (isOfficeView) {
+            // Soft Navigation: Update URL locally to preserve context
+            const params = new URLSearchParams(searchParams.toString());
+            const newPath = `/mode/${MODE_SLUGS[newMode]}`;
+            const newUrl = params.toString() ? `${newPath}?${params.toString()}` : newPath;
+            window.history.pushState(null, '', newUrl);
         } else {
-            // Lab View: Keep URL clean
-            // We do NOT push ?mode=xxx here for the Lab.
-            // The state is managed locally.
+            // Lab View or other pages: Fallback to router push
+            // If we are deep inside the site (e.g. reading a blog post), 
+            // switching the persona should redirect to the home view 
+            router.push(`/?mode=${newMode}`);
         }
     };
 

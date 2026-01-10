@@ -14,9 +14,7 @@ export default function CaseStudiesPage() {
         "@type": "CollectionPage",
         "name": "Operational Architecture Case Studies",
         "author": {
-            "@type": "Person",
-            "name": "Chris Melson",
-            "jobTitle": "Operational Architect"
+            "@id": "https://chris.melson.us/#person"
         },
         "hasPart": officeCaseStudies.map((study) => ({
             "@type": "Article",

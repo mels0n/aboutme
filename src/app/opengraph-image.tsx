@@ -58,37 +58,40 @@ export default async function Image() {
                     <div
                         style={{
                             fontSize: 80,
-                            fontWeight: 900,
+                            fontWeight: 700,
                             color: "#000000",
-                            marginBottom: "20px",
+                            marginBottom: "10px",
                             lineHeight: 1,
                             textAlign: "center",
-                            fontFamily: 'sans-serif', // Inter replacement for bold header
+                            fontFamily: 'sans-serif',
                         }}
                     >
-                        CHRISTOPHER MELSON
+                        Christopher Melson
                     </div>
 
-                    {/* Divider */}
-                    <div
-                        style={{
-                            width: "60px",
-                            height: "4px",
-                            background: "#000000",
-                            marginBottom: "30px",
-                        }}
-                    />
-
-                    {/* Tagline */}
+                    {/* Titles */}
                     <div
                         style={{
                             fontSize: 32,
                             color: "#334155", // Slate-700
                             fontWeight: 400,
-                            letterSpacing: "0.02em",
+                            marginBottom: "10px",
+                            fontFamily: 'serif',
                         }}
                     >
-                        Executive. Strategist. Engineer.
+                        Executive | Operational Architect | Board Advisor
+                    </div>
+
+                    {/* Tagline */}
+                    <div
+                        style={{
+                            fontSize: 24,
+                            color: "#64748b", // Slate-500
+                            fontStyle: "italic",
+                            fontFamily: 'serif',
+                        }}
+                    >
+                        Ensuring Strategy Survives Contact with Reality
                     </div>
                 </div>
 

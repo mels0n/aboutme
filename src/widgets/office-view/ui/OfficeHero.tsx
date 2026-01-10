@@ -32,9 +32,14 @@ export const OfficeHero = ({ mode: propMode }: OfficeHeroProps) => {
                 className="space-y-8 max-w-5xl px-4"
             >
                 {/* 0. Identity */}
-                <h2 className="text-sm md:text-base font-bold tracking-[0.3em] text-foreground/80 uppercase">
-                    Chris Melson
-                </h2>
+                <div>
+                    <h2 className="text-sm md:text-base font-bold tracking-[0.3em] text-foreground/80 uppercase">
+                        Chris Melson
+                    </h2>
+                    <p className="text-xs md:text-sm font-serif italic text-foreground/60 mt-1">
+                        Ensuring Strategy Survives Contact with Reality
+                    </p>
+                </div>
 
                 {/* 1. Headline & Modal Trigger */}
                 <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground relative inline-block font-serif">
@@ -75,7 +80,12 @@ export const OfficeHero = ({ mode: propMode }: OfficeHeroProps) => {
                     Tri-Modal Leadership: Strategic Design. Resilient Operations. Technical Execution.
                 </h2>
 
-                <p className="text-sm font-medium text-foreground/70 uppercase tracking-widest pt-4">
+                <p className={cn(
+                    "text-sm font-medium uppercase tracking-widest pt-4 transition-colors duration-300",
+                    mode === 'engineer' ? "text-emerald-600" :
+                        mode === 'strategist' ? "text-indigo-600" :
+                            "text-blue-600"
+                )}>
                     Use the Operating Mode toggle at the top <ArrowUp className="inline w-3 h-3 mb-1" /> to explore.
                 </p>
 

@@ -21,7 +21,7 @@ export const aboutContent: Record<'executive' | 'strategist' | 'engineer', Perso
         bioParagraphs: [
             "I apply a Computer Science mindset to Organizational Design.",
             "Most COOs manage people. I engineer the machine that the people operate. I believe that operational incoherence is not a personnel issue; it is a systems failure.",
-            "As an Interim or Fractional leader, I don't just 'run' operations. I dismantle functional silos and rebuild them as efficient Value Streams. I combine the commercial focus of an MBA with the architectural rigor of an engineer to design a Target Operating Model (TOM) that scales non-linearly."
+            "As a Leader, I don't just 'run' operations. I dismantle functional silos and rebuild them as efficient Value Streams. I combine the commercial focus of an MBA with the architectural rigor of an engineer to design a Target Operating Model (TOM) that scales non-linearly."
         ],
         stats: [
             { label: "The Synthesis", value: "Leadership backed by Systems Engineering." },

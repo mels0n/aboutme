@@ -90,14 +90,14 @@ export default function FAQPage() {
                         </div>
 
                         {/* Q&A Items */}
-                        <div className="grid gap-12">
+                        <dl className="grid gap-12">
                             {section.items.map((item, iIdx) => (
-                                <article key={iIdx} className="group hover:bg-slate-50/50 -mx-6 px-6 py-6 rounded-2xl transition-colors">
-                                    <h3 className="text-xl md:text-2xl font-bold font-sans text-slate-900 mb-4 flex items-start gap-3">
+                                <div key={iIdx} className="group hover:bg-slate-50/50 -mx-6 px-6 py-6 rounded-2xl transition-colors">
+                                    <dt className="text-xl md:text-2xl font-bold font-sans text-slate-900 mb-4 flex items-start gap-3">
                                         <span className="text-blue-200 font-display select-none">Q.</span>
                                         {item.question}
-                                    </h3>
-                                    <div className="prose prose-lg prose-slate max-w-none ml-0 md:ml-9 text-slate-600 leading-relaxed group-hover:text-slate-800 transition-colors">
+                                    </dt>
+                                    <dd className="prose prose-lg prose-slate max-w-none ml-0 md:ml-9 text-slate-600 leading-relaxed group-hover:text-slate-800 transition-colors">
                                         {/* Injecting line breaks if needed, or just rendering text */}
                                         {item.answer.split('\n').map((line, lineIdx) => {
                                             if (!line.trim()) return null;
@@ -122,10 +122,10 @@ export default function FAQPage() {
                                                 </p>
                                             );
                                         })}
-                                    </div>
-                                </article>
+                                    </dd>
+                                </div>
                             ))}
-                        </div>
+                        </dl>
                     </section>
                 ))}
 

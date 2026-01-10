@@ -11,6 +11,7 @@ import { ExecutiveAbstract } from "./branding/ExecutiveAbstract";
 import { TechMatrix } from "./branding/TechMatrix";
 import { cn } from "@/shared/lib/utils";
 import { OfficeAbout } from "./OfficeAbout";
+import { Footer } from "@/widgets/shared/Footer";
 
 interface OfficeViewProps {
     mode?: 'executive' | 'strategist' | 'engineer';
@@ -78,6 +79,7 @@ export const OfficeView = ({ mode: propMode }: OfficeViewProps) => {
                     <OfficeBlogGrid mode={mode} />
                     <OfficeExperience />
                     <OfficeAbout mode={mode} />
+                    <Footer />
                 </div>
             </motion.div>
         </AnimatePresence>

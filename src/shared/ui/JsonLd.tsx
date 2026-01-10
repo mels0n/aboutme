@@ -1,5 +1,5 @@
 import resume from '../../shared/data/resume.json';
-import { faqContent } from '../../shared/data/faq_content';
+
 import { siteConfig } from '../../shared/config/site-config';
 
 
@@ -25,6 +25,9 @@ export function JsonLd() {
     const personSchema = {
         "@type": "Person",
         "@id": `${domain}/#person`,
+        "image": {
+            "@id": `${domain}/#primaryimage`
+        },
         "name": "Christopher Melson",
         "alternateName": [
             "Chris Melson",
@@ -108,36 +111,6 @@ export function JsonLd() {
         }
     };
 
-    // 4. FAQ Page (The Content)
-    // Flattening the FAQ sections for the JSON-LD schema
-    const flatFaqData = faqContent.flatMap(section => section.items);
-
-    const faqSchema = {
-        "@type": "FAQPage",
-        "@id": `${domain}/#faq`,
-        "isPartOf": {
-            "@id": `${domain}/#website`
-        },
-        "mainEntity": [
-            ...flatFaqData.map(item => ({
-                "@type": "Question",
-                "name": item.question,
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": item.answer
-                }
-            })),
-            {
-                "@type": "Question",
-                "name": "Are you the Melson from LSU or FHWA?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "No. I am an Operational Architect in FinTech/Healthcare, distinct from the Research Civil Engineer."
-                }
-            }
-        ]
-    };
-
     // 5. Explicit WebPage Node
     const webPageSchema = {
         "@type": "ProfilePage",
@@ -156,6 +129,15 @@ export function JsonLd() {
         "inLanguage": "en-US"
     };
 
+    // 4. Image Node (Primary Image)
+    const imageSchema = {
+        "@type": "ImageObject",
+        "@id": `${domain}/#primaryimage`,
+        "url": `${domain}/opengraph-image`,
+        "contentUrl": `${domain}/opengraph-image`,
+        "caption": "Christopher Melson - Operational Architect"
+    };
+
     const graph = {
         "@context": "https://schema.org",
         "@graph": [
@@ -163,7 +145,7 @@ export function JsonLd() {
             websiteSchema,
             webPageSchema,
             appSchema,
-            faqSchema
+            imageSchema
         ]
     };
 

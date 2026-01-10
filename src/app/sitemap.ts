@@ -1,104 +1,80 @@
 import { MetadataRoute } from 'next';
 
+import { officeBlogPosts } from '@/shared/data/office_blog_posts';
+import { officeCaseStudies } from '@/shared/data/office_case_studies';
+
 export default function sitemap(): MetadataRoute.Sitemap {
+    const baseUrl = 'https://chris.melson.us';
+
+    // Static Routes
+    const staticRoutes = [
+        {
+            url: baseUrl,
+            lastModified: new Date(),
+            changeFrequency: 'monthly' as const,
+            priority: 1,
+        },
+        {
+            url: `${baseUrl}/cv.json`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly' as const,
+            priority: 1,
+        },
+        {
+            url: `${baseUrl}/about`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly' as const,
+            priority: 0.8,
+        },
+        {
+            url: `${baseUrl}/faq`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly' as const,
+            priority: 0.8,
+        },
+        {
+            url: `${baseUrl}/guide/lab`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly' as const,
+            priority: 0.8,
+        },
+        {
+            url: `${baseUrl}/guide/operational-architecture/case-studies`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly' as const,
+            priority: 0.9,
+        },
+    ];
+
+    // Mode Routes (Deep Links)
+    const modes = ['strategic-design', 'resilient-operations', 'technical-execution'];
+    const modeRoutes = modes.map(mode => ({
+        url: `${baseUrl}/mode/${mode}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.9,
+    }));
+
+    // Dynamic Blog Routes
+    const blogRoutes = officeBlogPosts.map(post => ({
+        url: `${baseUrl}/guide/operational-architecture/blog/${post.slug}`,
+        lastModified: new Date(post.date),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+    }));
+
+    // Dynamic Case Study Routes
+    const caseStudyRoutes = officeCaseStudies.map(study => ({
+        url: `${baseUrl}/guide/operational-architecture/case-studies/${study.slug}`,
+        lastModified: new Date(study.date),
+        changeFrequency: 'monthly' as const,
+        priority: 0.9,
+    }));
+
     return [
-        {
-            url: 'https://chris.melson.us',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 1,
-        },
-        {
-            url: 'https://chris.melson.us/cv.json',
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 1,
-        },
-        {
-            url: 'https://chris.melson.us/mode/strategic-design',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-        {
-            url: 'https://chris.melson.us/mode/resilient-operations',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-        {
-            url: 'https://chris.melson.us/mode/technical-execution',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-
-        {
-            url: 'https://chris.melson.us/guide/lab',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: 'https://chris.melson.us/guide/operational-architecture/case-studies',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-        {
-            url: 'https://chris.melson.us/guide/operational-architecture/case-studies/ma-integration-gap',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-        {
-            url: 'https://chris.melson.us/guide/operational-architecture/case-studies/strategic-asset-rescue',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-        {
-            url: 'https://chris.melson.us/guide/operational-architecture/case-studies/systemic-collapse-turnaround',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.9,
-        },
-
-        {
-            url: 'https://chris.melson.us/guide/operational-architecture/blog/tri-modal-brand-translation',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: 'https://chris.melson.us/guide/operational-architecture/blog/bridging-the-integration-gap',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: 'https://chris.melson.us/guide/operational-architecture/blog/scalability-is-an-engineering-problem',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: 'https://chris.melson.us/guide/operational-architecture/blog/orchestrating-the-transition-generative-to-agentic-ai',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.7,
-        },
-        {
-            url: 'https://chris.melson.us/about',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: 'https://chris.melson.us/faq',
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
+        ...staticRoutes,
+        ...modeRoutes,
+        ...caseStudyRoutes,
+        ...blogRoutes,
     ];
 }

@@ -17,8 +17,9 @@ export async function generateMetadata(
     const blogSlug = params?.blog as string;
 
     // Contact Card Defaults (Global Site OG)
+    // Providing a robust default description that is guaranteed to be non-empty
     let title = "Christopher Melson";
-    let summary = "A polymorphic portfolio exploring the three personas of Christopher Melson: Executive, Strategist, and Engineer. This interactive experience re-renders the same professional history through different accessible lenses, demonstrating the intersection of leadership, strategy, and code.";
+    let summary = "Christopher Melson is an operations executive and architect specializing in stabilizing distressed environments.";
     let role = "Operational Architect";
     let date = "";
 
@@ -28,7 +29,7 @@ export async function generateMetadata(
             title = post.title;
             // Use the polymorphic summary if available for the mode, else fallback
             const polySummary = post.polymorphicSummary?.[mode];
-            summary = polySummary || post.summary;
+            summary = polySummary || post.summary || summary; // Fallback to default summary if post summary is empty
             role = "Operational Architect";
             date = post.date;
         }
@@ -44,7 +45,7 @@ export async function generateMetadata(
     try {
         const ogUrl = new URL(`${baseUrl}/api/og`);
         ogUrl.searchParams.set('title', title);
-        ogUrl.searchParams.set('summary', summary);
+        ogUrl.searchParams.set('summary', summary); // Ensure this is not too long for URL params if possible, but browsers handle it.
         ogUrl.searchParams.set('mode', mode);
         ogUrl.searchParams.set('role', role);
         if (date) ogUrl.searchParams.set('date', date);
@@ -79,8 +80,15 @@ export async function generateMetadata(
     };
 }
 
+import { ServerSideResume } from "@/shared/ui/ServerSideResume";
+import resume from "@/shared/data/resume.json";
+import { ResumeData } from "@/shared/types/resume";
+
 export default function Page() {
     return (
-        <HomeClient />
+        <>
+            <ServerSideResume data={resume as unknown as ResumeData} />
+            <HomeClient />
+        </>
     );
 }

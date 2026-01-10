@@ -8,6 +8,9 @@ const post = officeBlogPosts.find(p => p.slug === 'scalability-is-an-engineering
 export const metadata: Metadata = {
     title: post?.title || 'Scalability is an Engineering Problem',
     description: post?.polymorphicSummary?.executive || post?.summary,
+    alternates: {
+        canonical: '/guide/operational-architecture/blog/scalability-is-an-engineering-problem',
+    },
 };
 
 export default function BlogPostPage() {
@@ -22,9 +25,7 @@ export default function BlogPostPage() {
         headline: post.title,
         datePublished: post.date,
         author: {
-            '@type': 'Person',
-            name: post.author,
-            jobTitle: post.role
+            '@id': 'https://chris.melson.us/#person'
         },
         description: post.summary,
         articleBody: post.content
@@ -117,7 +118,11 @@ export default function BlogPostPage() {
                         return <h4 key={i} className="mt-12 mb-4 text-sm font-bold uppercase tracking-widest text-gray-400">{line}</h4>;
                     }
                     if (/^\[\d+\]/.test(line)) {
-                        return <p key={i} className="mb-2 text-sm text-gray-500 font-mono">{line}</p>;
+                        return (
+                            <p key={i} className="mb-2 text-sm text-gray-500 font-mono">
+                                <span dangerouslySetInnerHTML={{ __html: line }} />
+                            </p>
+                        );
                     }
                     if (line.trim() === '') return null;
 

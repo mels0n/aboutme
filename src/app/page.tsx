@@ -1,6 +1,7 @@
 import { Metadata, ResolvingMetadata } from "next";
 import { HomeClient } from "./HomeClient";
 import { officeBlogPosts } from "@/shared/data/office_blog_posts";
+import { siteConfig } from "@/shared/config/site-config";
 
 type Props = {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -16,8 +17,7 @@ export async function generateMetadata(
     const mode = (params?.mode as 'executive' | 'strategist' | 'engineer') || 'executive';
     const blogSlug = params?.blog as string;
 
-    // Contact Card Defaults (Global Site OG)
-    // Providing a robust default description that is guaranteed to be non-empty
+    // Default details for Global Site OpenGraph
     let title = "Christopher Melson";
     let summary = "Christopher Melson is an operations executive and architect specializing in stabilizing distressed environments.";
     let role = "Operational Architect";
@@ -27,31 +27,27 @@ export async function generateMetadata(
         const post = officeBlogPosts.find(p => p.slug === blogSlug);
         if (post) {
             title = post.title;
-            // Use the polymorphic summary if available for the mode, else fallback
+            // Priority: Mode-specific Summary -> Post Summary -> Global Default
             const polySummary = post.polymorphicSummary?.[mode];
-            summary = polySummary || post.summary || summary; // Fallback to default summary if post summary is empty
+            summary = polySummary || post.summary || summary;
             role = "Operational Architect";
             date = post.date;
         }
     }
 
-    // 2. Construct OG Image URL
-    // We use absolute URL for production, but locally it might fail if we don't have base.
-    // Ideally use process.env.NEXT_PUBLIC_URL or hardcode for this portfolio.
-    const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://chris.melson.us';
+    // Absolute URL construction required for OpenGraph
+    const baseUrl = process.env.NEXT_PUBLIC_URL || siteConfig.url;
 
-    // Safety check for URL construction
     let ogUrlString = "";
     try {
         const ogUrl = new URL(`${baseUrl}/api/og`);
         ogUrl.searchParams.set('title', title);
-        ogUrl.searchParams.set('summary', summary); // Ensure this is not too long for URL params if possible, but browsers handle it.
+        ogUrl.searchParams.set('summary', summary);
         ogUrl.searchParams.set('mode', mode);
         ogUrl.searchParams.set('role', role);
         if (date) ogUrl.searchParams.set('date', date);
         ogUrlString = ogUrl.toString();
     } catch (e) {
-        // Fallback for malformed URLs
         ogUrlString = `${baseUrl}/opengraph-image`;
     }
 
@@ -81,6 +77,7 @@ export async function generateMetadata(
 }
 
 import { ServerSideResume } from "@/shared/ui/ServerSideResume";
+import { JsonLd } from "@/shared/ui/JsonLd";
 import resume from "@/shared/data/resume.json";
 import { ResumeData } from "@/shared/types/resume";
 
@@ -88,6 +85,7 @@ export default function Page() {
     return (
         <>
             <ServerSideResume data={resume as unknown as ResumeData} />
+            <JsonLd />
             <HomeClient />
         </>
     );

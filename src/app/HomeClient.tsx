@@ -21,9 +21,11 @@ interface HomeClientProps {
     initialView?: 'OFFICE' | 'LAB';
 }
 
+import { GatekeeperSkeleton } from "@/widgets/gatekeeper/ui/GatekeeperSkeleton";
+
 export function HomeClient({ initialMode, initialView }: HomeClientProps) {
     return (
-        <Suspense fallback={null}>
+        <Suspense fallback={<GatekeeperSkeleton />}>
             <HomeContent initialMode={initialMode} initialView={initialView} />
         </Suspense>
     );
@@ -42,40 +44,28 @@ function HomeContent({ initialMode, initialView }: HomeClientProps) {
     // Sync theme whenever mode changes and handle Deep Linking
     // 1. Deep Linking: Sync URL -> Store
     // Only run when searchParams change (navigation), not when internal mode changes.
-    // 1. Deep Linking: Sync URL -> Store
-    // Only run when searchParams change (navigation), not when internal mode changes.
+
     useEffect(() => {
         const modeParam = searchParams.get('mode');
-        // If we are in Lab view, we generally ignore URL params or clean them up.
-        // But for "Entry", if a user lands on /?mode=engineer, we might want to respect it initially.
-        // However, the user specifically asked "Lab should only ever be /".
-        // So if we are in Lab view, we shouldn't act on parameters? Or maybe we should act once on mount?
-
+        // Legacy support: Allow deep linking triggers for specific modes on initial load
         if (modeParam && ['executive', 'strategist', 'engineer'].includes(modeParam)) {
-            // Only sync if we are in a context that supports it (e.g. initial load or Office)
-            // Or if we just want to ensure local state matches URL.
             setMode(modeParam as 'executive' | 'strategist' | 'engineer');
         }
     }, [searchParams, setMode]);
 
-    // 2. URL Cleanup for Lab View
-    // Effectively, if we switch to Lab View, we likely want to replace the URL with just '/'
+    // Constraint Violation Fix: Lab View must strictly adhere to root '/' URL.
     useEffect(() => {
         if (viewMode === 'LAB' && typeof window !== 'undefined') {
             const url = new URL(window.location.href);
             if (url.searchParams.has('mode')) {
                 url.searchParams.delete('mode');
-                window.history.replaceState({}, '', url.pathname + url.search); // maintain path, clear param
+                window.history.replaceState({}, '', url.pathname + url.search);
             }
         }
     }, [viewMode]);
 
-    // 2. Theming: Sync Store -> DOM
+    // Theming: Enforce 'executive' for Office consistency; dynamic for others.
     useEffect(() => {
-        // In OFFICE mode, we force 'executive' theme for a professional consistent look,
-        // unless we strictly want to support thematic buttons.
-        // The buttons in OfficeView use explicit colors (blue, emerald, indigo)
-        // so 'executive' theme (likely blue/white/neutral) is the safest base.
         if (viewMode === 'OFFICE') {
             document.documentElement.setAttribute("data-theme", 'executive');
         } else {

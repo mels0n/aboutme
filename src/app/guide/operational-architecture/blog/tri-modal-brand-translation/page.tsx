@@ -6,6 +6,9 @@ const post = officeBlogPosts.find(p => p.slug === "tri-modal-brand-translation")
 export const metadata: Metadata = {
     title: `${post.title} | ${post.author}`,
     description: post.summary,
+    alternates: {
+        canonical: `/guide/operational-architecture/blog/${post.slug}`,
+    },
 };
 
 export default function BlogPostPage() {
@@ -14,9 +17,7 @@ export default function BlogPostPage() {
         "@type": "BlogPosting",
         "headline": post.title,
         "author": {
-            "@type": "Person",
-            "name": post.author,
-            "jobTitle": post.role
+            "@id": "https://chris.melson.us/#person"
         },
         "datePublished": post.date,
         "description": post.summary,
@@ -67,6 +68,15 @@ export default function BlogPostPage() {
                             <div key={i} className="flex gap-3 mb-4 pl-4 border-l-2 border-emerald-500/30 py-1 bg-emerald-50/20">
                                 <span className="text-emerald-600 font-bold pl-2">•</span>
                                 <div className="pr-2"><span dangerouslySetInnerHTML={{ __html: line.substring(2).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} /></div>
+                            </div>
+                        );
+                    }
+                    if (/^\[\d+\]/.test(line)) {
+                        return (
+                            <div key={i} className="flex gap-3 mb-3 pl-4">
+                                <span className="text-foreground/90 font-medium font-mono text-sm">
+                                    <span dangerouslySetInnerHTML={{ __html: line }} />
+                                </span>
                             </div>
                         );
                     }

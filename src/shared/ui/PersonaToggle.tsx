@@ -38,14 +38,16 @@ export function PersonaToggle() {
         if (isOfficeView) {
             // Soft Navigation: Update URL locally to preserve context
             const params = new URLSearchParams(searchParams.toString());
+            params.delete('mode'); // CRITICAL: Remove legacy mode param to prevent state locking
+
             const newPath = `/mode/${MODE_SLUGS[newMode]}`;
             const newUrl = params.toString() ? `${newPath}?${params.toString()}` : newPath;
             window.history.pushState(null, '', newUrl);
         } else {
             // Lab View or other pages: Fallback to router push
             // If we are deep inside the site (e.g. reading a blog post), 
-            // switching the persona should redirect to the home view 
-            router.push(`/?mode=${newMode}`);
+            // switching the persona should redirect to the home view / mode page
+            router.push(`/mode/${MODE_SLUGS[newMode]}`);
         }
     };
 

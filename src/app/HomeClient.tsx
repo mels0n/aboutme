@@ -47,13 +47,9 @@ function HomeContent({ initialMode, initialView }: HomeClientProps) {
     // 1. Deep Linking: Sync URL -> Store
     // Only run when searchParams change (navigation), not when internal mode changes.
 
-    useEffect(() => {
-        const modeParam = searchParams.get('mode');
-        // Legacy support: Allow deep linking triggers for specific modes on initial load
-        if (modeParam && ['executive', 'strategist', 'engineer'].includes(modeParam)) {
-            setMode(modeParam as 'executive' | 'strategist' | 'engineer');
-        }
-    }, [searchParams, setMode]);
+    // Sync theme whenever mode changes and handle Deep Linking
+    // 1. Deep Linking: Sync URL -> Store
+    // Removed legacy ?mode= param listener. State is initialized via initialMode prop from server.
 
     // Constraint Violation Fix: Lab View must strictly adhere to root '/' URL.
     useEffect(() => {

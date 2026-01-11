@@ -29,9 +29,10 @@ export default async function Image() {
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center",
+                    alignItems: "flex-start", // Left align
                     justifyContent: "center",
                     fontFamily: 'serif',
+                    padding: '80px', // Matches spacing
                 }}
             >
                 {/* Decorative Document Border/Frame */}
@@ -42,18 +43,13 @@ export default async function Image() {
                         left: "20px",
                         right: "20px",
                         bottom: "20px",
-                        border: "2px solid #e2e8f0", // Soft Gray Border
+                        border: "2px solid #e2e8f0",
                         borderRadius: "12px",
                         pointerEvents: "none",
                     }}
                 />
 
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", zIndex: 10 }}>
-
-
-
-
-
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", zIndex: 10 }}>
                     {/* Name */}
                     <div
                         style={{
@@ -62,7 +58,6 @@ export default async function Image() {
                             color: "#000000",
                             marginBottom: "10px",
                             lineHeight: 1,
-                            textAlign: "center",
                             fontFamily: 'sans-serif',
                         }}
                     >
@@ -95,25 +90,23 @@ export default async function Image() {
                     </div>
                 </div>
 
-                {/* CTA Button */}
+                {/* URL CTA */}
                 <div
                     style={{
                         position: "absolute",
                         bottom: 60,
+                        left: 80, // Match padding
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "center",
-                        padding: "12px 32px",
-                        background: "#000000",
-                        color: "#ffffff",
-                        fontSize: 20,
-                        fontWeight: 600,
-                        borderRadius: "8px",
+                        fontSize: 24,
+                        color: "#0f172a", // Slate-900
+                        fontWeight: 700,
                         fontFamily: 'sans-serif',
                         letterSpacing: "0.05em",
+                        textTransform: "uppercase",
                     }}
                 >
-                    View Portfolio
+                    chris.melson.us
                 </div>
             </div>
         ),

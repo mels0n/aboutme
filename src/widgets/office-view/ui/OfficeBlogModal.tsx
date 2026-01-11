@@ -17,9 +17,16 @@ export const OfficeBlogModal = ({ post, onClose }: OfficeBlogModalProps) => {
     const { mode, cycleMode } = usePersonaStore();
     const [copied, setCopied] = useState(false);
 
+    const MODE_SLUGS = {
+        executive: 'strategic-design',
+        strategist: 'resilient-operations',
+        engineer: 'technical-execution'
+    };
+
     const handleShare = () => {
         if (!post) return;
-        const url = `${window.location.origin}/?mode=${mode}&blog=${post.slug}`;
+        const slug = MODE_SLUGS[mode];
+        const url = `${window.location.origin}/mode/${slug}?blog=${post.slug}`;
         navigator.clipboard.writeText(url);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);

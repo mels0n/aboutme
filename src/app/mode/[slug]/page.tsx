@@ -16,29 +16,29 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         return {};
     }
 
-    const titles = {
-        executive: "Strategic Design | Operational Architecture",
-        strategist: "Resilient Operations | Systems Thinking",
-        engineer: "Technical Execution | Zero Trust Security"
-    };
-
-    const descriptions = {
-        executive: "Boardroom-ready strategic design and operational P&L risk management.",
-        strategist: "Architecting resilient forms of operations through systems thinking and game theory.",
-        engineer: "Deep-dive technical execution, zero trust security, and scalable infrastructure."
-    };
+    const title = "Christopher Melson";
+    const description = "How can I help your firm?";
+    const url = "https://chris.melson.us";
+    const images = [{ url: `${url}/opengraph-image`, width: 1200, height: 630, alt: title }];
 
     return {
-        title: titles[mode],
-        description: descriptions[mode],
+        title,
+        description,
         alternates: {
-            canonical: `/mode/${slug}`,
+            canonical: `/mode/${slug}`, // Maintain canonical for SEO, but override social share
         },
         openGraph: {
-            title: titles[mode],
-            description: descriptions[mode],
-            url: `https://chris.melson.us/mode/${slug}`,
+            title,
+            description,
+            url, // Force URL back to root
+            images,
             type: "profile",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+            images,
         }
     };
 }

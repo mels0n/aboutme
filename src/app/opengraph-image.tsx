@@ -108,6 +108,27 @@ export default async function Image() {
                 >
                     chris.melson.us
                 </div>
+
+                {/* Right CTA Button */}
+                <div
+                    style={{
+                        position: "absolute",
+                        bottom: 60,
+                        right: 80, // Match padding
+                        display: "flex",
+                        alignItems: "center",
+                        padding: "12px 24px",
+                        background: "#0f172a", // Slate-900
+                        color: "#ffffff",
+                        borderRadius: "100px",
+                        fontSize: 20,
+                        fontWeight: 600,
+                        fontFamily: 'sans-serif',
+                        letterSpacing: "0.02em",
+                    }}
+                >
+                    De-Risk Your Strategy &rarr;
+                </div>
             </div>
         ),
         {

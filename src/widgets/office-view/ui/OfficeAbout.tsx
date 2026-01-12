@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from "@/shared/lib/utils";
 import { X, Info, ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
-import { TrustBadge } from "@/shared/ui/TrustBadge";
 
 import { BlueprintGrid } from "./branding/BlueprintGrid";
 import { ExecutiveAbstract } from "./branding/ExecutiveAbstract";
@@ -97,31 +96,32 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
                                 {mode === 'engineer' && <TechMatrix />}
                             </div>
 
+                            {/* Close Button */}
+                            <button
+                                onClick={() => setIsOpen(false)}
+                                className="absolute top-4 right-4 z-20 text-foreground/40 hover:text-foreground transition-colors p-2 hover:bg-black/5 rounded-full"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+
                             {/* Header */}
-                            <div className="relative z-10 p-6 pb-2 flex items-start justify-between bg-surface/80 backdrop-blur-sm">
-                                <div className="flex items-center gap-4">
-                                    <div className={cn("w-16 h-16 rounded-full overflow-hidden border-2 bg-white flex-shrink-0", theme.border, theme.accent)}>
-                                        <Image
-                                            src="/chris-melson-headshot.jpg"
-                                            alt="Christopher Melson"
-                                            width={64}
-                                            height={64}
-                                            className="w-full h-full object-cover"
-                                            priority
-                                        />
-                                    </div>
-                                    <div>
-                                        <TrustBadge label={`Persona: ${mode}`} className="mb-2" />
-                                        <h2 className="text-xl font-display font-bold text-foreground leading-tight">Christopher Melson</h2>
-                                        <p className="text-xs font-serif text-foreground/60 italic">Ensuring Strategy Survives Contact with Reality</p>
-                                    </div>
+                            <div className="relative z-10 p-8 pb-6 border-b border-foreground/10 flex items-center gap-6 bg-surface/80 backdrop-blur-sm">
+                                {/* Headshot */}
+                                <div className={cn("w-20 h-20 rounded-full overflow-hidden border-2 bg-white", theme.border, theme.accent)}>
+                                    <Image
+                                        src="/chris-melson-headshot.jpg"
+                                        alt="Christopher Melson"
+                                        width={80}
+                                        height={80}
+                                        className="w-full h-full object-cover"
+                                        priority
+                                    />
                                 </div>
-                                <button
-                                    onClick={() => setIsOpen(false)}
-                                    className="text-foreground/40 hover:text-foreground transition-colors p-2 hover:bg-black/5 rounded-full"
-                                >
-                                    <X className="w-5 h-5" />
-                                </button>
+                                <div>
+                                    <h2 className="text-2xl font-display font-bold text-foreground">Christopher Melson</h2>
+                                    <p className="text-sm font-serif text-foreground/70 tracking-wide">Executive | Operational Architect | Board Advisor</p>
+                                    <p className="text-sm font-serif text-foreground/60 italic mt-1">Ensuring Strategy Survives Contact with Reality</p>
+                                </div>
                             </div>
 
                             {/* View Toggle Bar */}

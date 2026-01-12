@@ -1,6 +1,7 @@
 "use client";
 
 import resume from "@/shared/data/resume.json";
+import { ResumeItem } from "@/shared/types/resume";
 import { ArrowDownCircle } from "lucide-react";
 
 export const OfficeExperience = () => {
@@ -22,7 +23,7 @@ export const OfficeExperience = () => {
             </div>
 
             <div className="relative border-l border-border ml-3 space-y-12">
-                {resume.sections.experience.items.slice(0, 3).map((job: any) => (
+                {resume.sections.experience.items.slice(0, 3).map((job: ResumeItem) => (
                     <div key={job.id} className="relative pl-8 group">
                         {/* Timeline Dot */}
                         <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 bg-background border border-foreground/30 rounded-full group-hover:border-foreground group-hover:bg-foreground transition-colors" />

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
-import { ChevronRight, Compass, Server, Users } from "lucide-react";
+import { Compass, Server, Users } from "lucide-react";
 
 export const GatekeeperModal = () => {
     const { setIntroDismissed } = usePersonaStore();

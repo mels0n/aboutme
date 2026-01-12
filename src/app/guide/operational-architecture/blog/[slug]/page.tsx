@@ -1,17 +1,40 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { officeBlogPosts } from "@/shared/data/office_blog_posts";
 
-const post = officeBlogPosts.find(p => p.id === "integration-gap")!;
+export async function generateStaticParams() {
+    return officeBlogPosts.map((post) => ({
+        slug: post.slug,
+    }));
+}
 
-export const metadata: Metadata = {
-    title: `${post.title} | ${post.author}`,
-    description: post.summary,
-    alternates: {
-        canonical: `/guide/operational-architecture/blog/${post.slug}`,
-    },
-};
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
+    const post = officeBlogPosts.find((p) => p.slug === slug);
 
-export default function BlogPostPage() {
+    if (!post) {
+        return {
+            title: "Article Not Found",
+        };
+    }
+
+    return {
+        title: `${post.title} | ${post.author}`,
+        description: post.summary,
+        alternates: {
+            canonical: `/guide/operational-architecture/blog/${post.slug}`,
+        },
+    };
+}
+
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const post = officeBlogPosts.find((p) => p.slug === slug);
+
+    if (!post) {
+        notFound();
+    }
+
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
@@ -26,7 +49,10 @@ export default function BlogPostPage() {
 
     return (
         <main className="max-w-3xl mx-auto px-6 py-20 font-serif text-foreground">
-            <SectionJsonLd data={jsonLd} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
 
             <header className="mb-12 text-center">
                 <h1 className="text-3xl md:text-5xl font-display font-bold mb-6 leading-tight">
@@ -106,14 +132,5 @@ export default function BlogPostPage() {
                 </p>
             </div>
         </main>
-    );
-}
-
-function SectionJsonLd({ data }: { data: any }) {
-    return (
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-        />
     );
 }

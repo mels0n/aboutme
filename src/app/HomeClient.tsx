@@ -14,7 +14,7 @@ import { ModeTransitionGlitch } from "@/shared/ui/ModeTransitionGlitch";
 
 import { ChevronsRight, RefreshCw } from "lucide-react";
 
-import { officeBlogPosts } from "@/shared/data/office_blog_posts"; // Ensure this is imported if used, or keep existing imports
+
 
 interface HomeClientProps {
     initialMode?: 'executive' | 'strategist' | 'engineer';

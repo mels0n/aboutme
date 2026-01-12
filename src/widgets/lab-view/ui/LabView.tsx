@@ -5,6 +5,7 @@ import { usePersonaStore } from "@/shared/lib/store";
 import { ProjectCard } from "@/entities/project/ui/ProjectCard";
 import { projects } from "@/entities/project/model/data";
 import resume from "@/shared/data/resume.json";
+import { ResumeItem } from "@/shared/types/resume";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/shared/lib/utils";
 import { ArrowDownCircle } from "lucide-react";
@@ -183,7 +184,7 @@ export const LabView = () => {
                         </div>
 
                         <div className="space-y-8">
-                            {resume.sections.experience.items.slice(0, 3).map((job: any) => (
+                            {resume.sections.experience.items.slice(0, 3).map((job: ResumeItem) => (
                                 <div key={job.id} className="group">
                                     <div className="flex flex-col mb-1">
                                         <h3 className={cn(
@@ -249,7 +250,7 @@ export const LabView = () => {
                                         mode === 'engineer' ? 'source /etc/profile' : 'Training Log'}
                                 </h2>
                                 <div className="space-y-4">
-                                    {resume.sections.education.items.map((edu: any) => (
+                                    {resume.sections.education.items.map((edu: ResumeItem) => (
                                         <div key={edu.id} className="flex justify-between items-baseline">
                                             <div>
                                                 <h3 className={cn(

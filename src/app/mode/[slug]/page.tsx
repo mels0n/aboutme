@@ -25,7 +25,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         title,
         description,
         alternates: {
-            canonical: `/mode/${slug}`, // Maintain canonical for SEO, but override social share
+            canonical: `/`, // Force canonical to root for "Single Page App" behavior
         },
         openGraph: {
             title,

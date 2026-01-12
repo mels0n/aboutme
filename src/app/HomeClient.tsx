@@ -86,7 +86,7 @@ function HomeContent({ initialMode, initialView }: HomeClientProps) {
             }}
         >
             <AnimatePresence mode="wait">
-                {!introDismissed && <GatekeeperModal />}
+                {hasHydrated && !introDismissed && <GatekeeperModal />}
             </AnimatePresence>
             {introDismissed && <ModeTransitionGlitch />}
 

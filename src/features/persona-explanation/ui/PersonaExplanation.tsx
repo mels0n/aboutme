@@ -5,8 +5,10 @@ import { usePersonaStore } from "@/shared/lib/store";
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from "@/shared/lib/utils";
 import { sendEvent } from '@/shared/lib/analytics';
-import { X } from 'lucide-react';
+import { X, ArrowUpRight } from 'lucide-react';
 import { MANIFESTO_CONTENT } from "@/shared/data/lab-content";
+import Link from 'next/link';
+import { TrustBadge } from "@/shared/ui/TrustBadge";
 
 /**
  * # Persona Explanation Feature
@@ -33,21 +35,11 @@ export function PersonaExplanation() {
     const [isOpen, setIsOpen] = useState(false);
 
     // --- Configuration ---
-
-    /**
-     * Map of button labels corresponding to the active persona.
-     */
-
     const buttonText = MANIFESTO_CONTENT.buttonText[mode];
-
-    /**
-     * Context-specific explanation text displayed in the modal.
-     */
     const explanationText = MANIFESTO_CONTENT.explanations[mode];
 
     /**
      * Theming configuration for the component.
-     * Centralizes style variations to keep the render logic clean.
      */
     const styles = {
         executive: {
@@ -55,21 +47,30 @@ export function PersonaExplanation() {
             button: "font-serif text-blue-800 bg-white/50 border-blue-200 hover:bg-blue-50 shadow-sm",
             modal: "font-serif border-blue-100 bg-white text-slate-800 shadow-xl",
             text: "text-slate-700",
-            close: "text-slate-400 hover:text-blue-600"
+            close: "text-slate-400 hover:text-blue-600",
+            headerBadge: "bg-blue-50 text-blue-900",
+            toggleActive: "border-blue-600 text-blue-800 font-bold",
+            toggleInactive: "border-transparent text-slate-500 hover:text-slate-800",
         },
         strategist: {
             // Game UI, mystic, italic serif
             button: "font-serif italic text-emerald-900 bg-emerald-50/50 border-emerald-200 hover:bg-emerald-100/50 shadow-sm",
             modal: "font-serif italic bg-[#fdfbf7] text-emerald-900 border-emerald-700/30 shadow-2xl", // Warm paper tone
             text: "text-emerald-950",
-            close: "text-emerald-700/50 hover:text-emerald-900"
+            close: "text-emerald-700/50 hover:text-emerald-900",
+            headerBadge: "bg-emerald-100 text-emerald-900",
+            toggleActive: "border-emerald-600 text-emerald-900 font-bold",
+            toggleInactive: "border-transparent text-emerald-900/50 hover:text-emerald-900",
         },
         engineer: {
             // Terminal, high contrast, mono
             button: "font-mono text-green-400 bg-black/50 border-green-500/50 hover:bg-green-900/20 shadow-md",
             modal: "font-mono bg-black/95 text-green-400 border-green-500 shadow-green-900/20 shadow-2xl",
             text: "text-green-300",
-            close: "text-green-500/50 hover:text-green-400"
+            close: "text-green-500/50 hover:text-green-400",
+            headerBadge: "bg-green-900/20 text-green-400",
+            toggleActive: "border-green-500 text-green-400 font-bold",
+            toggleInactive: "border-transparent text-green-500/50 hover:text-green-400",
         }
     }[mode];
 
@@ -141,23 +142,56 @@ export function PersonaExplanation() {
                             exit={{ scale: 0.95, opacity: 0, y: 10 }}
                             onClick={(e) => e.stopPropagation()}
                             className={cn(
-                                "relative w-full max-w-lg p-8 rounded-lg border",
+                                "relative w-full max-w-lg rounded-lg border overflow-hidden flex flex-col",
                                 styles.modal
                             )}
                         >
-                            <button
-                                onClick={() => setIsOpen(false)}
-                                className={cn(
-                                    "absolute top-4 right-4 transition-colors",
-                                    styles.close
-                                )}
-                                aria-label="Close"
-                                autoFocus
-                            >
-                                <X className="w-6 h-6" />
-                            </button>
+                            {/* Header */}
+                            <div className={cn(
+                                "flex items-center justify-between p-6 border-b",
+                                mode === 'engineer' ? "border-green-500/30" : "border-slate-200/50"
+                            )}>
+                                <div className="flex items-center gap-3">
+                                    <TrustBadge label={`Persona: ${mode}`} />
+                                </div>
+                                <button
+                                    onClick={() => setIsOpen(false)}
+                                    className={cn("transition-colors", styles.close)}
+                                    aria-label="Close"
+                                    autoFocus
+                                >
+                                    <X className="w-6 h-6" />
+                                </button>
+                            </div>
 
-                            <div className={cn("text-lg leading-relaxed", styles.text)} id="persona-modal-desc">
+                            {/* View Toggle Bar */}
+                            <div className={cn(
+                                "px-6 py-3 flex gap-4 text-sm font-medium border-b",
+                                mode === 'engineer' ? "border-green-500/30 bg-green-900/10" : "border-slate-200/50 bg-slate-50/50"
+                            )}>
+                                <button
+                                    className={cn(
+                                        "pb-1 border-b-2 transition-colors cursor-default",
+                                        styles.toggleActive
+                                    )}
+                                >
+                                    Persona Context
+                                </button>
+                                <Link
+                                    href="/about"
+                                    onClick={() => setIsOpen(false)}
+                                    className={cn(
+                                        "pb-1 border-b-2 transition-all flex items-center gap-2",
+                                        styles.toggleInactive
+                                    )}
+                                >
+                                    Full Biography
+                                    <ArrowUpRight className="w-4 h-4" />
+                                </Link>
+                            </div>
+
+                            {/* Content */}
+                            <div className={cn("p-8 text-lg leading-relaxed", styles.text)} id="persona-modal-desc">
                                 <p className="mb-4">
                                     {MANIFESTO_CONTENT.intro}
                                 </p>

@@ -23,6 +23,7 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     // Context-aware styles
+    // Context-aware styles
     const theme = {
         executive: {
             button: "text-blue-700 bg-blue-50 border-blue-200 hover:bg-blue-100",
@@ -31,7 +32,7 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
             border: "border-blue-100",
             bg: "bg-blue-50/50",
             toggleActive: "border-blue-600 text-blue-800 font-bold",
-            toggleInactive: "border-transparent text-slate-500 hover:text-slate-800",
+            toggleInactive: "border-transparent text-foreground/60 hover:text-foreground hover:bg-foreground/5 px-2 rounded-md",
         },
         strategist: {
             button: "text-indigo-900 bg-indigo-50 border-indigo-200 hover:bg-indigo-100",
@@ -39,8 +40,8 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
             accent: "text-indigo-700",
             border: "border-indigo-100",
             bg: "bg-indigo-50/50",
-            toggleActive: "border-emerald-600 text-emerald-900 font-bold",
-            toggleInactive: "border-transparent text-emerald-900/50 hover:text-emerald-900",
+            toggleActive: "border-indigo-500 text-indigo-700 font-bold",
+            toggleInactive: "border-transparent text-foreground/60 hover:text-foreground hover:bg-foreground/5 px-2 rounded-md",
         },
         engineer: {
             button: "text-emerald-800 bg-emerald-50 border-emerald-200 hover:bg-emerald-100",
@@ -48,8 +49,8 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
             accent: "text-emerald-700",
             border: "border-emerald-100",
             bg: "bg-emerald-50/50",
-            toggleActive: "border-green-500 text-green-400 font-bold",
-            toggleInactive: "border-transparent text-green-500/50 hover:text-green-400",
+            toggleActive: "border-emerald-500 text-emerald-700 font-bold",
+            toggleInactive: "border-transparent text-foreground/60 hover:text-foreground hover:bg-foreground/5 px-2 rounded-md",
         }
     }[mode];
 

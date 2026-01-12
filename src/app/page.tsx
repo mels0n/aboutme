@@ -1,6 +1,6 @@
 import { Metadata, ResolvingMetadata } from "next";
 import { HomeClient } from "./HomeClient";
-import { officeBlogPosts } from "@/shared/data/office_blog_posts";
+
 import { siteConfig } from "@/shared/config/site-config";
 
 type Props = {

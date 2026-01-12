@@ -5,7 +5,7 @@ import { usePersonaStore } from "@/shared/lib/store";
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from "@/shared/lib/utils";
 import { sendEvent } from '@/shared/lib/analytics';
-import { ChevronRight, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { MANIFESTO_CONTENT } from "@/shared/data/lab-content";
 
 /**
@@ -37,9 +37,7 @@ export function PersonaExplanation() {
     /**
      * Map of button labels corresponding to the active persona.
      */
-    /**
-     * Map of button labels corresponding to the active persona.
-     */
+
     const buttonText = MANIFESTO_CONTENT.buttonText[mode];
 
     /**

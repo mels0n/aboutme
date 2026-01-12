@@ -1,4 +1,4 @@
-import { ResumeData } from "@/shared/types/resume";
+import { ResumeData, ResumeItem } from "@/shared/types/resume";
 
 interface ServerSideResumeProps {
     data: ResumeData;
@@ -26,7 +26,7 @@ export const ServerSideResume = ({ data }: ServerSideResumeProps) => {
 
             <section aria-label="Experience">
                 <h2>Professional Experience</h2>
-                {data.sections.experience?.items?.map((job: any, index: number) => (
+                {data.sections.experience?.items?.map((job: ResumeItem, index: number) => (
                     <div key={index}>
                         <h3>{job.position} at {job.company}</h3>
                         <p>{job.date} | {job.location}</p>
@@ -37,7 +37,7 @@ export const ServerSideResume = ({ data }: ServerSideResumeProps) => {
 
             <section aria-label="Education">
                 <h2>Education</h2>
-                {data.sections.education?.items?.map((edu: any, index: number) => (
+                {data.sections.education?.items?.map((edu: ResumeItem, index: number) => (
                     <div key={index}>
                         <h3>{edu.institution}</h3>
                         <p>{edu.area}, {edu.studyType}</p>
@@ -48,7 +48,7 @@ export const ServerSideResume = ({ data }: ServerSideResumeProps) => {
 
             <section aria-label="Skills">
                 <h2>Skills & Expertise</h2>
-                {data.sections.skills?.items?.map((skillGroup: any, index: number) => (
+                {data.sections.skills?.items?.map((skillGroup: ResumeItem, index: number) => (
                     <div key={index}>
                         <h3>{skillGroup.name}</h3>
                         <ul>

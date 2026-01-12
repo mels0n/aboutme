@@ -5,7 +5,7 @@ import { usePersonaStore } from "@/shared/lib/store";
 import { officeCaseStudies, OfficeCaseStudy } from "@/shared/data/office_case_studies";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, X } from "lucide-react";
-import { TrustBadge } from "./branding/TrustBadge";
+import { TrustBadge } from "@/shared/ui/TrustBadge";
 import { BlueprintGrid } from "./branding/BlueprintGrid";
 import { ExecutiveAbstract } from "./branding/ExecutiveAbstract";
 import { TechMatrix } from "./branding/TechMatrix";

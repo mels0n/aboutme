@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { BlogPost, officeBlogPosts } from "@/shared/data/office_blog_posts";
 import { OfficeBlogModal } from "./OfficeBlogModal";
-import { TrustBadge } from "./branding/TrustBadge";
+import { TrustBadge } from "@/shared/ui/TrustBadge";
 import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
 

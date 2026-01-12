@@ -4,7 +4,9 @@ import { useState } from 'react';
 import { usePersonaStore } from "@/shared/lib/store";
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from "@/shared/lib/utils";
-import { X, Info } from 'lucide-react';
+import { X, Info, ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
+import { TrustBadge } from "@/shared/ui/TrustBadge";
 
 import { BlueprintGrid } from "./branding/BlueprintGrid";
 import { ExecutiveAbstract } from "./branding/ExecutiveAbstract";
@@ -28,21 +30,27 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
             modal: "bg-surface border-border text-slate-900 border-blue-900/10",
             accent: "text-blue-700",
             border: "border-blue-100",
-            bg: "bg-blue-50/50"
+            bg: "bg-blue-50/50",
+            toggleActive: "border-blue-600 text-blue-800 font-bold",
+            toggleInactive: "border-transparent text-slate-500 hover:text-slate-800",
         },
         strategist: {
             button: "text-indigo-900 bg-indigo-50 border-indigo-200 hover:bg-indigo-100",
             modal: "bg-surface border-border text-indigo-950 border-indigo-900/10",
             accent: "text-indigo-700",
             border: "border-indigo-100",
-            bg: "bg-indigo-50/50"
+            bg: "bg-indigo-50/50",
+            toggleActive: "border-emerald-600 text-emerald-900 font-bold",
+            toggleInactive: "border-transparent text-emerald-900/50 hover:text-emerald-900",
         },
         engineer: {
             button: "text-emerald-800 bg-emerald-50 border-emerald-200 hover:bg-emerald-100",
             modal: "bg-surface border-border text-zinc-900 border-emerald-900/10",
             accent: "text-emerald-700",
             border: "border-emerald-100",
-            bg: "bg-emerald-50/50"
+            bg: "bg-emerald-50/50",
+            toggleActive: "border-green-500 text-green-400 font-bold",
+            toggleInactive: "border-transparent text-green-500/50 hover:text-green-400",
         }
     }[mode];
 
@@ -89,32 +97,56 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
                                 {mode === 'engineer' && <TechMatrix />}
                             </div>
 
-                            {/* Close Button */}
-                            <button
-                                onClick={() => setIsOpen(false)}
-                                className="absolute top-4 right-4 z-20 text-foreground/40 hover:text-foreground transition-colors p-2 hover:bg-black/5 rounded-full"
-                            >
-                                <X className="w-5 h-5" />
-                            </button>
+                            {/* Header */}
+                            <div className="relative z-10 p-6 pb-2 flex items-start justify-between bg-surface/80 backdrop-blur-sm">
+                                <div className="flex items-center gap-4">
+                                    <div className={cn("w-16 h-16 rounded-full overflow-hidden border-2 bg-white flex-shrink-0", theme.border, theme.accent)}>
+                                        <Image
+                                            src="/chris-melson-headshot.jpg"
+                                            alt="Christopher Melson"
+                                            width={64}
+                                            height={64}
+                                            className="w-full h-full object-cover"
+                                            priority
+                                        />
+                                    </div>
+                                    <div>
+                                        <TrustBadge label={`Persona: ${mode}`} className="mb-2" />
+                                        <h2 className="text-xl font-display font-bold text-foreground leading-tight">Christopher Melson</h2>
+                                        <p className="text-xs font-serif text-foreground/60 italic">Ensuring Strategy Survives Contact with Reality</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setIsOpen(false)}
+                                    className="text-foreground/40 hover:text-foreground transition-colors p-2 hover:bg-black/5 rounded-full"
+                                >
+                                    <X className="w-5 h-5" />
+                                </button>
+                            </div>
 
-                            {/* Static Header */}
-                            <div className="relative z-10 p-8 pb-6 border-b border-foreground/10 flex items-center gap-6 bg-surface/80 backdrop-blur-sm">
-                                {/* Headshot */}
-                                <div className={cn("w-20 h-20 rounded-full overflow-hidden border-2 bg-white", theme.border, theme.accent)}>
-                                    <Image
-                                        src="/chris-melson-headshot.jpg"
-                                        alt="Christopher Melson"
-                                        width={80}
-                                        height={80}
-                                        className="w-full h-full object-cover"
-                                        priority
-                                    />
-                                </div>
-                                <div>
-                                    <h2 className="text-2xl font-display font-bold text-foreground">Christopher Melson</h2>
-                                    <p className="text-sm font-serif text-foreground/70 tracking-wide">Executive | Operational Architect | Board Advisor</p>
-                                    <p className="text-sm font-serif text-foreground/60 italic mt-1">Ensuring Strategy Survives Contact with Reality</p>
-                                </div>
+                            {/* View Toggle Bar */}
+                            <div className={cn(
+                                "relative z-10 px-6 py-3 flex gap-4 text-sm font-medium border-b border-foreground/5 bg-surface/50 backdrop-blur-sm"
+                            )}>
+                                <button
+                                    className={cn(
+                                        "pb-1 border-b-2 transition-colors cursor-default",
+                                        theme.toggleActive
+                                    )}
+                                >
+                                    Persona Context
+                                </button>
+                                <Link
+                                    href="/about"
+                                    onClick={() => setIsOpen(false)}
+                                    className={cn(
+                                        "pb-1 border-b-2 transition-all flex items-center gap-2",
+                                        theme.toggleInactive
+                                    )}
+                                >
+                                    Full Biography
+                                    <ArrowUpRight className="w-4 h-4" />
+                                </Link>
                             </div>
 
                             {/* Dynamic Body */}
@@ -125,11 +157,9 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
                                         initial={{ opacity: 0, x: 10 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         exit={{ opacity: 0, x: -10 }}
-                                        className="space-y-6 font-serif leading-relaxed"
+                                        className="space-y-6 font-serif leading-relaxed text-foreground/90"
                                     >
-
-
-                                        <div className="text-foreground/90 space-y-4">
+                                        <div className="space-y-4">
                                             {content[mode].bioParagraphs.map((paragraph, idx) => (
                                                 <p key={idx} className={idx === 0 ? "font-bold text-lg mb-4" : idx === 2 ? "mt-4" : ""}>
                                                     {paragraph}
@@ -138,7 +168,6 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
                                         </div>
 
                                         <div className="mt-8 grid gap-6">
-
                                             {content[mode].stats.map((stat, idx) => (
                                                 <div key={idx}>
                                                     <span className="text-xs font-bold uppercase tracking-wider opacity-60 block mb-1">{stat.label}</span>
@@ -153,9 +182,9 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
                             </div>
 
                             {/* Sticky Footer */}
-                            <div className="relative z-10 p-6 border-t border-foreground/10 bg-surface/90 backdrop-blur-md text-center">
-                                <p className="text-sm font-medium font-sans text-foreground">
-                                    Available for Fractional & Interim Leadership, Board Appointments, and Advisory.
+                            <div className="relative z-10 p-4 border-t border-foreground/10 bg-surface/90 backdrop-blur-md text-center">
+                                <p className="text-xs font-medium font-sans text-foreground/70">
+                                    Available for Fractional & Interim Leadership
                                 </p>
                             </div>
 

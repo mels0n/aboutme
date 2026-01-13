@@ -182,12 +182,7 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
                                 </AnimatePresence>
                             </div>
 
-                            {/* Sticky Footer */}
-                            <div className="relative z-10 p-4 border-t border-foreground/10 bg-surface/90 backdrop-blur-md text-center">
-                                <p className="text-xs font-medium font-sans text-foreground/70">
-                                    Available for Fractional & Interim Leadership
-                                </p>
-                            </div>
+
 
                         </motion.div>
                     </div >

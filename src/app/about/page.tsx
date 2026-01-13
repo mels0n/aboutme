@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { BentoHeader } from "@/widgets/about/ui/BentoHeader";
 import { AboutIntro } from "@/widgets/about/ui/AboutIntro";
 import { FunctionalSections } from "@/widgets/about/ui/FunctionalSections";
-import { ClosingQuote } from "@/widgets/about/ui/ClosingQuote";
+
 import { aboutContent } from "@/shared/data/about-content";
 import Link from 'next/link';
 

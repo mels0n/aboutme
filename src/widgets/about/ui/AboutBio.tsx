@@ -4,7 +4,7 @@ import { aboutContent } from "@/shared/data/about-content";
 import { cn } from "@/shared/lib/utils";
 
 export const AboutBio = () => {
-    const { intro, sections, closing } = aboutContent.bio;
+    const { intro, sections } = aboutContent.bio;
 
     return (
         <article className="prose prose-slate prose-lg max-w-none space-y-12">
@@ -53,12 +53,7 @@ export const AboutBio = () => {
                 })}
             </div>
 
-            {/* Closing */}
-            <div className="pt-8 border-t border-border/40">
-                <p className="text-2xl md:text-3xl font-display font-bold text-foreground text-center">
-                    "{closing}"
-                </p>
-            </div>
+
         </article>
     );
 };

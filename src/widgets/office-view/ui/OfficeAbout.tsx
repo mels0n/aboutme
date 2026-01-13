@@ -161,20 +161,20 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
                                         className="space-y-6 font-serif leading-relaxed text-foreground/90"
                                     >
                                         <div className="space-y-4">
-                                            {(() => {
-                                                const sectionId =
-                                                    mode === 'executive' ? 'boardroom' :
-                                                        mode === 'strategist' ? 'architect' :
-                                                            'engine-room';
+                                            {aboutContent.popouts[mode].bioParagraphs.map((paragraph, idx) => (
+                                                <p key={idx} className={idx === 0 ? "font-bold text-lg mb-4" : ""}>
+                                                    {paragraph}
+                                                </p>
+                                            ))}
+                                        </div>
 
-                                                const section = aboutContent.bio.sections.find(s => s.id === sectionId);
-
-                                                return section?.content.map((paragraph, idx) => (
-                                                    <p key={idx} className={idx === 0 ? "font-bold text-lg mb-4" : ""}>
-                                                        {paragraph}
-                                                    </p>
-                                                ));
-                                            })()}
+                                        <div className="mt-8 grid gap-6">
+                                            {aboutContent.popouts[mode].stats.map((stat, idx) => (
+                                                <div key={idx}>
+                                                    <span className="text-xs font-bold uppercase tracking-wider opacity-60 block mb-1">{stat.label}</span>
+                                                    <span className="text-lg font-serif italic text-foreground/80">{stat.value}</span>
+                                                </div>
+                                            ))}
                                         </div>
 
 

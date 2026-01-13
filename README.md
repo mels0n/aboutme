@@ -1,68 +1,45 @@
-# Polymorphic Portfolio
+# Portfolio (Next.js 16 + FSD)
 
-> *"It changes as you observe it."*
+Technical documentation for the `aboutme` project.
 
-This is a personal web space for **Chris Melson**, powered by **Next.js 14**, **Tailwind CSS**, and **Framer Motion**.
-
-## Dual Persona Architecture
-The site features a global context switch between two distinct views:
-1.  **The Office:** A minimalist, high-stakes professional interface designed for C-Suite and Private Equity audiences.
-2.  **The Lab:** The original creative playground, housing the interactive and gamified elements.
-
-## The Tri-Modal Core
-The "Polymorphic Layout" engine (Executive, Strategist, Engineer) runs underneath both views, rendering content appropriate for the active context.
-
-1.  **The Executive / Boardroom:**
-    *   **Focus:** Global Operations, Annual Reports, ROI, Risk.
-    *   **Style:** High Contrast White/Navy (Lab) or Clean Corporate (Office).
-    
-2.  **The Strategist / Architect:**
-    *   **Focus:** Target Operating Models (TOM), Game Theory, Process Design.
-    *   **Style:** Warm Parchment/Ink (Lab) or Emerald/Systems (Office).
-
-3.  **The Engineer / Builder:**
-    *   **Focus:** Technical Execution, API Design, Security.
-    *   **Style:** Terminal/Green (Lab) or Indigo/Tech (Office).
-
-## Tech Stack
-
+## Stack
 *   **Framework:** Next.js 16 (App Router)
-*   **Styling:** Tailwind CSS 4 + CSS Variables (Hot-swappable themes)
-*   **Animation:** Framer Motion (Layout transitions & Intro sequence)
-*   **Icons:** Lucide React
+*   **Styling:** Tailwind CSS 4, Framer Motion
+*   **Architecture:** Feature Sliced Design (FSD)
+*   **Validation:** Zod, TypeScript (Strict)
 
-## Architecture & AEO Strategy
-This project follows a strict **Answer Engine Optimization (AEO)** protocol to ensure maximum visibility in AI-driven search (ChatGPT, Perplexity, Gemini).
-
-*   **Semantic Twins:** Every dynamic blog post (`OfficeBlogModal`) has a corresponding static page (`/guide/...`) with full JSON-LD Schema.
-*   **LLMS.txt:** A curated index (`public/llms.txt`) provides AI agents with a direct map of high-value content.
-*   **Dynamic Open Graph:** The `/api/og` endpoint generates polymorphic social cards on the fly, matching the user's persona mode (Executive/Strategist/Engineer).
-
-## Content Engine
-The content is **Polymorphic**, meaning the same underlying reality is described differently depending on the viewer's lens:
-*   **Executive:** Focus on "Cost," "Risk," and "Structure."
-*   **Strategist:** Focus on "Models," "Protocol," and "Value Streams."
-*   **Engineer:** Focus on "Latency," "Coupling," and "Throughput."
-
-All data is managed in `src/shared/data/office_blog_posts.ts` and rendered via the `OfficeBlogGrid` (Horizontal Scroll) and `OfficeBlogModal` (Deep Linking enabled).
-
-*   **Case Studies:** Detailed S.T.A.R. reports (`src/shared/data/office_case_studies.ts`) are rendered as semantic twin individual pages at `/guide/operational-architecture/case-studies/[slug]`.
-*   **FAQ Engine:** The Objection Handling Engine (`src/shared/data/faq_content.ts`) provides a deep-dive FAQ page (`/faq`) optimized for Answer Engines with structured Scheme.org markup.
-
-
-## Getting Started
-
-
-First, run the development server:
+## Running Locally
 
 ```bash
+# Install
+npm install
+
+# Dev Server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Production Build
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Architecture & Governance
+
+### 1. Feature Sliced Design (FSD)
+The project structure strictly follows FSD layers:
+*   `app/`: Routing and entry points.
+*   `processes/`: Global workflows (e.g., Auth, Theme).
+*   `pages/`: Page-specific composition.
+*   `widgets/`: Complex, self-contained UI blocks (`OfficeHero`, `OfficeNav`).
+*   `features/`: Business value slices (`ai-faq`, `persona-explanation`).
+*   `entities/`: Domain models and data fetching (`project`, `blog`).
+*   `shared/`: Reusable primitives and utilities.
+
+### 2. AEO/GEO Protocol (Semantic Twins)
+This project is optimized for Answer Engine Optimization (AEO).
+*   **Rule:** Every major feature slice MUST have a corresponding "Semantic Twin" page in `src/app/guide`.
+*   **Purpose:** Allows AI agents to index the logic/intent of the feature.
+*   **Implementation:** `src/shared/data` serves as the Single Source of Truth (SSOT) for both the UI component and the Guide page.
+
+### 3. Vertical Sliced Architecture (VSA)
+Backend/API logic is organized by business feature, not technical layer.
+*   See `src/features/` for isolated business logic.
+*   Do not share state between features unless via `shared/lib/store`.

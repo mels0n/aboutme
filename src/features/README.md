@@ -9,5 +9,5 @@ This directory contains **Feature Slices** in accordance with Feature-Sliced Des
 3.  **Isolation:** Features should be loosely coupled. Cross-feature communication should happen via the `pages` or `app` layer, or via shared `entities`.
 
 ## Current Implementations
-- **`ai-faq`**: Logic for the AI agent Q&A system.
+
 - **`persona-explanation`**: Logic for explaining the "Tri-Modal" persona concept.

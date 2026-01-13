@@ -8,6 +8,7 @@ import { ExecutiveAbstract } from "./branding/ExecutiveAbstract";
 import { TechMatrix } from "./branding/TechMatrix";
 import { IconStrategy, IconExecution, IconResilience } from "./branding/ThreePillarsIcons";
 import { cn } from "@/shared/lib/utils";
+import { diagnosticContent } from "@/shared/data/diagnostic_content";
 
 interface OfficeFAQModalProps {
     isOpen: boolean;
@@ -19,6 +20,8 @@ export const OfficeFAQModal = ({ isOpen, onClose }: OfficeFAQModalProps) => {
 
     const fontModeClass = mode === 'executive' ? "font-serif" :
         mode === 'strategist' ? "font-sans" : "font-mono";
+
+    const { header, values, diagnosis } = diagnosticContent;
 
     return (
         <AnimatePresence>
@@ -59,7 +62,7 @@ export const OfficeFAQModal = ({ isOpen, onClose }: OfficeFAQModalProps) => {
                         <div className="relative z-10 flex justify-between items-center p-6 border-b border-border bg-surface/80 backdrop-blur-sm shrink-0">
                             <div>
                                 <h2 className="text-xl md:text-2xl font-bold text-foreground transition-all duration-300">
-                                    What is an Operational Architect?
+                                    {header.title}
                                 </h2>
                             </div>
                             <button
@@ -76,36 +79,18 @@ export const OfficeFAQModal = ({ isOpen, onClose }: OfficeFAQModalProps) => {
                             {/* Definition */}
                             <div className="prose prose-slate max-w-none">
                                 <p className="text-lg md:text-xl leading-relaxed transition-all duration-300">
-                                    <span className="text-foreground/80">The era of the "Generalist Operations Executive", who simply keeps the lights on, is over.</span> <span className="text-foreground font-bold">An Operational Architect does not just run the machine; I design the underlying systems that create resilience.</span>
+                                    <span className="text-foreground/80">{header.definition.part1}</span> <span className="text-foreground font-bold">{header.definition.part2}</span>
                                 </p>
                             </div>
 
                             {/* The 6 Values */}
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div className="bg-surface/50 p-6 rounded-lg border border-border/50">
-                                    <strong className="block text-foreground mb-2">1. Financial Translation</strong>
-                                    <p className="text-sm leading-relaxed text-foreground/80">Translating technical debt into P&L risk and EBITDA impact to align engineering reality with board expectations.</p>
-                                </div>
-                                <div className="bg-surface/50 p-6 rounded-lg border border-border/50">
-                                    <strong className="block text-foreground mb-2">2. Technical Due Diligence</strong>
-                                    <p className="text-sm leading-relaxed text-foreground/80">Conducting forensic TDD to expose "spaghetti code" and security vulnerabilities before they destroy value.</p>
-                                </div>
-                                <div className="bg-surface/50 p-6 rounded-lg border border-border/50">
-                                    <strong className="block text-foreground mb-2">3. Value Orchestration</strong>
-                                    <p className="text-sm leading-relaxed text-foreground/80">Orchestrating value streams to ensure stability and continuity during high-stakes transformation.</p>
-                                </div>
-                                <div className="bg-surface/50 p-6 rounded-lg border border-border/50">
-                                    <strong className="block text-foreground mb-2">4. Regulatory Safeguarding</strong>
-                                    <p className="text-sm leading-relaxed text-foreground/80">Embedding rigid compliance standards (EU DORA, GDPR) into workflows to immunize the organization against regulatory risk.</p>
-                                </div>
-                                <div className="bg-surface/50 p-6 rounded-lg border border-border/50">
-                                    <strong className="block text-foreground mb-2">5. Intelligence Unification</strong>
-                                    <p className="text-sm leading-relaxed text-foreground/80">Eliminating "Data Blind Spots" by migrating fragmented communication into a centralized Enterprise Stack.</p>
-                                </div>
-                                <div className="bg-surface/50 p-6 rounded-lg border border-border/50">
-                                    <strong className="block text-foreground mb-2">6. Cultural Restoration</strong>
-                                    <p className="text-sm leading-relaxed text-foreground/80">Diagnosing and dismantling toxic "Shadow Cultures" to reverse high attrition and rebuild leadership density.</p>
-                                </div>
+                                {values.map((value, idx) => (
+                                    <div key={idx} className="bg-surface/50 p-6 rounded-lg border border-border/50">
+                                        <strong className="block text-foreground mb-2">{value.title}</strong>
+                                        <p className="text-sm leading-relaxed text-foreground/80">{value.description}</p>
+                                    </div>
+                                ))}
                             </div>
 
                             <div className="h-px bg-border/50 w-full" />
@@ -113,70 +98,40 @@ export const OfficeFAQModal = ({ isOpen, onClose }: OfficeFAQModalProps) => {
                             {/* Diagnosis */}
                             <div className="space-y-8 text-left">
                                 <div className="space-y-4">
-                                    <h3 className="text-xl md:text-2xl font-bold text-foreground">Do You Need One?</h3>
+                                    <h3 className="text-xl md:text-2xl font-bold text-foreground">{diagnosis.title}</h3>
                                     <p className="text-base md:text-lg leading-relaxed max-w-2xl">
-                                        Strategy is cheap. Execution is expensive. You need an Operational Architect when your vision outpaces your operational reality.
+                                        {diagnosis.subtitle}
                                     </p>
                                 </div>
 
                                 <ul className="space-y-6">
-                                    <li className="flex gap-4 items-start bg-surface/30 p-5 rounded-lg border border-border/30">
-                                        <CheckCircle2 className="w-6 h-6 text-amber-500 shrink-0 mt-0.5" />
-                                        <div className="space-y-4 w-full">
-                                            <div>
-                                                <strong className="text-foreground block text-lg font-bold">1. You are Post-Merger (The Integration Trap)</strong>
-                                                <p className="text-sm md:text-base leading-relaxed text-foreground/70 italic">
-                                                    You acquired a competitor for their market share, but you inherited their debt.
-                                                </p>
+                                    {diagnosis.triggers.map((trigger, idx) => (
+                                        <li key={idx} className="flex gap-4 items-start bg-surface/30 p-5 rounded-lg border border-border/30">
+                                            <CheckCircle2 className="w-6 h-6 text-amber-500 shrink-0 mt-0.5" />
+                                            <div className="space-y-4 w-full">
+                                                <div>
+                                                    <strong className="text-foreground block text-lg font-bold">{trigger.title}</strong>
+                                                    <p className="text-sm md:text-base leading-relaxed text-foreground/70 italic">
+                                                        {trigger.subtitle}
+                                                    </p>
+                                                </div>
+                                                <div className="space-y-3 pl-4 border-l-2 border-border/50">
+                                                    {trigger.description.map((desc, dIdx) => (
+                                                        <p key={dIdx} className="text-sm leading-relaxed">
+                                                            <strong className="text-foreground">{desc.split(':')[0]}:</strong> {desc.split(':').slice(1).join(':').trim()}
+                                                        </p>
+                                                    ))}
+                                                </div>
                                             </div>
-                                            <div className="space-y-3 pl-4 border-l-2 border-border/50">
-                                                <p className="text-sm leading-relaxed"><strong className="text-foreground">The Tech Mismatch:</strong> Their "proprietary tech" is actually a siloed spaghetti of legacy code that refuses to talk to your centralized Enterprise Stack.</p>
-                                                <p className="text-sm leading-relaxed"><strong className="text-foreground">The Culture Clash:</strong> The "One Company" memo went out, but the reality is "Us vs. Them." Attrition is spiking because high-performers are fleeing a toxic, unmanaged environment.</p>
-                                                <p className="text-sm leading-relaxed"><strong className="text-foreground">The Data Blackout:</strong> You cannot see the fire through the smoke. You are relying on localized spreadsheets rather than a unified dashboard to make P&L decisions.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li className="flex gap-4 items-start bg-surface/30 p-5 rounded-lg border border-border/30">
-                                        <CheckCircle2 className="w-6 h-6 text-amber-500 shrink-0 mt-0.5" />
-                                        <div className="space-y-4 w-full">
-                                            <div>
-                                                <strong className="text-foreground block text-lg font-bold">2. You are Scaling (The Growth Paradox)</strong>
-                                                <p className="text-sm md:text-base leading-relaxed text-foreground/70 italic">
-                                                    You are investing millions in "Digital Transformation," but your velocity is slowing down.
-                                                </p>
-                                            </div>
-                                            <div className="space-y-3 pl-4 border-l-2 border-border/50">
-                                                <p className="text-sm leading-relaxed"><strong className="text-foreground">Bureaucracy as a Service:</strong> Your rigid operating model now requires 14 signatures to deploy a single line of code, paralyzing your engineers.</p>
-                                                <p className="text-sm leading-relaxed"><strong className="text-foreground">Process Fracture:</strong> Workflows that worked for 50 people are breaking at 500. You are throwing bodies at problems that require automation.</p>
-                                                <p className="text-sm leading-relaxed"><strong className="text-foreground">The "Shadow Ops" Risk:</strong> Your teams are bypassing IT to get things done using personal WhatsApps or unsecured tools to handle sensitive client data because the official tools are too slow.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <li className="flex gap-4 items-start bg-surface/30 p-5 rounded-lg border border-border/30">
-                                        <CheckCircle2 className="w-6 h-6 text-amber-500 shrink-0 mt-0.5" />
-                                        <div className="space-y-4 w-full">
-                                            <div>
-                                                <strong className="text-foreground block text-lg font-bold">3. You are Flying Blind (The Strategic Disconnect)</strong>
-                                                <p className="text-sm md:text-base leading-relaxed text-foreground/70 italic">
-                                                    You lack a Target Operating Model (TOM) and rely on functional silos rather than cross-functional value streams.
-                                                </p>
-                                            </div>
-                                            <div className="space-y-3 pl-4 border-l-2 border-border/50">
-                                                <p className="text-sm leading-relaxed"><strong className="text-foreground">The "Feelings" Metric:</strong> Your decisions are based on loud opinions and anecdotes rather than forensic data. You measure "activity" (emails sent) rather than "outcomes" (resolution time).</p>
-                                                <p className="text-sm leading-relaxed"><strong className="text-foreground">Siloed Intelligence:</strong> Sales is selling a vision that Operations cannot deliver, and Support is fixing products that Engineering thinks are perfect.</p>
-                                                <p className="text-sm leading-relaxed"><strong className="text-foreground">Regulatory Exposure:</strong> You are scaling into regulated markets (DORA, GDPR) but your compliance strategy is a checkbox, not an architectural safeguard.</p>
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
 
                             {/* Closing */}
                             <div className="text-left pt-8 border-t border-border/50">
                                 <p className="text-xl md:text-2xl italic text-foreground/80 mb-8">
-                                    "Operational incoherence isn't just a people problem it is a design flaw. I fix the blueprint."
+                                    {diagnosis.closing}
                                 </p>
                             </div>
 

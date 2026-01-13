@@ -44,7 +44,7 @@ export function JsonLd() {
         "jobTitle": ["Executive", "Operational Architect", "Board Advisor", "Strategist", "Engineer"],
         "sameAs": [
             "https://github.com/mels0n",
-            "https://www.linkedin.com/in/chris-melson-45a88244/"
+            "https://www.linkedin.com/in/chris-melson/"
         ],
         "knowsAbout": [
             "Engineering",

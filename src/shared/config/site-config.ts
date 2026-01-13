@@ -9,6 +9,6 @@ export const siteConfig = {
     },
     links: {
         github: "https://github.com/mels0n",
-        linkedin: "https://www.linkedin.com/in/chris-melson-45a88244/",
+        linkedin: "https://www.linkedin.com/in/chris-melson/",
     }
 };

@@ -161,23 +161,23 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
                                         className="space-y-6 font-serif leading-relaxed text-foreground/90"
                                     >
                                         <div className="space-y-4">
-                                            {content[mode].bioParagraphs.map((paragraph, idx) => (
-                                                <p key={idx} className={idx === 0 ? "font-bold text-lg mb-4" : idx === 2 ? "mt-4" : ""}>
-                                                    {paragraph}
-                                                </p>
-                                            ))}
+                                            {(() => {
+                                                const sectionId =
+                                                    mode === 'executive' ? 'boardroom' :
+                                                        mode === 'strategist' ? 'architect' :
+                                                            'engine-room';
+
+                                                const section = aboutContent.bio.sections.find(s => s.id === sectionId);
+
+                                                return section?.content.map((paragraph, idx) => (
+                                                    <p key={idx} className={idx === 0 ? "font-bold text-lg mb-4" : ""}>
+                                                        {paragraph}
+                                                    </p>
+                                                ));
+                                            })()}
                                         </div>
 
-                                        <div className="mt-8 grid gap-6">
-                                            {content[mode].stats.map((stat, idx) => (
-                                                <div key={idx}>
-                                                    <span className="text-xs font-bold uppercase tracking-wider opacity-60 block mb-1">{stat.label}</span>
-                                                    <span className={cn("font-display font-bold text-lg", idx === 1 && theme.accent)}>
-                                                        {stat.value}
-                                                    </span>
-                                                </div>
-                                            ))}
-                                        </div>
+
                                     </motion.div>
                                 </AnimatePresence>
                             </div>

@@ -33,7 +33,6 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
             bg: "bg-blue-50/50",
             toggleActive: "border-blue-600 text-blue-800 font-bold",
             toggleInactive: "border-transparent text-foreground/60 hover:text-foreground hover:bg-foreground/5 px-2 rounded-md",
-            font: "font-serif",
         },
         strategist: {
             button: "text-indigo-900 bg-indigo-50 border-indigo-200 hover:bg-indigo-100",
@@ -43,7 +42,6 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
             bg: "bg-indigo-50/50",
             toggleActive: "border-indigo-500 text-indigo-700 font-bold",
             toggleInactive: "border-transparent text-foreground/60 hover:text-foreground hover:bg-foreground/5 px-2 rounded-md",
-            font: "font-serif font-slab", // Combined for specificity if needed, or just font-slab if that's the class name for the variable font
         },
         engineer: {
             button: "text-emerald-800 bg-emerald-50 border-emerald-200 hover:bg-emerald-100",
@@ -53,7 +51,6 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
             bg: "bg-emerald-50/50",
             toggleActive: "border-emerald-500 text-emerald-700 font-bold",
             toggleInactive: "border-transparent text-foreground/60 hover:text-foreground hover:bg-foreground/5 px-2 rounded-md",
-            font: "font-mono",
         }
     }[mode];
 
@@ -162,8 +159,7 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
                                         animate={{ opacity: 1, x: 0 }}
                                         exit={{ opacity: 0, x: -10 }}
                                         className={cn(
-                                            "space-y-6 leading-relaxed text-foreground/90",
-                                            theme.font
+                                            "space-y-6 leading-relaxed text-foreground/90 font-serif"
                                         )}
                                     >
                                         <div className="space-y-4">

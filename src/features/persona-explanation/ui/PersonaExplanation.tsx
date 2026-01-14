@@ -59,8 +59,8 @@ export function PersonaExplanation() {
         },
         strategist: {
             // Game UI, mystic, italic serif
-            button: "font-serif italic text-emerald-900 bg-emerald-50/50 border-emerald-200 hover:bg-emerald-100/50 shadow-sm",
-            modal: "font-serif italic bg-[#fdfbf7] text-emerald-900 border-emerald-700/30 shadow-2xl", // Warm paper tone
+            button: "font-slab italic text-emerald-900 bg-emerald-50/50 border-emerald-200 hover:bg-emerald-100/50 shadow-sm",
+            modal: "font-slab italic bg-[#fdfbf7] text-emerald-900 border-emerald-700/30 shadow-2xl", // Warm paper tone
             text: "text-emerald-950",
             close: "text-emerald-700/50 hover:text-emerald-900"
         },

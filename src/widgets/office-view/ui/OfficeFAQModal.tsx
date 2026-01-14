@@ -18,9 +18,6 @@ interface OfficeFAQModalProps {
 export const OfficeFAQModal = ({ isOpen, onClose }: OfficeFAQModalProps) => {
     const { mode, cycleMode } = usePersonaStore();
 
-    const fontModeClass = mode === 'executive' ? "font-serif" :
-        mode === 'strategist' ? "font-sans" : "font-mono";
-
     const { header, values, diagnosis } = diagnosticContent;
 
     return (
@@ -44,8 +41,9 @@ export const OfficeFAQModal = ({ isOpen, onClose }: OfficeFAQModalProps) => {
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
                         className={cn(
                             "w-full max-w-4xl max-h-[90vh] overflow-hidden bg-surface border border-border shadow-2xl relative z-10 flex flex-col rounded-lg touch-pan-y",
-                            fontModeClass // Apply font globally to the card
-                        )}
+                            // Font is inherited from Global OfficeView override
+                        )
+                        }
                         onPanEnd={(e, info) => {
                             if (info.offset.x > 50) cycleMode('prev');
                             if (info.offset.x < -50) cycleMode('next');

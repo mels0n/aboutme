@@ -42,7 +42,7 @@ export const OfficeHero = ({ mode: propMode }: OfficeHeroProps) => {
                 </div>
 
                 {/* 1. Headline & Modal Trigger */}
-                <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground relative inline-block font-serif">
+                <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground relative inline-block font-display">
                     Operational <span className="relative inline-block">
                         Architect
                         {/* Desktop Only CTA: Floats to the right */}

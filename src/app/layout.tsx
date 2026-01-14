@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Young_Serif, Merriweather, JetBrains_Mono } from "next/font/google";
+import { Inter, Young_Serif, Merriweather, JetBrains_Mono, Roboto_Slab } from "next/font/google";
 import "./globals.css";
 import { ThemeMetadata } from "@/shared/ui/ThemeMetadata";
 import GoogleAnalytics from "@/shared/ui/GoogleAnalytics";
@@ -26,6 +26,12 @@ const youngSerif = Young_Serif({
 const merriweather = Merriweather({
     weight: ["300", "400", "700", "900"],
     variable: "--font-merriweather",
+    subsets: ["latin"],
+});
+
+// Body serif font for Strategist (Game Table feel)
+const robotoSlab = Roboto_Slab({
+    variable: "--font-roboto-slab",
     subsets: ["latin"],
 });
 
@@ -96,7 +102,7 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body
-                className={`${inter.variable} ${youngSerif.variable} ${merriweather.variable} ${jetbrains.variable} antialiased`}
+                className={`${inter.variable} ${youngSerif.variable} ${merriweather.variable} ${jetbrains.variable} ${robotoSlab.variable} antialiased`}
             >
                 <GoogleAnalytics />
                 <ThemeMetadata />

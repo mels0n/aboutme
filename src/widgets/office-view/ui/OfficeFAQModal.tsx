@@ -23,7 +23,7 @@ export const OfficeFAQModal = ({ isOpen, onClose, view }: OfficeFAQModalProps) =
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 sm:px-6">
+                <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center px-4 pt-28 pb-4 sm:px-6 md:py-6">
                     {/* Backdrop */}
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -40,7 +40,7 @@ export const OfficeFAQModal = ({ isOpen, onClose, view }: OfficeFAQModalProps) =
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
                         className={cn(
-                            "w-full max-w-4xl max-h-[90vh] overflow-hidden bg-surface border border-border shadow-2xl relative z-10 flex flex-col rounded-lg touch-pan-y",
+                            "w-full max-w-4xl max-h-[85dvh] md:max-h-[90vh] overflow-hidden bg-surface border border-border shadow-2xl relative z-10 flex flex-col rounded-lg touch-pan-y",
                         )}
                         onPanEnd={(e, info) => {
                             if (info.offset.x > 50) cycleMode('prev');

@@ -51,13 +51,13 @@ export const OfficeBlogGrid = ({ mode: propMode }: OfficeBlogGridProps) => {
 
                 {/* Horizontal Scroll Container */}
                 <div className="flex overflow-x-auto gap-6 pb-8 -mx-4 px-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-foreground/10 hover:scrollbar-thumb-foreground/20">
-                    {officeBlogPosts.map((post) => (
+                    {[...officeBlogPosts].reverse().map((post) => (
                         <motion.div
                             key={post.id}
                             whileHover={{ y: -5 }}
                             className={cn(
                                 "group cursor-pointer relative overflow-hidden rounded-lg border bg-surface/50 backdrop-blur-sm p-6 transition-colors duration-300",
-                                "w-[85vw] md:w-[350px] snap-center flex-shrink-0",
+                                "w-[70vw] md:w-[350px] snap-center flex-shrink-0",
                                 mode === 'engineer' ? "border-green-800/20 hover:border-green-500/50 hover:bg-green-50/10" :
                                     mode === 'strategist' ? "border-indigo-800/20 hover:border-indigo-500/50 hover:bg-indigo-50/10" :
                                         "border-blue-900/20 hover:border-blue-700/50 hover:bg-blue-50/10"

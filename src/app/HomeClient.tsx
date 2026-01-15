@@ -80,6 +80,10 @@ function HomeContent({ initialMode, initialView }: HomeClientProps) {
                 // Disable swipe on desktop (md breakpoint is 768px)
                 if (typeof window !== 'undefined' && window.innerWidth >= 768) return;
 
+                // Explicitly ignore mouse events (only allow touch swipes)
+                // This prevents "swiping" with a mouse on smaller window sizes or hybrid devices
+                if ((e as PointerEvent).pointerType === 'mouse') return;
+
                 // Cycle modes on swipe (Global)
                 if (info.offset.x > 50) cycleMode('prev');
                 if (info.offset.x < -50) cycleMode('next');

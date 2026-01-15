@@ -1,11 +1,7 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { OfficeFAQModal } from "./OfficeFAQModal";
 import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
 import { ArrowUp } from "lucide-react";
-import { ResumeBento } from "@/widgets/about/ui/ResumeBento";
-import { FAQBento } from "./FAQBento";
 
 interface OfficeHeroProps {
     mode?: 'executive' | 'strategist' | 'engineer';
@@ -14,8 +10,6 @@ interface OfficeHeroProps {
 export const OfficeHero = ({ mode: propMode }: OfficeHeroProps) => {
     const { mode: storeMode, introDismissed } = usePersonaStore();
     const mode = propMode || storeMode;
-    const [showFaq, setShowFaq] = useState(false);
-    const [faqView, setFaqView] = useState<'definition' | 'diagnosis'>('definition');
 
     return (
 
@@ -33,16 +27,11 @@ export const OfficeHero = ({ mode: propMode }: OfficeHeroProps) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={introDismissed ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8 }}
-                className="w-full max-w-7xl px-4 grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative"
+                className="w-full max-w-7xl px-4 grid grid-cols-1 gap-8 items-center relative"
             >
 
-                {/* 1. Left: Resume Bento (Desktop: span 2/3, Mobile: span 1) */}
-                <div className="hidden md:flex md:col-span-3 lg:col-span-2 justify-end order-first">
-                    <ResumeBento mode={mode} />
-                </div>
-
-                {/* 2. Center: Hero Content - Col Span 6/8 */}
-                <div className="space-y-8 md:col-span-6 lg:col-span-8 flex flex-col items-center text-center mx-auto">
+                {/* Center: Hero Content */}
+                <div className="space-y-8 flex flex-col items-center text-center mx-auto w-full">
                     {/* 0. Identity */}
                     <div>
                         <h2 className={cn(
@@ -89,22 +78,8 @@ export const OfficeHero = ({ mode: propMode }: OfficeHeroProps) => {
                     <div className="h-px w-32 bg-foreground/10 mx-auto" />
                 </div>
 
-                {/* 3. Right: FAQ Bento (Desktop Only) - Col Span 2/3 */}
-                <div className="hidden md:flex md:col-span-3 lg:col-span-2 justify-start order-last">
-                    <FAQBento
-                        mode={mode}
-                        onWhatIsIt={() => { setFaqView('definition'); setShowFaq(true); }}
-                        onDoINeedOne={() => { setFaqView('diagnosis'); setShowFaq(true); }}
-                    />
-                </div>
-
             </motion.div>
 
-            <OfficeFAQModal
-                isOpen={showFaq}
-                onClose={() => setShowFaq(false)}
-                view={faqView}
-            />
         </section >
     );
 };

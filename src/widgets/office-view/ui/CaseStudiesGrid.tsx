@@ -113,7 +113,7 @@ export const CaseStudiesGrid = ({ mode: propMode }: CaseStudiesGridProps) => {
             {/* Detailed View Modal */}
             <AnimatePresence>
                 {selectedStudy && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-6">
+                    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center px-4 pt-28 pb-4 sm:px-6 md:py-6">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -124,7 +124,7 @@ export const CaseStudiesGrid = ({ mode: propMode }: CaseStudiesGridProps) => {
 
                         <motion.div
                             layoutId={`card-${selectedStudy.idx}`}
-                            className="w-full max-w-4xl max-h-[85vh] overflow-hidden bg-surface border border-border shadow-2xl relative z-10 flex flex-col rounded-lg"
+                            className="w-full max-w-4xl max-h-[85dvh] md:max-h-[85vh] overflow-hidden bg-surface border border-border shadow-2xl relative z-10 flex flex-col rounded-lg"
                         >
                             {/* Polymorphic Backgrounds in Modal - Subtle opacity for readability */}
                             <div className="opacity-50 pointer-events-none absolute inset-0">

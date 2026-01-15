@@ -48,7 +48,7 @@ export const FAQBento = ({ mode = 'executive', onWhatIsIt, onDoINeedOne }: FAQBe
                 <button
                     onClick={onWhatIsIt}
                     className={cn(
-                        "flex items-center justify-between w-full py-4 px-3 rounded-lg transition-colors border group/btn",
+                        "flex items-center justify-between w-full py-4 px-3 rounded-lg transition-colors border group/btn cursor-pointer",
                         mode === 'engineer' ? "bg-emerald-50 hover:bg-emerald-100 border-emerald-200" :
                             mode === 'strategist' ? "bg-indigo-900/10 hover:bg-indigo-900/20 border-indigo-200/50" :
                                 "bg-blue-50/50 hover:bg-blue-100/60 border-blue-100"
@@ -72,7 +72,7 @@ export const FAQBento = ({ mode = 'executive', onWhatIsIt, onDoINeedOne }: FAQBe
                 <button
                     onClick={onDoINeedOne}
                     className={cn(
-                        "flex items-center justify-between w-full py-4 px-3 rounded-lg transition-colors border group/btn",
+                        "flex items-center justify-between w-full py-4 px-3 rounded-lg transition-colors border group/btn cursor-pointer",
                         mode === 'engineer' ? "bg-emerald-50 hover:bg-emerald-100 border-emerald-200" :
                             mode === 'strategist' ? "bg-indigo-900/10 hover:bg-indigo-900/20 border-indigo-200/50" :
                                 "bg-blue-50/50 hover:bg-blue-100/60 border-blue-100"

@@ -64,7 +64,7 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
                 layout
                 onClick={() => setIsOpen(true)}
                 className={cn(
-                    "fixed z-40 bottom-6 right-6 px-4 py-2 rounded-full border shadow-sm backdrop-blur-sm transition-all duration-300 flex items-center gap-2",
+                    "fixed z-40 bottom-6 right-6 px-4 py-2 rounded-full border shadow-sm backdrop-blur-sm transition-all duration-300 flex items-center gap-2 cursor-pointer",
                     theme.button
                 )}
                 initial={{ opacity: 0, y: 20 }}
@@ -79,14 +79,14 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
             {/* Modal */}
             <AnimatePresence>
                 {isOpen && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-slate-900/20" onClick={() => setIsOpen(false)}>
+                    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-4 pt-28 md:pt-4 backdrop-blur-sm bg-slate-900/20" onClick={() => setIsOpen(false)}>
                         <motion.div
                             initial={{ scale: 0.95, opacity: 0, y: 10 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.95, opacity: 0, y: 10 }}
                             onClick={(e) => e.stopPropagation()}
                             className={cn(
-                                "relative w-full max-w-2xl rounded-xl border shadow-2xl overflow-hidden flex flex-col max-h-[90vh]",
+                                "relative w-full max-w-2xl rounded-xl border shadow-2xl overflow-hidden flex flex-col max-h-[85dvh] md:max-h-[90vh]",
                                 theme.modal
                             )}
                         >

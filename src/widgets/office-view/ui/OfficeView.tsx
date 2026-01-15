@@ -1,6 +1,7 @@
 "use client";
 
 import { OfficeHero } from "./OfficeHero";
+import { useState } from "react";
 import { CaseStudiesGrid } from "./CaseStudiesGrid";
 import { OfficeBlogGrid } from "./OfficeBlogGrid"; // Added import
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,6 +13,9 @@ import { cn } from "@/shared/lib/utils";
 import { OfficeAbout } from "./OfficeAbout";
 import { Footer } from "@/widgets/shared/Footer";
 import { MobileResumeActions } from "./MobileResumeActions";
+import { OfficeResume } from "./OfficeResume";
+import { OfficeOA } from "./OfficeOA";
+import { OfficeFAQModal } from "./OfficeFAQModal";
 
 interface OfficeViewProps {
     mode?: 'executive' | 'strategist' | 'engineer';
@@ -39,6 +43,9 @@ export const OfficeView = ({ mode: propMode }: OfficeViewProps) => {
             '--font-sans': 'var(--font-jetbrains)',
         } as React.CSSProperties,
     };
+
+    const [showFaq, setShowFaq] = useState(false);
+    const [faqView, setFaqView] = useState<'definition' | 'diagnosis'>('definition');
 
     return (
         <AnimatePresence mode="wait">
@@ -93,6 +100,20 @@ export const OfficeView = ({ mode: propMode }: OfficeViewProps) => {
                     <OfficeBlogGrid mode={mode} />
                     <OfficeAbout mode={mode} />
                     <MobileResumeActions mode={mode} />
+
+                    <OfficeResume mode={mode} />
+                    <OfficeOA
+                        mode={mode}
+                        onWhatIsIt={() => { setFaqView('definition'); setShowFaq(true); }}
+                        onDoINeedOne={() => { setFaqView('diagnosis'); setShowFaq(true); }}
+                    />
+
+                    <OfficeFAQModal
+                        isOpen={showFaq}
+                        onClose={() => setShowFaq(false)}
+                        view={faqView}
+                    />
+
                     <Footer />
                 </div>
             </motion.div>

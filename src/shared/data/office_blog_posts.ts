@@ -25,7 +25,7 @@ export const officeBlogPosts: BlogPost[] = [
         title: "The \"Tri-Modal\" Brand Translation: One Voice, Many Dialects",
         author: "Christopher Melson",
         role: "Operational Architect",
-        date: "2026-01-08",
+        date: "2025-12-01",
         summary: "Why 90% of M&A deals fail due to 'Operational Incoherence,' and how the 'Tri-Modal' framework translates value across Fintech, Healthcare, and Industrial sectors.",
         polymorphicSummary: {
             executive: "70-90% of M&A deals fail due to 'Operational Incoherence.' Learn how Tri-Modal leadership protects capital and ensures realization of intended synergies.",
@@ -46,7 +46,7 @@ We tend to silo expertise. We assume that a hospital administrator in St. Louis 
 
 This is a dangerous fallacy. The defining challenge of the 2020s across all these sectors is the Crisis of Operational Incoherence.
 
-Organizations are aggressively acquiring competitors to gain market share, yet research consistently shows that 70% to 90% of M&A deals fail to realize their intended synergies. [1] Why? Because they are shackled by fragmented data, legacy technical debt, and rigid operating models that cannot scale.
+Organizations are aggressively acquiring competitors to gain market share, yet research consistently shows that 70% to 90% of M&A deals fail to realize their intended synergies. Why? Because they are shackled by fragmented data, legacy technical debt, and rigid operating models that cannot scale.
 
 Whether you are moving money, moving patients, or moving technicians, the physics of operations remain the same. To solve these problems, you don't need a specialist in the industry; you need a specialist in the structure.
 
@@ -86,11 +86,11 @@ Industrial: It is the Job Site Accident or catastrophic Service Failure.
 
 #### 3. The Regulation: DORA, TEFCA, and OSHA
 
-Fintech: We navigate EU DORA (Digital Operational Resilience Act), which mandates that financial entities must withstand and recover from ICT-related disruptions. [2]
-Healthcare: You navigate HIPAA and the new TEFCA (Trusted Exchange Framework and Common Agreement). TEFCA is essentially the "SWIFT network" for healthcare - a "network of networks" designed to allow seamless data exchange between Qualified Health Information Networks (QHINs). [3]
+Fintech: We navigate EU DORA (Digital Operational Resilience Act), which mandates that financial entities must withstand and recover from ICT-related disruptions.
+Healthcare: You navigate HIPAA and the new TEFCA (Trusted Exchange Framework and Common Agreement). TEFCA is essentially the "SWIFT network" for healthcare - a "network of networks" designed to allow seamless data exchange between Qualified Health Information Networks (QHINs).
 Industrial: You navigate OSHA and local building codes.
 
-* The Architect's Solution: Complexity is the enemy of compliance. I treat regulation as an engineering constraint. By encoding regulatory rules into the software supply chain - a concept known as "Compliance as Code" - we ensure that you are audit-ready every single day, not just during inspection. [4]
+* The Architect's Solution: Complexity is the enemy of compliance. I treat regulation as an engineering constraint. By encoding regulatory rules into the software supply chain - a concept known as "Compliance as Code" - we ensure that you are audit-ready every single day, not just during inspection.
 
 #### 4. The Data Unit: The Trade vs. The Encounter
 
@@ -107,13 +107,13 @@ A deeper analysis reveals that these industries are structurally converging. We 
 #### The "Platformization" of Everything
 
 Just as finance moved from open-outcry pits to electronic platforms, Healthcare is moving to "Digital Health Platforms" and Home Services to "Service Platforms."
-In the Industrial sector, the Private Equity "Roll-Up" strategy - buying dozens of small HVAC or plumbing firms - only works if you can integrate them into a single, scalable platform. Trends for 2025 indicate a massive shift toward AI-Powered Automation in Field Service Management (FSM) to handle this scale. [5]
+In the Industrial sector, the Private Equity "Roll-Up" strategy - buying dozens of small HVAC or plumbing firms - only works if you can integrate them into a single, scalable platform. Trends for 2025 indicate a massive shift toward AI-Powered Automation in Field Service Management (FSM) to handle this scale.
 You cannot scale a plumbing empire on whiteboards. You need a Target Operating Model that digitizes the supply chain.
 
 #### Compliance as Code
 
 Across all sectors, regulation has become too complex for humans to manage manually. The shift to Automated Governance is universal.
-The same architectural principles I used to solve EU DORA requirements for banking resilience are perfectly equipped to solve TEFCA interoperability requirements in healthcare. The Stark Law, which prohibits physician self-referral, is a strict liability statute - meaning intent doesn't matter, only the fact of the violation. [6] This is exactly the kind of binary logic that can and should be hard-coded into your operational software to prevent human error.
+The same architectural principles I used to solve EU DORA requirements for banking resilience are perfectly equipped to solve TEFCA interoperability requirements in healthcare. The Stark Law, which prohibits physician self-referral, is a strict liability statute - meaning intent doesn't matter, only the fact of the violation. This is exactly the kind of binary logic that can and should be hard-coded into your operational software to prevent human error.
 
 #### Data as the Primary Asset
 
@@ -135,15 +135,7 @@ Whether I am speaking to your Board about Operational Alpha, designing a Clinica
 
 Don't let your operations be the bottleneck to your vision. Let's build a structure that scales.
 
----
 
-Works Cited & Notes
-[1] Christensen, C. M., et al. "The Big Idea: The New M&A Playbook." Harvard Business Review, Mar. 2011.
-[2] European Parliament and Council. "Regulation (EU) 2022/2554 on digital operational resilience for the financial sector (EU DORA)." Official Journal of the European Union, Dec. 2022.
-[3] The Office of the National Coordinator for Health Information Technology (ONC). "Trusted Exchange Framework and Common Agreement (TEFCA)." HealthIT.gov, Jan. 2025.
-[4] Humble, J., & Molesky, J. "Compliance as Code: A Guide to Automated Compliance." O'Reilly Media, 2024.
-[5] ServiceTitan. "Field Service Trends to Watch in 2025." ServiceTitan Industry Report, Sep. 2025.
-[6] Social Security Act § 1877. "Limitation on certain physician referrals (Stark Law)." 42 U.S.C. 1395nn.
 `,
         geoHighlights: [
             { label: "Core Argument", value: "Ops challenges are identical across Fintech, Healthcare, and Industrial." },
@@ -157,7 +149,7 @@ Works Cited & Notes
         title: "Bridging the \"Integration Gap\" to Prevent M&A Value Destruction",
         author: "Christopher Melson",
         role: "Operational Architect",
-        date: "2026-01-08",
+        date: "2025-12-15",
         summary: "Research shows 30-50% of M&A value is lost due to slow integration. Learn how the 'Integration Gap' creates revenue leaks and how an Operational Architect bridges the thesis to reality.",
         polymorphicSummary: {
             executive: "Research shows 30-50% of M&A value is lost to the 'Integration Gap.' Mitigate value destruction and guarantee the investment thesis with an Integration Management Office (IMO).",
@@ -227,9 +219,9 @@ My role is to ensure that the acquisition does not become a distressed asset due
 
 Works Cited & Notes
 
-[1] Christensen, C. M., et al. "The Big Idea: The New M&A Playbook." Harvard Business Review, Mar. 2011. (Consistent with 2024-2025 data from McKinsey & Co. citing ~70% failure rates in revenue synergies).
+[1] <a href="https://hbr.org/2011/03/the-big-idea-the-new-ma-playbook" rel="nofollow noreferrer" class="text-inherit no-underline">Christensen, C. M., et al. "The Big Idea: The New M&A Playbook." Harvard Business Review, Mar. 2011. (Consistent with 2024-2025 data from McKinsey & Co. citing ~70% failure rates in revenue synergies).</a>
 [2] McKinsey & Company. "Global M&A Report 2025: Capturing Value in Uncertain Times." McKinsey Quarterly, Jan. 2025.
-[3] Fowler, M. "The Strangler Fig Application." martinfowler.com, 2004 (and updated 2024). A fundamental pattern for legacy system migration.
+[3] <a href="https://martinfowler.com/bliki/StranglerFigApplication.html" rel="nofollow noreferrer" class="text-inherit no-underline">Fowler, M. "The Strangler Fig Application." martinfowler.com, 2004 (and updated 2024). A fundamental pattern for legacy system migration.</a>
 `,
         geoHighlights: [
             { label: "Core Argument", value: "M&A value is lost due to operational integration lag." },
@@ -243,7 +235,7 @@ Works Cited & Notes
         title: "Scalability is an Engineering Problem: Architecting the Target Operating Model",
         author: "Christopher Melson",
         role: "Operational Architect",
-        date: "2026-01-08",
+        date: "2025-12-29",
         summary: "True scalability is increasing revenue without linear cost. The Target Operating Model is the schematic that ensures you don't collapse under your own weight.",
         polymorphicSummary: {
             executive: "True scalability is increasing revenue without linear cost. The Target Operating Model (TOM) is the schematic that ensures your organization scales, not just grows.",
@@ -341,7 +333,7 @@ Works Cited & Notes
         title: "Orchestrating the Transition: From \"Generative\" to \"Agentic\" AI",
         author: "Christopher Melson",
         role: "Operational Architect",
-        date: "2026-01-08",
+        date: "2026-01-12",
         summary: "We are moving from chatbots (content) to agents (goals). This transition introduces existential risks that require sophisticated architectural governance.",
         polymorphicSummary: {
             executive: "Moving from GenAI to Agentic AI represents a massive efficiency opportunity but introduces existential risk. We must stop treating AI as a feature and start treating it as a Digital Employee requiring an Agentic Operating Model.",
@@ -404,10 +396,9 @@ The adoption of Agentic AI is inevitable. The only variable is safety. My role i
 
 Works Cited & Notes
 
-[1] Domo. "Agentic AI in Banking & Finance: Transforming Automation and Decision-Making." Domo Learning Center, July 2025.
-[2] McKinsey & Company. "Deploying Agentic AI with Safety and Security: A Playbook for Technology Leaders." McKinsey Risk & Resilience, Oct. 2025.
-[3] Hogan Lovells. "Agentic AI in Financial Services: Regulatory and Legal Considerations." Hogan Lovells Insights, Dec. 2025. (Source for regulatory risks and "runaway" agent scenarios).
-[4] Galileo. "Guide to AI Agent Observability for AI Teams." Galileo Blog, Sep. 2025. (Source for "decision lineage" and observability best practices). In an agentic ecosystem, one agent's output is another agent's input. A small error in one agent can cascade into a systemic failure-a phenomenon known as "Chained Vulnerability."
+[1] <a href="https://www.domo.com/learn/article/guide-to-agentic-ai-in-banking-finance" rel="nofollow noreferrer" class="text-inherit no-underline">Domo. "Agentic AI in Banking & Finance: Transforming Automation and Decision-Making." Domo Learning Center, July 2025.</a>
+[2] <a href="https://www.mckinsey.com/capabilities/risk-and-resilience/our-insights/deploying-agentic-ai-with-safety-and-security-a-playbook-for-technology-leaders" rel="nofollow noreferrer" class="text-inherit no-underline">McKinsey & Company. "Deploying Agentic AI with Safety and Security: A Playbook for Technology Leaders." McKinsey Risk & Resilience, Oct. 2025.</a>
+[3] <a href="https://www.hoganlovells.com/en/publications/agentic-ai-in-financial-services-regulatory-and-legal-considerations#:~:text=For%20example%2C%20the%20use%20of,regulatory%20penalties%20and%20reputational%20damage." rel="nofollow noreferrer" class="text-inherit no-underline">Hogan Lovells. "Agentic AI in Financial Services: Regulatory and Legal Considerations." Hogan Lovells Insights, Dec. 2025. (Source for regulatory risks and "runaway" agent scenarios).</a>
 `,
         geoHighlights: [
             { label: "Core Argument", value: "Transition to Agentic AI requires a new governance architecture." },

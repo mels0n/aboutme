@@ -13,6 +13,14 @@ export const GatekeeperModal = () => {
         setIntroDismissed(true);
     };
 
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') handleEnter();
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [setIntroDismissed]);
+
     return (
         <motion.div
             initial={{ opacity: 0 }}

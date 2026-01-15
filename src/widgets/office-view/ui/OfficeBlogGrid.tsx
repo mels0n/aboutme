@@ -51,7 +51,7 @@ export const OfficeBlogGrid = ({ mode: propMode }: OfficeBlogGridProps) => {
 
                 {/* Horizontal Scroll Container */}
                 <div className="flex overflow-x-auto gap-6 pb-8 -mx-4 px-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-foreground/10 hover:scrollbar-thumb-foreground/20">
-                    {[...officeBlogPosts].reverse().map((post) => (
+                    {[...officeBlogPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((post) => (
                         <motion.div
                             key={post.id}
                             whileHover={{ y: -5 }}
@@ -69,9 +69,9 @@ export const OfficeBlogGrid = ({ mode: propMode }: OfficeBlogGridProps) => {
                                     <span>{post.date}</span>
                                     <div className="flex items-center gap-2">
                                         <TrustBadge label={
-                                            mode === 'engineer' ? "SYS: REF-2026" :
-                                                mode === 'strategist' ? "STR: DAT-2026" :
-                                                    "REF: OA-2026"
+                                            mode === 'engineer' ? `SYS: REF-${post.date.split('-')[0]}` :
+                                                mode === 'strategist' ? `STR: DAT-${post.date.split('-')[0]}` :
+                                                    `REF: OA-${post.date.split('-')[0]}`
                                         } />
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@ export const OfficeBlogGrid = ({ mode: propMode }: OfficeBlogGridProps) => {
                                     mode === 'engineer' ? "text-green-700" :
                                         mode === 'strategist' ? "text-indigo-700" : "text-blue-800"
                                 )}>
-                                    Read Analysis <ArrowUpRight className="w-3 h-3" />
+                                    Read Analysis ({Math.ceil(post.content.split(/\s+/).length / 225)} min read) <ArrowUpRight className="w-3 h-3" />
                                 </div>
                             </div>
                         </motion.div>

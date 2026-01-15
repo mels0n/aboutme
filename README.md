@@ -21,6 +21,9 @@ npm run dev
 npm run build
 ```
 
+## Documentation
+- [Blog Creation Workflow](docs/BLOG_WORKFLOW.md)
+
 ## Architecture & Governance
 
 ### 1. Feature Sliced Design (FSD)

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePersonaStore } from "@/shared/lib/store";
 import { officeCaseStudies, OfficeCaseStudy } from "@/shared/data/office_case_studies";
 import { motion, AnimatePresence } from "framer-motion";
@@ -27,6 +27,14 @@ export const CaseStudiesGrid = ({ mode: propMode }: CaseStudiesGridProps) => {
         setSelectedStudy(null);
         setIsFullReport(false);
     };
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') handleClose();
+        };
+        if (selectedStudy) window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [selectedStudy]);
 
     return (
         <section className="w-full max-w-6xl mx-auto space-y-12 pb-12">
@@ -192,7 +200,7 @@ export const CaseStudiesGrid = ({ mode: propMode }: CaseStudiesGridProps) => {
                             </div>
 
                             {/* Body Content */}
-                            <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-8 relative z-10">
+                            <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-8 relative z-10 touch-pan-y">
 
                                 {!isFullReport ? (
                                     /* --- PERSONA BRIEF VIEW --- */

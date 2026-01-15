@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { usePersonaStore } from "@/shared/lib/store";
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from "@/shared/lib/utils";
@@ -21,6 +21,14 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
     const { mode: storeMode } = usePersonaStore();
     const mode = propMode || storeMode;
     const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setIsOpen(false);
+        };
+        if (isOpen) window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen]);
 
     // Context-aware styles
     // Context-aware styles
@@ -121,7 +129,7 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
                                 <div>
                                     <h2 className="text-2xl font-display font-bold text-foreground">Christopher Melson</h2>
                                     <p className="text-sm font-serif text-foreground/70 tracking-wide">Executive | Operational Architect | Board Advisor</p>
-                                    <p className="text-sm font-serif text-foreground/60 italic mt-1">Ensuring Strategy Survives Contact with Reality</p>
+                                    <p className="text-sm font-serif text-foreground/60 italic mt-1">Ensure Strategy Survives Contact with Reality</p>
                                 </div>
                             </div>
 
@@ -151,7 +159,7 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
                             </div>
 
                             {/* Dynamic Body */}
-                            <div className="p-8 overflow-y-auto relative z-10 flex-1">
+                            <div className="p-8 overflow-y-auto relative z-10 flex-1 touch-pan-y">
                                 <AnimatePresence mode="wait">
                                     <motion.div
                                         key={mode}

@@ -86,7 +86,7 @@ export default async function Image() {
                             fontFamily: 'serif',
                         }}
                     >
-                        Ensuring Strategy Survives Contact with Reality
+                        Ensure Strategy Survives Contact with Reality
                     </div>
                 </div>
 

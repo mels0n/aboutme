@@ -2,7 +2,7 @@ export const aboutContent = {
     header: {
         name: "Christopher Melson",
         titles: ["Executive", "Operational Architect", "Board Advisor"],
-        tagline: "Ensuring Strategy Survives Contact with Reality",
+        tagline: "Ensure Strategy Survives Contact with Reality",
     },
     bio: {
         intro: [

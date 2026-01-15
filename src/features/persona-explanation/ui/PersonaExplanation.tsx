@@ -157,7 +157,7 @@ export function PersonaExplanation() {
                                 <X className="w-6 h-6" />
                             </button>
 
-                            <div className={cn("text-lg leading-relaxed", styles.text)} id="persona-modal-desc">
+                            <div className={cn("text-sm leading-relaxed", styles.text)} id="persona-modal-desc">
                                 <p className="mb-4">
                                     {MANIFESTO_CONTENT.intro}
                                 </p>

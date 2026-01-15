@@ -4,6 +4,28 @@ export interface DiagnosticValue {
     description: string;
 }
 
+export interface ComparisonRow {
+    role: string;
+    steward: {
+        focus: string;
+        method: string;
+        mindset: string;
+    };
+    engineer: {
+        focus: string;
+        method: string;
+        mindset: string;
+    };
+    advantage: {
+        label: string;
+        text: string;
+    }[];
+    valuesHeader: {
+        title: string;
+        intro: string;
+    };
+}
+
 export interface DiagnosticTrigger {
     title: string;
     subtitle: string;
@@ -14,9 +36,14 @@ export const diagnosticContent = {
     header: {
         title: "What is an Operational Architect?",
         definition: {
-            part1: "The era of the \"Generalist Operations Executive\", who simply keeps the lights on, is over.",
-            part2: "An Operational Architect does not just run the machine; I design the underlying systems that create resilience."
+            part1: "The era of the \"Generalist Operations Executive\" who simply keeps the lights on is over.",
+            part2: "An Operational Architect does not merely run the machine; they design the underlying systems that create resilience.",
+            part3: "Operational Architect is a flexible and high-impact capability rather than a static job title."
         }
+    },
+    valuesHeader: {
+        title: "Core Competencies",
+        intro: "The Operational Architect drives resilient growth through six key dimensions of execution:"
     },
     values: [
         {
@@ -77,5 +104,124 @@ export const diagnosticContent = {
             }
         ] as DiagnosticTrigger[],
         closing: "\"Operational incoherence isn't just a people problem it is a design flaw. I fix the blueprint.\""
-    }
+    },
+    comparison: [
+        {
+            role: "COO",
+            steward: {
+                focus: "People & Process Management",
+                method: "Weekly syncs, manual reporting, hiring to scale",
+                mindset: "\"Keep the trains running on time.\""
+            },
+            engineer: {
+                focus: "System Design & Automation",
+                method: "Automated workflows, real-time dashboards, scaling via AI agents",
+                mindset: "\"Upgrade the trains to self-driving.\""
+            },
+            advantage: [
+                { label: "Revenue", text: "Scales output without linear headcount growth (margin expansion)." },
+                { label: "AI", text: "Deploys AI to replace repetitive human loops, not just assist them." }
+            ]
+        },
+        {
+            role: "CTO",
+            steward: {
+                focus: "Technology Stack & Code Quality",
+                method: "Agile ceremonies, vendor management, roadmap adherence",
+                mindset: "\"Build it right.\""
+            },
+            engineer: {
+                focus: "Techno-Economic Architecture",
+                method: "FinOps (cost-to-value), GovOps (automated compliance), LoopScripts",
+                mindset: "\"Build the right thing for the P&L.\""
+            },
+            advantage: [
+                { label: "Compliance", text: "Embeds regulatory rules directly into the CI/CD pipeline (Policy as Code)." },
+                { label: "AI", text: "Architects the \"Agentic Interface\" between human intent and machine execution." }
+            ]
+        },
+        {
+            role: "Board Member",
+            steward: {
+                focus: "Governance & Historical Review",
+                method: "Quarterly board decks, audit committees, risk registers",
+                mindset: "\"What happened last quarter?\""
+            },
+            engineer: {
+                focus: "Real-Time Observability & Systemic Risk",
+                method: "Direct access to \"The ACE Dashboard,\" predictive analytics, algorithmic auditing",
+                mindset: "\"What is the system predicting for next quarter?\""
+            },
+            advantage: [
+                { label: "Compliance", text: "Moves from \"Sample-based Auditing\" to \"Continuous 100% Verification\" via data logs." },
+                { label: "Revenue", text: "Identifies systemic bottlenecks in the revenue engine instantly." }
+            ]
+        },
+        {
+            role: "Board Advisor",
+            steward: {
+                focus: "Mentorship & Networking",
+                method: "High-level advice, introductions, sounding board",
+                mindset: "\"Let me share my experience.\""
+            },
+            engineer: {
+                focus: "Pattern Matching & Blueprinting",
+                method: "diagnostic audits, architectural refactoring plans, specific toolchain selection",
+                mindset: "\"Let me install this proven operating system.\""
+            },
+            advantage: [
+                { label: "AI", text: "Provides specific blueprints for integrating AI into the company DNA, rather than vague \"AI Strategy\" advice." }
+            ]
+        },
+        {
+            role: "Head of Operations",
+            steward: {
+                focus: "Efficiency & Utilization",
+                method: "Gantt charts, resource allocation, minimizing downtime",
+                mindset: "\"Maximize billable hours.\""
+            },
+            engineer: {
+                focus: "Flow & Throughput",
+                method: "Theory of Constraints, removing friction, asynchronous handoffs",
+                mindset: "\"Maximize finished value delivered.\""
+            },
+            advantage: [
+                { label: "Revenue", text: "Faster time-to-value directly increases cash flow velocity." },
+                { label: "Compliance", text: "Automated trails mean operations are \"audit-ready\" by default, reducing legal overhead." }
+            ]
+        },
+        {
+            role: "Head of Engineering",
+            steward: {
+                focus: "Velocity & Bug Rates",
+                method: "Sprint points, stand-ups, QA teams",
+                mindset: "\"Ship faster.\""
+            },
+            engineer: {
+                focus: "Reliability & Developer Experience (DevEx)",
+                method: "Platform engineering, self-serve infrastructure, automated guardrails",
+                mindset: "\"Ship safely with less friction.\""
+            },
+            advantage: [
+                { label: "AI", text: "Uses \"Test Agents\" and \"Build Agents\" to handle the 80% commodity code, freeing humans for innovation." },
+                { label: "Compliance", text: "Security is not a gate; it is a built-in paved road." }
+            ]
+        },
+        {
+            role: "IC (Reporting to C-Suite)",
+            steward: {
+                focus: "Execution of Specific Tasks",
+                method: "Completing assigned projects, managing a specific vertical",
+                mindset: "\"I will deliver this project.\""
+            },
+            engineer: {
+                focus: "Force Multiplication",
+                method: "Building tools that the rest of the C-Suite uses to make decisions",
+                mindset: "\"I will build the dashboard that runs the company.\""
+            },
+            advantage: [
+                { label: "AI", text: "Acts as the \"Translator,\" turning C-Suite intent directly into prompt-engineered workflows for the organization." }
+            ]
+        }
+    ] as ComparisonRow[]
 };

@@ -41,7 +41,7 @@ export const OfficeHero = ({ mode: propMode }: OfficeHeroProps) => {
                             Chris Melson
                         </h2>
                         <p className="text-xs md:text-sm font-serif italic text-foreground/60 mt-1">
-                            Ensuring Strategy Survives Contact with Reality
+                            Ensure Strategy Survives Contact with Reality
                         </p>
                     </div>
 

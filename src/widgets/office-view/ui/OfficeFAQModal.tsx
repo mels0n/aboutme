@@ -13,11 +13,11 @@ import { diagnosticContent } from "@/shared/data/diagnostic_content";
 interface OfficeFAQModalProps {
     isOpen: boolean;
     onClose: () => void;
+    view: 'definition' | 'diagnosis';
 }
 
-export const OfficeFAQModal = ({ isOpen, onClose }: OfficeFAQModalProps) => {
+export const OfficeFAQModal = ({ isOpen, onClose, view }: OfficeFAQModalProps) => {
     const { mode, cycleMode } = usePersonaStore();
-
     const { header, values, diagnosis } = diagnosticContent;
 
     return (
@@ -35,15 +35,13 @@ export const OfficeFAQModal = ({ isOpen, onClose }: OfficeFAQModalProps) => {
 
                     {/* Modal Card */}
                     <motion.div
-                        layoutId="faq-modal"
+                        layoutId={`faq-modal-${view}`} // distinct layout ID for different morals if needed, but shared is smoother
                         initial={{ opacity: 0, scale: 0.95, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 20 }}
                         className={cn(
                             "w-full max-w-4xl max-h-[90vh] overflow-hidden bg-surface border border-border shadow-2xl relative z-10 flex flex-col rounded-lg touch-pan-y",
-                            // Font is inherited from Global OfficeView override
-                        )
-                        }
+                        )}
                         onPanEnd={(e, info) => {
                             if (info.offset.x > 50) cycleMode('prev');
                             if (info.offset.x < -50) cycleMode('next');
@@ -60,7 +58,7 @@ export const OfficeFAQModal = ({ isOpen, onClose }: OfficeFAQModalProps) => {
                         <div className="relative z-10 flex justify-between items-center p-6 border-b border-border bg-surface/80 backdrop-blur-sm shrink-0">
                             <div>
                                 <h2 className="text-xl md:text-2xl font-bold text-foreground transition-all duration-300">
-                                    {header.title}
+                                    {view === 'definition' ? header.title : diagnosis.title}
                                 </h2>
                             </div>
                             <button
@@ -74,65 +72,70 @@ export const OfficeFAQModal = ({ isOpen, onClose }: OfficeFAQModalProps) => {
                         {/* Scrollable Content */}
                         <div className="relative z-10 overflow-y-auto p-6 md:p-8 space-y-10 text-foreground/80 leading-relaxed custom-scrollbar">
 
-                            {/* Definition */}
-                            <div className="prose prose-slate max-w-none">
-                                <p className="text-lg md:text-xl leading-relaxed transition-all duration-300">
-                                    <span className="text-foreground/80">{header.definition.part1}</span> <span className="text-foreground font-bold">{header.definition.part2}</span>
-                                </p>
-                            </div>
-
-                            {/* The 6 Values */}
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {values.map((value, idx) => (
-                                    <div key={idx} className="bg-surface/50 p-6 rounded-lg border border-border/50">
-                                        <strong className="block text-foreground mb-2">{value.title}</strong>
-                                        <p className="text-sm leading-relaxed text-foreground/80">{value.description}</p>
+                            {view === 'definition' && (
+                                <>
+                                    {/* Definition Content */}
+                                    <div className="prose prose-slate max-w-none">
+                                        <p className="text-lg md:text-xl leading-relaxed transition-all duration-300">
+                                            <span className="text-foreground/80">{header.definition.part1}</span> <span className="text-foreground font-bold">{header.definition.part2}</span>
+                                        </p>
                                     </div>
-                                ))}
-                            </div>
 
-                            <div className="h-px bg-border/50 w-full" />
-
-                            {/* Diagnosis */}
-                            <div className="space-y-8 text-left">
-                                <div className="space-y-4">
-                                    <h3 className="text-xl md:text-2xl font-bold text-foreground">{diagnosis.title}</h3>
-                                    <p className="text-base md:text-lg leading-relaxed max-w-2xl">
-                                        {diagnosis.subtitle}
-                                    </p>
-                                </div>
-
-                                <ul className="space-y-6">
-                                    {diagnosis.triggers.map((trigger, idx) => (
-                                        <li key={idx} className="flex gap-4 items-start bg-surface/30 p-5 rounded-lg border border-border/30">
-                                            <CheckCircle2 className="w-6 h-6 text-amber-500 shrink-0 mt-0.5" />
-                                            <div className="space-y-4 w-full">
-                                                <div>
-                                                    <strong className="text-foreground block text-lg font-bold">{trigger.title}</strong>
-                                                    <p className="text-sm md:text-base leading-relaxed text-foreground/70 italic">
-                                                        {trigger.subtitle}
-                                                    </p>
-                                                </div>
-                                                <div className="space-y-3 pl-4 border-l-2 border-border/50">
-                                                    {trigger.description.map((desc, dIdx) => (
-                                                        <p key={dIdx} className="text-sm leading-relaxed">
-                                                            <strong className="text-foreground">{desc.split(':')[0]}:</strong> {desc.split(':').slice(1).join(':').trim()}
-                                                        </p>
-                                                    ))}
-                                                </div>
+                                    {/* The 6 Values */}
+                                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                        {values.map((value, idx) => (
+                                            <div key={idx} className="bg-surface/50 p-6 rounded-lg border border-border/50">
+                                                <strong className="block text-foreground mb-2">{value.title}</strong>
+                                                <p className="text-sm leading-relaxed text-foreground/80">{value.description}</p>
                                             </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
 
-                            {/* Closing */}
-                            <div className="text-left pt-8 border-t border-border/50">
-                                <p className="text-xl md:text-2xl italic text-foreground/80 mb-8">
-                                    {diagnosis.closing}
-                                </p>
-                            </div>
+                            {view === 'diagnosis' && (
+                                <>
+                                    {/* Diagnosis Subtitle */}
+                                    <div className="space-y-4">
+                                        <p className="text-base md:text-lg leading-relaxed max-w-2xl">
+                                            {diagnosis.subtitle}
+                                        </p>
+                                    </div>
 
+                                    {/* Triggers List */}
+                                    <div className="space-y-8 text-left">
+                                        <ul className="space-y-6">
+                                            {diagnosis.triggers.map((trigger, idx) => (
+                                                <li key={idx} className="flex gap-4 items-start bg-surface/30 p-5 rounded-lg border border-border/30">
+                                                    <CheckCircle2 className="w-6 h-6 text-amber-500 shrink-0 mt-0.5" />
+                                                    <div className="space-y-4 w-full">
+                                                        <div>
+                                                            <strong className="text-foreground block text-lg font-bold">{trigger.title}</strong>
+                                                            <p className="text-sm md:text-base leading-relaxed text-foreground/70 italic">
+                                                                {trigger.subtitle}
+                                                            </p>
+                                                        </div>
+                                                        <div className="space-y-3 pl-4 border-l-2 border-border/50">
+                                                            {trigger.description.map((desc, dIdx) => (
+                                                                <p key={dIdx} className="text-sm leading-relaxed">
+                                                                    <strong className="text-foreground">{desc.split(':')[0]}:</strong> {desc.split(':').slice(1).join(':').trim()}
+                                                                </p>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                    {/* Closing */}
+                                    <div className="text-left pt-8 border-t border-border/50">
+                                        <p className="text-xl md:text-2xl italic text-foreground/80 mb-8">
+                                            {diagnosis.closing}
+                                        </p>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </motion.div>
                 </div>

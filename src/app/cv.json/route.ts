@@ -99,6 +99,12 @@ export async function GET() {
             date: parseDate(cert.date).startDate,
             issuer: cert.issuer
         })),
+        projects: data.sections.accomplishments.items.map((ack: any) => ({
+            name: ack.name,
+            description: "Major strategic initiative or operational achievement.", // Generic description as the real content is in highlights
+            highlights: extractHighlights(ack.summary),
+            type: "Accomplishment"
+        })),
         meta: {
             canonical: "https://chris.melson.us/cv.json",
             version: "v1.0.0",

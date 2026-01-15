@@ -3,7 +3,6 @@
 import { OfficeHero } from "./OfficeHero";
 import { CaseStudiesGrid } from "./CaseStudiesGrid";
 import { OfficeBlogGrid } from "./OfficeBlogGrid"; // Added import
-import { OfficeExperience } from "./OfficeExperience";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePersonaStore } from "@/shared/lib/store";
 import { BlueprintGrid } from "./branding/BlueprintGrid";
@@ -12,6 +11,7 @@ import { TechMatrix } from "./branding/TechMatrix";
 import { cn } from "@/shared/lib/utils";
 import { OfficeAbout } from "./OfficeAbout";
 import { Footer } from "@/widgets/shared/Footer";
+import { MobileResumeActions } from "./MobileResumeActions";
 
 interface OfficeViewProps {
     mode?: 'executive' | 'strategist' | 'engineer';
@@ -91,8 +91,8 @@ export const OfficeView = ({ mode: propMode }: OfficeViewProps) => {
                     <OfficeHero mode={mode} />
                     <CaseStudiesGrid mode={mode} />
                     <OfficeBlogGrid mode={mode} />
-                    <OfficeExperience />
                     <OfficeAbout mode={mode} />
+                    <MobileResumeActions mode={mode} />
                     <Footer />
                 </div>
             </motion.div>

@@ -74,7 +74,7 @@ export default async function Image() {
                             fontFamily: 'serif',
                         }}
                     >
-                        Executive | Operational Architect | Board Advisor
+                        Executive | Operational Architect | Strategic Operator
                     </div>
 
                     {/* Tagline */}

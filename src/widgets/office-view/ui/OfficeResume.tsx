@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 import { FileText, Printer, FileJson } from "lucide-react";
 import { FloatingMenuButton } from "./FloatingMenuButton";
 
@@ -8,6 +10,11 @@ interface OfficeResumeProps {
 }
 
 export const OfficeResume = ({ mode = 'executive' }: OfficeResumeProps) => {
+    const [resumeUrl, setResumeUrl] = useState<string>("/christopher-melson-cv.pdf");
+
+    useEffect(() => {
+        setResumeUrl(`/christopher-melson-cv.pdf?v=${Date.now()}`);
+    }, []);
 
     const handlePrint = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -31,7 +38,7 @@ export const OfficeResume = ({ mode = 'executive' }: OfficeResumeProps) => {
             label: "View CV",
             subLabel: "Visual",
             icon: FileText,
-            href: "https://chris.melson.us/christopher-melson-cv.pdf",
+            href: resumeUrl,
             external: true
         },
         {

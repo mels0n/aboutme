@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 import { motion } from "framer-motion";
 import { FileText } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
@@ -10,6 +12,11 @@ interface MobileResumeActionsProps {
 
 export const MobileResumeActions = ({ mode: propMode }: MobileResumeActionsProps) => {
     const mode = propMode || 'executive';
+    const [resumeUrl, setResumeUrl] = useState<string>("/christopher-melson-cv.pdf");
+
+    useEffect(() => {
+        setResumeUrl(`/christopher-melson-cv.pdf?v=${Date.now()}`);
+    }, []);
 
     const theme = {
         executive: {
@@ -26,26 +33,9 @@ export const MobileResumeActions = ({ mode: propMode }: MobileResumeActionsProps
         }
     }[mode];
 
-    const handlePrint = (e: React.MouseEvent) => {
-        e.preventDefault();
-        const pdfUrl = "/chris-melson.pdf";
-
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = pdfUrl;
-        document.body.appendChild(iframe);
-
-        iframe.onload = () => {
-            setTimeout(() => {
-                iframe.contentWindow?.focus();
-                iframe.contentWindow?.print();
-            }, 500);
-        };
-    };
-
     return (
         <motion.a
-            href="https://chris.melson.us/christopher-melson-cv.pdf"
+            href={resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
             className={cn(

@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 import { motion } from "framer-motion";
 import { FileText, ArrowUpRight, Printer, FileJson } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
@@ -54,6 +56,11 @@ const ResumeLink = ({ href, icon: Icon, label, subLabel, external = false, mode,
 );
 
 export const ResumeBento = ({ mode = 'executive' }: { mode?: 'executive' | 'strategist' | 'engineer' }) => {
+    const [resumeUrl, setResumeUrl] = useState<string>("/christopher-melson-cv.pdf");
+
+    useEffect(() => {
+        setResumeUrl(`/christopher-melson-cv.pdf?v=${Date.now()}`);
+    }, []);
 
     const handlePrint = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -106,7 +113,7 @@ export const ResumeBento = ({ mode = 'executive' }: { mode?: 'executive' | 'stra
 
             <div className="relative z-10 space-y-1.5 mt-3">
                 <ResumeLink
-                    href="https://chris.melson.us/christopher-melson-cv.pdf"
+                    href={resumeUrl}
                     icon={FileText}
                     label="View CV"
                     subLabel="Visual"

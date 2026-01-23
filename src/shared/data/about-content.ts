@@ -1,7 +1,7 @@
 export const aboutContent = {
     header: {
         name: "Christopher Melson",
-        titles: ["Transformation Executive", "Operational Architect", "Board Advisor"],
+        titles: ["Transformation Executive & Operational Architect", "Board Advisor"],
         tagline: "Translate Vision to Reality through Strategic Engineering",
     },
     bio: {

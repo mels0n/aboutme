@@ -41,7 +41,7 @@ export function JsonLd() {
         "url": domain,
         "description": "Christopher Melson is an Operational Architect who reconstructs distressed environments into resilient, high-velocity organizations. Translate Vision to Reality through Strategic Engineering.",
         "disambiguatingDescription": "Operations Executive & Architect. Distinct from the Civil Engineer (LSU) and the Football Coach.",
-        "jobTitle": ["Transformation Executive", "Operational Architect", "Board Advisor", "Strategist", "Engineer"],
+        "jobTitle": ["Transformation Executive & Operational Architect", "Board Advisor", "Strategist", "Engineer"],
         "sameAs": [
             "https://github.com/mels0n",
             "https://www.linkedin.com/in/chris-melson/"

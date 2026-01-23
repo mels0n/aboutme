@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
             key: 'Content-Type',
             value: 'application/xml',
           },
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex',
+          },
         ],
       },
     ]

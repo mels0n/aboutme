@@ -128,8 +128,8 @@ export const OfficeAbout = ({ mode: propMode }: OfficeAboutProps) => {
                                 </div>
                                 <div>
                                     <h2 className="text-2xl font-display font-bold text-foreground">Christopher Melson</h2>
-                                    <p className="text-sm font-serif text-foreground/70 tracking-wide">Executive | Operational Architect | Strategic Operator</p>
-                                    <p className="text-sm font-serif text-foreground/60 italic mt-1">Ensure Strategy Survives Contact with Reality</p>
+                                    <p className="text-sm font-serif text-foreground/70 tracking-wide">Transformation Executive | Operational Architect | Board Advisor</p>
+                                    <p className="text-sm font-serif text-foreground/60 italic mt-1">Translate Vision to Reality through Strategic Engineering</p>
                                 </div>
                             </div>
 

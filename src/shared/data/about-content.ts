@@ -1,8 +1,8 @@
 export const aboutContent = {
     header: {
         name: "Christopher Melson",
-        titles: ["Executive", "Operational Architect", "Board Advisor"],
-        tagline: "Ensure Strategy Survives Contact with Reality",
+        titles: ["Transformation Executive", "Operational Architect", "Board Advisor"],
+        tagline: "Translate Vision to Reality through Strategic Engineering",
     },
     bio: {
         intro: [

@@ -74,7 +74,7 @@ export default async function Image() {
                             fontFamily: 'serif',
                         }}
                     >
-                        Executive | Operational Architect | Strategic Operator
+                        Transformation Executive | Operational Architect | Board Advisor
                     </div>
 
                     {/* Tagline */}
@@ -86,7 +86,7 @@ export default async function Image() {
                             fontFamily: 'serif',
                         }}
                     >
-                        Ensure Strategy Survives Contact with Reality
+                        Translate Vision to Reality through Strategic Engineering
                     </div>
                 </div>
 

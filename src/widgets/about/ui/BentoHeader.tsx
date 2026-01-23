@@ -41,7 +41,7 @@ export const BentoHeader = () => {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="flex flex-wrap justify-center md:justify-start gap-x-3 text-lg md:text-xl text-foreground/70 font-serif"
+                        className="flex justify-center md:justify-start gap-x-3 text-base md:text-lg text-foreground/70 font-serif whitespace-nowrap"
                     >
                         {titles.map((title, i) => (
                             <span key={i} className="flex items-center">

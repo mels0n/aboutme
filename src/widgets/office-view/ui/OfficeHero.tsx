@@ -50,8 +50,8 @@ export const OfficeHero = ({ mode: propMode }: OfficeHeroProps) => {
                         "text-5xl md:text-7xl font-bold text-foreground relative inline-block font-display",
                         mode === 'engineer' ? "tracking-tighter" : "tracking-tight"
                     )}>
-                        Operational <span className="relative inline-block">
-                            Architect
+                        Transformation Executive & <span className="relative inline-block">
+                            Operational Architect
                         </span><br />
 
                         <span className="relative z-10">for the Agentic Age.</span>

@@ -45,3 +45,7 @@ next-env.d.ts
 
 # agent
 .agent
+.gsd
+.memory
+.brain
+.gemini

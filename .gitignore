@@ -40,12 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# editor
-.cursorrules
 
-# agent
-.agent
-.gsd
-.memory
-.brain
-.gemini
+

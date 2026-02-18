@@ -258,7 +258,9 @@ export const LabView = () => {
                                                     mode === 'executive' ? "text-foreground" :
                                                         mode === 'strategist' ? "text-foreground serif" : "text-highlight font-mono"
                                                 )}>{edu.institution}</h3>
-                                                <p className="text-sm text-foreground/70">{edu.area}, {edu.studyType}</p>
+                                                <p className="text-sm text-foreground/70">
+                                                    {edu.area && edu.studyType ? `${edu.area}, ${edu.studyType}` : edu.area || edu.studyType}
+                                                </p>
                                             </div>
                                             <span className="text-xs text-foreground/70">{edu.date}</span>
                                         </div>

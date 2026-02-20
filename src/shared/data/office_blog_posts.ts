@@ -3,6 +3,7 @@ import { triModalTranslation } from "./blog-posts/tri-modal-translation";
 import { integrationGap } from "./blog-posts/integration-gap";
 import { scalabilityEngineering } from "./blog-posts/scalability-engineering";
 import { generativeToAgentic } from "./blog-posts/generative-to-agentic";
+import { itilProblemManagement } from "./blog-posts/itil-problem-management";
 
 export interface BlogPost {
     id: string;
@@ -29,5 +30,6 @@ export const officeBlogPosts: BlogPost[] = [
     triModalTranslation,
     integrationGap,
     scalabilityEngineering,
-    generativeToAgentic
+    generativeToAgentic,
+    itilProblemManagement
 ];

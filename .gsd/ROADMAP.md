@@ -1,23 +1,19 @@
 # ROADMAP.md
 
 > **Current Phase**: Phase 1
-> **Milestone**: 15 - Blog List Page & Sitemap Optimization
+> **Milestone**: 16 - Fixing AEO/GEO/SEO Core Architecture (Robots & LLMs)
 
 ## Must-Haves
-- [ ] Create `/guide/operational-architecture/blog/page.tsx` with AEO/GEO schema
-- [ ] Update `sitemap.ts` to include the blog list page and prioritize list/home pages
-- [ ] Verify build and schema validity
+- [ ] Delete `public/robots.txt` and update `src/app/robots.ts`
+- [ ] Create `public/llms.txt`
+- [ ] Build and verify dynamic path
 
 ## Phases
 
-### Phase 1: Blog List Page Implementation
-**Status**: ✅ Complete
-**Objective**: Build the blog list page mirroring the case studies structure, applying robust JSON-LD schema and Answer First structure.
+### Phase 1: Conflict Resolution & LLM Asset Creation
+**Status**: 🏃 In Progress
+**Objective**: Remove the static `robots.txt` file and update the dynamic `robots.ts` file to prevent routing conflicts. Create the AEO foundational asset `llms.txt`.
 
-### Phase 2: Sitemap Optimization
-**Status**: ✅ Complete
-**Objective**: Update `sitemap.ts` to ensure crawlers emphasize list pages and home pages, relying on them for discovery. Fix any missing static routes.
-
-### Phase 3: Validation & Polish
-**Status**: ✅ Complete
-**Objective**: Perform build checks, update `.gsd/STATE.md`, and confirm the sitemap and schema are generating correctly.
+### Phase 2: Validation & Polish
+**Status**: ⬜ Not Started
+**Objective**: Perform a build check to verify the dynamic `/robots.txt` compiles and serves correctly. Update `.gsd/STATE.md` and complete the milestone.

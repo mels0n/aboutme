@@ -1,23 +1,23 @@
 # ROADMAP.md
 
-> **Current Phase**: Not started
-> **Milestone**: Publish ITIL Problem Management Blog Post
+> **Current Phase**: Phase 1
+> **Milestone**: 15 - Blog List Page & Sitemap Optimization
 
 ## Must-Haves
-- [x] Comprehensive blog post (8-12 min read) based on provided whitepaper.
-- [x] Semantic Twin FAQ page with Answer-First structure (`<dl>`).
-- [x] Valid JSON-LD schemas (`BlogPosting`, `FAQPage`) integrated into the pages.
+- [ ] Create `/guide/operational-architecture/blog/page.tsx` with AEO/GEO schema
+- [ ] Update `sitemap.ts` to include the blog list page and prioritize list/home pages
+- [ ] Verify build and schema validity
 
 ## Phases
 
-### Phase 1: Content Processing, Semantic Twin & Schema Integration
-**Status**: ✅ Complete
-**Objective**: Convert the provided whitepaper into a structured markdown blog post. Create the dedicated Semantic Twin FAQ page (e.g., `/guide/itil-problem-management`). Generate and implement the required `BlogPosting` and `FAQPage` JSON-LD schemas following the "Answer First" rule.
+### Phase 1: Blog List Page Implementation
+**Status**: 🏃 In Progress
+**Objective**: Build the blog list page mirroring the case studies structure, applying robust JSON-LD schema and Answer First structure.
 
-### Phase 2: Removed
+### Phase 2: Sitemap Optimization
 **Status**: ⬜ Not Started
-**Objective**: (Merged into Phase 1)
+**Objective**: Update `sitemap.ts` to ensure crawlers emphasize list pages and home pages, relying on them for discovery. Fix any missing static routes.
 
-### Phase 3: Validation & Deployment Polish
-**Status**: ✅ Complete
-**Objective**: Perform final AEO/GEO/SEO validation checks (entity connections, standard search properties). Ensure UI labels match Schema instructions. Update `STATE.md` and complete the milestone.
+### Phase 3: Validation & Polish
+**Status**: ⬜ Not Started
+**Objective**: Perform build checks, update `.gsd/STATE.md`, and confirm the sitemap and schema are generating correctly.

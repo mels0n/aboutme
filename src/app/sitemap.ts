@@ -50,12 +50,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
             changeFrequency: 'monthly' as const,
             priority: 1, // High priority for list pages to encourage crawling structure
         },
-        {
-            url: `${baseUrl}/guide/itil-problem-management`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly' as const,
-            priority: 0.8,
-        },
     ];
 
     // Mode Routes (Deep Links)

@@ -42,7 +42,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
             url: `${baseUrl}/guide/operational-architecture/case-studies`,
             lastModified: new Date(),
             changeFrequency: 'monthly' as const,
-            priority: 0.9,
+            priority: 1, // High priority for list pages to encourage crawling structure
+        },
+        {
+            url: `${baseUrl}/guide/operational-architecture/blog`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly' as const,
+            priority: 1, // High priority for list pages to encourage crawling structure
         },
         {
             url: `${baseUrl}/guide/itil-problem-management`,
@@ -66,7 +72,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${baseUrl}/guide/operational-architecture/blog/${post.slug}`,
         lastModified: new Date(post.date),
         changeFrequency: 'monthly' as const,
-        priority: 0.7,
+        priority: 0.8,
     }));
 
     // Dynamic Case Study Routes
@@ -74,7 +80,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${baseUrl}/guide/operational-architecture/case-studies/${study.slug}`,
         lastModified: new Date(study.date),
         changeFrequency: 'monthly' as const,
-        priority: 0.9,
+        priority: 0.8,
     }));
 
     return [

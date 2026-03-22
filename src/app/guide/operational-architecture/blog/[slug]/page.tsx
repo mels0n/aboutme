@@ -1,6 +1,9 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { officeBlogPosts } from "@/shared/data/office_blog_posts";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 export async function generateStaticParams() {
     return officeBlogPosts.map((post) => ({
@@ -80,50 +83,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     ))}
                 </dl>
 
-                {post.content.split('\n').map((line, i) => {
-                    if (line.trim() === '') return null;
+                <div className="react-markdown">
+                    <ReactMarkdown 
+                        remarkPlugins={[remarkGfm]} 
+                        rehypePlugins={[rehypeRaw]}
+                    >
+                        {post.content}
+                    </ReactMarkdown>
+                </div>
 
-                    if (line.startsWith('### ')) {
-                        return <h3 key={i} className="text-2xl font-bold font-display mt-10 mb-6 text-foreground">{line.substring(4)}</h3>;
-                    }
-                    if (line.startsWith('#### ')) {
-                        return <h4 key={i} className="text-xl font-bold font-display mt-8 mb-4 text-foreground/90">{line.substring(5)}</h4>;
-                    }
-                    if (line.startsWith('* ')) {
-                        return (
-                            <div key={i} className="flex gap-3 mb-4 pl-4 border-l-2 border-emerald-500/30 py-1 bg-emerald-50/20">
-                                <span className="text-emerald-600 font-bold pl-2">•</span>
-                                <div className="pr-2"><span dangerouslySetInnerHTML={{ __html: line.substring(2).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} /></div>
-                            </div>
-                        );
-                    }
-                    if (/^\[\d+\]/.test(line)) {
-                        return (
-                            <div key={i} className="flex gap-3 mb-3 pl-4">
-                                <span className="text-foreground/90 font-medium font-mono text-sm">
-                                    <span dangerouslySetInnerHTML={{ __html: line }} />
-                                </span>
-                            </div>
-                        );
-                    }
-                    if (/^\d+\.\s/.test(line)) {
-                        return (
-                            <div key={i} className="flex gap-3 mb-3 pl-4">
-                                <span className="font-mono font-bold text-emerald-700">
-                                    {line.split('.')[0]}.
-                                </span>
-                                <span className="text-foreground/90 font-medium">
-                                    <span dangerouslySetInnerHTML={{ __html: line.substring(line.indexOf(' ') + 1).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
-                                </span>
-                            </div>
-                        );
-                    }
-                    return (
-                        <p key={i} className="mb-6">
-                            <span dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
-                        </p>
-                    );
-                })}
             </article>
 
             <div className="mt-16 pt-16 border-t border-border">

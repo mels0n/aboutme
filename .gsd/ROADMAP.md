@@ -13,7 +13,7 @@
 ## Phases
 
 ### Phase 1: Topic Selection & Schema Design
-**Status**: ⬜ Not Started
+**Status**: ✅ Complete
 **Objective**: Decide on the blog post topic, outline the core thesis, and define the expected JSON-LD schema (FAQ, How-To, etc.) to drive the narrative structure.
 
 ### Phase 2: Content Drafting (Data Layer)

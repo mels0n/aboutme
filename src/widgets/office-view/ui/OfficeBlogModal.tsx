@@ -3,6 +3,7 @@ import { X, Calendar, Copy, Check } from "lucide-react";
 import { useState, useEffect } from "react";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import { usePersonaStore } from "@/shared/lib/store";
 import { BlogPost } from "@/shared/data/office_blog_posts";
 import { BlueprintGrid } from "./branding/BlueprintGrid";
@@ -153,7 +154,14 @@ export const OfficeBlogModal = ({ post, onClose }: OfficeBlogModalProps) => {
                                         )}>
                                             <ReactMarkdown
                                                 remarkPlugins={[remarkGfm]}
+                                                rehypePlugins={[rehypeRaw]}
                                                 components={{
+                                                    // Make tables responsive
+                                                    table: ({ node, ...props }) => (
+                                                        <div className="overflow-x-auto w-full my-8">
+                                                            <table className="w-full text-sm" {...props} />
+                                                        </div>
+                                                    ),
                                                     // Custom link component to ensure external links open in new tab
                                                     a: ({ node, ...props }) => (
                                                         <a target="_blank" rel="noopener noreferrer" {...props} />

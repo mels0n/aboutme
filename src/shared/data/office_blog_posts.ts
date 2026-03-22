@@ -4,6 +4,7 @@ import { integrationGap } from "./blog-posts/integration-gap";
 import { scalabilityEngineering } from "./blog-posts/scalability-engineering";
 import { generativeToAgentic } from "./blog-posts/generative-to-agentic";
 import { itilProblemManagement } from "./blog-posts/itil-problem-management";
+import { networkObservabilityPlatforms } from "./blog-posts/network-observability-platforms";
 
 export interface BlogPost {
     id: string;
@@ -31,5 +32,6 @@ export const officeBlogPosts: BlogPost[] = [
     integrationGap,
     scalabilityEngineering,
     generativeToAgentic,
-    itilProblemManagement
+    itilProblemManagement,
+    networkObservabilityPlatforms
 ];

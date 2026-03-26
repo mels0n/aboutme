@@ -15,12 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 1,
         },
         {
-            url: `${baseUrl}/cv.json`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly' as const,
-            priority: 1,
-        },
-        {
             url: `${baseUrl}/about`,
             lastModified: new Date(),
             changeFrequency: 'monthly' as const,
@@ -52,15 +46,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
     ];
 
-    // Mode Routes (Deep Links)
-    const modes = ['strategic-design', 'resilient-operations', 'technical-execution'];
-    const modeRoutes = modes.map(mode => ({
-        url: `${baseUrl}/mode/${mode}`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly' as const,
-        priority: 0.9,
-    }));
-
     // Dynamic Blog Routes
     const blogRoutes = officeBlogPosts.map(post => ({
         url: `${baseUrl}/guide/operational-architecture/blog/${post.slug}`,
@@ -79,7 +64,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     return [
         ...staticRoutes,
-        ...modeRoutes,
         ...caseStudyRoutes,
         ...blogRoutes,
     ];

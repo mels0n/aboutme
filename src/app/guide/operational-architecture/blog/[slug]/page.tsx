@@ -27,6 +27,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         alternates: {
             canonical: `/guide/operational-architecture/blog/${post.slug}`,
         },
+        openGraph: {
+            title: `${post.title} | ${post.author}`,
+            description: post.summary,
+            url: `/guide/operational-architecture/blog/${post.slug}`,
+            type: "article",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${post.title} | ${post.author}`,
+            description: post.summary,
+        }
     };
 }
 

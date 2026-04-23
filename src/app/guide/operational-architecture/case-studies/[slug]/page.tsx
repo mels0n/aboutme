@@ -28,6 +28,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         description: study.summary.executive,
         alternates: {
             canonical: `/guide/operational-architecture/case-studies/${study.slug}`,
+        },
+        openGraph: {
+            title: `${study.title} | Case Study`,
+            description: study.summary.executive,
+            url: `/guide/operational-architecture/case-studies/${study.slug}`,
+            type: "article",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${study.title} | Case Study`,
+            description: study.summary.executive,
         }
     };
 }

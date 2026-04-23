@@ -14,6 +14,8 @@ export interface CardProps {
     description: string;
     /** The target URL for the "Link to Source" action. */
     link: string;
+    /** The target URL to the live website. */
+    website?: string;
     /** Optional URL for the card art. */
     image?: string;
     /** Optional mana cost symbol (e.g., "{3}"). Defaults to "{3}". */
@@ -37,7 +39,7 @@ export interface CardProps {
  * 
  * @param props - CardProps configuration.
  */
-export function GameCard({ title, description, link, image, manaCost = "{3}", typeLine = "Enchantment", flavorText, liveStats }: CardProps) {
+export function GameCard({ title, description, link, website, image, manaCost = "{3}", typeLine = "Enchantment", flavorText, liveStats }: CardProps) {
     // Stores dynamic stats fetched from liveStats.url
     const [fetchedStats, setFetchedStats] = useState<Record<string, string>>({});
 
@@ -133,12 +135,19 @@ export function GameCard({ title, description, link, image, manaCost = "{3}", ty
                         </div>
                     )}
 
-                    <div className="my-2 flex items-center gap-1 text-xs text-[#1f1b16] font-serif">
-                        <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#c0b8b0] border border-gray-500 text-[10px] font-bold shadow-sm" title="Tap">{`{T}`}</span>
-                        <span>:</span>
-                        <a href={`https://${link}`} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted hover:text-red-800">
-                            Link to Source
-                        </a>
+                    <div className="my-2 flex items-center justify-between text-xs text-[#1f1b16] font-serif">
+                        <div className="flex items-center gap-1">
+                            <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#c0b8b0] border border-gray-500 text-[10px] font-bold shadow-sm" title="Tap">{`{T}`}</span>
+                            <span>:</span>
+                            <a href={`https://${link}`} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted hover:text-red-800">
+                                Source
+                            </a>
+                        </div>
+                        {website && (
+                            <a href={website} target="_blank" rel="noopener noreferrer" className="font-bold hover:text-red-800">
+                                Play ↗
+                            </a>
+                        )}
                     </div>
                     {flavorText && (
                         <div className="mt-2 text-[10px] italic text-[#4a4036] font-serif shrink-0 border-t border-[#a89f8a]/50 pt-1">

@@ -2,6 +2,7 @@ export interface ProjectData {
     title: string;
     description: string;
     link: string;
+    website?: string;
     image: string;
     kpis: { label: string; value: string }[];
     liveStats?: {
@@ -35,7 +36,7 @@ export const projects: ProjectData[] = [
     },
     {
         title: "Polymorphic Portfolio",
-        description: "This very website. A trimodal interactive portfolio powered by Next.js 14, Tailwind, and Framer Motion. Features hot-swappable persona modes.",
+        description: "This very website. A trimodal interactive portfolio powered by Next.js, Tailwind, and Framer Motion. Features hot-swappable persona modes.",
         link: "github.com/mels0n/aboutme",
         image: "/aboutme_portfolio.png",
         kpis: [{ label: "Lighthouse", value: "100" }, { label: "Mode", value: "Trimodal" }],
@@ -59,6 +60,7 @@ export const projects: ProjectData[] = [
         title: "Tabletop Scheduler",
         description: "Automated conflict resolution protocol for social coordination. Features a novel magic link system with no login requirements.",
         link: "github.com/mels0n/tabletop_scheduler",
+        website: "https://www.tabletoptime.us",
         image: "/tabletop_scheduler.png",
         kpis: [{ label: "Conflicts", value: "0 Detected" }, { label: "Uptime", value: "99.9%" }],
         manaCost: "{0}",
@@ -70,6 +72,7 @@ export const projects: ProjectData[] = [
         title: "Retirement Tax Planner",
         description: "Strategic forecasting engine for long-term capital preservation and tax liability minimization.",
         link: "github.com/mels0n/retirement_tax_plan",
+        website: "https://retirement.melson.us",
         image: "/retirement.png",
         kpis: [{ label: "ROI", value: "Maximized" }, { label: "Risk", value: "Mitigated" }],
         manaCost: "{1}",
@@ -103,6 +106,7 @@ export const projects: ProjectData[] = [
         title: "Financial Independence Flow Chart",
         description: "A visual guide to the stages of financial independence.",
         link: "github.com/mels0n/Financial-Independence-Flow-Chart",
+        website: "https://financial-independence.melson.us",
         image: "/financial_flowchart.png",
         kpis: [{ label: "Steps", value: "Infinite" }, { label: "Goal", value: "FIRE" }],
         manaCost: "{1}{R}",

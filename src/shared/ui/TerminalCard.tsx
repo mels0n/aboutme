@@ -13,6 +13,8 @@ export interface CardProps {
     description: string;
     /** External link protocol. */
     link: string;
+    /** The target URL to the live website. */
+    website?: string;
     /** Array of technical tags (e.g., ["Next.js", "Docker"]). */
     tags?: string[];
     /** Live data fetch configuration. */
@@ -32,7 +34,7 @@ export interface CardProps {
  * 
  * @param props - CardProps configuration.
  */
-export function TerminalCard({ title, description, link, tags, liveStats }: CardProps) {
+export function TerminalCard({ title, description, link, website, tags, liveStats }: CardProps) {
     // Current register of fetched live variables
     const [fetchedStats, setFetchedStats] = useState<Record<string, string>>({});
 
@@ -121,9 +123,16 @@ export function TerminalCard({ title, description, link, tags, liveStats }: Card
                         </span>
                     ))}
                 </div>
-                <a href={`https://${link}`} className="block text-right text-xs text-cyan-500 hover:text-cyan-400 hover:underline decoration-dashed">
-                    {`-> LINK_ESTABLISHED`}
-                </a>
+                <div className="flex justify-between text-xs mt-2">
+                    {website ? (
+                        <a href={website} target="_blank" rel="noopener noreferrer" className="block text-cyan-500 hover:text-cyan-400 hover:underline decoration-dashed">
+                            {`-> CONNECT_TO_HOST`}
+                        </a>
+                    ) : <span />}
+                    <a href={`https://${link}`} target="_blank" rel="noopener noreferrer" className="block text-right text-green-500 hover:text-green-400 hover:underline decoration-dashed">
+                        {`-> VIEW_SOURCE`}
+                    </a>
+                </div>
             </div>
         </motion.div>
     );

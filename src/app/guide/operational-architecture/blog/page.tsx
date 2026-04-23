@@ -6,6 +6,9 @@ import { ArrowLeft } from "lucide-react";
 export const metadata: Metadata = {
     title: "Operational Architecture Blog | Chris Melson",
     description: "Insights, articles, and analysis on operational architecture, engineering management, and organizational scaling.",
+    alternates: {
+        canonical: "/guide/operational-architecture/blog",
+    },
 };
 
 export default function BlogListPage() {

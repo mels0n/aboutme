@@ -6,6 +6,9 @@ import { ArrowLeft } from "lucide-react";
 export const metadata: Metadata = {
     title: "Operational Architecture Case Studies | Chris Melson",
     description: "Detailed breakdown of operational turnarounds, including DORA compliance, Post-Merger Integration, and Strategic Asset Rescue.",
+    alternates: {
+        canonical: "/guide/operational-architecture/case-studies",
+    },
 };
 
 export default function CaseStudiesPage() {

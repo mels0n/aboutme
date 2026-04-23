@@ -24,6 +24,8 @@ export interface ProjectData {
     description: string;
     /** External link to project or source. */
     link: string;
+    /** Live website link */
+    website?: string;
     /** Image URL for visual cards (Strategist). */
     image?: string;
     /** 
@@ -77,6 +79,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                             title={project.title}
                             description={project.description}
                             link={project.link}
+                            website={project.website}
                             stats={project.kpis}
                             liveStats={project.liveStats}
                         />
@@ -89,6 +92,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                             title={project.title}
                             description={project.description}
                             link={project.link}
+                            website={project.website}
                             image={project.image}
                             manaCost={project.manaCost}
                             typeLine={project.typeLine}
@@ -104,6 +108,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                             title={project.title}
                             description={project.description}
                             link={project.link}
+                            website={project.website}
                             tags={project.tags}
                             liveStats={project.liveStats}
                         />

@@ -13,6 +13,8 @@ export interface CardProps {
     description: string;
     /** The direct URL (without protocol) to the live project or report. */
     link: string;
+    /** The live website URL (optional) */
+    website?: string;
     /** 
      * Optional static list of key performance indicators (KPIs) to display initially.
      * These values may be hydrated with live data if `liveStats` is provided.
@@ -38,7 +40,7 @@ export interface CardProps {
  * 
  * @param props - The CardProps object containing content and configuration.
  */
-export function ExecutiveCard({ title, description, link, stats: initialStats, liveStats }: CardProps) {
+export function ExecutiveCard({ title, description, link, website, stats: initialStats, liveStats }: CardProps) {
     // State to hold the currently displayed statistics; initialized with static data.
     const [stats, setStats] = useState(initialStats);
 
@@ -95,10 +97,17 @@ export function ExecutiveCard({ title, description, link, stats: initialStats, l
             className="bg-white border border-slate-200 p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full"
         >
             <div className="flex justify-between items-start mb-4 border-b border-slate-100 pb-4">
-                <h3 className="font-display font-bold text-xl text-slate-900">{title}</h3>
-                <a href={`https://${link}`} className="text-xs font-bold text-slate-500 uppercase tracking-wider hover:text-highlight">
-                    View Report
-                </a>
+                <h3 className="font-display font-bold text-xl text-slate-900 w-2/3">{title}</h3>
+                <div className="flex flex-col gap-1.5 text-right flex-shrink-0">
+                    {website && (
+                        <a href={website} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-highlight uppercase tracking-wider hover:underline">
+                            View Website
+                        </a>
+                    )}
+                    <a href={`https://${link}`} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-slate-500 uppercase tracking-wider hover:text-highlight">
+                        Source Code
+                    </a>
+                </div>
             </div>
             <p className="text-slate-600 font-serif text-sm leading-relaxed mb-6 flex-grow">
                 {description}

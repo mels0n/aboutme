@@ -4,6 +4,9 @@ import { diagnosticContent } from "@/shared/data/diagnostic_content";
 export const metadata: Metadata = {
     title: "What is an Operational Architect? | Christopher Melson",
     description: diagnosticContent.header.definition.part2,
+    alternates: {
+        canonical: "/guide/operational-architecture",
+    },
 };
 
 export default function OperationalArchitectGuide() {

@@ -25,12 +25,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         title,
         description,
         alternates: {
-            canonical: `/`, // Force canonical to root for "Single Page App" behavior
+            canonical: `/mode/${slug}`,
         },
         openGraph: {
             title,
             description,
-            url, // Force URL back to root
+            url: `${url}/mode/${slug}`,
             images,
             type: "profile",
         },

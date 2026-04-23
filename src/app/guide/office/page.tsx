@@ -4,6 +4,9 @@ import { OFFICE_CONTENT } from "@/shared/data/office-content";
 export const metadata: Metadata = {
     title: OFFICE_CONTENT.title,
     description: OFFICE_CONTENT.subtitle,
+    alternates: {
+        canonical: "/guide/office",
+    },
 };
 
 export default function OfficeGuidePage() {

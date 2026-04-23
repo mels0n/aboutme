@@ -43,9 +43,6 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
     metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://chris.melson.us"),
-    alternates: {
-        canonical: "/",
-    },
     title: {
         default: "Christopher Melson | Polymorphic Portfolio",
         template: "%s | Christopher Melson"

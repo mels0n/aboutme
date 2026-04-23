@@ -4,6 +4,9 @@ import { LAB_CONTENT, MANIFESTO_CONTENT } from "@/shared/data/lab-content";
 export const metadata: Metadata = {
     title: "The Lab | Cognitive Refactoring & Innovation",
     description: "A digital workspace dedicated to non-revenue-generating activities that yield high intellectual returns. The Lab is the 'Shadow IT' sector of the professional brand.",
+    alternates: {
+        canonical: "/guide/lab",
+    },
 };
 
 export default function LabGuidePage() {

@@ -31,7 +31,7 @@ export const faqContent: FAQSection[] = [
         items: [
             {
                 question: "How do you engage with organizations?",
-                answer: "I engage exclusively in high-impact leadership capacities where I can own the outcome, not just advise on it.\n\n1. **Interim Executive:** I parachute in as a dedicated leader (Interim COO/CTO/CIO) for a finite period (6-18 months) to stabilize distressed operations, lead a critical Post-Merger Integration, or bridge a gap while you search for a permanent hire.\n2. **Fractional Executive:** For organizations that need high-level architectural guidance but not a full-time headcount, I serve as a long-term strategic partner. I provide ongoing oversight of your Target Operating Model and technical roadmap, typically on a retainer basis.\n3. **Board Directorships:** I serve on Corporate, Non-Profit, and Private Boards. My specific value add is chairing 'Technical Risk Committees' - providing the governance oversight needed to ensure a board's strategic decisions are technically viable.\n4. **Permanent Leadership:** For the right mission, I am available for permanent roles. While I often sit in the C-Suite, I thrive in cross-functional roles (e.g., SVP of Operational Strategy, Head of Transformation) that report into a matrix of the CEO, COO, and CTO to 'architect the firm' across silos."
+                answer: "I engage exclusively in high-impact leadership capacities where I can own the outcome, not just advise on it.\n\n1. **Interim Executive:** I parachute in as a dedicated leader (Interim COO/CTO/CIO) for a finite period (6-18 months) to stabilize distressed operations, lead a critical Post-Merger Integration, or bridge a gap while you search for a permanent hire.\n2. **Fractional Executive:** For organizations that need high-level architectural guidance but not a full-time headcount, I serve as a long-term strategic partner. I provide ongoing oversight of your Target Operating Model and technical roadmap, typically on a retainer basis.\n3. **Board Directorships:** I serve on Corporate, Non-Profit, and Private Boards. My specific value add is chairing 'Technical Risk Committees' - providing the governance oversight needed to ensure a board's strategic decisions are technically viable.\n4. **Permanent Leadership:** For the right mission, I am available for permanent roles. While I often sit in the C-Suite, I thrive in cross-functional roles (e.g., SVP of Operational Strategy, Head of Transformation) that report into a matrix of the CEO, COO, and CTO to 'architect the firm' across silos.\n\n**To inquire about executive availability, please connect with me on LinkedIn.**"
             },
             {
                 question: "Why appoint an Operational Architect to a Board of Directors?",
@@ -61,7 +61,7 @@ export const faqContent: FAQSection[] = [
             },
             {
                 question: "What is your tech stack preference?",
-                answer: "I am tool-agnostic but philosophy-specific. I have deep experience integrating ServiceNow, Salesforce, JIRA, and custom SQL/Python environments. My goal is not to rip and replace your current stack, but to ensure your existing tools are actually talking to each other."
+                answer: "I use what is available and improve it where required. I'm not looking to rip your systems apart. I am mindful that people are the most important component of any tool replacement; if your team won't use the new thing, then the investment is a waste."
             }
         ]
     }

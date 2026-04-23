@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { OFFICE_CONTENT } from "@/shared/data/office-content";
 
 export const metadata: Metadata = {
@@ -12,6 +13,11 @@ export const metadata: Metadata = {
 export default function OfficeGuidePage() {
     return (
         <main className="max-w-4xl mx-auto px-6 py-24 space-y-12">
+            <nav className="mb-8">
+                <Link href="/" className="text-sm font-bold uppercase tracking-widest text-foreground/60 hover:text-foreground transition-colors flex items-center gap-2">
+                    &larr; Return to Main Interface
+                </Link>
+            </nav>
             <header className="space-y-4">
                 <h1 className="text-4xl font-display font-bold text-foreground">The Office</h1>
                 <p className="text-xl text-foreground/70 font-serif italic">

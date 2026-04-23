@@ -50,6 +50,7 @@ export async function generateMetadata(
 }
 
 import { ServerSideResume } from "@/shared/ui/ServerSideResume";
+import { SemanticNavGraph } from "@/shared/ui/SemanticNavGraph";
 import { JsonLd } from "@/shared/ui/JsonLd";
 import resume from "@/shared/data/resume.json";
 import { ResumeData } from "@/shared/types/resume";
@@ -58,6 +59,7 @@ export default function Page() {
     return (
         <>
             <ServerSideResume data={resume as unknown as ResumeData} />
+            <SemanticNavGraph />
             <JsonLd />
             <HomeClient />
         </>

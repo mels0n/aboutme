@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
      * Tree-shakes package exports so only used icons from lucide-react are bundled.
      * Directly reduces the 74 KiB of unused JS flagged in Lighthouse diagnostics.
      */
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    optimizePackageImports: ['lucide-react'],
   },
 };
 

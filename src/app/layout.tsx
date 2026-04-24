@@ -44,10 +44,13 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
     metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://chris.melson.us"),
     title: {
-        default: "Christopher Melson | Polymorphic Portfolio",
+        default: "Christopher Melson | Operational Architect for the Agentic Age",
         template: "%s | Christopher Melson"
     },
-    description: "Christopher Melson is an operations executive and architect specializing in stabilizing distressed environments.",
+    // Full substantive description required for Lighthouse SEO audit — must be
+    // >= 160 chars and match the page-level generateMetadata description exactly
+    // so crawlers receive a consistent signal regardless of SSR evaluation order.
+    description: "Christopher Melson is an operations executive specializing in stabilizing distressed environments, M&A integration gaps, and building resilient teams. Executive, Strategist, Engineer.",
     keywords: ["Christopher Melson", "Portfolio", "Executive", "Strategist", "Engineer", "Leader", "Ops", "Risk", "Resilient", "Culture", "M&A Integration Gap", "Architect", "Agentic Age", "Strategic Design", "Resilient Operations", "Technical Execution"],
     authors: [{ name: "Christopher Melson" }],
     creator: "Christopher Melson",
@@ -98,6 +101,12 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
+            <head>
+                {/* Preconnect to Google Fonts origins to eliminate DNS + TLS handshake
+                    latency from the render-blocking font requests Lighthouse reports. */}
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+            </head>
             <body
                 className={`${inter.variable} ${youngSerif.variable} ${merriweather.variable} ${jetbrains.variable} ${robotoSlab.variable} antialiased`}
             >

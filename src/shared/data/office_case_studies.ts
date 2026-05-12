@@ -48,7 +48,7 @@ export const officeCaseStudies: OfficeCaseStudy[] = [
         date: "2026-01-01",
         title: "The M&A Integration Gap: 'Auditable' Governance & DORA Compliance",
         summary: {
-            executive: "Executed 'Zero-Cost' restructuring of FX Operations to close a $1.3M+ M&A revenue risk gap. Transformed a 'perpetual startup' unit into a EU DORA-compliant enterprise function, returning 30% of Sales capacity to revenue generation.",
+            executive: "$1.3M+ M&A revenue gap closed via zero-cost restructuring. Perpetual startup converted to EU DORA-compliant function; 30% of Sales capacity returned to revenue generation.",
             strategist: "Designed the 'Two-Pillar' Target Operating Model (TOM), bifurcating 'Venue & API' (Machine) from 'GUI & UX' (Human) workflows. Solved critical visibility gaps via 'Transparent-by-Design' architecture.",
             engineer: "Engineered a custom Internal-Only Router for Azure Identity Emulation ('View-As'). Enforced Zero Trust via JIT provisioning and shifted hiring baseline to require TCPdump/Wireshark competency."
         },

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { diagnosticContent } from "@/shared/data/diagnostic_content";
 
 export const metadata: Metadata = {
-    title: "What is an Operational Architect? | Christopher Melson",
+    title: "What is an Operational Architect?",
     description: diagnosticContent.header.definition.part2,
     alternates: {
         canonical: "/guide/operational-architecture",

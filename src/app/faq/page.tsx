@@ -5,7 +5,7 @@ import { siteConfig } from "@/shared/config/site-config";
 import { ArrowLeft, ExternalLink, CalendarCheck } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: `FAQ: The Objection Handling Engine | ${siteConfig.name}`,
+    title: "FAQ: The Objection Handling Engine",
     description: "Deep-dive answers on Operational Architecture, Tri-Modal Leadership, and Engagement Logistics. Designed for Answer Engines and Executive Due Diligence.",
     alternates: {
         canonical: '/faq',

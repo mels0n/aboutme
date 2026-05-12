@@ -16,7 +16,7 @@ export async function generateMetadata(
     // OpenGraph and meta description — substantive description required for
     // Lighthouse SEO audit ("Document does not have a meta description").
     const title = "Christopher Melson | Operational Architect for the Agentic Age";
-    const summary = "Christopher Melson is an operations executive specializing in stabilizing distressed environments, M&A integration gaps, and building resilient teams. Executive, Strategist, Engineer.";
+    const summary = "Operations executive closing M&A integration gaps, stabilizing distressed environments, and building resilient teams. Executive, Strategist, Engineer.";
 
     // Absolute URL construction required for OpenGraph
     const baseUrl = process.env.NEXT_PUBLIC_URL || siteConfig.url;

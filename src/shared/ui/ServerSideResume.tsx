@@ -19,7 +19,7 @@ export const ServerSideResume = ({ data }: ServerSideResumeProps) => {
     return (
         <article className="sr-only">
             <header>
-                <h1>{data.basics.name}</h1>
+                <h2>{data.basics.name}</h2>
                 <p>{data.basics.headline}</p>
                 <div dangerouslySetInnerHTML={{ __html: data.sections.summary?.content || '' }} />
             </header>

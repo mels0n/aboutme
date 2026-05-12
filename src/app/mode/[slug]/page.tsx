@@ -25,7 +25,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         title,
         description,
         alternates: {
-            canonical: `/mode/${slug}`,
+            canonical: `/`,
         },
         openGraph: {
             title,

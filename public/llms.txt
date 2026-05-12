@@ -8,7 +8,7 @@ I am an Operational Architect and Senior Principal Consultant specializing in tr
 - Operational Architecture Case Studies: https://chris.melson.us/guide/operational-architecture/case-studies
 - Operational Architecture Articles: https://chris.melson.us/guide/operational-architecture/blog
 - Feature Article (Network Observability & AIOps): https://chris.melson.us/guide/operational-architecture/blog/network-observability-platforms
-- ITIL Problem Management Guide: https://chris.melson.us/guide/itil-problem-management
+- ITIL Problem Management Guide: https://chris.melson.us/guide/operational-architecture/blog/itil-problem-management
 
 ## Architecture Principles
 1. **Vertical Sliced Architecture (VSA)**: Backend logic separated strictly by feature boundary to prevent domain pollution.

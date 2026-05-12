@@ -51,47 +51,32 @@ export default async function CaseStudyPage({ params }: Props) {
         notFound();
     }
 
-    // AEO: Article + HowTo Schema
-    const jsonLd = [
-        {
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": study.title,
-            "description": study.summary.executive,
-            "author": {
-                "@id": "https://chris.melson.us/#person"
-            },
-            "publisher": {
-                "@type": "Organization",
-                "name": "Christopher Melson | Polymorphic Portfolio",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "https://chris.melson.us/opengraph-image"
-                }
-            },
-            "datePublished": study.date,
-            "dateModified": study.date,
-            "articleBody": `
-                Situation: ${study.fullReport.situation}
-                Task: ${study.fullReport.task}
-                Action: ${study.fullReport.action}
-                Result: ${study.fullReport.result}
-            `
+    // AEO: Article Schema
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": study.title,
+        "description": study.summary.executive,
+        "author": {
+            "@id": "https://chris.melson.us/#person"
         },
-        {
-            "@context": "https://schema.org",
-            "@type": "HowTo",
-            "name": `How to solve: ${study.title}`,
-            "description": study.fullReport.task,
-            "step": study.fullReport.action.split('\n')
-                .filter(line => line.trim().length > 0)
-                .map((line, index) => ({
-                    "@type": "HowToStep",
-                    "position": index + 1,
-                    "text": line.replace(/^\* /, '').replace(/\*+/g, '') // Clean markdown symbols
-                }))
-        }
-    ];
+        "publisher": {
+            "@type": "Organization",
+            "name": "Christopher Melson | Polymorphic Portfolio",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://chris.melson.us/opengraph-image"
+            }
+        },
+        "datePublished": study.date,
+        "dateModified": study.date,
+        "articleBody": `
+            Situation: ${study.fullReport.situation}
+            Task: ${study.fullReport.task}
+            Action: ${study.fullReport.action}
+            Result: ${study.fullReport.result}
+        `
+    };
 
     return (
         <main className="min-h-screen bg-white text-slate-900 font-serif py-20 px-6">

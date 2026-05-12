@@ -6,14 +6,14 @@ const BASE_URL = 'https://chris.melson.us';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const staticRoutes: MetadataRoute.Sitemap = [
-        { url: BASE_URL, changeFrequency: 'monthly', priority: 1.0 },
-        { url: `${BASE_URL}/about`, changeFrequency: 'monthly', priority: 0.8 },
-        { url: `${BASE_URL}/faq`, changeFrequency: 'monthly', priority: 0.7 },
-        { url: `${BASE_URL}/guide/lab`, changeFrequency: 'monthly', priority: 0.8 },
-        { url: `${BASE_URL}/guide/office`, changeFrequency: 'monthly', priority: 0.8 },
-        { url: `${BASE_URL}/guide/operational-architecture`, changeFrequency: 'monthly', priority: 1.0 },
-        { url: `${BASE_URL}/guide/operational-architecture/case-studies`, changeFrequency: 'monthly', priority: 0.9 },
-        { url: `${BASE_URL}/guide/operational-architecture/blog`, changeFrequency: 'weekly', priority: 0.9 },
+        { url: BASE_URL, changeFrequency: 'monthly', priority: 1.0, lastModified: new Date('2026-04-24') },
+        { url: `${BASE_URL}/about`, changeFrequency: 'monthly', priority: 0.8, lastModified: new Date('2026-04-23') },
+        { url: `${BASE_URL}/faq`, changeFrequency: 'monthly', priority: 0.7, lastModified: new Date('2026-04-23') },
+        { url: `${BASE_URL}/guide/lab`, changeFrequency: 'monthly', priority: 0.8, lastModified: new Date('2026-01-09') },
+        { url: `${BASE_URL}/guide/office`, changeFrequency: 'monthly', priority: 0.8, lastModified: new Date('2026-01-12') },
+        { url: `${BASE_URL}/guide/operational-architecture`, changeFrequency: 'monthly', priority: 1.0, lastModified: new Date('2026-01-15') },
+        { url: `${BASE_URL}/guide/operational-architecture/case-studies`, changeFrequency: 'monthly', priority: 0.9, lastModified: new Date('2026-01-10') },
+        { url: `${BASE_URL}/guide/operational-architecture/blog`, changeFrequency: 'weekly', priority: 0.9, lastModified: new Date('2026-03-09') },
     ];
 
     const blogRoutes: MetadataRoute.Sitemap = officeBlogPosts.map(post => ({

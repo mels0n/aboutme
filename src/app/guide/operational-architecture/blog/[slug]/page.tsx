@@ -22,20 +22,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
 
     return {
-        title: `${post.title} | ${post.author}`,
+        title: post.title,
         description: post.summary,
         alternates: {
             canonical: `/guide/operational-architecture/blog/${post.slug}`,
         },
         openGraph: {
-            title: `${post.title} | ${post.author}`,
+            title: post.title,
             description: post.summary,
             url: `/guide/operational-architecture/blog/${post.slug}`,
             type: "article",
         },
         twitter: {
             card: "summary_large_image",
-            title: `${post.title} | ${post.author}`,
+            title: post.title,
             description: post.summary,
         }
     };
@@ -56,7 +56,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         "author": {
             "@id": "https://chris.melson.us/#person"
         },
+        "publisher": {
+            "@id": "https://chris.melson.us/#person"
+        },
         "datePublished": post.date,
+        "dateModified": post.date,
+        "image": [`https://chris.melson.us/opengraph-image`],
         "description": post.summary,
         "articleBody": post.content
     };

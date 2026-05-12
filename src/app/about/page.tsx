@@ -7,7 +7,7 @@ import { aboutContent } from "@/shared/data/about-content";
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-    title: `About ${aboutContent.header.name} | ${aboutContent.header.titles.join(" | ")}`,
+    title: { absolute: "About Christopher Melson | Executive & Board Advisor" },
     description: aboutContent.bio.intro[0],
     alternates: {
         canonical: '/about',

@@ -12,9 +12,9 @@ export const GatekeeperSkeleton = () => {
                 <div className="max-w-4xl text-center space-y-12 p-8 md:p-12 rounded-2xl bg-surface/30 border border-white/10 shadow-2xl backdrop-blur-md">
                     {/* Headline */}
                     <div className="space-y-6">
-                        <h1 className="text-2xl md:text-3xl font-serif font-bold text-foreground leading-tight max-w-3xl mx-auto">
+                        <h2 className="text-2xl md:text-3xl font-serif font-bold text-foreground leading-tight max-w-3xl mx-auto">
                             This Portfolio is Polymorphic.
-                        </h1>
+                        </h2>
                         <p className="text-base md:text-lg text-foreground/80 font-serif leading-relaxed max-w-3xl mx-auto">
                             Just as I translate between <span className="font-bold text-foreground">Boardroom Ambition</span> and <span className="font-bold text-foreground">Server Room Reality</span>, this site adapts to your language.
                         </p>

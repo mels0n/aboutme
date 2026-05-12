@@ -47,10 +47,7 @@ export const metadata: Metadata = {
         default: "Christopher Melson | Operational Architect for the Agentic Age",
         template: "%s | Christopher Melson"
     },
-    // Full substantive description required for Lighthouse SEO audit — must be
-    // >= 160 chars and match the page-level generateMetadata description exactly
-    // so crawlers receive a consistent signal regardless of SSR evaluation order.
-    description: "Christopher Melson is an operations executive specializing in stabilizing distressed environments, M&A integration gaps, and building resilient teams. Executive, Strategist, Engineer.",
+    description: "Operations executive closing M&A integration gaps, stabilizing distressed environments, and building resilient teams. Executive, Strategist, Engineer.",
     keywords: ["Christopher Melson", "Portfolio", "Executive", "Strategist", "Engineer", "Leader", "Ops", "Risk", "Resilient", "Culture", "M&A Integration Gap", "Architect", "Agentic Age", "Strategic Design", "Resilient Operations", "Technical Execution"],
     authors: [{ name: "Christopher Melson" }],
     creator: "Christopher Melson",

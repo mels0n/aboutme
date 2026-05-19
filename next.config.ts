@@ -20,6 +20,7 @@ const nextConfig: NextConfig = {
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: https:",
               "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com",
+              "frame-src https://www.youtube-nocookie.com https://www.youtube.com",
               "frame-ancestors 'none'",
             ].join('; '),
           },

@@ -62,7 +62,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         "author": { "@id": "https://chris.melson.us/#person" },
         "publisher": { "@id": "https://chris.melson.us/#person" },
         "datePublished": post.date,
-        "dateModified": post.date,
+        "dateModified": post.lastUpdated ?? post.date,
         "image": ["https://chris.melson.us/opengraph-image"],
         "wordCount": post.content.split(/\s+/).length,
         "articleBody": post.content,

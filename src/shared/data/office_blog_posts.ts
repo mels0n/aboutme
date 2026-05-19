@@ -14,6 +14,7 @@ export interface BlogPost {
     author: string;
     role: string;
     date: string;
+    lastUpdated?: string;
     summary: string;
     polymorphicSummary: {
         executive: string;

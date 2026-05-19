@@ -73,7 +73,7 @@ The reason most transformations fail isn't cultural resistance or budget overrun
 <figure style="margin: 2rem 0;">
 <svg viewBox="0 0 560 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Horizontal bar chart showing root causes of enterprise transformation failure">
   <title>Root Causes of Enterprise Transformation Failure</title>
-  <rect width="560" height="240" fill="transparent"/>
+  <rect width="560" height="240" fill="#1e293b" rx="8"/>
   <text x="280" y="22" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="600" fill="#e2e8f0">Root Causes of Enterprise Transformation Failure</text>
   <text x="185" y="68" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#94a3b8">Cultural misalignment</text>
   <rect x="195" y="50" width="280" height="28" rx="4" fill="#60a5fa" opacity="0.85"/>
@@ -87,9 +87,9 @@ The reason most transformations fail isn't cultural resistance or budget overrun
   <text x="185" y="206" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#94a3b8">Translation gap between layers</text>
   <rect x="195" y="188" width="103" height="28" rx="4" fill="#a78bfa" opacity="0.85"/>
   <text x="306" y="207" font-family="system-ui,-apple-system,sans-serif" font-size="12" font-weight="700" fill="#e2e8f0">14%</text>
-  <text x="280" y="234" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748b">Source: McKinsey / Deloitte synthesis, 2025 — N=1,200 enterprise transformation programs</text>
+  <text x="280" y="234" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">Source: McKinsey / Deloitte synthesis, 2025 — N=1,200 enterprise transformation programs</text>
 </svg>
-<figcaption style="font-size: 0.85rem; color: #64748b; margin-top: 0.5rem; text-align: center;">The translation gap between organizational layers is the least-cited but most preventable cause of transformation failure.</figcaption>
+<figcaption style="font-size: 0.85rem; color: #475569; margin-top: 0.5rem; text-align: center;">The translation gap between organizational layers is the least-cited but most preventable cause of transformation failure.</figcaption>
 </figure>
 
 The Polymorphic structure of this site — the toggle between Executive, Strategist, and Engineer views — isn't a design choice. It's a functional demonstration of the framework. Every piece of content here exists in three translations simultaneously, because that is what the Operational Architect does in practice.
@@ -138,28 +138,28 @@ The power of the bifurcation is **scope isolation**. When work is classified int
 <figure style="margin: 2rem 0;">
 <svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bar chart comparing budget adherence for organizations with and without a documented Target Operating Model">
   <title>TOM Documentation vs. Budget Adherence Outcomes</title>
-  <rect width="560" height="260" fill="transparent"/>
+  <rect width="560" height="260" fill="#1e293b" rx="8"/>
   <text x="280" y="22" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="600" fill="#e2e8f0">Target Operating Model: Budget Adherence Outcomes</text>
   <line x1="80" y1="50" x2="80" y2="210" stroke="#334155" stroke-width="1"/>
   <line x1="80" y1="210" x2="510" y2="210" stroke="#334155" stroke-width="1"/>
-  <line x1="80" y1="170" x2="510" y2="170" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
-  <line x1="80" y1="130" x2="510" y2="130" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
-  <line x1="80" y1="90" x2="510" y2="90" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
-  <line x1="80" y1="50" x2="510" y2="50" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
-  <text x="72" y="214" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748b">0%</text>
-  <text x="72" y="174" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748b">25%</text>
-  <text x="72" y="134" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748b">50%</text>
-  <text x="72" y="94" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748b">75%</text>
-  <text x="72" y="54" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748b">100%</text>
+  <line x1="80" y1="170" x2="510" y2="170" stroke="#334155" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="80" y1="130" x2="510" y2="130" stroke="#334155" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="80" y1="90" x2="510" y2="90" stroke="#334155" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="80" y1="50" x2="510" y2="50" stroke="#334155" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="72" y="214" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">0%</text>
+  <text x="72" y="174" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">25%</text>
+  <text x="72" y="134" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">50%</text>
+  <text x="72" y="94" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">75%</text>
+  <text x="72" y="54" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">100%</text>
   <rect x="160" y="79" width="110" height="131" rx="4" fill="#34d399" opacity="0.9"/>
   <text x="215" y="68" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="15" font-weight="700" fill="#34d399">82%</text>
   <text x="215" y="228" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#94a3b8">With TOM</text>
   <rect x="310" y="157" width="110" height="53" rx="4" fill="#f87171" opacity="0.9"/>
   <text x="365" y="146" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="15" font-weight="700" fill="#f87171">33%</text>
   <text x="365" y="228" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" fill="#94a3b8">Without TOM</text>
-  <text x="280" y="250" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748b">Source: Deloitte Global Operating Model Survey, 2025 — % delivering within 15% of budget</text>
+  <text x="280" y="250" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">Source: Deloitte Global Operating Model Survey, 2025 — % delivering within 15% of budget</text>
 </svg>
-<figcaption style="font-size: 0.85rem; color: #64748b; margin-top: 0.5rem; text-align: center;">Organizations with a documented TOM are 2.5× more likely to deliver transformations on budget. The Two-Pillar model provides the architectural foundation that makes a TOM executable.</figcaption>
+<figcaption style="font-size: 0.85rem; color: #475569; margin-top: 0.5rem; text-align: center;">Organizations with a documented TOM are 2.5× more likely to deliver transformations on budget. The Two-Pillar model provides the architectural foundation that makes a TOM executable.</figcaption>
 </figure>
 
 The Two-Pillar TOM isn't a headcount model. It's a work classification model. Once every workflow is assigned to a pillar at intake, hiring profiles, escalation paths, tooling requirements, and compliance obligations follow deterministically. The org chart becomes a consequence of the work design — not the other way around.
@@ -208,19 +208,19 @@ In the SE 3.0 model, the OA's toolkit expands to include:
 <figure style="margin: 2rem 0;">
 <svg viewBox="0 0 560 268" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lollipop chart comparing agentic AI production deployment percentage versus mature governance model percentage versus projects at cancellation risk">
   <title>Agentic AI: Adoption vs. Governance Readiness, 2026</title>
-  <rect width="560" height="268" fill="transparent"/>
+  <rect width="560" height="268" fill="#1e293b" rx="8"/>
   <text x="280" y="22" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="600" fill="#e2e8f0">Agentic AI: Adoption vs. Governance Readiness (2026)</text>
   <line x1="80" y1="50" x2="80" y2="210" stroke="#334155" stroke-width="1"/>
   <line x1="80" y1="210" x2="510" y2="210" stroke="#334155" stroke-width="1"/>
-  <line x1="80" y1="170" x2="510" y2="170" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
-  <line x1="80" y1="130" x2="510" y2="130" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
-  <line x1="80" y1="90" x2="510" y2="90" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
-  <line x1="80" y1="50" x2="510" y2="50" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
-  <text x="72" y="214" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748b">0%</text>
-  <text x="72" y="174" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748b">25%</text>
-  <text x="72" y="134" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748b">50%</text>
-  <text x="72" y="94" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748b">75%</text>
-  <text x="72" y="54" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748b">100%</text>
+  <line x1="80" y1="170" x2="510" y2="170" stroke="#334155" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="80" y1="130" x2="510" y2="130" stroke="#334155" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="80" y1="90" x2="510" y2="90" stroke="#334155" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="80" y1="50" x2="510" y2="50" stroke="#334155" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="72" y="214" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">0%</text>
+  <text x="72" y="174" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">25%</text>
+  <text x="72" y="134" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">50%</text>
+  <text x="72" y="94" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">75%</text>
+  <text x="72" y="54" text-anchor="end" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">100%</text>
   <line x1="160" y1="98" x2="160" y2="210" stroke="#60a5fa" stroke-width="3"/>
   <circle cx="160" cy="98" r="11" fill="#60a5fa"/>
   <text x="160" y="102" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="700" fill="#0f172a">72%</text>
@@ -236,9 +236,9 @@ In the SE 3.0 model, the OA's toolkit expands to include:
   <text x="430" y="181" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="700" fill="#0f172a">21%</text>
   <text x="430" y="230" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">Mature</text>
   <text x="430" y="243" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">Governance</text>
-  <text x="280" y="262" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#64748b">Source: Agentic AI Institute / Gartner, 2026</text>
+  <text x="280" y="262" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" fill="#94a3b8">Source: Agentic AI Institute / Gartner, 2026</text>
 </svg>
-<figcaption style="font-size: 0.85rem; color: #64748b; margin-top: 0.5rem; text-align: center;">The governance gap in agentic AI is structurally identical to the Missing Middle — and the Operational Architect is the role designed to close it.</figcaption>
+<figcaption style="font-size: 0.85rem; color: #475569; margin-top: 0.5rem; text-align: center;">The governance gap in agentic AI is structurally identical to the Missing Middle — and the Operational Architect is the role designed to close it.</figcaption>
 </figure>
 
 The financial translation function remains the OA's critical board interface. When the engineering team deploys a Human-Agent Pod running $20,000/month in inference compute, the OA's job is to reframe that line item: "We reduced the developer workforce cost by 10% and increased feature delivery velocity by 50%. The AWS bill is the price of that velocity — and it's the right trade." That argument requires the Tri-Modal fluency that no single-domain CxO possesses.

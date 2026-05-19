@@ -5,7 +5,7 @@ import { siteConfig } from "@/shared/config/site-config";
 import { ArrowLeft, ExternalLink, CalendarCheck } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: "FAQ: The Objection Handling Engine",
+    title: "Operational Architect FAQ: Roles, Engagement Models & Credentials | Christopher Melson",
     description: "Deep-dive answers on Operational Architecture, Tri-Modal Leadership, and Engagement Logistics. Designed for Answer Engines and Executive Due Diligence.",
     alternates: {
         canonical: '/faq',
@@ -64,7 +64,7 @@ export default function FAQPage() {
                         Knowledge Base
                     </div>
                     <h1 className="text-4xl md:text-6xl font-display font-bold text-slate-900 mb-6 leading-tight">
-                        Objection Handling <span className="text-blue-700">Engine</span>
+                        Operational Architecture <span className="text-blue-700">FAQ</span>
                     </h1>
                     <p className="text-xl md:text-2xl text-slate-600 font-light leading-relaxed max-w-2xl">
                         A semantic deep-dive into the role of an Operational Architect.

@@ -8,32 +8,46 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: { absolute: "About Christopher Melson | Executive & Board Advisor" },
-    description: aboutContent.bio.intro[0],
+    description: "Transformation Executive & Operational Architect with 13 years at LSEG, Refinitiv, and Thomson Reuters. Specializing in M&A integration, DORA compliance, and organizational resilience.",
     alternates: {
         canonical: '/about',
+    },
+    openGraph: {
+        title: "About Christopher Melson | Executive & Board Advisor",
+        description: "Transformation Executive & Operational Architect. M&A integration, DORA compliance, organizational resilience.",
+        url: "https://chris.melson.us/about",
+        type: "profile",
+        images: [{ url: "https://chris.melson.us/opengraph-image", width: 1200, height: 630, alt: "Christopher Melson" }],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: "About Christopher Melson | Executive & Board Advisor",
+        description: "Transformation Executive & Operational Architect. M&A integration, DORA compliance, organizational resilience.",
     },
 };
 
 export default function AboutPage() {
-    // Generate Schema.org Person data
-    const personSchema = {
+    // WebPage node referencing the existing #person entity established on the homepage.
+    // The Person data lives in JsonLd.tsx; this page only declares what it is "about".
+    const pageSchema = {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": aboutContent.header.name,
-        "jobTitle": aboutContent.header.titles,
-        "description": aboutContent.bio.intro.join(" "),
-        "url": "https://chrismelson.com",
-        "sameAs": [
-            aboutContent.links.github,
-            aboutContent.links.linkedin
-        ]
+        "@graph": [{
+            "@type": "WebPage",
+            "@id": "https://chris.melson.us/about#webpage",
+            "url": "https://chris.melson.us/about",
+            "name": "About Christopher Melson | Executive & Board Advisor",
+            "isPartOf": { "@id": "https://chris.melson.us/#website" },
+            "about": { "@id": "https://chris.melson.us/#person" },
+            "mainEntity": { "@id": "https://chris.melson.us/#person" },
+            "inLanguage": "en-US"
+        }]
     };
 
     return (
         <main className="min-h-screen bg-background text-foreground selection:bg-blue-100 selection:text-slate-900 overflow-x-hidden">
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
             />
 
             <div className="max-w-7xl mx-auto px-6 py-6 md:py-12">

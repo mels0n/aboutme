@@ -5,6 +5,7 @@ import { scalabilityEngineering } from "./blog-posts/scalability-engineering";
 import { generativeToAgentic } from "./blog-posts/generative-to-agentic";
 import { itilProblemManagement } from "./blog-posts/itil-problem-management";
 import { networkObservabilityPlatforms } from "./blog-posts/network-observability-platforms";
+import { operationalArchitectGuide } from "./blog-posts/operational-architect-definitive-guide";
 
 export interface BlogPost {
     id: string;
@@ -27,6 +28,7 @@ export interface BlogPost {
 }
 
 export const officeBlogPosts: BlogPost[] = [
+    operationalArchitectGuide,
     agenticShift,
     triModalTranslation,
     integrationGap,

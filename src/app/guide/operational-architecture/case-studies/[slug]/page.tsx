@@ -4,6 +4,7 @@ import { officeCaseStudies } from "@/shared/data/office_case_studies";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { BreadcrumbSchema } from "@/shared/ui/BreadcrumbSchema";
 
 interface Props {
     params: Promise<{
@@ -51,31 +52,20 @@ export default async function CaseStudyPage({ params }: Props) {
         notFound();
     }
 
-    // AEO: Article Schema
+    const studyUrl = `https://chris.melson.us/guide/operational-architecture/case-studies/${study.slug}`;
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "Article",
+        "@id": studyUrl,
+        "url": studyUrl,
+        "mainEntityOfPage": { "@type": "WebPage", "@id": studyUrl },
         "headline": study.title,
         "description": study.summary.executive,
-        "author": {
-            "@id": "https://chris.melson.us/#person"
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "Christopher Melson | Polymorphic Portfolio",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://chris.melson.us/opengraph-image"
-            }
-        },
+        "author": { "@id": "https://chris.melson.us/#person" },
+        "publisher": { "@id": "https://chris.melson.us/#person" },
         "datePublished": study.date,
         "dateModified": study.date,
-        "articleBody": `
-            Situation: ${study.fullReport.situation}
-            Task: ${study.fullReport.task}
-            Action: ${study.fullReport.action}
-            Result: ${study.fullReport.result}
-        `
+        "articleBody": `Situation: ${study.fullReport.situation}\nTask: ${study.fullReport.task}\nAction: ${study.fullReport.action}\nResult: ${study.fullReport.result}`,
     };
 
     return (
@@ -84,6 +74,12 @@ export default async function CaseStudyPage({ params }: Props) {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
+            <BreadcrumbSchema items={[
+                { name: "Home", url: "https://chris.melson.us" },
+                { name: "Operational Architecture", url: "https://chris.melson.us/guide/operational-architecture" },
+                { name: "Case Studies", url: "https://chris.melson.us/guide/operational-architecture/case-studies" },
+                { name: study.title, url: studyUrl },
+            ]} />
 
             <div className="max-w-3xl mx-auto">
                 <Link
@@ -94,9 +90,16 @@ export default async function CaseStudyPage({ params }: Props) {
                     Back to Case Studies
                 </Link>
 
-                <h1 className="text-3xl md:text-5xl font-display font-bold text-slate-900 mb-8 leading-tight">
+                <h1 className="text-3xl md:text-5xl font-display font-bold text-slate-900 mb-4 leading-tight">
                     {study.title}
                 </h1>
+                <p className="text-sm font-mono uppercase tracking-widest text-slate-400 mb-8">
+                    <time dateTime={study.date}>
+                        {new Date(study.date).toLocaleDateString('en-US', {
+                            year: 'numeric', month: 'long', day: 'numeric'
+                        })}
+                    </time>
+                </p>
 
                 {/* Executive Summary Card */}
                 <div className="bg-slate-50 border border-slate-200 p-6 rounded-lg text-slate-800 mb-12">

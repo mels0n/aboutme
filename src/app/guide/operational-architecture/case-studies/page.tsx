@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { officeCaseStudies } from "@/shared/data/office_case_studies";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { BreadcrumbSchema } from "@/shared/ui/BreadcrumbSchema";
 
 export const metadata: Metadata = {
     title: "Operational Architecture Case Studies | Chris Melson",
@@ -35,6 +36,11 @@ export default function CaseStudiesPage() {
     return (
         <main className="max-w-4xl mx-auto px-6 py-20 font-serif text-foreground">
             <SectionJsonLd data={jsonLd} />
+            <BreadcrumbSchema items={[
+                { name: "Home", url: "https://chris.melson.us" },
+                { name: "Operational Architecture", url: "https://chris.melson.us/guide/operational-architecture" },
+                { name: "Case Studies", url: "https://chris.melson.us/guide/operational-architecture/case-studies" },
+            ]} />
 
             <Link
                 href="/"

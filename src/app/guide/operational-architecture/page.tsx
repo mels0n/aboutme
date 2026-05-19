@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { diagnosticContent } from "@/shared/data/diagnostic_content";
+import { BreadcrumbSchema } from "@/shared/ui/BreadcrumbSchema";
 
 export const metadata: Metadata = {
     title: "What is an Operational Architect?",
@@ -46,6 +47,10 @@ export default function OperationalArchitectGuide() {
 
     return (
         <main className="max-w-4xl mx-auto px-6 py-24 space-y-12">
+            <BreadcrumbSchema items={[
+                { name: "Home", url: "https://chris.melson.us" },
+                { name: "Operational Architecture", url: "https://chris.melson.us/guide/operational-architecture" },
+            ]} />
 
             {/* 1. Header & Answer First Block */}
             <header className="space-y-6">

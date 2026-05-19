@@ -4,6 +4,7 @@ import { officeBlogPosts } from "@/shared/data/office_blog_posts";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import { BreadcrumbSchema } from "@/shared/ui/BreadcrumbSchema";
 
 export async function generateStaticParams() {
     return officeBlogPosts.map((post) => ({
@@ -49,21 +50,22 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         notFound();
     }
 
+    const postUrl = `https://chris.melson.us/guide/operational-architecture/blog/${post.slug}`;
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
+        "@id": postUrl,
+        "url": postUrl,
+        "mainEntityOfPage": { "@type": "WebPage", "@id": postUrl },
         "headline": post.title,
-        "author": {
-            "@id": "https://chris.melson.us/#person"
-        },
-        "publisher": {
-            "@id": "https://chris.melson.us/#person"
-        },
+        "description": post.summary,
+        "author": { "@id": "https://chris.melson.us/#person" },
+        "publisher": { "@id": "https://chris.melson.us/#person" },
         "datePublished": post.date,
         "dateModified": post.date,
-        "image": [`https://chris.melson.us/opengraph-image`],
-        "description": post.summary,
-        "articleBody": post.content
+        "image": ["https://chris.melson.us/opengraph-image"],
+        "wordCount": post.content.split(/\s+/).length,
+        "articleBody": post.content,
     };
 
     return (
@@ -72,6 +74,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
+            <BreadcrumbSchema items={[
+                { name: "Home", url: "https://chris.melson.us" },
+                { name: "Operational Architecture", url: "https://chris.melson.us/guide/operational-architecture" },
+                { name: "Blog", url: "https://chris.melson.us/guide/operational-architecture/blog" },
+                { name: post.title, url: postUrl },
+            ]} />
 
             <header className="mb-12 text-center">
                 <h1 className="text-3xl md:text-5xl font-display font-bold mb-6 leading-tight">
@@ -81,6 +89,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <span>{post.author}</span>
                     <span>•</span>
                     <span>{post.role}</span>
+                    <span>•</span>
+                    <time dateTime={post.date}>
+                        {new Date(post.date).toLocaleDateString('en-US', {
+                            year: 'numeric', month: 'long', day: 'numeric'
+                        })}
+                    </time>
                 </div>
             </header>
 

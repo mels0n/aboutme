@@ -41,7 +41,9 @@ export const OfficeNavControls = () => {
         setMode(id);
 
         // Soft Navigation: Update URL without refreshing/scrolling
+        // Strip modal-state params (blog) so they don't re-open on profile switch
         const params = new URLSearchParams(searchParams.toString());
+        params.delete('blog');
         const newPath = `/mode/${slug}`;
         const newUrl = params.toString() ? `${newPath}?${params.toString()}` : newPath;
         window.history.pushState(null, '', newUrl);

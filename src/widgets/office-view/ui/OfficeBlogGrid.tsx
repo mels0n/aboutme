@@ -107,7 +107,17 @@ export const OfficeBlogGrid = ({ mode: propMode }: OfficeBlogGridProps) => {
 
             <OfficeBlogModal
                 post={selectedPost}
-                onClose={() => setSelectedPost(null)}
+                onClose={() => {
+                    setSelectedPost(null);
+                    if (typeof window !== 'undefined') {
+                        const url = new URL(window.location.href);
+                        if (url.searchParams.has('blog')) {
+                            url.searchParams.delete('blog');
+                            const newUrl = url.pathname + (url.searchParams.toString() ? `?${url.searchParams.toString()}` : '');
+                            window.history.replaceState(null, '', newUrl);
+                        }
+                    }
+                }}
             />
         </section>
     );

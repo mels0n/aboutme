@@ -33,7 +33,7 @@ export default function BlogListPage() {
     };
 
     return (
-        <main className="max-w-4xl mx-auto px-6 py-20 font-serif text-foreground">
+        <main className="max-w-4xl mx-auto px-6 py-10 md:py-20 font-serif text-foreground">
             <SectionJsonLd data={jsonLd} />
             <BreadcrumbSchema items={[
                 { name: "Home", url: "https://chris.melson.us" },
@@ -43,23 +43,23 @@ export default function BlogListPage() {
 
             <Link
                 href="/"
-                className="inline-flex items-center gap-2 text-sm font-sans font-bold uppercase tracking-widest text-slate-500 hover:text-blue-700 transition-colors mb-12"
+                className="inline-flex items-center gap-2 text-sm font-sans font-bold uppercase tracking-widest text-slate-500 hover:text-blue-700 transition-colors mb-6 md:mb-12"
             >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Portfolio
             </Link>
 
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-8">
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 md:mb-8">
                 Operational Architecture Blog
             </h1>
-            <p className="text-xl text-foreground/70 mb-16 leading-relaxed">
+            <p className="text-xl text-foreground/70 mb-8 md:mb-16 leading-relaxed">
                 Insights, analysis, and strategic perspectives on building resilient organizations,
                 scaling engineering teams, and navigating the agentic shift.
             </p>
 
-            <div className="space-y-16">
+            <div className="space-y-10 md:space-y-16">
                 {officeBlogPosts.map((post, idx) => (
-                    <article key={idx} className="border-t border-current/10 pt-16 group">
+                    <article key={idx} className="border-t border-current/10 pt-8 md:pt-16 group">
                         <header className="mb-8">
                             <div className="text-xs font-mono uppercase tracking-widest opacity-50 mb-4">
                                 {new Date(post.date).toLocaleDateString('en-US', {

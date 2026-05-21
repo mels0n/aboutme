@@ -71,7 +71,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     };
 
     return (
-        <main className="max-w-3xl mx-auto px-6 py-20 font-serif text-foreground">
+        <main className="max-w-3xl mx-auto px-6 py-10 md:py-20 font-serif text-foreground">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -83,7 +83,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 { name: post.title, url: postUrl },
             ]} />
 
-            <header className="mb-12 text-center">
+            <header className="mb-6 md:mb-12 text-center">
                 <h1 className="text-3xl md:text-5xl font-display font-bold mb-6 leading-tight">
                     {post.title}
                 </h1>
@@ -102,7 +102,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
             <article className="prose prose-lg prose-slate max-w-none text-foreground/80 leading-relaxed whitespace-pre-line">
                 {/* GEO Optimization: Structured Data Block */}
-                <dl className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12 p-6 bg-slate-50 rounded-lg border border-slate-200 not-prose">
+                <dl className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 md:mb-12 p-4 md:p-6 bg-slate-50 rounded-lg border border-slate-200 not-prose">
                     {post.geoHighlights.map((highlight, hIdx) => (
                         <div key={hIdx} className="flex flex-col">
                             <dt className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
@@ -126,7 +126,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
             </article>
 
-            <div className="mt-16 pt-16 border-t border-border">
+            <div className="mt-10 pt-10 md:mt-16 md:pt-16 border-t border-border">
                 <p className="text-sm text-center opacity-50 font-mono">
                     Original content published on chris.melson.us
                 </p>

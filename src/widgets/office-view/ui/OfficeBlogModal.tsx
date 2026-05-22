@@ -46,7 +46,7 @@ export const OfficeBlogModal = ({ post, onClose }: OfficeBlogModalProps) => {
     return (
         <AnimatePresence>
             {post && (
-                <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center px-4 pt-28 pb-4 sm:px-6 md:py-6">
+                <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center px-4 pt-16 pb-4 sm:px-6 md:py-6">
                     {/* Backdrop */}
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -80,44 +80,45 @@ export const OfficeBlogModal = ({ post, onClose }: OfficeBlogModalProps) => {
                         </div>
 
                         {/* Header */}
-                        <div className="relative z-10 flex justify-between items-start p-4 md:p-8 border-b border-border bg-surface/90 backdrop-blur-sm">
-                            <div className="pr-4 flex-1">
-                                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider mb-2">
+                        <div className="relative z-10 p-4 md:p-8 border-b border-border bg-surface/90 backdrop-blur-sm">
+                            {/* Row 1: metadata + actions */}
+                            <div className="flex items-center justify-between mb-2">
+                                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider">
                                     <span className="flex items-center gap-1 opacity-50">
                                         <Calendar className="w-3 h-3" />
                                         {post.date}
                                     </span>
                                     <span className="opacity-50">•</span>
                                     <span className="opacity-50">{Math.ceil(post.content.split(/\s+/).length / 225)} min read</span>
-                                    <span className="opacity-50">•</span>
+                                    <span className="opacity-50 hidden sm:inline">•</span>
                                     <span className={cn(
-                                        "font-bold",
+                                        "font-bold hidden sm:inline",
                                         mode === 'engineer' ? "text-green-600" :
                                             mode === 'strategist' ? "text-indigo-600" : "text-blue-600"
                                     )}>
                                         {post.role}
                                     </span>
                                 </div>
-                                <h2 className="text-xl md:text-3xl font-bold font-display leading-tight">
-                                    {post.title}
-                                </h2>
+                                <div className="flex items-center gap-1 flex-shrink-0">
+                                    <button
+                                        onClick={handleShare}
+                                        className="flex items-center gap-1 px-2 py-1 text-xs font-bold uppercase tracking-wider rounded-full border border-border hover:bg-foreground/5 transition-colors"
+                                    >
+                                        {copied ? <Check className="w-3 h-3 text-green-600" /> : <Copy className="w-3 h-3" />}
+                                        <span className="hidden sm:inline">{copied ? "Copied" : "Share"}</span>
+                                    </button>
+                                    <button
+                                        onClick={onClose}
+                                        className="p-1.5 hover:bg-foreground/5 rounded-full transition-colors"
+                                    >
+                                        <X className="w-5 h-5" />
+                                    </button>
+                                </div>
                             </div>
-
-                            <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
-                                <button
-                                    onClick={handleShare}
-                                    className="flex items-center gap-1 md:gap-2 px-2 md:px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-full border border-border hover:bg-foreground/5 transition-colors"
-                                >
-                                    {copied ? <Check className="w-3 h-3 text-green-600" /> : <Copy className="w-3 h-3" />}
-                                    {copied ? "Copied" : "Share View"}
-                                </button>
-                                <button
-                                    onClick={onClose}
-                                    className="p-2 hover:bg-foreground/5 rounded-full transition-colors flex-shrink-0"
-                                >
-                                    <X className="w-6 h-6" />
-                                </button>
-                            </div>
+                            {/* Row 2: title full width */}
+                            <h2 className="text-xl md:text-3xl font-bold font-display leading-tight">
+                                {post.title}
+                            </h2>
                         </div>
 
                         {/* Scrollable Content */}

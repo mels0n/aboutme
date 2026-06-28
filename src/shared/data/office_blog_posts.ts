@@ -9,6 +9,7 @@ import { operationalArchitectGuide } from "./blog-posts/operational-architect-de
 import { udmFirewallVsPfSense } from "./blog-posts/udm-firewall-vs-pfsense-homelab-security";
 import { fractionalCtoRole } from "./blog-posts/fractional-cto-role";
 import { fractionalExecutiveFramework } from "./blog-posts/fractional-executive-framework";
+import { localSeoForSmallBusiness } from "./blog-posts/local-seo-for-small-business";
 
 export interface BlogPost {
     id: string;
@@ -43,5 +44,6 @@ export const officeBlogPosts: BlogPost[] = [
     networkObservabilityPlatforms,
     udmFirewallVsPfSense,
     fractionalCtoRole,
-    fractionalExecutiveFramework
+    fractionalExecutiveFramework,
+    localSeoForSmallBusiness
 ];

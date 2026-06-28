@@ -22,6 +22,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         };
     }
 
+    const ogImageUrl = `/api/og?title=${encodeURIComponent(post.title)}&date=${post.date}`;
+
     return {
         title: post.title,
         description: post.summary,
@@ -33,13 +35,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             description: post.summary,
             url: `/guide/operational-architecture/blog/${post.slug}`,
             type: "article",
-            ...(post.ogImage ? { images: [{ url: post.ogImage, width: 1200, height: 630 }] } : {}),
+            images: [{ url: ogImageUrl, width: 1200, height: 630, alt: post.title }],
         },
         twitter: {
             card: "summary_large_image",
             title: post.title,
             description: post.summary,
-            ...(post.ogImage ? { images: [post.ogImage] } : {}),
+            images: [ogImageUrl],
         }
     };
 }

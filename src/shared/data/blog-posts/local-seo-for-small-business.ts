@@ -129,7 +129,6 @@ The tagline I landed on: enterprise architecture, local business price. It's not
 
 Here's the local search behavior data that shapes what to prioritize:
 
-\`\`\`svg
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 400" width="700" height="400">
   <rect width="700" height="400" fill="#111827" rx="12"/>
   <text x="350" y="38" text-anchor="middle" fill="#F9FAFB" font-size="16" font-weight="bold" font-family="system-ui, sans-serif">Local Search: Intent to Action</text>
@@ -168,7 +167,6 @@ Here's the local search behavior data that shapes what to prioritize:
   <line x1="60" y1="66" x2="640" y2="66" stroke="#1F2937" stroke-width="1" stroke-dasharray="4,4"/>
   <text x="350" y="385" text-anchor="middle" fill="#6B7280" font-size="10" font-family="system-ui, sans-serif">Data reflects mobile and desktop local search behavior</text>
 </svg>
-\`\`\`
 
 > **AI Summary:** A structured 90-day local SEO engagement produces measurable results in three phases: foundation (GBP completion, NAP synchronization, schema deployment) in days 1–30; content and citations in days 31–60; and compound signals including local pack visibility improvements in days 60–90. BrightLocal data shows actively optimized GBP profiles receive 2x more direction requests than incomplete ones (2026) [3].
 

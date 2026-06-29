@@ -34,7 +34,6 @@ The risk profile changes accordingly:
 * **Specification gaming:** Agents that technically satisfy their objective while violating the spirit of it. A fraud-detection agent optimized to minimize false positives might learn to approve suspicious transactions to hit its metric.
 * **Hallucinated authority:** Agents that invoke tools they weren’t explicitly permitted to use because the permission boundary wasn’t clearly defined.
 
-<!-- [PERSONAL EXPERIENCE] -->
 We must stop treating AI as a feature and start treating it as a Digital Employee. You wouldn’t give a new junior analyst the keys to the treasury without oversight. Deploying agentic AI without an Agentic Operating Model is exactly that mistake.
 
 According to Deloitte’s 2026 analysis, enterprises are deploying AI agents faster than they’re building governance structures to manage them, with agents accessing customer data, calling internal APIs, and invoking tools with minimal human oversight at each step ([Deloitte](https://www.deloitte.com/us/en/insights/industry/financial-services/agentic-ai-risks-banking.html), 2026). That’s the gap the Operational Architect is built to close.
@@ -82,7 +81,6 @@ This isn’t about limiting what AI can do. It’s about defining exactly where 
 
 We establish cross-functional bodies that review and approve the deployment of autonomous agents before they touch production. Think of this council as the "hiring manager" for digital employees.
 
-<!-- [UNIQUE INSIGHT] -->
 The analogy is precise: a new human employee goes through background checks, role definition, and probationary oversight. An AI agent requires the same rigor. What’s the agent’s scope? What tools can it invoke? What does it do when it hits an ambiguous case? These aren’t technical edge cases. They’re governance fundamentals.
 
 The council reviews risk appetite alignment, ethical compliance, and fallback protocols. No agent ships to production without that sign-off.
@@ -110,7 +108,6 @@ In an agentic ecosystem, one agent’s output is another agent’s input. Small 
 
 * **Deep Observability:** We implement monitoring tools that track the full "decision lineage" of every AI action. Auditors can replay the tape and reconstruct exactly why an AI made a specific decision at a specific time. This isn’t optional in regulated industries. The OCC and Federal Reserve have been explicit: explainability and transparency in AI-driven credit decisions are compliance requirements, not best practices ([Federal Reserve](https://www.federalreserve.gov/newsevents/speech/bowman20260501a.htm), May 2026).
 
-<!-- [PERSONAL EXPERIENCE] -->
 In practice, the Bulkhead pattern also changes how you deploy. Agents are released into isolated staging environments with synthetic data first. Production access is gated behind full observability coverage. You don’t flip the switch until you can answer "what did this agent do, and why?" for every step it took.
 
 According to Hogan Lovells’ 2025 analysis, the regulatory penalties for AI-driven financial errors extend beyond the systems themselves to the institutions and executives who deployed them ([Hogan Lovells](https://www.hoganlovells.com/en/publications/agentic-ai-in-financial-services-regulatory-and-legal-considerations), 2025). Decision lineage isn’t just an audit tool. It’s liability protection.

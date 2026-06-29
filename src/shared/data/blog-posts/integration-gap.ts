@@ -39,7 +39,6 @@ Research consistently shows 70-90% of M&A deals fail to realize intended synergi
 
 I solve this by treating integration not as an administrative checklist but as an architectural engineering challenge. The Target Operating Model (TOM) is the blueprint for the combined entity, translating the Board's strategic intent into something the Engine Room can actually execute.
 
-<!-- [UNIQUE INSIGHT] -->
 The TOM isn't a reorganization chart. It's a working specification covering process flows, data ownership, reporting lines, and system interfaces. Most integration failures happen because this document either doesn't exist or gets written after Day 1, when the gaps are already bleeding.
 
 **Citation capsule:** PwC research on 2025 M&A transactions found only 14% achieve significant success across all three measures simultaneously, with cultural rejection and process fragmentation as the leading drivers of underperformance. Employee turnover nearly doubles within two years post-acquisition when no structured integration program exists. ([PwC, 2025](https://www.pwc.com); [Blott, 2026](https://www.blott.com/blog/post/m-and-a-outlook-2026))

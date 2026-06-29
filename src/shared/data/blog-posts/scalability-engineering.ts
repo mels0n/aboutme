@@ -37,7 +37,6 @@ Employees in siloed organizations waste an average of **12 hours per week** — 
 
 Most mid-sized companies and rapidly scaling fintechs operate on what I call an "Accidental" Operating Model. Processes were established ad-hoc as the company grew. A procedure that worked for 10 employees is a bottleneck at 100. The result is a patchwork of functional silos, manual workarounds, and tribal knowledge that I view as "Organizational Technical Debt."
 
-<!-- [PERSONAL EXPERIENCE] -->
 From an engineering perspective, this debt manifests in three specific failure modes:
 
 * **Functional Silos (Latency):** Sales, Operations, and Engineering operate as separate fiefdoms, throwing work over the wall to one another. In technical terms, this introduces massive latency and context loss between nodes. Each handoff is a dropped packet.
@@ -62,7 +61,6 @@ The "Accidental" model organizes by function (e.g., "The Risk Department"). The 
 
 * **Product-Centric Funding:** We move away from project-based funding (temporary, disruptive) to product-based funding (long-lived teams). This aligns financial resources with strategic priorities and treats the operating model as a product that's constantly iterated upon.
 
-<!-- [UNIQUE INSIGHT] -->
 The hidden cost of project-based funding is cognitive context-switching. Teams disbanded after a project carry institutional knowledge out the door. Teams reformed for the next project spend weeks rebuilding context. Product-centric funding eliminates this waste entirely — the team is the product.
 
 <figure>

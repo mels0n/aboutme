@@ -52,7 +52,7 @@ The distinction from consulting matters. A consultant delivers a report. A fract
 
 **The decision to hire fractional should be triggered by specific operational conditions, not by a general sense that leadership bandwidth is thin.** In practice, companies between $10M and $100M ARR consistently hit a management gap — a period where the founding team's generalist capacity is exhausted but revenue does not yet justify a full senior leadership bench. Fractional executives are structurally designed for this window.
 
-[PERSONAL EXPERIENCE]: What I see consistently in my engagements is that CEOs call a recruiter when they're feeling the pain — which means the search starts three to six months after the right time to start it. The better trigger is forward-looking: hire fractional when you can see the capability gap coming, not after it's already costing you money.
+What I see consistently in my engagements is that CEOs call a recruiter when they're feeling the pain — which means the search starts three to six months after the right time to start it. The better trigger is forward-looking: hire fractional when you can see the capability gap coming, not after it's already costing you money.
 
 Specific organizational triggers that indicate fractional is the right move:
 
@@ -108,7 +108,7 @@ A well-scoped fractional CRO engagement produces three specific outputs in Month
 
 **Month 1 is the single best predictor of whether a fractional engagement will create value or consume it.** Research on executive onboarding consistently finds that a large share of senior leaders fail within the first 18 months — and that the primary cause is not capability, but a failure to establish early wins and operating relationships. Fractional executives face a compressed version of this risk: with 10–15 hours per week, there is no time to spend three months building context before producing outputs.
 
-[PERSONAL EXPERIENCE]: In my own engagements, I treat Month 1 as an audit with deliverables. The goal is not to demonstrate expertise — it is to make the CEO's decision-making easier and faster. By Day 30, they should be able to point to at least two decisions they made better because I was in the room.
+In my own engagements, I treat Month 1 as an audit with deliverables. The goal is not to demonstrate expertise — it is to make the CEO's decision-making easier and faster. By Day 30, they should be able to point to at least two decisions they made better because I was in the room.
 
 A structured Month 1 for any fractional executive role follows the same four-step pattern:
 
@@ -181,7 +181,7 @@ The cost equation also changes as companies scale. Fractional is most efficient 
 
 **Not every organizational condition supports a successful fractional executive engagement — and the red flags are identifiable before you sign the contract.** A 2024 survey by the Association of Executive Search and Leadership Consultants found that 34% of fractional and interim executive placements were terminated early, with the most common cause being a mismatch between organizational readiness and the fractional structure. [5] These failures are preventable with honest pre-engagement assessment.
 
-[UNIQUE INSIGHT]: The single most reliable predictor of fractional engagement failure is not the executive's resume — it is the CEO's management style. Fractional executives require a CEO who can operate with high trust and low check-in frequency. A CEO who needs daily visibility into a function will undermine a fractional arrangement regardless of how good the executive is, because the hours simply aren't there for that communication overhead.
+The single most reliable predictor of fractional engagement failure is not the executive's resume — it is the CEO's management style. Fractional executives require a CEO who can operate with high trust and low check-in frequency. A CEO who needs daily visibility into a function will undermine a fractional arrangement regardless of how good the executive is, because the hours simply aren't there for that communication overhead.
 
 Red flags on the organizational side:
 
@@ -203,7 +203,7 @@ Red flags on the organizational side:
 
 **Building and running a live business is the most direct proof that operational frameworks work outside the whiteboard.** I run Untap Web (untapweb.com) — a web design and local SEO agency for small businesses — not as a side project, but as a functioning operation with real clients, real delivery timelines, and real consequences for operational failure. What that teaches me, and what I bring to fractional engagements, is the discipline of building systems that work without the operator being present for every decision.
 
-[PERSONAL EXPERIENCE]: At Untap Web, I've had to solve every problem I advise on at scale: vendor selection under cost constraints, service delivery quality control, recurring revenue model design, and the specific challenge of maintaining client relationships while building the infrastructure underneath them. The difference between advising on these problems and having solved them yourself is something clients feel immediately — it changes the quality of the questions you ask in Week 1.
+At Untap Web, I've had to solve every problem I advise on at scale: vendor selection under cost constraints, service delivery quality control, recurring revenue model design, and the specific challenge of maintaining client relationships while building the infrastructure underneath them. The difference between advising on these problems and having solved them yourself is something clients feel immediately — it changes the quality of the questions you ask in Week 1.
 
 This is the test I'd apply to any fractional executive you're considering: do they currently run something? Not manage it for someone else — but own it, with their name on the contract and their money at risk? The executives who do that work differently. They think in outcomes because they've lived the cost of missed ones.
 

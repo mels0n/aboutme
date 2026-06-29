@@ -37,7 +37,6 @@ The demand signal is unambiguous. In 2026, more than 27,000 Operational Architec
 
 This guide defines the role from the practitioner's perspective: what the Operational Architect actually does, how it differs from adjacent C-suite positions, and what outcomes it drives in regulated enterprise environments.
 
-<!-- [PERSONAL EXPERIENCE] -->
 > **Field finding:** The clearest definition I can offer comes from a discovery engagement at a major FX trading platform. I inherited a business that had operated as a "perpetual startup" for a decade following an M&A transaction. A forensic data audit revealed what I now call the **CSAT Paradox**: satisfaction surveys showed 10,000+ users rating the service positively. But the ~200 institutional clients generating $270M in annual revenue had stopped contacting Support entirely — routing all escalations directly to Sales Directors, consuming 30% of their quota-carrying capacity. The operational model was optimized for the wrong metric.
 
 **The OA's core responsibilities:**
@@ -67,7 +66,6 @@ The strategy layer communicates in Process, Architecture, and Data. Questions he
 **Dialect 3: The Engine Room (Engineer Mode)**
 The engineering layer communicates in Systems, Code, and Latency. Questions here are: What is the API contract? What does the TCP trace show? Where is the bottleneck in the pipeline? This layer executes — and it executes to a different rhythm than the layers above it.
 
-<!-- [UNIQUE INSIGHT] -->
 The reason most transformations fail isn't cultural resistance or budget overruns — it's **translation loss**. By the time a strategic directive has passed from the Boardroom through the Blueprint to the Engine Room, it has been interpreted three times, compressed for each audience, and stripped of the nuance that made it viable. The Operational Architect is the role that doesn't lose the message in transit, because they hold all three languages simultaneously.
 
 <figure style="margin: 2rem 0;">
@@ -104,7 +102,6 @@ In regulated financial services, the Missing Middle shows up as: API failures th
 
 In 2025, Deloitte found that **32% of enterprise leaders cite siloed environments and rigid organizational structures as their single biggest transformation obstacle.** [6] That number is the Missing Middle in quantified form.
 
-<!-- [PERSONAL EXPERIENCE] -->
 The CSAT Paradox case described above was a textbook Missing Middle. The Generalist Support model served 10,000 low-value desktop users effectively — hence the high satisfaction scores. But when an institutional client's trade routing engine threw a latency anomaly, Support couldn't read a TCP trace. They escalated to Engineering. Engineering treated it as noise. The client called their Sales Director, who became a de facto Level 3 support analyst — spending 30% of their quota-carrying time in the technical weeds.
 
 The resolution wasn't hiring. It was *organizational architecture*. We designed a Two-Pillar model that eliminated the Missing Middle by explicitly defining ownership of every class of work.
@@ -267,7 +264,6 @@ When a transformation program has stalled — budget escalating without outcomes
 
 As enterprises deploy AI agents into production workflows, the regulatory and operational exposure grows faster than the governance frameworks to manage it. In regulated markets — financial services, healthcare, critical infrastructure — DORA, GDPR, and sector-specific frameworks impose legal obligations on AI-assisted workflows that most engineering teams aren't equipped to manage. The Operational Architect designs the governance architecture: BriefingScript templates, Human-in-the-Loop (HITL) protocols, circuit breaker controls, and the audit trail infrastructure that makes AI deployment safe in a regulated environment.
 
-<!-- [UNIQUE INSIGHT] -->
 The common thread across all three triggers is identical: a system — technological, organizational, or regulatory — operating outside its design parameters, with no one in the existing org chart holding both the diagnostic authority and the cross-domain fluency to redesign it. The Operational Architect isn't a consultant who delivers a report and leaves. The OA is an operator who owns the outcome.
 
 ---

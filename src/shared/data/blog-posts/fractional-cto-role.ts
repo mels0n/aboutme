@@ -36,7 +36,7 @@ For the decision criteria on when fractional is the right structural move, see t
 
 **A fractional CTO makes technical decisions on behalf of a company that doesn't yet have a full-time technical executive — and the scope of those decisions is broader than most founders expect.** McKinsey research on executive effectiveness found that senior leaders spend 43% of their time on decisions that could be pushed down the org chart. ([McKinsey & Company](https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/decision-making-in-the-age-of-urgency), 2019) A fractional CTO's job is the opposite: pulling the technical decisions that are currently stuck — or being made badly by people without the context to make them well.
 
-[PERSONAL EXPERIENCE] In a typical embedded engagement, my week breaks down roughly like this:
+In a typical embedded engagement, my week breaks down roughly like this:
 
 - **Architecture decisions** (30%): Reviewing proposed system designs, approving or redirecting infrastructure choices, documenting the current-state architecture, and making the calls that the engineering team is waiting on before they can move.
 - **Vendor and contract work** (20%): Evaluating software vendors, negotiating SaaS contracts, reviewing cloud cost structures, and making the build-vs.-buy calls that have real financial consequences.
@@ -80,7 +80,7 @@ This mode works when the company has a functioning technical team and a technica
 
 ### Embedded Mode (10-20 hours/week)
 
-[PERSONAL EXPERIENCE] Embedded is where most of my engagements land. The fractional CTO has defined decision authority over a specific technical scope. They attend planning meetings, participate in architecture reviews, make vendor decisions, and own the technical roadmap alongside the CEO or CPO.
+Embedded is where most of my engagements land. The fractional CTO has defined decision authority over a specific technical scope. They attend planning meetings, participate in architecture reviews, make vendor decisions, and own the technical roadmap alongside the CEO or CPO.
 
 This mode works when the company needs operating leadership, not just advice. The fractional CTO is accountable for outcomes, not just opinions. The key structural requirement is that the engagement defines upfront what decisions they own and what they escalate.
 

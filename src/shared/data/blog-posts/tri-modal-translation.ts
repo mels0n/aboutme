@@ -14,8 +14,7 @@ export const triModalTranslation: BlogPost = {
         strategist: "A structural analysis of how Capital Markets, Healthcare, and Industrial Services share identical operating models, and how to design a Universal Translator that works across all three.",
         engineer: "Deconstructing the Integration Gap: How to refactor legacy operations using Compliance as Code and Latency-Aware architecture. The same diagnostic tools apply across every vertical."
     },
-    content: `<!-- [PERSONAL EXPERIENCE] -->
-If you've used this site's navigation, you've already seen the concept in action. That toggle, the one shifting perspective between The Boardroom, The Architect, and The Engine Room, isn't decorative.
+    content: `If you've used this site's navigation, you've already seen the concept in action. That toggle, the one shifting perspective between The Boardroom, The Architect, and The Engine Room, isn't decorative.
 
 It's a working proof of concept for Tri-Modal Translation.
 
@@ -78,7 +77,6 @@ McKinsey's 2026 research on M&A operating model design confirms what operational
 
 ## The Translation Matrix: One Grammar, Many Dialects
 
-<!-- [UNIQUE INSIGHT] -->
 McKinsey research shows companies implementing Value Stream Mapping and lean management practices see up to a 30% increase in operational efficiency ([McKinsey Operations Insights](https://www.mckinsey.com/capabilities/operations/our-insights/operations-blog/mining-for-value-with-intelligent-process-analytics)). When I advise a PE firm or a Healthcare System, I don't change the methodology. I change the vocabulary. The underlying Operational Architecture stays constant across every engagement.
 
 Here's how the source domain of Capital Markets translates directly into Healthcare and Industrial Services:
@@ -147,7 +145,6 @@ You need someone who can rebuild the machine.
 
 Whether I'm speaking to your Board about Operational Alpha, designing a Clinical Command Center for your hospital, or engineering a Digital Twin for your industrial assets, the goal is identical: bridge the gap between Strategic Intent and Operational Reality.
 
-<!-- [PERSONAL EXPERIENCE] -->
 From what I've seen across capital markets, healthcare, and industrial services, the organizations that win in the next decade won't be the ones with the best strategy documents. They'll be the ones who can execute operationally. The Tri-Modal framework is how you build an organization that does both simultaneously, in every room, in every language, at every level.
 
 Don't let your operations be the bottleneck to your vision.

@@ -10,6 +10,7 @@ import { udmFirewallVsPfSense } from "./blog-posts/udm-firewall-vs-pfsense-homel
 import { fractionalCtoRole } from "./blog-posts/fractional-cto-role";
 import { fractionalExecutiveFramework } from "./blog-posts/fractional-executive-framework";
 import { localSeoForSmallBusiness } from "./blog-posts/local-seo-for-small-business";
+import { macvlanDockerSwarmNetworking } from "./blog-posts/macvlan-docker-swarm-networking";
 
 export interface BlogPost {
     id: string;
@@ -19,6 +20,8 @@ export interface BlogPost {
     role: string;
     date: string;
     lastUpdated?: string;
+    /** Never publish regardless of date, e.g. while a post is still being drafted. */
+    draft?: boolean;
     summary: string;
     polymorphicSummary: {
         executive: string;
@@ -33,7 +36,7 @@ export interface BlogPost {
     }[];
 }
 
-export const officeBlogPosts: BlogPost[] = [
+const allOfficeBlogPosts: BlogPost[] = [
     operationalArchitectGuide,
     agenticShift,
     triModalTranslation,
@@ -45,5 +48,17 @@ export const officeBlogPosts: BlogPost[] = [
     udmFirewallVsPfSense,
     fractionalCtoRole,
     fractionalExecutiveFramework,
-    localSeoForSmallBusiness
+    localSeoForSmallBusiness,
+    macvlanDockerSwarmNetworking
 ];
+
+// Posts with a future `date` (or `draft: true`) are excluded until a build
+// runs on or after that date — evaluated at both build time (SSG/sitemap)
+// and client hydration, so a scheduled post never appears early.
+function isPublished(post: BlogPost): boolean {
+    if (post.draft) return false;
+    const today = new Date().toISOString().slice(0, 10);
+    return post.date <= today;
+}
+
+export const officeBlogPosts: BlogPost[] = allOfficeBlogPosts.filter(isPublished);

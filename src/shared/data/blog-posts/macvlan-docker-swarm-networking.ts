@@ -9,7 +9,7 @@ export const macvlanDockerSwarmNetworking: BlogPost = {
     date: "2026-07-30",
     lastUpdated: "2026-07-30",
     ogImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=630&fit=crop&q=80&auto=format",
-    summary: "Macvlan gives Docker Swarm containers real addresses on your physical LAN instead of hiding them behind NAT. That's exactly what makes it fail in three specific, well-documented ways. Here's why we use it anyway, and the exact fixes for each failure mode.",
+    summary: "Macvlan gives Docker Swarm containers real addresses on your physical LAN instead of hiding them behind NAT. It's also why your host can't ping its own container, why two networks fight over one gateway, and why DNS lookups mysteriously take 5 seconds on one node. Root causes and permanent fixes for each.",
     polymorphicSummary: {
         executive: "Most container platforms hide services behind an internal network, which is fine until a service needs to own a port the host already uses, or needs to be reachable the same way any other device on the network is. Macvlan solves that by giving a container its own address on the real network. The tradeoff is three specific failure modes that aren't documented anywhere near clearly enough: the host machine can't talk to its own containers, two services can't share a gateway on the same machine, and a container that provides DNS can accidentally make its own host slower at resolving names. Each has a known, permanent fix once you understand the root cause.",
         strategist: "The architecture decision is straightforward: overlay networking for anything that only needs to talk to other containers, macvlan for anything that needs to own a LAN-routable address, a specific port on the physical network, or sit in its own VLAN. What the decision doesn't warn you about is that macvlan operates below the layer where the host's own network stack participates, so the host and its macvlan children are mutually unreachable by default. In a multi-node Swarm, that turns into a per-node problem: whichever node happens to host a given macvlan service loses fast access to it, while every other node keeps working fine. That asymmetry is what makes the failure mode hard to diagnose without knowing to look for it.",
@@ -37,12 +37,12 @@ Docker's default networking model is deliberately opinionated: containers get pr
 
 That model works for the overwhelming majority of services, and it's the right default. It breaks down in a few specific, recurring situations:
 
-- **A service needs to own a port the host is already using.** Port 53 for DNS is the classic case. If a container needs to *be* the DNS server on port 53, and the host (or another container) also wants port 53, NAT-based publishing can't resolve that conflict; only a distinct IP can.
+- **A service needs to own a port the host is already using.** Port 53 for DNS is the classic case: anyone who has tried to run Pi-hole or AdGuard Home in Docker has hit some variant of "listen tcp 0.0.0.0:53: bind: address already in use," usually because \`systemd-resolved\` or another resolver is already sitting on the host's port 53. If a container needs to *be* the DNS server on port 53 for your whole network, NAT-based publishing can't resolve that conflict; only a distinct IP can.
 - **A service needs to sit in its own VLAN or DMZ**, isolated at the network layer from the rest of the cluster, not just at the Docker layer. (The firewall and VLAN segmentation decisions upstream of this are their own topic; see [Is Your UniFi Firewall Enough? The Homelab Security Deep-Dive](/guide/operational-architecture/blog/unifi-firewall-enough-homelab-security) for that side of the architecture.)
 - **A service needs to receive broadcast or multicast traffic** the way a normal LAN device would; mDNS/Bonjour-style discovery is the common example. Overlay networks don't forward this the way a physical switch does.
 - **A service needs to be addressed by the same IP scheme as every other device on the network**, because something external (a router's static DHCP reservation, another appliance's allow-list, a monitoring tool) already expects it there.
 
-Macvlan solves all four by giving the container a real, distinct network identity: its own MAC address, bound to a parent physical interface (or a VLAN sub-interface of one), with an IP address that comes out of your actual LAN's address space. To the rest of the network, a macvlan container isn't "a Docker thing behind a NAT." It's just another device on the wire.
+If you've ever searched for "how to give a Docker container its own IP address on my LAN" or "Docker container with static IP on home network," macvlan is the answer you were being pointed toward. It solves all four situations above by giving the container a real, distinct network identity: its own MAC address, bound to a parent physical interface (or a VLAN sub-interface of one), with an IP address that comes out of your actual LAN's address space. To the rest of the network, a macvlan container isn't "a Docker thing behind a NAT." It's just another device on the wire, one your router, your DHCP reservations, and your firewall rules can treat like any other machine.
 
 The practical rule we use: **overlay by default, macvlan only for the specific services that need one of the four properties above.** Running everything as macvlan trades away Docker's built-in service discovery and load balancing for no benefit; running nothing as macvlan means you can never let a container own a port, a VLAN, or a LAN identity that something outside Docker depends on.
 
@@ -60,7 +60,7 @@ Docker's fix for that is **config-only networks**: you define a small per-node n
 
 ### 3. Gotcha #1: Your Host Can't Talk to Its Own Container
 
-This is the one that catches almost everyone the first time, and it's the least documented of the three.
+This is the one that catches almost everyone the first time, and it's the least documented of the three. If you arrived here by searching "Docker host can't ping macvlan container," "macvlan container unreachable from host," or "macvlan ARP incomplete," this section is the answer, and the short version is: it's not broken, it's designed that way, and there's a clean permanent fix.
 
 **The setup:** you deploy a macvlan-backed service, say a DNS resolver, to a specific Swarm node. From every *other* node in the cluster, and from every other device on your LAN, the container answers normally. From the *one node actually running it*, it's unreachable. Not slow. Unreachable: \`ping\` shows 100% packet loss, and the ARP table shows the container's IP stuck in \`INCOMPLETE\` state, meaning the host tried to resolve it and got nothing back.
 
@@ -137,7 +137,7 @@ The nuance worth internalizing: this isn't a resource limit you can raise or a f
 
 ### 5. Gotcha #3: When Your DNS Resolver Is Also a Macvlan Container
 
-This is where Gotcha #1 stops being merely inconvenient and starts being a systemic performance problem, because of how Docker's embedded DNS forwarding works.
+This is where Gotcha #1 stops being merely inconvenient and starts being a systemic performance problem, because of how Docker's embedded DNS forwarding works. The searchable symptoms here are "Docker container DNS slow," "DNS lookup takes 5 seconds in container," or "curl slow to connect but fast to download inside Docker," and the maddening part is that they only show up on some nodes.
 
 Every container's resolver, by default, points at \`127.0.0.11\`, Docker's built-in embedded DNS server. For any hostname that isn't another container on the same Docker network, that embedded resolver forwards the query out to the upstream nameservers configured on the host, in order. If your upstream DNS is itself a macvlan container (say, a self-hosted resolver like **AdGuard**, running with its own LAN address so it can serve every device on the network, not just Docker containers), and that container happens to be scheduled on this particular node, you've just recreated Gotcha #1 in the one place where it costs you the most: **every single external DNS lookup from every container on that node has to fail against the unreachable local address first, before it falls through to a working upstream.**
 
@@ -158,11 +158,29 @@ Given how much of this article is about failure modes, it's worth being direct a
 
 then overlay networking is simpler, has none of the three gotchas above, and gets you Docker's built-in service discovery and load balancing for free. We run the overwhelming majority of services in our own cluster on overlay networks precisely because most of them don't need any of macvlan's four properties from Section 1. Macvlan earns its complexity budget only for the specific handful of services where owning a real network identity is the actual requirement, not a nice-to-have.
 
-One more practical constraint worth flagging before you commit to macvlan for something: it generally requires the parent NIC to support promiscuous mode, since the interface has to accept traffic addressed to MAC addresses that aren't its own. Most wired NICs handle this fine. Wireless interfaces very often do not, because the wireless access point itself typically filters frames to known-associated MAC addresses, which breaks macvlan's model before Docker is even involved. If your parent interface is Wi-Fi, expect problems that have nothing to do with anything in this article.
+One more practical constraint worth flagging before you commit to macvlan for something: it generally requires the parent NIC to support promiscuous mode, since the interface has to accept traffic addressed to MAC addresses that aren't its own. Most wired NICs handle this fine. Wireless interfaces very often do not, because the wireless access point itself typically filters frames to known-associated MAC addresses, which breaks macvlan's model before Docker is even involved. If your macvlan container gets an IP but has no internet access, can't reach the gateway, or works for a minute and then goes silent, and the parent interface is Wi-Fi, that's almost certainly why. Expect problems that have nothing to do with anything else in this article.
+
+This is also the main reason **ipvlan** exists as an alternative. Ipvlan (in L2 mode) behaves like macvlan from the container's point of view, a real IP on the real LAN, but every container shares the parent interface's MAC address instead of getting its own. That sidesteps both the promiscuous-mode requirement and access points that reject unknown MACs, which makes ipvlan the usual recommendation when the parent interface is wireless or when your switch port enforces one-MAC-per-port security. The tradeoff is that DHCP and anything else that distinguishes devices by MAC can no longer tell your containers apart. On wired server NICs, where the constraint doesn't apply, we prefer macvlan for exactly that per-container identity; note that ipvlan L2 shares the same host-isolation behavior as macvlan, so switching drivers does not make Gotcha #1 go away.
 
 ---
 
 ### Frequently Asked Questions
+
+#### How do I give a Docker container its own IP address on my LAN?
+
+Create a macvlan network bound to the host's physical interface, with your LAN's real subnet and gateway, then attach the container to it with a static \`--ip\`. The container gets its own MAC address and appears to your router and every other device as a separate machine on the network; it can own ports (like 53 for DNS) independently of the host, receive a firewall rule or allow-list entry of its own, and be reached without any published-port mapping. Reserve the address range you hand to Docker (via \`--ip-range\` or router DHCP exclusions) so your DHCP server never leases those addresses to something else.
+
+#### Why does my macvlan container have no internet access?
+
+The three most common causes, in order: the network was created with the wrong subnet or gateway for the VLAN the parent interface is actually on; the parent interface is a Wi-Fi adapter, whose access point silently drops frames from MAC addresses it doesn't recognize; or you're testing "internet access" by pinging the Docker host itself, which fails by design (see the host-isolation section above) even when the container's actual internet connectivity is fine. Verify with a ping to the gateway and to an external IP from inside the container before assuming the network is broken.
+
+#### Should I use macvlan or ipvlan?
+
+Wired parent interface and you want each container to be a distinct device (its own MAC, its own DHCP identity, per-device firewall rules): macvlan. Wireless parent interface, or a switch port with MAC-based port security: ipvlan L2, because it shares the parent's MAC and doesn't need promiscuous mode. Both give containers real LAN addresses, and both have the same host-isolation limitation, so the shim fix described in this article applies either way.
+
+#### Does macvlan work over Wi-Fi?
+
+Generally no. Macvlan requires the parent interface to carry traffic for multiple MAC addresses, and most wireless access points only accept frames from the MAC that associated with them, so container traffic is dropped before it ever reaches the network. The usual symptoms are a container that gets an address but can't reach anything, or ARP requests that never get answers. Use ipvlan L2 on wireless parents, or move the workload to a wired interface.
 
 #### Can a Docker host reach a container on its own macvlan network?
 

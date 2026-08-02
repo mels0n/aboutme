@@ -25,7 +25,7 @@ interface SitemapEntry {
 }
 
 const staticRoutes: SitemapEntry[] = [
-    { url: BASE_URL, lastModified: '2026-04-24', changeFrequency: 'monthly', priority: 1.0 },
+    { url: BASE_URL, lastModified: '2026-08-02', changeFrequency: 'monthly', priority: 1.0 },
     { url: `${BASE_URL}/about`, lastModified: '2026-04-23', changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/faq`, lastModified: '2026-04-23', changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/guide/lab`, lastModified: '2026-05-19', changeFrequency: 'monthly', priority: 0.8 },
@@ -51,6 +51,16 @@ const blogRoutes: SitemapEntry[] = officeBlogPosts.map(post => ({
 
 const entries = [...staticRoutes, ...caseStudyRoutes, ...blogRoutes];
 
+// Source dates are plain YYYY-MM-DD. Emit them as full W3C Datetime in UTC so
+// lastmod matches the format the other melson.us properties serve (Next's
+// metadata API renders Date objects as ISO-8601). Both forms are valid per the
+// sitemap XSD, which unions xsd:date and xsd:dateTime; this is for consistency
+// across properties. The date itself stays the real content date rather than
+// the build timestamp, so lastmod keeps meaning "when the page changed".
+function toW3CDatetime(date: string): string {
+    return date.includes('T') ? date : `${date}T00:00:00.000Z`;
+}
+
 // Format matches what Next's metadata API produced, so the served XML is
 // byte-compatible with what Google has already seen.
 const xml = [
@@ -59,7 +69,7 @@ const xml = [
     ...entries.map(e => [
         '<url>',
         `<loc>${e.url}</loc>`,
-        `<lastmod>${e.lastModified}</lastmod>`,
+        `<lastmod>${toW3CDatetime(e.lastModified)}</lastmod>`,
         `<changefreq>${e.changeFrequency}</changefreq>`,
         `<priority>${e.priority}</priority>`,
         '</url>',

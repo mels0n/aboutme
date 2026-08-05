@@ -11,6 +11,7 @@ import { fractionalCtoRole } from "./blog-posts/fractional-cto-role";
 import { fractionalExecutiveFramework } from "./blog-posts/fractional-executive-framework";
 import { localSeoForSmallBusiness } from "./blog-posts/local-seo-for-small-business";
 import { macvlanDockerSwarmNetworking } from "./blog-posts/macvlan-docker-swarm-networking";
+import { lifxVlanIotDiscovery } from "./blog-posts/lifx-vlan-iot-discovery";
 
 export interface BlogPost {
     id: string;
@@ -49,7 +50,8 @@ const allOfficeBlogPosts: BlogPost[] = [
     fractionalCtoRole,
     fractionalExecutiveFramework,
     localSeoForSmallBusiness,
-    macvlanDockerSwarmNetworking
+    macvlanDockerSwarmNetworking,
+    lifxVlanIotDiscovery
 ];
 
 // Posts with a future `date` (or `draft: true`) are excluded until a build

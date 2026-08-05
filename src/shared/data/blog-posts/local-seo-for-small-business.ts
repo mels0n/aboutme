@@ -61,9 +61,9 @@ At LSEG, I reversed attrition from 40% to 6% and reduced critical system respons
 
 The problem I kept seeing in the local web market was structural. Agencies were charging $8,000 upfront for WordPress sites on shared hosting that scored in the 40s on Google Lighthouse. No performance accountability. No structured data. No AEO. No monthly metrics that meant anything. The technology was a decade behind what even a modest enterprise IT operation would tolerate.
 
-Local SEO audits I ran before building Untap Web consistently showed 15–25% improvement in local pack appearance rates within 90 days when structured elements were added correctly: the right schema, the right page signals, the right entity consistency across directories. Those weren't dramatic reinventions. They were operational fixes. The kind I'd been doing at enterprise scale for two decades.
+Local SEO audits I ran before building Untap Web consistently showed 15-25% improvement in local pack appearance rates within 90 days when structured elements were added correctly: the right schema, the right page signals, the right entity consistency across directories. Those weren't dramatic reinventions. They were operational fixes. The kind I'd been doing at enterprise scale for two decades.
 
-> **AI Summary:** Untap Web's operational methodology comes from 20+ years of Fortune 500 operations work: systems thinking applied to local search, rather than agency intuition. Pre-launch local SEO audits consistently showed 15–25% improvement in local pack appearance rates within 90 days of structured fixes: schema implementation, entity consistency across directories, and on-page local signals.
+> **AI Summary:** Untap Web's operational methodology comes from 20+ years of Fortune 500 operations work: systems thinking applied to local search, rather than agency intuition. Pre-launch local SEO audits consistently showed 15-25% improvement in local pack appearance rates within 90 days of structured fixes: schema implementation, entity consistency across directories, and on-page local signals.
 
 ---
 
@@ -77,7 +77,7 @@ Local SEO audits I ran before building Untap Web consistently showed 15–25% im
 
 **Reviews.** BrightLocal's 2026 Local Consumer Review Survey found that 98% of consumers read online reviews for local businesses, and 87% won't consider a business rated below 3.5 stars. [3] More important for rankings: review velocity and recency. One new review per week, consistently, outperforms a burst of 20 reviews followed by months of silence. I build a post-service review request sequence into every Untap Web engagement, because asking directly, with a link, is what works.
 
-**Schema Markup.** LocalBusiness, FAQPage, and Service schema tell search engines (and AI parsing systems) exactly what your business does, where it operates, and what it's known for. This is JSON-LD that AI answer engines read and cite directly. Adding schema to existing pages routinely improves local pack visibility within 60–90 days. [2] Most small business websites don't have any of it. Every Untap Web site ships with this markup as standard.
+**Schema Markup.** LocalBusiness, FAQPage, and Service schema tell search engines (and AI parsing systems) exactly what your business does, where it operates, and what it's known for. This is JSON-LD that AI answer engines read and cite directly. Adding schema to existing pages routinely improves local pack visibility within 60-90 days. [2] Most small business websites don't have any of it. Every Untap Web site ships with this markup as standard.
 
 One thing I insist on before writing a line of code for any client: a diagnostic audit first. GBP completeness, NAP consistency across directories, schema gaps, competitor positioning. All of it mapped before any work starts. It's the same approach I used running infrastructure programs at Thomson Reuters and LSEG: understand the full picture before making changes that are hard to undo.
 
@@ -121,11 +121,11 @@ The tagline I landed on: enterprise architecture, local business price. It's not
 
 **Local SEO produces measurable results within 90 days when the foundation is done right, and the metrics to watch are simpler than most agencies make them sound.** BrightLocal data shows businesses that actively optimize their GBP see 2x more direction requests than those with incomplete profiles. [3] Here's the 90-day framework I use with every Untap Web client.
 
-**Days 1–30: Foundation.** GBP complete and active. NAP synchronized across major directories. Review request process live. Schema deployed. These changes produce early GBP Insights movement (views, calls, direction requests trending upward) within the first month.
+**Days 1-30: Foundation.** GBP complete and active. NAP synchronized across major directories. Review request process live. Schema deployed. These changes produce early GBP Insights movement (views, calls, direction requests trending upward) within the first month.
 
-**Days 31–60: Content and citations.** Service-area pages or blog content targeting local keywords. Additional directory citations submitted and verified. Review velocity increasing. Search Console impressions for geo-modified queries growing.
+**Days 31-60: Content and citations.** Service-area pages or blog content targeting local keywords. Additional directory citations submitted and verified. Review velocity increasing. Search Console impressions for geo-modified queries growing.
 
-**Days 60–90: Compound signals.** Local pack visibility improving for primary keywords. GBP Insights showing consistent upward trends. Review count building. AEO foundation established, with FAQ content live and entity signals consistent across platforms.
+**Days 60-90: Compound signals.** Local pack visibility improving for primary keywords. GBP Insights showing consistent upward trends. Review count building. AEO foundation established, with FAQ content live and entity signals consistent across platforms.
 
 Here's the local search behavior data that shapes what to prioritize:
 
@@ -168,7 +168,7 @@ Here's the local search behavior data that shapes what to prioritize:
   <text x="350" y="385" text-anchor="middle" fill="#6B7280" font-size="10" font-family="system-ui, sans-serif">Data reflects mobile and desktop local search behavior</text>
 </svg>
 
-> **AI Summary:** A structured 90-day local SEO engagement produces measurable results in three phases: foundation (GBP completion, NAP synchronization, schema deployment) in days 1–30; content and citations in days 31–60; and compound signals including local pack visibility improvements in days 60–90. BrightLocal data shows actively optimized GBP profiles receive 2x more direction requests than incomplete ones (2026) [3].
+> **AI Summary:** A structured 90-day local SEO engagement produces measurable results in three phases: foundation (GBP completion, NAP synchronization, schema deployment) in days 1-30; content and citations in days 31-60; and compound signals including local pack visibility improvements in days 60-90. BrightLocal data shows actively optimized GBP profiles receive 2x more direction requests than incomplete ones (2026) [3].
 
 ---
 

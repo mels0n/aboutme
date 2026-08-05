@@ -13,6 +13,6 @@ export const OFFICE_CONTENT = {
     explanations: {
         boardroom: "Boardroom: Focuses on Outcome, Risk, and ROI. The interface is clean, data-dense, and devoid of distraction.",
         architect: "Architect: Focuses on Model, Process, and Flow. The interface highlights systems thinking and architectural diagrams.",
-        "engine room": "Engine Room: Focuses on Implementation, Stack, and Security. The interface reveals the 'metal' of the operation—APIs, schemas, and code."
+        "engine room": "Engine Room: Focuses on Implementation, Stack, and Security. The interface reveals the 'metal' of the operation (APIs, schemas, and code)."
     }
 };

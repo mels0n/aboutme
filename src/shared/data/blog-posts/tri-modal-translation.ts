@@ -213,9 +213,9 @@ Compliance as Code means encoding regulatory rules directly into operational sof
 </script>
 `,
     geoHighlights: [
-        { label: "Core Argument", value: "Ops challenges are identical across Fintech, Healthcare, and Industrial — only the vocabulary changes." },
+        { label: "Core Argument", value: "Ops challenges are identical across Fintech, Healthcare, and Industrial. Only the vocabulary changes." },
         { label: "Target Audience", value: "Private Equity Operating Partners / Healthcare Systems / Industrial PE Roll-Ups" },
-        { label: "Key Insight", value: "Latency = Patient Throughput = Technician Utilization — the same metric, three dialects" },
-        { label: "M&A Data", value: "70-75% of acquisitions fail (Fortune, 40,000 deals, 2024) — driven by Operational Incoherence" }
+        { label: "Key Insight", value: "Latency = Patient Throughput = Technician Utilization. One metric, three dialects" },
+        { label: "M&A Data", value: "70-75% of acquisitions fail (Fortune, 40,000 deals, 2024), driven by Operational Incoherence" }
     ]
 };

@@ -22,10 +22,10 @@ export const udmFirewallVsPfSense: BlogPost = {
     ],
     content: `### Key Takeaways
 
-- In 2025, a standard SSH honeypot logged 103,137 connection attempts and 188,737 authentication attempts in three months, averaging 1,100 connections per day and peaking at 4,000–6,000 failed logins per hour (theravenhub.com SSH Honeypot Study, 2025). Your UniFi gateway is not sitting idle. It's actively being probed.
+- In 2025, a standard SSH honeypot logged 103,137 connection attempts and 188,737 authentication attempts in three months, averaging 1,100 connections per day and peaking at 4,000-6,000 failed logins per hour (theravenhub.com SSH Honeypot Study, 2025). Your UniFi gateway is not sitting idle. It's actively being probed.
 - The **entire UniFi product line** ships Suricata at version 4.0.0-dev, roughly 3 major versions behind the current 7.0.8 release. This applies to the Cloud Gateway Ultra, Cloud Gateway Max, Cloud Gateway Fiber, UDM Pro, and UDM Pro Max equally. The $99/year CyberSecure subscription adds ProofPoint rulesets on top. It does not update the engine.
 - The original UniFi Express (UX, first-generation, $129) has **no IDS/IPS at all**. Not a reduced version, just absent. If you bought that device, Threat Management is unavailable regardless of settings.
-- Running pfSense/OPNsense as a second firewall behind any UniFi gateway creates double-NAT, management console instability after 1–3 hours, and routing complexity the community consistently documents as a support problem, not a security gain.
+- Running pfSense/OPNsense as a second firewall behind any UniFi gateway creates double-NAT, management console instability after 1-3 hours, and routing complexity the community consistently documents as a support problem, not a security gain.
 - CrowdSec pre-blocked 92% of attacks before they arrived in controlled testing, leveraging community intelligence from 40,000+ agents generating ~1 million signals per day (CrowdSec official blog, 2023).
 - Suricata and CrowdSec are complementary, not competing. Suricata inspects packets in transit; CrowdSec reacts to behavioral patterns in logs. Tom Lawrence's direct answer from Lawrence Systems Forums: run them together.
 
@@ -35,7 +35,7 @@ export const udmFirewallVsPfSense: BlogPost = {
 
 The assumption that homelabs are "too small to be targeted" collapsed years ago. Automated scanners don't discriminate by network size or intent. They scan the entire IPv4 address space continuously.
 
-In 2025, a researcher running a standard SSH honeypot logged 103,137 total connections and 188,737 authentication attempts over three months, averaging 1,100 connections per day, with peak bursts reaching 4,000–6,000 failed login attempts per hour during overnight UTC windows ([theravenhub.com, SSH Honeypot Study 2025](https://blog.theravenhub.com/post/is-honeypot-results-2025)). This isn't a high-value enterprise target; it's a cloud VM that happened to expose port 22.
+In 2025, a researcher running a standard SSH honeypot logged 103,137 total connections and 188,737 authentication attempts over three months, averaging 1,100 connections per day, with peak bursts reaching 4,000-6,000 failed login attempts per hour during overnight UTC windows ([theravenhub.com, SSH Honeypot Study 2025](https://blog.theravenhub.com/post/is-honeypot-results-2025)). This isn't a high-value enterprise target; it's a cloud VM that happened to expose port 22.
 
 In Q4 2025, P2PInfect accounted for 80.4% of all malware attacks against Linux SSH servers. It is a worm specifically designed to spread laterally across misconfigured homelabs and cloud instances ([ASEC AhnLab, Q4 2025 Linux SSH Malware Statistics](https://asec.ahnlab.com/en/92004/), Q4 2025). Prometei (a cryptominer) and XMRig followed at 8.3% and 2.4% respectively.
 
@@ -45,11 +45,11 @@ Cisco Talos documented a campaign in March 2024 using 2.8 million unique source 
 
 ![Automated attack bots continuously scan the entire IPv4 address space, and no homelab is too small to be targeted](https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=1200&h=630&fit=crop&q=80&auto=format)
 
-**The primary attack vectors hitting homelabs in 2025–2026:**
+**The primary attack vectors hitting homelabs in 2025-2026:**
 
 | Attack Vector | Typical Target | Scale |
 | :--- | :--- | :--- |
-| SSH brute force | Exposed port 22, Proxmox, routers | 1,100–6,000 attempts/day per IP |
+| SSH brute force | Exposed port 22, Proxmox, routers | 1,100-6,000 attempts/day per IP |
 | Credential stuffing | Self-hosted web apps, VPN portals | 26B attempts/month web-wide |
 | IoT firmware exploitation | Cameras, smart plugs, NVRs | 136% YoY increase in 2024 |
 | Port scanning / service fingerprinting | All public IPs | Continuous, automated, global |
@@ -111,7 +111,7 @@ The stateful packet filtering drops unsolicited inbound traffic by default. Comb
 - GeoIP filtering: country-level IP blocks, effective for reducing brute-force surface
 - Deep Packet Inspection: application identification for traffic shaping (not threat detection)
 - IDS/IPS via Suricata: signature-based threat detection, toggleable in the UI (not available on original Express UX)
-- Shadow Mode HA: 5–10 second failover with a secondary unit
+- Shadow Mode HA: 5-10 second failover with a secondary unit
 
 **Where the documented gaps are:**
 
@@ -133,7 +133,7 @@ That last point is a real operational pain. The firewall fires IDS alerts on tra
 
 > **From the lab:** Running a UDM Pro on a 2.5 Gbps fiber connection, the first sign of an IDS misconfiguration wasn't a threat alert. It was a support request asking why a legitimate monitoring tool was getting flagged. Without hit counts or per-rule logging, diagnosing it took three times longer than it should have. The UI gives you no tools to answer "why did this rule fire?"
 
-**Notable CVEs for UniFi gateway hardware and firmware (2020–2026):**
+**Notable CVEs for UniFi gateway hardware and firmware (2020-2026):**
 
 | CVE | Severity | Description |
 | :--- | :--- | :--- |
@@ -145,7 +145,7 @@ That last point is a real operational pain. The firewall fires IDS alerts on tra
 
 The 10.0 Critical (CVE-2026-22557) is a path traversal in the UniFi Network Application, the management software that runs on your gateway, not the firewall engine itself. It was patched; running current firmware is mandatory, not optional.
 
-Beyond CVEs, the 2020–2021 Nickolas Sharp incident is worth knowing: a Ubiquiti developer stole 1,100+ GitHub repositories and 1,400+ AWS task definitions, posed as a whistleblower, and demanded 50 BTC ransom. The resulting disclosure cost Ubiquiti approximately $4 billion in market cap and raised legitimate supply chain trust questions about the platform ([The Register, Ex-Ubiquiti Developer Jailed 6 Years](https://www.theregister.com/2023/05/12/exubiquiti_developer_jailed/), May 2023). It doesn't mean the gateways are insecure. It does mean that closed-source firmware from a vendor with a documented insider threat history warrants defense-in-depth.
+Beyond CVEs, the 2020-2021 Nickolas Sharp incident is worth knowing: a Ubiquiti developer stole 1,100+ GitHub repositories and 1,400+ AWS task definitions, posed as a whistleblower, and demanded 50 BTC ransom. The resulting disclosure cost Ubiquiti approximately $4 billion in market cap and raised legitimate supply chain trust questions about the platform ([The Register, Ex-Ubiquiti Developer Jailed 6 Years](https://www.theregister.com/2023/05/12/exubiquiti_developer_jailed/), May 2023). It doesn't mean the gateways are insecure. It does mean that closed-source firmware from a vendor with a documented insider threat history warrants defense-in-depth.
 
 ![Server room hardware, the physical layer that homelab firewalls protect, and the attack surface when firmware goes unpatched](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=630&fit=crop&q=80&auto=format)
 
@@ -189,7 +189,7 @@ The CG Fiber column makes one thing clear: if you want more IDS throughput withi
 
 **The double-firewall problems the community actually encounters:**
 
-Running pfSense behind any UniFi gateway (or vice versa) creates double-NAT. The Lawrence Systems Forums document recurring symptoms clearly: management console loss after 1–3 hours, traffic routing out the wrong WAN port, DHCP conflicts requiring manual static IP assignment for the inner router interface ([Lawrence Systems Forums, Unifi Dream Router Behind pfSense](https://forums.lawrencesystems.com/t/unifi-dream-router-behind-pfsense/17429)).
+Running pfSense behind any UniFi gateway (or vice versa) creates double-NAT. The Lawrence Systems Forums document recurring symptoms clearly: management console loss after 1-3 hours, traffic routing out the wrong WAN port, DHCP conflicts requiring manual static IP assignment for the inner router interface ([Lawrence Systems Forums, Unifi Dream Router Behind pfSense](https://forums.lawrencesystems.com/t/unifi-dream-router-behind-pfsense/17429)).
 
 > "All of my traffic on my LAN has started to route out of the UDM's WAN port causing my network to be double NAT'd." (RedXD, Lawrence Systems Forums)
 
@@ -201,7 +201,7 @@ These aren't edge cases. They're the consistent experience. The double-firewall 
 
 Replace the UniFi gateway as your primary router entirely. Run UniFi switches and APs downstream from pfSense/OPNsense. The UniFi switching ecosystem works fine without a UniFi gateway. This gives you full pfSense/OPNsense capabilities without the double-NAT and management overhead.
 
-OPNsense is the recommended starting point for new deployments in 2025–2026. It ships Suricata as a built-in component rather than an add-on package, has CrowdSec available as a one-click plugin via System → Firmware → Plugins, and uses a more modern web UI than pfSense. For users with existing pfSense configurations or Netgate hardware, stay on pfSense.
+OPNsense is the recommended starting point for new deployments in 2025-2026. It ships Suricata as a built-in component rather than an add-on package, has CrowdSec available as a one-click plugin via System → Firmware → Plugins, and uses a more modern web UI than pfSense. For users with existing pfSense configurations or Netgate hardware, stay on pfSense.
 
 **The verdict for most homelabbers:** Your threat model is automated scanners, credential stuffing, and brute force, not APTs requiring TLS inspection. A second firewall doesn't make CrowdSec work better or fail2ban smarter. The security gap between a well-configured UniFi gateway and a well-configured pfSense box, for standard homelab attack vectors, is smaller than the community debates suggest. The feature gap is real; the security gap is narrower.
 
@@ -223,9 +223,9 @@ CyberSecure ($99/year) adds ProofPoint's threat intelligence signatures on top o
 
 1. Install via System → Firmware → Plugins (os-suricata)
 2. Enable Emerging Threats Open ruleset: free, high quality, updated continuously
-3. Start in "Detect/Divert" mode (alerts only, no blocking) for 2–4 weeks to tune false positives
+3. Start in "Detect/Divert" mode (alerts only, no blocking) for 2-4 weeks to tune false positives
 4. Migrate to "Inline IPS" mode after your environment's baseline traffic is known
-5. Expect 10–30% throughput reduction depending on ruleset size and hardware
+5. Expect 10-30% throughput reduction depending on ruleset size and hardware
 
 The "Detect first, tune, then block" sequence matters. Enabling inline blocking without tuning generates false positives that break legitimate services, particularly for unusual but valid traffic patterns in lab environments (hypervisor management traffic, unusual protocols for homelab services).
 
@@ -265,7 +265,7 @@ The community network is the architectural differentiator. When your CrowdSec in
 | Dashboard / observability | Yes (community hub dashboard) | No |
 | Configuration complexity | Moderate | Low |
 
-Source: [Selfhosted Guides, CrowdSec vs fail2ban](https://selfhostedguides.com/crowdsec-vs-fail2ban/), 2024–2025.
+Source: [Selfhosted Guides, CrowdSec vs fail2ban](https://selfhostedguides.com/crowdsec-vs-fail2ban/), 2024-2025.
 
 ![CrowdSec community threat intelligence, with 40,000+ agents sharing attack signals, preemptively blocking known-bad actors across every participating network](https://images.unsplash.com/photo-1551808525-51a94da548ce?w=1200&h=630&fit=crop&q=80&auto=format)
 
@@ -347,7 +347,7 @@ For most homelabs, yes, with conditions. Check first that your device actually h
 
 #### Should I run pfSense or OPNsense behind my UniFi gateway for extra security?
 
-No. Running a second firewall in series creates double-NAT, documented management console instability (loss of access after 1–3 hours in community reports), and routing complexity without a proportional security improvement. If you want pfSense/OPNsense's full feature set, replace the UniFi gateway as your primary router and run UniFi switches and APs downstream. The clean single-firewall architecture is more maintainable and provides the same threat protection with fewer failure modes.
+No. Running a second firewall in series creates double-NAT, documented management console instability (loss of access after 1-3 hours in community reports), and routing complexity without a proportional security improvement. If you want pfSense/OPNsense's full feature set, replace the UniFi gateway as your primary router and run UniFi switches and APs downstream. The clean single-firewall architecture is more maintainable and provides the same threat protection with fewer failure modes.
 
 #### Can CrowdSec and Suricata run at the same time?
 

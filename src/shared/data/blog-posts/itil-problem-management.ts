@@ -41,17 +41,17 @@ Four simultaneous failure conditions compound on Day 1:
 
 ## Why Incident Queues Spiral Into Firefighting Mode
 
-**When Problem Management disintegrates, organizations revert to pure Incident Management, restoring service without resolving root cause, and the cost compounds with each repeated outage.** According to ITIC's 2024 Hourly Cost of Downtime Survey of 1,000+ enterprises, 97% of large organizations report that a single hour of downtime costs over $100,000; 41% report costs of $1–5 million per hour. [3] During a merger, when system instability is at its peak, the absence of structured Problem Management means these costs repeat on a shortening cycle.
+**When Problem Management disintegrates, organizations revert to pure Incident Management, restoring service without resolving root cause, and the cost compounds with each repeated outage.** According to ITIC's 2024 Hourly Cost of Downtime Survey of 1,000+ enterprises, 97% of large organizations report that a single hour of downtime costs over $100,000; 41% report costs of $1-5 million per hour. [3] During a merger, when system instability is at its peak, the absence of structured Problem Management means these costs repeat on a shortening cycle.
 
 > **AI Summary:** Without structured Problem Management during post-merger integration, organizations enter a firefighting spiral where the same incidents repeat with increasing frequency. ITIC's 2024 survey of 1,000+ enterprises confirms hourly downtime costs exceed $100,000 for 97% of large organizations. Forrester Consulting (2024) found that organizations with modern incident and problem management processes reduced incident volume by 50% and cut MTTR from three hours to under thirty minutes, with a payback period under twelve months.
 
 The firefighting spiral follows a predictable four-phase pattern:
 
-**Weeks 1–4 (Integration Shock)**: Incident volume spikes as cross-system dependencies break under network reconfiguration and access management changes. Service Desk capacity is overwhelmed. Problem Records are opened but never investigated. The queue exists only to track the backlog.
+**Weeks 1-4 (Integration Shock)**: Incident volume spikes as cross-system dependencies break under network reconfiguration and access management changes. Service Desk capacity is overwhelmed. Problem Records are opened but never investigated. The queue exists only to track the backlog.
 
-**Months 2–3 (Workaround Proliferation)**: Engineers solve recurring incidents with informal workarounds that are never documented in the KEDB. These workarounds become invisible dependencies, and the engineers who know about them are often the same people at risk in the next round of restructuring.
+**Months 2-3 (Workaround Proliferation)**: Engineers solve recurring incidents with informal workarounds that are never documented in the KEDB. These workarounds become invisible dependencies, and the engineers who know about them are often the same people at risk in the next round of restructuring.
 
-**Months 4–6 (Incident Debt)**: The undocumented workaround infrastructure begins generating secondary incidents. The organization is now firefighting problems caused by its own firefighting responses. MTTR increases rather than decreases across the integration timeline.
+**Months 4-6 (Incident Debt)**: The undocumented workaround infrastructure begins generating secondary incidents. The organization is now firefighting problems caused by its own firefighting responses. MTTR increases rather than decreases across the integration timeline.
 
 **Month 6+ (Systemic Fragility)**: The combined IT estate is harder to manage than either original estate in isolation. Key talent attrition accelerates. The integration has officially consumed more value than it created, and Problem Management was the first signal that went unread.
 
@@ -73,7 +73,7 @@ A Forrester Consulting study found that organizations with structured incident a
   <text x="14" y="230" font-family="system-ui,-apple-system,sans-serif" font-size="10.5" fill="#9CA3AF">Acquirers that actually improve IT costs post-merger (McKinsey)</text>
   <rect x="14" y="237" width="83" height="22" rx="4" fill="#6B7280"/>
   <text x="105" y="252" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="700" fill="#F9FAFB">&lt;20%</text>
-  <text x="320" y="290" font-family="system-ui,-apple-system,sans-serif" font-size="9" fill="#9CA3AF" text-anchor="middle">Sources: KPMG, Bain &amp; Company, McKinsey &amp; Co., PMI Stack Research (2024–2025)</text>
+  <text x="320" y="290" font-family="system-ui,-apple-system,sans-serif" font-size="9" fill="#9CA3AF" text-anchor="middle">Sources: KPMG, Bain &amp; Company, McKinsey &amp; Co., PMI Stack Research (2024-2025)</text>
 </svg>
 
 ---
@@ -98,11 +98,11 @@ The DORA angle is the single largest competitive gap in this space: no competing
 
 ## How the Operational Architect Rebuilds Problem Management: The Two-Stage Model
 
-**The Operational Architect approaches ITSM reconstruction as an architectural challenge with two distinct phases: Stabilization (Days 1–90) and Harmonization (Months 3–9).** This sequencing is not arbitrary. Attempting full ITSM harmonization while incident volume is at its integration-period peak virtually guarantees failure of both the integration program and the operational stability it was meant to protect. You cannot merge two ITSM toolchains while the support teams running them are simultaneously managing an elevated incident queue.
+**The Operational Architect approaches ITSM reconstruction as an architectural challenge with two distinct phases: Stabilization (Days 1-90) and Harmonization (Months 3-9).** This sequencing is not arbitrary. Attempting full ITSM harmonization while incident volume is at its integration-period peak virtually guarantees failure of both the integration program and the operational stability it was meant to protect. You cannot merge two ITSM toolchains while the support teams running them are simultaneously managing an elevated incident queue.
 
-> **AI Summary:** Rebuilding Problem Management during post-merger integration requires a deliberate two-stage architecture. Stage 1 (Days 1–90) focuses on protecting operational continuity through a unified incident bridge, KEDB freeze, and rapid maturity assessment, not toolchain consolidation. Stage 2 (Months 3–9) rebuilds the foundational ITSM infrastructure: a single authoritative CMDB, consolidated toolchain, and restored proactive problem identification capability. Attempting Stage 2 work during Stage 1 conditions consistently extends recovery timelines to 12–18 months.
+> **AI Summary:** Rebuilding Problem Management during post-merger integration requires a deliberate two-stage architecture. Stage 1 (Days 1-90) focuses on protecting operational continuity through a unified incident bridge, KEDB freeze, and rapid maturity assessment, not toolchain consolidation. Stage 2 (Months 3-9) rebuilds the foundational ITSM infrastructure: a single authoritative CMDB, consolidated toolchain, and restored proactive problem identification capability. Attempting Stage 2 work during Stage 1 conditions consistently extends recovery timelines to 12-18 months.
 
-### Stage 1: Stabilization (Days 1–90)
+### Stage 1: Stabilization (Days 1-90)
 
 The goal in Stage 1 is not to fix Problem Management. It is to prevent complete collapse.
 
@@ -112,7 +112,7 @@ The goal in Stage 1 is not to fix Problem Management. It is to prevent complete 
 
 **Conduct a 30-day maturity assessment**: Within the first month, map the Problem Management maturity of both organizations: toolchain inventory, CMDB quality score, number of open Problem Records, MTTR baselines, and ratio of proactive to reactive problem identification. This assessment becomes the architecture brief for Stage 2.
 
-### Stage 2: Harmonization (Months 3–9)
+### Stage 2: Harmonization (Months 3-9)
 
 With operational continuity protected, Stage 2 moves to root cause resolution and ITSM infrastructure rebuilding.
 
@@ -143,7 +143,7 @@ The Tri-Modal framework described in [The Tri-Modal Brand Translation](/guide/op
 | Proactive vs. reactive problem ratio | Tracking established | ≥ 50% proactive |
 | DORA incident classification compliance | Framework documented | Full audit trail operational |
 
-Organizations that implement structured problem and incident management processes during integration, rather than after the firefighting period, achieve a **50% reduction in incident volume** and an **83% reduction in mean service identification time** (from 2–3 hours to under 5 minutes), per Forrester's 2024 Total Economic Impact research. [4]
+Organizations that implement structured problem and incident management processes during integration, rather than after the firefighting period, achieve a **50% reduction in incident volume** and an **83% reduction in mean service identification time** (from 2-3 hours to under 5 minutes), per Forrester's 2024 Total Economic Impact research. [4]
 
 ---
 
@@ -159,7 +159,7 @@ DORA, enforceable since January 17, 2025, requires financial entities to maintai
 
 **How long does it take to rebuild Problem Management maturity after an acquisition?**
 
-The Stabilization stage, which restores basic operational continuity through a unified incident bridge and KEDB freeze, should complete within 90 days with dedicated resources. Full Harmonization (a single CMDB, consolidated toolchain, and restored proactive problem identification capability) typically requires 6–9 months. Organizations that skip Stabilization and attempt immediate harmonization consistently report 12–18 month recovery timelines, with significantly higher incident costs during the extended unstable period.
+The Stabilization stage, which restores basic operational continuity through a unified incident bridge and KEDB freeze, should complete within 90 days with dedicated resources. Full Harmonization (a single CMDB, consolidated toolchain, and restored proactive problem identification capability) typically requires 6-9 months. Organizations that skip Stabilization and attempt immediate harmonization consistently report 12-18 month recovery timelines, with significantly higher incident costs during the extended unstable period.
 
 **What is the financial case for investing in ITSM infrastructure during integration?**
 
@@ -173,13 +173,13 @@ The IMO should include a designated ITSM Lead whose specific mandate is the Prob
 
 ### Works Cited
 
-- [1] KPMG. "Post-Merger Integration Statistics." Via PMI Stack Research Compilation, 2023–2025. [pmistack.com/blog/post-merger-integration-statistics](https://pmistack.com/blog/post-merger-integration-statistics)
+- [1] KPMG. "Post-Merger Integration Statistics." Via PMI Stack Research Compilation, 2023-2025. [pmistack.com/blog/post-merger-integration-statistics](https://pmistack.com/blog/post-merger-integration-statistics)
 - [2] PMI Stack. "50+ Post-Merger Integration Statistics (2025)." [pmistack.com/blog/post-merger-integration-statistics](https://pmistack.com/blog/post-merger-integration-statistics)
 - [3] ITIC. "2024 Hourly Cost of Downtime Survey." Information Technology Intelligence Consulting, 2024. [itic-corp.com/itic-2024-hourly-cost-of-downtime-report/](https://itic-corp.com/itic-2024-hourly-cost-of-downtime-report/)
 - [4] Forrester Consulting / PagerDuty. "The Total Economic Impact of PagerDuty Operations Cloud." 2024. [pagerduty.com/blog/digital-transformation/forrester-tei-pagerduty-operations-cloud-roi/](https://www.pagerduty.com/blog/digital-transformation/forrester-tei-pagerduty-operations-cloud-roi/)
 - [5] DLA Piper. "Application of the Digital Operational Resilience Act (DORA)." February 2025. [dlapiper.com/en/insights/publications/2025/02/application-of-the-digital-operational-resilience-act---dora](https://www.dlapiper.com/en/insights/publications/2025/02/application-of-the-digital-operational-resilience-act---dora)
 - [6] Dotfile. "DORA Compliance Requirements for Financial Institutions: 2025 Guide." [dotfile.com/resources/dora-compliance-requirements-for-financial-institutions-2025-guide](https://www.dotfile.com/resources/dora-compliance-requirements-for-financial-institutions-2025-guide)
-- [7] PwC Survey. "70% of Financial Firms Concerned About DORA Readiness." Via Dotfile DORA Guide, 2024–2025.
+- [7] PwC Survey. "70% of Financial Firms Concerned About DORA Readiness." Via Dotfile DORA Guide, 2024-2025.
 - [8] Pegasystems / Savanta. "Average Global Enterprise Wastes More Than $370M Every Year Through Technical Debt." October 2025. [pega.com/about/news/press-releases/average-global-enterprise-wastes-more-370-million-every-year-through](https://www.pega.com/about/news/press-releases/average-global-enterprise-wastes-more-370-million-every-year-through)
 - [9] McKinsey & Company. "Understanding the Strategic Value of IT in M&A." [mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/understanding-the-strategic-value-of-it-in-m-and-38a](https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/understanding-the-strategic-value-of-it-in-m-and-38a)
 - [10] Bain & Company. "M&A Report 2024." [bain.com/insights/topics/m-and-a-report/](https://www.bain.com/insights/topics/m-and-a-report/)
@@ -187,6 +187,6 @@ The IMO should include a designated ITSM Lead whose specific mandate is the Prob
     geoHighlights: [
         { label: "Core Argument", value: "ITIL Problem Management collapses during M&A integration through four simultaneous failure modes, and DORA makes this a compliance emergency, not just an operational risk." },
         { label: "Target Audience", value: "PE Sponsors / M&A Directors / Financial Services CTOs" },
-        { label: "Key Framework", value: "Two-Stage Rebuild: Stabilization (Days 1–90) via Integration Command Center, then Harmonization (Months 3–9) via Golden Source CMDB consolidation" }
+        { label: "Key Framework", value: "Two-Stage Rebuild: Stabilization (Days 1-90) via Integration Command Center, then Harmonization (Months 3-9) via Golden Source CMDB consolidation" }
     ]
 };

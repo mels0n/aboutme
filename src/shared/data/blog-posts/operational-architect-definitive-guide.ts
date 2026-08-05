@@ -7,9 +7,9 @@ export const operationalArchitectGuide: BlogPost = {
     author: "Christopher Melson",
     role: "Operational Architect",
     date: "2026-05-20",
-    summary: "Failed transformations cost $2.3T/year globally. The Operational Architect is the hybrid executive role, fluent in Boardroom, Blueprint, and Engine Room, that closes the gap. Learn the Tri-Modal framework, Two-Pillar TOM, and how this role prevents the 70–90% transformation failure rate.",
+    summary: "Failed transformations cost $2.3T/year globally. The Operational Architect is the hybrid executive role, fluent in Boardroom, Blueprint, and Engine Room, that closes the gap. Learn the Tri-Modal framework, Two-Pillar TOM, and how this role prevents the 70-90% transformation failure rate.",
     polymorphicSummary: {
-        executive: "Failed transformations cost $2.3 trillion per year. The Operational Architect closes the gap, returning $1.3M+ in revenue risk and achieving $36–50M in cost avoidance through the Tri-Modal framework and Zero-Cost Restructuring. Defined by measurable dollar outcomes, not deliverables.",
+        executive: "Failed transformations cost $2.3 trillion per year. The Operational Architect closes the gap, returning $1.3M+ in revenue risk and achieving $36-50M in cost avoidance through the Tri-Modal framework and Zero-Cost Restructuring. Defined by measurable dollar outcomes, not deliverables.",
         strategist: "The Tri-Modal framework (Boardroom / Blueprint / Engine Room) and Two-Pillar TOM (Machine-Facing vs. Human-Facing workflows) are the structural tools that eliminate the Missing Middle, the accountability vacuum responsible for 32% of transformation failures. Full EU DORA compliance is a byproduct, not an overhead.",
         engineer: "The Two-Pillar TOM bifurcates work by cognitive type: Pillar A (API/Venue: TCPdump/Wireshark) vs. Pillar B (GUI/UX: HAR file forensics). Zero-Trust JIT provisioning enforces the Red Path / Green Path governance model. BriefingScripts and Circuit Breakers govern the agentic workforce layer."
     },
@@ -22,7 +22,7 @@ The Boardroom speaks in Value, Risk, and Capital. The engineering floor speaks i
 This is the problem the **Operational Architect** was built to solve.
 
 > **Key Takeaways**
-> - 70–90% of M&A deals fail to deliver intended synergies (KPMG, 2025), with translation failure between org layers as the root cause, not technology
+> - 70-90% of M&A deals fail to deliver intended synergies (KPMG, 2025), with translation failure between org layers as the root cause, not technology
 > - The Operational Architect is the hybrid executive role fluent in all three organizational dialects: Boardroom (Executive), Blueprint (Strategist), and Engine Room (Engineer)
 > - The Two-Pillar Target Operating Model bifurcates operations by cognitive type, enabling scale without linear headcount growth
 > - In 2026, 72% of enterprises deploy AI agents in production but only 21% have mature governance. The OA is the role built to close that gap (Agentic AI Institute, 2026)
@@ -171,7 +171,7 @@ The answer is structural, not personal. The CTO, COO, and Operational Architect 
 
 | Dimension | CTO | COO | Operational Architect |
 |-----------|-----|-----|----------------------|
-| **Time horizon** | 2–5 years (technology roadmap) | Quarterly (operational continuity) | Immediate → 18 months (transformation velocity) |
+| **Time horizon** | 2-5 years (technology roadmap) | Quarterly (operational continuity) | Immediate → 18 months (transformation velocity) |
 | **Primary accountability** | Platform scalability | Operational efficiency metrics | Transformation outcomes (measured in $ and %) |
 | **Language** | Systems, stack, architecture | Process, capacity, utilization | All three simultaneously |
 | **Governance** | Technology standards | Policy and procedure | Operational compliance (DORA, GDPR, SOX) |
@@ -252,7 +252,7 @@ The OA's highest-value application points are three well-defined engagement trig
 
 The M&A statistics are familiar: 83% of deals fail to boost shareholder returns (KPMG, 2025) [2], 84% of IT integrations fail or encounter major issues post-close [11], and 47% of acquired-company employees leave in Year 1. [12] The Operational Architect enters the engagement before close, analyzing the target's operating model, identifying the Integration Gap, and designing the Integration Management Office (IMO) before Day 1. The goal is to ensure the deal thesis is operationally achievable, not just financially modeled.
 
-What the Integration Gap actually costs: a separate engagement involving a failing $80M technology program revealed 18 months of misaligned reporting (green-shifted status updates masking a structural architecture failure) and a $2M/month burn rate. The core design flaw was invisible to the board: the platform's daily maintenance window was incompatible with 24/5 FX trading cycles. The program was terminated. The viable NDF asset was rescued via a surgical hive-off. Total cost avoidance: $36M–$50M.
+What the Integration Gap actually costs: a separate engagement involving a failing $80M technology program revealed 18 months of misaligned reporting (green-shifted status updates masking a structural architecture failure) and a $2M/month burn rate. The core design flaw was invisible to the board: the platform's daily maintenance window was incompatible with 24/5 FX trading cycles. The program was terminated. The viable NDF asset was rescued via a surgical hive-off. Total cost avoidance: $36M-$50M.
 
 Knowing when to stop is as important as knowing how to accelerate. For the Integration Gap framework in detail, see [Bridging the Integration Gap to Prevent M&A Value Destruction](/guide/operational-architecture/blog/bridging-the-integration-gap).
 

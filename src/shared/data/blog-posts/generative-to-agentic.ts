@@ -47,7 +47,7 @@ The Operational Architect’s job is to design the framework where human workers
 <figure>
 <svg role="img" aria-label="Top Governance Challenges for Banking Executives (2026)" viewBox="0 0 620 295" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:620px;background:transparent;font-family:inherit">
   <title>Top Governance Challenges for Banking Executives (2026)</title>
-  <text x="310" y="22" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor" opacity="0.9">Top Governance Challenges — Banking Executives (2026)</text>
+  <text x="310" y="22" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor" opacity="0.9">Top Governance Challenges for Banking Executives (2026)</text>
   <text x="190" y="60" text-anchor="end" font-size="11" fill="currentColor" opacity="0.75">Governance, Risk &amp; Compliance</text>
   <rect x="200" y="44" width="227" height="26" rx="3" fill="currentColor" opacity="0.65"/>
   <text x="436" y="62" font-size="11" font-weight="700" fill="currentColor">63%</text>

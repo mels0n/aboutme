@@ -46,3 +46,4 @@ next-env.d.ts
 
 # Generated at build time by scripts/generate-sitemap.ts
 /public/sitemap.xml
+/public/sitemap-pages.xml

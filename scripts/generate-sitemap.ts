@@ -78,6 +78,14 @@ const xml = [
     '',
 ].join('\n');
 
-const outPath = join(import.meta.dirname, '..', 'public', 'sitemap.xml');
-writeFileSync(outPath, xml, 'utf8');
-console.log(`sitemap.xml written: ${entries.length} URLs -> ${outPath}`);
+// Two copies of the same content. /sitemap.xml accumulated ~20 GSC rejections
+// during the Vary-header era and Google's fetch scheduler appears to have the
+// path on a long retry backoff (accepted-but-never-downloaded since 2026-07-27).
+// /sitemap-pages.xml is a history-free URL for a fresh fetch-queue entry;
+// robots.txt points there. The old path keeps serving so the existing GSC
+// sitemap records don't 404.
+for (const filename of ['sitemap.xml', 'sitemap-pages.xml']) {
+    const outPath = join(import.meta.dirname, '..', 'public', filename);
+    writeFileSync(outPath, xml, 'utf8');
+    console.log(`${filename} written: ${entries.length} URLs -> ${outPath}`);
+}

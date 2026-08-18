@@ -1,4 +1,5 @@
 import { siteConfig } from "@/shared/config/site-config";
+import { UntapBadge } from "@/shared/ui/UntapBadge";
 import { Github, Linkedin } from "lucide-react";
 
 export const Footer = () => {
@@ -39,8 +40,13 @@ export const Footer = () => {
                 </nav>
 
                 {/* 3. Copyright */}
-                <div className="text-xs text-foreground/40 font-serif italic">
-                    &copy; {new Date().getFullYear()} All Rights Reserved.
+                <div className="flex flex-col items-center md:items-end gap-1">
+                    <div className="text-xs text-foreground/40 font-serif italic">
+                        &copy; {new Date().getFullYear()} All Rights Reserved.
+                    </div>
+                    <div className="text-xs text-foreground/40">
+                        <UntapBadge type="Built" />
+                    </div>
                 </div>
             </div>
         </footer>

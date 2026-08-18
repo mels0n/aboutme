@@ -75,7 +75,7 @@ export default function AboutPage() {
                 </div>
 
                 {/* 3. Closing Note */}
-                <p className="text-base text-foreground/70 font-serif leading-relaxed max-w-2xl">
+                <p className="text-base text-foreground/70 font-serif leading-relaxed text-pretty">
                     When I&apos;m not consulting, I run <a href="https://untapweb.com" className="underline decoration-foreground/30 underline-offset-2 hover:text-blue-600 transition-colors">Untap Web</a>, the studio that designed and maintains this site.
                 </p>
 

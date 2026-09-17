@@ -13,6 +13,7 @@ import { localSeoForSmallBusiness } from "./blog-posts/local-seo-for-small-busin
 import { macvlanDockerSwarmNetworking } from "./blog-posts/macvlan-docker-swarm-networking";
 import { lifxVlanIotDiscovery } from "./blog-posts/lifx-vlan-iot-discovery";
 import { tabletopTime } from "./blog-posts/tabletop-time";
+import { jellyfinLiveTvDispatcharr } from "./blog-posts/jellyfin-live-tv-dispatcharr";
 
 export interface BlogPost {
     id: string;
@@ -53,7 +54,8 @@ const allOfficeBlogPosts: BlogPost[] = [
     localSeoForSmallBusiness,
     macvlanDockerSwarmNetworking,
     lifxVlanIotDiscovery,
-    tabletopTime
+    tabletopTime,
+    jellyfinLiveTvDispatcharr
 ];
 
 // Posts with a future `date` (or `draft: true`) are excluded until a build

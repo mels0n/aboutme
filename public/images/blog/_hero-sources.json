@@ -1,0 +1,32 @@
+{
+  "youth-soccer-video-pipeline-trace-gotsport-jellyfin": {
+    "source": "stock",
+    "provider": "pixabay",
+    "model": null,
+    "mime": "image/jpeg",
+    "bytes": 255229,
+    "attribution": {
+      "title": "ball, soccer, youth football, football, soccer shoe, footballer, sports, youth, child, football, football, football, football, football",
+      "creator": "planet_fox",
+      "license": "Pixabay Content License",
+      "source": "https://pixabay.com/photos/ball-soccer-youth-football-football-8048205/",
+      "provider": "pixabay"
+    },
+    "at": "2026-09-30T17:10:52.344Z"
+  },
+  "governing-ai-agents-approval-gate-model": {
+    "source": "stock",
+    "provider": "pixabay",
+    "model": null,
+    "mime": "image/jpeg",
+    "bytes": 339379,
+    "attribution": {
+      "title": "battleship, engine room, historic, war, navy, history, ship, american, naval, warship, vessel, gauges, war, war, history, history, history, history, history, ship, ship",
+      "creator": "GregoryButler",
+      "license": "Pixabay Content License",
+      "source": "https://pixabay.com/photos/battleship-engine-room-historic-war-389274/",
+      "provider": "pixabay"
+    },
+    "at": "2026-09-30T17:14:33.206Z"
+  }
+}

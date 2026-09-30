@@ -14,6 +14,8 @@ import { macvlanDockerSwarmNetworking } from "./blog-posts/macvlan-docker-swarm-
 import { lifxVlanIotDiscovery } from "./blog-posts/lifx-vlan-iot-discovery";
 import { tabletopTime } from "./blog-posts/tabletop-time";
 import { jellyfinLiveTvDispatcharr } from "./blog-posts/jellyfin-live-tv-dispatcharr";
+import { youthSoccerVideoPipelineTraceGotsportJellyfin } from "./blog-posts/youth-soccer-video-pipeline-trace-gotsport-jellyfin";
+import { governingAiAgentsApprovalGateModel } from "./blog-posts/governing-ai-agents-approval-gate-model";
 
 export interface BlogPost {
     id: string;
@@ -55,7 +57,9 @@ const allOfficeBlogPosts: BlogPost[] = [
     macvlanDockerSwarmNetworking,
     lifxVlanIotDiscovery,
     tabletopTime,
-    jellyfinLiveTvDispatcharr
+    jellyfinLiveTvDispatcharr,
+    youthSoccerVideoPipelineTraceGotsportJellyfin,
+    governingAiAgentsApprovalGateModel
 ];
 
 // Posts with a future `date` (or `draft: true`) are excluded until a build

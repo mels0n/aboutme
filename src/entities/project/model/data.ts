@@ -93,10 +93,10 @@ export const projects: ProjectData[] = [
     },
     {
         title: "Device Mapping Manager",
-        description: "Orchestrates device mapping into Docker Swarm containers. Enforces cgroup v1/v2 compatibility for hardware passthrough.",
+        description: "Maintained fork that revived an abandoned tool for passing hardware devices into Docker Swarm containers. Added Docker API 1.44 support, fixed a systemd reload bug by listening for DBus signals, and rebuilt packaging and CI on Go 1.24.",
         link: "github.com/mels0n/device-mapping-manager",
         image: "/device_mapping.png",
-        kpis: [{ label: "Compatibility", value: "Linux" }, { label: "Target", value: "Swarm" }],
+        kpis: [{ label: "Upstream", value: "Revived" }, { label: "Docker API", value: "1.44" }],
         manaCost: "{1}",
         typeLine: "Artifact Creature - Insect",
         flavorText: "The hive mind grows specific.",

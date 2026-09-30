@@ -35,6 +35,50 @@ export const projects: ProjectData[] = [
         tags: ["home-assistant", "yaml", "automation"]
     },
     {
+        title: "HVAC Manager",
+        description: "Climate engine on top of a Nest thermostat. Plans each day at 5 AM from the forecast, trims the cooling setpoint when indoor air is humid, and sends a Telegram prompt when the outdoor air is good enough to open the windows. Today's plan: {{Plan}}. Humidity trim: {{Humidity Trim}}.",
+        link: "github.com/mels0n/HA_hvac_manager",
+        image: "/hvac_manager.png",
+        kpis: [{ label: "Plan", value: "-" }, { label: "Humidity Trim", value: "-" }],
+        liveStats: {
+            url: "/api/circadian",
+            mapping: {
+                "sensor.public_hvac_plan": "Plan",
+                "sensor.public_hvac_humidity_trim": "Humidity Trim"
+            }
+        },
+        manaCost: "{2}{G}{U}",
+        typeLine: "Legendary Artifact Creature - Construct Advisor",
+        flavorText: "Seventy-four degrees is a lie when the air is wet.",
+        tags: ["home-assistant", "nest", "telegram"]
+    },
+    {
+        title: "Holiday Porch Lights",
+        description: "Nightly porch lighting driven by calendars, not hardcoded dates. Picks a themed scene from the holiday calendar (with lead-up days before the big ones), flies STL CITY SC colors on match days, and falls back to white. Tonight: {{Tonight}}.",
+        link: "github.com/mels0n/HA_holiday_porch_lights",
+        image: "/holiday_porch.png",
+        kpis: [{ label: "Tonight", value: "-" }, { label: "Lead Time", value: "Up to 25d" }],
+        liveStats: {
+            url: "/api/circadian",
+            mapping: { "input_text.porch_theme": "Tonight" }
+        },
+        manaCost: "{W}{R}",
+        typeLine: "Enchantment - Aura",
+        flavorText: "On match day, the porch wears the crest.",
+        tags: ["home-assistant", "calendar", "lifx"]
+    },
+    {
+        title: "LIFX Adopter",
+        description: "Zero-touch recovery for a 60-bulb LIFX fleet. After a bulb is factory reset, a node with an idle WiFi radio finds its setup network, hands it the IoT credentials over the LAN protocol, and confirms success from the bulb's own reply instead of guessing.",
+        link: "github.com/mels0n/lifx-adopt",
+        image: "/lifx_adopter.png",
+        kpis: [{ label: "Fleet", value: "60 Bulbs" }, { label: "Clicks After Reset", value: "0" }],
+        manaCost: "{1}{U}{U}",
+        typeLine: "Artifact Creature - Shepherd",
+        flavorText: "Every lost bulb finds its way home.",
+        tags: ["python", "wifi", "linux"]
+    },
+    {
         title: "Polymorphic Portfolio",
         description: "This very website. A trimodal interactive portfolio powered by Next.js, Tailwind, and Framer Motion. Features hot-swappable persona modes.",
         link: "github.com/mels0n/aboutme",

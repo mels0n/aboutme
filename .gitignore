@@ -47,3 +47,13 @@ next-env.d.ts
 # Generated at build time by scripts/generate-sitemap.ts
 /public/sitemap.xml
 /public/sitemap-pages.xml
+
+# Local-only working files (never published)
+CLAUDE.md
+.claude/*
+!.claude/*.json
+.superpowers/
+docs/superpowers/
+scratch/
+memory/
+MEMORY.md

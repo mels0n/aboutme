@@ -11,14 +11,27 @@ import { ExecutiveAbstract } from "./branding/ExecutiveAbstract";
 import { TechMatrix } from "./branding/TechMatrix";
 import { cn } from "@/shared/lib/utils";
 import { RichText } from "@/shared/ui/RichText";
+import { OPERATING_MODES, OperatingModeId, getOperatingMode } from "../model/operating-modes";
 
 interface CaseStudiesGridProps {
     mode?: 'executive' | 'strategist' | 'engineer';
 }
 
 export const CaseStudiesGrid = ({ mode: propMode }: CaseStudiesGridProps) => {
-    const { mode: storeMode } = usePersonaStore();
+    const { mode: storeMode, setMode } = usePersonaStore();
     const mode = propMode || storeMode;
+    const activeMode = getOperatingMode(mode);
+
+    // Switching lens inside the modal mirrors the top nav: same store, same soft URL update.
+    const handleLensSwitch = (id: OperatingModeId) => {
+        if (id === mode) return;
+        setMode(id);
+        if (typeof window !== 'undefined') {
+            const url = new URL(window.location.href);
+            url.pathname = `/mode/${getOperatingMode(id).slug}`;
+            window.history.pushState(null, '', url.toString());
+        }
+    };
     const [selectedStudy, setSelectedStudy] = useState<{ study: OfficeCaseStudy, idx: number } | null>(null);
     const [isFullReport, setIsFullReport] = useState(false);
 
@@ -174,13 +187,24 @@ export const CaseStudiesGrid = ({ mode: propMode }: CaseStudiesGridProps) => {
                                 <button
                                     onClick={() => setIsFullReport(false)}
                                     className={cn(
-                                        "pb-1 border-b-2 transition-colors",
+                                        "pb-1 border-b-2 transition-colors flex items-center gap-2",
                                         !isFullReport
-                                            ? "border-foreground text-foreground"
+                                            ? cn("font-bold", activeMode.accentBorder, activeMode.accentText)
                                             : "border-transparent text-foreground/50 hover:text-foreground/80"
                                     )}
                                 >
-                                    Persona Brief
+                                    <activeMode.icon className="w-4 h-4" />
+                                    <AnimatePresence mode="wait" initial={false}>
+                                        <motion.span
+                                            key={mode}
+                                            initial={{ opacity: 0, y: 4 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -4 }}
+                                            transition={{ duration: 0.2 }}
+                                        >
+                                            {activeMode.label} Brief
+                                        </motion.span>
+                                    </AnimatePresence>
                                 </button>
                                 <button
                                     onClick={() => setIsFullReport(true)}
@@ -197,6 +221,9 @@ export const CaseStudiesGrid = ({ mode: propMode }: CaseStudiesGridProps) => {
                                     <span className="hidden md:inline">Detailed S.T.A.R. Report</span>
                                     {!isFullReport && <ArrowUpRight className="w-4 h-4 text-foreground/70" />}
                                 </button>
+                                <span className="hidden md:inline ml-auto self-center text-xs font-mono uppercase tracking-widest text-foreground/40">
+                                    {isFullReport ? "Same in every mode" : "Changes with operating mode"}
+                                </span>
                             </div>
 
                             {/* Body Content */}
@@ -212,6 +239,37 @@ export const CaseStudiesGrid = ({ mode: propMode }: CaseStudiesGridProps) => {
                                         transition={{ duration: 0.3 }}
                                         className="space-y-8"
                                     >
+                                        {/* Lens switcher: makes the mode dependence visible where the content is read */}
+                                        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                                            <span className="text-xs font-mono uppercase tracking-widest text-foreground/60 whitespace-nowrap">
+                                                Read this case as
+                                            </span>
+                                            <div
+                                                role="radiogroup"
+                                                aria-label="Operating mode for this case study"
+                                                className="inline-flex items-center gap-1 p-1 rounded-full border border-border bg-surface/80 w-fit"
+                                            >
+                                                {OPERATING_MODES.map((m) => (
+                                                    <button
+                                                        key={m.id}
+                                                        type="button"
+                                                        role="radio"
+                                                        aria-checked={mode === m.id}
+                                                        onClick={() => handleLensSwitch(m.id)}
+                                                        className={cn(
+                                                            "flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all duration-300 border border-transparent",
+                                                            mode === m.id
+                                                                ? cn("font-bold shadow-sm", m.activeClass)
+                                                                : "text-foreground/60 hover:text-foreground hover:bg-foreground/5"
+                                                        )}
+                                                    >
+                                                        <m.icon className={cn("w-4 h-4", mode === m.id ? "opacity-100" : "opacity-60")} />
+                                                        <span className="leading-none pb-px">{m.label}</span>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
                                         <div className="grid grid-cols-2 md:grid-cols-3 gap-6 p-6 bg-foreground/5 rounded-lg border border-foreground/10">
                                             {selectedStudy.study.stats[mode].map((stat, idx) => (
                                                 <div key={idx}>

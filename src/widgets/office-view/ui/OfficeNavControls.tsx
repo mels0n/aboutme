@@ -1,42 +1,19 @@
 "use client";
 
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
-import { IconExecution, IconStrategy } from "./branding/ThreePillarsIcons";
 import { motion } from "framer-motion";
-import { Users, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { OPERATING_MODES, OperatingModeId } from "../model/operating-modes";
 
 export const OfficeNavControls = () => {
     const { mode, setMode } = usePersonaStore();
     const searchParams = useSearchParams();
 
-    const controls = [
-        {
-            id: 'executive',
-            label: 'Boardroom',
-            slug: 'strategic-design',
-            icon: Users,
-            activeClass: "text-blue-700 bg-blue-50 border-blue-200"
-        },
-        {
-            id: 'strategist',
-            label: 'Architect',
-            slug: 'resilient-operations',
-            icon: IconStrategy,
-            activeClass: "text-indigo-900 bg-indigo-50 border-indigo-200"
-        },
-        {
-            id: 'engineer',
-            label: 'Engine Room',
-            slug: 'technical-execution',
-            icon: IconExecution,
-            activeClass: "text-emerald-800 bg-emerald-50 border-emerald-200"
-        }
-    ] as const;
+    const controls = OPERATING_MODES;
 
-    const handleModeSwitch = (e: React.MouseEvent, id: any, slug: string) => {
+    const handleModeSwitch = (e: React.MouseEvent, id: OperatingModeId, slug: string) => {
         e.preventDefault();
         setMode(id);
 

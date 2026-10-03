@@ -28,5 +28,20 @@
       "provider": "pixabay"
     },
     "at": "2026-09-30T17:14:33.206Z"
+  },
+  "gerrymandering-simple-unbiased-fix-shortest-splitline": {
+    "source": "stock",
+    "provider": "pixabay",
+    "model": null,
+    "mime": "image/jpeg",
+    "bytes": 230759,
+    "attribution": {
+      "title": "adventure, treasure map, old world map, pirates, pirate treasure, map, compass, navigation, navigate, treasure hunt, treasure hunting, pirate map, adventure, adventure, adventure, treasure map, pirates, pirates, map, map, map, map, map, treasure hunt",
+      "creator": "MasterTux",
+      "license": "Pixabay Content License",
+      "source": "https://pixabay.com/photos/adventure-treasure-map-old-world-map-2528477/",
+      "provider": "pixabay"
+    },
+    "at": "2026-10-03T15:32:44.314Z"
   }
 }

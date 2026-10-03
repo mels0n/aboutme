@@ -125,15 +125,27 @@ export const projects: ProjectData[] = [
         tags: ["finance", "algorithm", "python"]
     },
     {
-        title: "Stop Gerrymandering",
-        description: "Geospatial analysis tool correcting grid logic errors to ensure fair representation borders.",
-        link: "github.com/mels0n/stopgerrymandering",
-        image: "/gerrymandering.png",
-        kpis: [{ label: "Fairness", value: "Optimized" }, { label: "Bias", value: "-100%" }],
-        manaCost: "",
-        typeLine: "Artifact Land",
-        flavorText: "Draw the lines before they draw you.",
-        tags: ["gis", "data-viz", "civic-tech"]
+        title: "Splitline Generator",
+        description: "Draws every U.S. House district from 2020 Census block counts in three fixed steps: cut the state along the shortest line that splits its people evenly, keep census blocks whole, then balance single border blocks. No party data, no election results, no incumbent addresses. The math is engine independent, so anyone who runs it gets the identical map.",
+        link: "github.com/mels0n/str-redistricting",
+        image: "/splitline_generator.png",
+        kpis: [{ label: "States", value: "50 of 50" }, { label: "Widest Range", value: "31 people" }],
+        manaCost: "{3}{W}{W}",
+        typeLine: "Legendary Sorcery",
+        flavorText: "The shortest line between two voters is a straight one.",
+        tags: ["typescript", "census", "civic-tech"]
+    },
+    {
+        title: "Fair House Maps",
+        description: "Public viewer for the generated maps, built on MapLibre. Find your district by address, scrub through every cut, replay each balancing move block by block, and compare against the 119th Congress lines. Every state publishes its population range and the SHA-256 of its block assignment so the numbers can be checked.",
+        link: "github.com/mels0n/str-redistricting",
+        website: "https://str-redistricting.vercel.app",
+        image: "/fair_house_maps.png",
+        kpis: [{ label: "House Seats", value: "435" }, { label: "Partisan Inputs", value: "0" }],
+        manaCost: "{2}{W}{U}",
+        typeLine: "Legendary Enchantment",
+        flavorText: "Voters pick their politicians. Not the other way around.",
+        tags: ["maplibre", "vite", "civic-tech"]
     },
     {
         title: "Device Mapping Manager",

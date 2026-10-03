@@ -139,7 +139,7 @@ export const projects: ProjectData[] = [
         title: "Fair House Maps",
         description: "Public viewer for the generated maps, built on MapLibre. Find your district by address, scrub through every cut, replay each balancing move block by block, and compare against the 119th Congress lines. Every state publishes its population range and the SHA-256 of its block assignment so the numbers can be checked.",
         link: "github.com/mels0n/str-redistricting",
-        website: "https://str-redistricting.vercel.app",
+        website: "https://fairmaps.melson.us",
         image: "/fair_house_maps.png",
         kpis: [{ label: "House Seats", value: "435" }, { label: "Partisan Inputs", value: "0" }],
         manaCost: "{2}{W}{U}",

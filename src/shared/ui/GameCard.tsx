@@ -121,14 +121,17 @@ export function GameCard({ title, description, link, website, image, manaCost = 
                 </div>
 
                 {/* Text Box */}
-                <div className="mx-1 mb-1 mt-[2px] bg-[#dcd0c0]/90 border border-[#a89f8a] p-2 flex-grow flex flex-col justify-between overflow-hidden">
-                    <p className={`text-[#1f1b16] font-serif ${textSizeClass}`}>
-                        {fillTemplate(description, fetchedStats)}
-                    </p>
+                <div className="mx-1 mb-1 mt-[2px] bg-[#dcd0c0]/90 border border-[#a89f8a] p-2 flex-grow min-h-0 flex flex-col justify-between overflow-hidden">
+                    {/* Rules text scrolls when long so the Source/Play row and flavor text stay pinned in view */}
+                    <div className="min-h-0 flex-1 overflow-y-auto pr-1 [scrollbar-width:thin] [scrollbar-color:#a89f8a_transparent]">
+                        <p className={`text-[#1f1b16] font-serif ${textSizeClass}`}>
+                            {fillTemplate(description, fetchedStats)}
+                        </p>
+                    </div>
 
                     {/* Live readings from the project's stats endpoint */}
                     {Object.keys(fetchedStats).length > 0 && (
-                        <div className={`mt-2 font-serif text-[#1f1b16] flex flex-wrap items-center gap-2 ${textSizeClass}`}>
+                        <div className={`mt-2 shrink-0 font-serif text-[#1f1b16] flex flex-wrap items-center gap-2 ${textSizeClass}`}>
                             <span className="inline-flex items-center gap-1 font-bold uppercase tracking-wider text-emerald-800" title="Live reading, refreshed every minute">
                                 <LiveDot color="bg-emerald-700" />
                                 Live
@@ -141,7 +144,7 @@ export function GameCard({ title, description, link, website, image, manaCost = 
                         </div>
                     )}
 
-                    <div className="my-2 flex items-center justify-between text-xs text-[#1f1b16] font-serif">
+                    <div className="my-2 shrink-0 flex items-center justify-between text-xs text-[#1f1b16] font-serif">
                         <div className="flex items-center gap-1">
                             <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#c0b8b0] border border-gray-500 text-[10px] font-bold shadow-sm" title="Tap">{`{T}`}</span>
                             <span>:</span>

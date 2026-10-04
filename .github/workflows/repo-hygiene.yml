@@ -2,7 +2,10 @@ name: Repo Hygiene
 
 # Keeps local-only working files out of the published repository and keeps
 # public-facing docs free of references to the tooling around the project.
-# A FAILING gate, not advisory. Adjust the two pattern lists per repo if needed.
+# A FAILING gate, not advisory. Three pattern lists, adjust per repo if needed:
+# local-only paths (all repos), private working files (public repos only; keep
+# in step with PUBLIC_REPO_GITIGNORE in melson-agents/scripts/scaffold/
+# standards-scaffold.mjs), and internal-tooling markers in public docs.
 
 on:
   push:
@@ -44,7 +47,9 @@ jobs:
         # A public repo publishes none of it: no .claude/ at all (pipeline
         # config included), no content briefs, SEO audits, action plans or
         # strategy docs.
-        if: ${{ github.event.repository.private == false }}
+        # Runs unless the event payload says the repo is private, so a missing
+        # visibility field fails closed (the step runs) rather than open.
+        if: ${{ github.event.repository.private != true }}
         run: |
           set -euo pipefail
           bad=$(git ls-files -z | tr '\0' '\n' \

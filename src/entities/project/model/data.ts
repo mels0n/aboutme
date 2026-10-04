@@ -120,18 +120,6 @@ export const projects: ProjectData[] = [
         tags: ["typescript", "logic-solver", "calendar"]
     },
     {
-        title: "Retirement Tax Planner",
-        description: "Strategic forecasting engine for long-term capital preservation and tax liability minimization.",
-        link: "github.com/mels0n/retirement_tax_plan",
-        website: "https://retirement.melson.us",
-        image: "/retirement.png",
-        kpis: [{ label: "ROI", value: "Maximized" }, { label: "Risk", value: "Mitigated" }],
-        manaCost: "{1}",
-        typeLine: "Legendary Artifact - Equipment",
-        flavorText: "Death and taxes. One can be delayed.",
-        tags: ["finance", "algorithm", "python"]
-    },
-    {
         title: "Fair House Maps",
         description: "Draws every U.S. House district from 2020 Census block counts in three fixed steps: cut the state along the shortest line that splits its people evenly, keep census blocks whole, then balance single border blocks. No party data, no election results, no incumbent addresses, and anyone who reruns it gets the identical map. The public site finds your district by address, replays every cut and balancing move, and compares against the 119th Congress lines.",
         link: "github.com/mels0n/str-redistricting",

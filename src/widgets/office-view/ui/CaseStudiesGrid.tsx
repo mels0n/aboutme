@@ -11,10 +11,10 @@ import { ExecutiveAbstract } from "./branding/ExecutiveAbstract";
 import { TechMatrix } from "./branding/TechMatrix";
 import { cn } from "@/shared/lib/utils";
 import { RichText } from "@/shared/ui/RichText";
-import { OPERATING_MODES, OperatingModeId, getOperatingMode } from "../model/operating-modes";
+import { OPERATING_MODES, OperatingModeId, getOperatingMode, getModeUrl } from "../model/operating-modes";
 
 interface CaseStudiesGridProps {
-    mode?: 'executive' | 'strategist' | 'engineer';
+    mode?: OperatingModeId;
 }
 
 export const CaseStudiesGrid = ({ mode: propMode }: CaseStudiesGridProps) => {
@@ -22,14 +22,13 @@ export const CaseStudiesGrid = ({ mode: propMode }: CaseStudiesGridProps) => {
     const mode = propMode || storeMode;
     const activeMode = getOperatingMode(mode);
 
-    // Switching lens inside the modal mirrors the top nav: same store, same soft URL update.
+    // Switching lens inside the modal uses the same store and URL rule as the top nav,
+    // but replaces the history entry: the modal is transient, so lens clicks shouldn't stack Back steps.
     const handleLensSwitch = (id: OperatingModeId) => {
         if (id === mode) return;
         setMode(id);
         if (typeof window !== 'undefined') {
-            const url = new URL(window.location.href);
-            url.pathname = `/mode/${getOperatingMode(id).slug}`;
-            window.history.pushState(null, '', url.toString());
+            window.history.replaceState(null, '', getModeUrl(id, window.location.search));
         }
     };
     const [selectedStudy, setSelectedStudy] = useState<{ study: OfficeCaseStudy, idx: number } | null>(null);
@@ -98,7 +97,7 @@ export const CaseStudiesGrid = ({ mode: propMode }: CaseStudiesGridProps) => {
                                     {/* Additional Badge based on content context if needed */}
                                     {mode === 'engineer' && (
                                         <div className="font-mono text-xs text-green-500/60 mt-2">
-                                            // verified_by_ops
+                                            {"// verified_by_ops"}
                                         </div>
                                     )}
                                 </motion.div>

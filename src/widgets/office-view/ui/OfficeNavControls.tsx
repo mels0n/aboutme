@@ -5,7 +5,7 @@ import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { OPERATING_MODES, OperatingModeId } from "../model/operating-modes";
+import { OPERATING_MODES, OperatingModeId, getModeUrl } from "../model/operating-modes";
 
 export const OfficeNavControls = () => {
     const { mode, setMode } = usePersonaStore();
@@ -13,17 +13,12 @@ export const OfficeNavControls = () => {
 
     const controls = OPERATING_MODES;
 
-    const handleModeSwitch = (e: React.MouseEvent, id: OperatingModeId, slug: string) => {
+    const handleModeSwitch = (e: React.MouseEvent, id: OperatingModeId) => {
         e.preventDefault();
         setMode(id);
 
         // Soft Navigation: Update URL without refreshing/scrolling
-        // Strip modal-state params (blog) so they don't re-open on profile switch
-        const params = new URLSearchParams(searchParams.toString());
-        params.delete('blog');
-        const newPath = `/mode/${slug}`;
-        const newUrl = params.toString() ? `${newPath}?${params.toString()}` : newPath;
-        window.history.pushState(null, '', newUrl);
+        window.history.pushState(null, '', getModeUrl(id, searchParams.toString()));
     };
 
     return (
@@ -41,7 +36,7 @@ export const OfficeNavControls = () => {
                 <a
                     key={ctrl.id}
                     href={`/mode/${ctrl.slug}`}
-                    onClick={(e) => handleModeSwitch(e, ctrl.id, ctrl.slug)}
+                    onClick={(e) => handleModeSwitch(e, ctrl.id)}
                     aria-label={`Switch mode to ${ctrl.label}`}
                     className={cn(
                         "relative flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all duration-300 border border-transparent",

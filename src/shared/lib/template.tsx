@@ -22,3 +22,8 @@ export function fillTemplate(
         return value ? wrap(value, i) : null;
     });
 }
+
+/** Returns the trimmed keys of every `{{Key}}` placeholder in `text`. */
+export function templateKeys(text: string): Set<string> {
+    return new Set(Array.from(text.matchAll(TEMPLATE_PATTERN), m => m[1].trim()));
+}

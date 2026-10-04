@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { fillTemplate } from "@/shared/lib/template";
+import { LiveDot } from "@/shared/ui/LiveDot";
 
 /**
  * Defines content and styling configuration for the TCG-style GameCard.
@@ -125,9 +126,13 @@ export function GameCard({ title, description, link, website, image, manaCost = 
                         {fillTemplate(description, fetchedStats)}
                     </p>
 
-                    {/* Live Stats for Circadian Project */}
+                    {/* Live readings from the project's stats endpoint */}
                     {Object.keys(fetchedStats).length > 0 && (
-                        <div className={`mt-2 font-serif text-[#1f1b16] flex flex-wrap gap-2 ${textSizeClass}`}>
+                        <div className={`mt-2 font-serif text-[#1f1b16] flex flex-wrap items-center gap-2 ${textSizeClass}`}>
+                            <span className="inline-flex items-center gap-1 font-bold uppercase tracking-wider text-emerald-800" title="Live reading, refreshed every minute">
+                                <LiveDot color="bg-emerald-700" />
+                                Live
+                            </span>
                             {Object.entries(fetchedStats).map(([label, value]) => (
                                 <span key={label}>
                                     <span>{"{" + label + "}"}</span>: {value}

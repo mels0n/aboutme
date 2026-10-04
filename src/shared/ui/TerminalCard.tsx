@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { fillTemplate } from "@/shared/lib/template";
+import { fillTemplate, templateKeys } from "@/shared/lib/template";
+import { LiveDot } from "@/shared/ui/LiveDot";
 
 /**
  * Defines configuration for the developer/engineer-focused terminal card.
@@ -73,6 +74,10 @@ export function TerminalCard({ title, description, link, website, tags, liveStat
         return () => clearInterval(interval);
     }, [liveStats?.url, liveStats?.mapping]);
 
+    const isLive = Object.keys(fetchedStats).length > 0;
+    const inlined = templateKeys(description);
+    const feed = Object.entries(fetchedStats).filter(([label]) => !inlined.has(label));
+
     return (
         <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -82,7 +87,15 @@ export function TerminalCard({ title, description, link, website, tags, liveStat
         >
             <div className="flex justify-between items-center mb-2 border-b border-green-900/50 pb-2">
                 <span className="text-green-500 font-bold">{`> ${title}`}</span>
-                <span className="text-xs text-green-800">[PID: {Math.floor(Math.random() * 9000) + 1000}]</span>
+                <span className="flex items-center gap-2 text-xs text-green-800">
+                    {isLive && (
+                        <span className="inline-flex items-center gap-1 text-cyan-400" title="Live reading, refreshed every minute">
+                            <LiveDot color="bg-cyan-400" />
+                            LIVE
+                        </span>
+                    )}
+                    [PID: {Math.floor(Math.random() * 9000) + 1000}]
+                </span>
             </div>
 
             <div className="text-green-400/80 mb-4 flex-grow leading-relaxed">
@@ -90,6 +103,19 @@ export function TerminalCard({ title, description, link, website, tags, liveStat
                 {fillTemplate(description, fetchedStats, (value, key) => (
                     <span key={key} className="text-cyan-400 font-bold">({value})</span>
                 ))}
+                {/* Live values the description doesn't inline get printed as a watch feed instead. */}
+                {feed.length > 0 && (
+                    <div className="mt-2">
+                        <span className="text-green-700 select-none mr-2">$</span>
+                        <span className="text-green-600">watch -n 60 stats</span>
+                        {feed.map(([label, value]) => (
+                            <div key={label}>
+                                <span className="text-green-600">{label.toLowerCase().replace(/\s+/g, "_")}=</span>
+                                <span className="text-cyan-400 font-bold">{value}</span>
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
 
             <div className="space-y-2">

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { fillTemplate } from "@/shared/lib/template";
+import { LiveDot } from "@/shared/ui/LiveDot";
 
 /**
  * Defines the content and configuration for an executive-style project card.
@@ -44,6 +45,8 @@ export interface CardProps {
 export function ExecutiveCard({ title, description, link, website, stats: initialStats, liveStats }: CardProps) {
     // State to hold the currently displayed statistics; initialized with static data.
     const [stats, setStats] = useState(initialStats);
+    // Labels that have received at least one live reading; static KPIs never join this set.
+    const [liveLabels, setLiveLabels] = useState<Set<string>>(new Set());
 
     /*
      * Side Effect: Live Data Polling
@@ -67,6 +70,12 @@ export function ExecutiveCard({ title, description, link, website, stats: initia
             try {
                 const res = await fetch(liveStats.url);
                 const data = await res.json();
+
+                setLiveLabels(new Set(
+                    Object.entries(liveStats.mapping)
+                        .filter(([key]) => data[key] !== undefined)
+                        .map(([, label]) => label)
+                ));
 
                 // Update stats based on mapping
                 setStats(prev => prev?.map(stat => {
@@ -118,7 +127,15 @@ export function ExecutiveCard({ title, description, link, website, stats: initia
                 <div className="grid grid-cols-2 gap-4 bg-slate-50 p-3 rounded-sm border border-slate-100 mb-6">
                     {stats.map((stat, i) => (
                         <div key={i}>
-                            <div className="text-[10px] uppercase text-slate-500 font-bold">{stat.label}</div>
+                            <div className="flex items-center gap-1.5 text-[10px] uppercase text-slate-500 font-bold">
+                                {stat.label}
+                                {liveLabels.has(stat.label) && (
+                                    <span className="inline-flex items-center gap-1 text-emerald-700 tracking-wider" title="Live reading, refreshed every minute">
+                                        <LiveDot />
+                                        Live
+                                    </span>
+                                )}
+                            </div>
                             <div className="text-sm font-mono text-slate-900">{stat.value}</div>
                         </div>
                     ))}

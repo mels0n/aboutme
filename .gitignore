@@ -56,6 +56,11 @@ docs/superpowers/
 scratch/
 memory/
 MEMORY.md
+.agent/
+.gsd/
+.memory/
+.brain/
+.gemini/
 
 # Public repo: strategy and tooling working files stay local
 /briefs/
@@ -64,3 +69,4 @@ ACTION-PLAN.md
 *AUDIT-REPORT*.md
 *_STRATEGY.md
 .impeccable/
+/docs/untapweb-local-seo-draft.md

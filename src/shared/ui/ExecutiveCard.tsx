@@ -111,7 +111,8 @@ export function ExecutiveCard({ title, description, link, website, stats: initia
                 </div>
             </div>
             <p className="text-slate-600 font-serif text-sm leading-relaxed mb-6 flex-grow">
-                {fillTemplate(description, Object.fromEntries((stats ?? []).map(s => [s.label, s.value])))}
+                {/* "-" is the KPI seed before live data arrives; treat it as missing so it never lands in the prose. */}
+                {fillTemplate(description, Object.fromEntries((stats ?? []).filter(s => s.value !== "-").map(s => [s.label, s.value])))}
             </p>
             {stats && (
                 <div className="grid grid-cols-2 gap-4 bg-slate-50 p-3 rounded-sm border border-slate-100 mb-6">

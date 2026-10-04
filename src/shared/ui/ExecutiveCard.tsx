@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { fillTemplate } from "@/shared/lib/template";
 
 /**
  * Defines the content and configuration for an executive-style project card.
@@ -110,7 +111,7 @@ export function ExecutiveCard({ title, description, link, website, stats: initia
                 </div>
             </div>
             <p className="text-slate-600 font-serif text-sm leading-relaxed mb-6 flex-grow">
-                {description}
+                {fillTemplate(description, Object.fromEntries((stats ?? []).map(s => [s.label, s.value])))}
             </p>
             {stats && (
                 <div className="grid grid-cols-2 gap-4 bg-slate-50 p-3 rounded-sm border border-slate-100 mb-6">

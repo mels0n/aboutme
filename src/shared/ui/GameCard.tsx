@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { fillTemplate } from "@/shared/lib/template";
 
 /**
  * Defines content and styling configuration for the TCG-style GameCard.
@@ -121,7 +122,7 @@ export function GameCard({ title, description, link, website, image, manaCost = 
                 {/* Text Box */}
                 <div className="mx-1 mb-1 mt-[2px] bg-[#dcd0c0]/90 border border-[#a89f8a] p-2 flex-grow flex flex-col justify-between overflow-hidden">
                     <p className={`text-[#1f1b16] font-serif ${textSizeClass}`}>
-                        {description}
+                        {fillTemplate(description, fetchedStats)}
                     </p>
 
                     {/* Live Stats for Circadian Project */}

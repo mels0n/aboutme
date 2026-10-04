@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { fillTemplate } from "@/shared/lib/template";
 
 /**
  * Defines configuration for the developer/engineer-focused terminal card.
@@ -72,32 +73,6 @@ export function TerminalCard({ title, description, link, website, tags, liveStat
         return () => clearInterval(interval);
     }, [liveStats?.url, liveStats?.mapping]);
 
-    // Enhance description with live values using generic templating
-    const renderDescription = () => {
-        // If no stats fetched yet, strip templates to show clean static text
-        if (Object.keys(fetchedStats).length === 0) {
-            return description.replace(/{{(.*?)}}/g, "");
-        }
-
-        // Split by the template pattern {{Key}} to interleave React nodes
-        const parts = description.split(/{{(.*?)}}/g);
-
-        return parts.map((part, i) => {
-            // Even indices are static text, odd indices are keys captured by regex
-            if (i % 2 === 1) {
-                const key = part.trim();
-                const value = fetchedStats[key];
-
-                if (value) {
-                    return <span key={i} className="text-cyan-400 font-bold">({value})</span>;
-                }
-                // If key not found in stats, return empty string (or fallback)
-                return null;
-            }
-            return part;
-        });
-    };
-
     return (
         <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -112,7 +87,9 @@ export function TerminalCard({ title, description, link, website, tags, liveStat
 
             <div className="text-green-400/80 mb-4 flex-grow leading-relaxed">
                 <span className="text-green-700 select-none mr-2">$</span>
-                {renderDescription()}
+                {fillTemplate(description, fetchedStats, (value, key) => (
+                    <span key={key} className="text-cyan-400 font-bold">({value})</span>
+                ))}
             </div>
 
             <div className="space-y-2">

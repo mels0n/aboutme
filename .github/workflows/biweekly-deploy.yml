@@ -4,10 +4,11 @@ name: Biweekly deploy
 # this repo and deploys on every push to main, so the commit is the whole
 # trigger — no Vercel API token or deploy hook lives in GitHub.
 #
-# This is what publishes scheduled blog posts: officeBlogPosts is filtered by
-# `date` at module-eval time (build and client hydration alike), so a post
-# dated in the future stays invisible until a build runs on or after its date.
-# See src/shared/data/office_blog_posts.ts.
+# This is what publishes scheduled blog posts: scripts/generate-published-posts.ts
+# runs in the build's prebuild step and writes only the posts whose `date` is on
+# or before the build date (UTC) into a generated module the site reads. A post
+# dated in the future is not in the build at all until a build runs on or after
+# its date.
 #
 # GitHub Actions cron has no native "every 2 weeks" schedule, so this runs
 # every Thursday and skips itself on the off week by checking ISO week parity

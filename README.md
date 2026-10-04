@@ -21,6 +21,18 @@ npm run dev
 npm run build
 ```
 
+### Scheduled blog posts
+A post is published when its `date` is on or before the build date (UTC) and it is not marked `draft: true`. `npm run dev`, `npm run build`, `npm run lint` and `npm run typecheck` first run `scripts/generate-published-posts.ts`, which writes the published posts to `src/shared/data/published-posts.generated.ts` (gitignored). The site reads only that file, so a future-dated or draft post is absent from the built site entirely.
+
+To preview unpublished posts locally:
+
+```bash
+SHOW_SCHEDULED=1 npm run dev                 # include future-dated posts
+SHOW_SCHEDULED=1 SHOW_DRAFTS=1 npm run dev   # also include drafts
+```
+
+These flags work only with `npm run dev`. Production builds, CI and `NODE_ENV=production` ignore them. Set `BUILD_DATE=YYYY-MM-DD` to override the cutoff date.
+
 ## Documentation
 - [Blog Creation Workflow](docs/BLOG_WORKFLOW.md)
 

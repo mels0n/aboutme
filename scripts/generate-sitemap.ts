@@ -12,7 +12,7 @@
 // always regenerates it. public/sitemap.xml is gitignored.
 import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { officeBlogPosts } from '../src/shared/data/office_blog_posts';
+import { officeBlogPosts } from '../src/shared/data/published_blog_posts';
 import { officeCaseStudies } from '../src/shared/data/office_case_studies';
 
 const BASE_URL = 'https://chris.melson.us';

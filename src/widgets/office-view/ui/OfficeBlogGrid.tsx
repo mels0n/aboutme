@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { BlogPost, officeBlogPosts } from "@/shared/data/office_blog_posts";
+import { BlogPost, officeBlogPosts } from "@/shared/data/published_blog_posts";
 import { OfficeBlogModal } from "./OfficeBlogModal";
 import { TrustBadge } from "@/shared/ui/TrustBadge";
 import { usePersonaStore } from "@/shared/lib/store";

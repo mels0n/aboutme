@@ -1,3 +1,8 @@
+// Raw post registry: every post, published or not, with no date filtering.
+// Only scripts/generate-published-posts.ts may import this module; the site
+// reads src/shared/data/published_blog_posts.ts, which holds the posts that
+// are live as of the build. ESLint enforces the restriction.
+import type { BlogPost } from "./blog-post-type";
 import { agenticShift } from "./blog-posts/agentic-shift";
 import { triModalTranslation } from "./blog-posts/tri-modal-translation";
 import { integrationGap } from "./blog-posts/integration-gap";
@@ -18,31 +23,9 @@ import { youthSoccerVideoPipelineTraceGotsportJellyfin } from "./blog-posts/yout
 import { governingAiAgentsApprovalGateModel } from "./blog-posts/governing-ai-agents-approval-gate-model";
 import { gerrymanderingSimpleUnbiasedFixShortestSplitline } from "./blog-posts/gerrymandering-simple-unbiased-fix-shortest-splitline";
 
-export interface BlogPost {
-    id: string;
-    slug: string;
-    title: string;
-    author: string;
-    role: string;
-    date: string;
-    lastUpdated?: string;
-    /** Never publish regardless of date, e.g. while a post is still being drafted. */
-    draft?: boolean;
-    summary: string;
-    polymorphicSummary: {
-        executive: string;
-        strategist: string;
-        engineer: string;
-    };
-    content: string;
-    ogImage?: string;
-    geoHighlights: {
-        label: string;
-        value: string;
-    }[];
-}
+export type { BlogPost } from "./blog-post-type";
 
-const allOfficeBlogPosts: BlogPost[] = [
+export const allOfficeBlogPosts: BlogPost[] = [
     operationalArchitectGuide,
     agenticShift,
     triModalTranslation,
@@ -63,14 +46,3 @@ const allOfficeBlogPosts: BlogPost[] = [
     governingAiAgentsApprovalGateModel,
     gerrymanderingSimpleUnbiasedFixShortestSplitline
 ];
-
-// Posts with a future `date` (or `draft: true`) are excluded until a build
-// runs on or after that date — evaluated at both build time (SSG/sitemap)
-// and client hydration, so a scheduled post never appears early.
-function isPublished(post: BlogPost): boolean {
-    if (post.draft) return false;
-    const today = new Date().toISOString().slice(0, 10);
-    return post.date <= today;
-}
-
-export const officeBlogPosts: BlogPost[] = allOfficeBlogPosts.filter(isPublished);

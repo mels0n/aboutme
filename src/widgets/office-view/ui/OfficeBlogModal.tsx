@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { usePersonaStore } from "@/shared/lib/store";
-import { BlogPost } from "@/shared/data/office_blog_posts";
+import { BlogPost } from "@/shared/data/published_blog_posts";
 import { BlueprintGrid } from "./branding/BlueprintGrid";
 import { ExecutiveAbstract } from "./branding/ExecutiveAbstract";
 import { TechMatrix } from "./branding/TechMatrix";

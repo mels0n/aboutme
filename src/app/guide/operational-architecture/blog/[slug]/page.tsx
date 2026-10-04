@@ -1,10 +1,13 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { officeBlogPosts } from "@/shared/data/office_blog_posts";
+import { officeBlogPosts } from "@/shared/data/published_blog_posts";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { BreadcrumbSchema } from "@/shared/ui/BreadcrumbSchema";
+
+// Slugs not prerendered at build 404 instead of rendering on demand.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
     return officeBlogPosts.map((post) => ({

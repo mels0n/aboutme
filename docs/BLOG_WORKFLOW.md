@@ -7,7 +7,8 @@ This document outlines the standard procedure for adding, editing, and managing 
 Blog posts are stored as individual TypeScript files to manage file size and improve maintainability.
 
 - **Individual Posts:** `src/shared/data/blog-posts/*.ts`
-- **Registry:** `src/shared/data/office_blog_posts.ts`
+- **Registry (generator input only):** `src/shared/data/office_blog_posts.ts`
+- **Published posts (what the site reads):** `src/shared/data/published_blog_posts.ts`, backed by a generated file produced by `scripts/generate-published-posts.ts`
 
 ## 2. Adding a New Blog Post
 
@@ -64,14 +65,16 @@ Your Markdown content goes here.
     ```typescript
     import { myNewPost } from "./blog-posts/future-of-ai";
     ```
-3.  Add it to the `officeBlogPosts` array:
+3.  Add it to the `allOfficeBlogPosts` array:
     ```typescript
-    export const officeBlogPosts: BlogPost[] = [
+    export const allOfficeBlogPosts: BlogPost[] = [
         agenticShift,
         // ... other posts
         myNewPost // Add your new post here
     ];
     ```
+
+Posts with a future `date`, or `draft: true`, are left out of the build until a build runs on or after their date. Preview them locally with `SHOW_SCHEDULED=1 npm run dev` (add `SHOW_DRAFTS=1` for drafts); production builds ignore these flags. Application code must import posts from `published_blog_posts.ts`, never from the registry or the `blog-posts/` directory (ESLint enforces this).
 
 **Note:** The order in the array does NOT matter for display, as the grid component automatically sorts by `date` (newest first).
 

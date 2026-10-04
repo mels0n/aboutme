@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { officeBlogPosts } from "@/shared/data/office_blog_posts";
+import { officeBlogPosts } from "@/shared/data/published_blog_posts";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { BreadcrumbSchema } from "@/shared/ui/BreadcrumbSchema";

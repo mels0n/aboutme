@@ -50,10 +50,17 @@ next-env.d.ts
 
 # Local-only working files (never published)
 CLAUDE.md
-.claude/*
-!.claude/*.json
+.claude/
 .superpowers/
 docs/superpowers/
 scratch/
 memory/
 MEMORY.md
+
+# Public repo: strategy and tooling working files stay local
+briefs/
+strategy/
+ACTION-PLAN.md
+*AUDIT-REPORT*.md
+*_STRATEGY.md
+.impeccable/

@@ -35,7 +35,10 @@ if (requestedPreview && !previewAllowed) {
 const showScheduled = previewAllowed && (env.SHOW_SCHEDULED === '1' || env.SHOW_DRAFTS === '1');
 const showDrafts = previewAllowed && env.SHOW_DRAFTS === '1';
 
-const buildDate = env.BUILD_DATE ?? new Date().toISOString().slice(0, 10);
+if (env.BUILD_DATE && productionLike) {
+    console.log('BUILD_DATE ignored: only honoured for local builds outside production and CI.');
+}
+const buildDate = (!productionLike && env.BUILD_DATE) || new Date().toISOString().slice(0, 10);
 if (!/^\d{4}-\d{2}-\d{2}$/.test(buildDate)) {
     throw new Error(`BUILD_DATE must be YYYY-MM-DD, got "${buildDate}"`);
 }

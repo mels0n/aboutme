@@ -14,6 +14,7 @@ const eslintConfig = defineConfig([
       "scripts/generate-published-posts.ts",
       "src/shared/data/office_blog_posts.ts",
       "src/shared/data/blog-posts/**",
+      "src/shared/data/published-posts.generated.ts",
     ],
     rules: {
       "no-restricted-imports": [

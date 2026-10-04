@@ -31,7 +31,7 @@ SHOW_SCHEDULED=1 npm run dev                 # include future-dated posts
 SHOW_SCHEDULED=1 SHOW_DRAFTS=1 npm run dev   # also include drafts
 ```
 
-These flags work only with `npm run dev`. Production builds, CI and `NODE_ENV=production` ignore them. Set `BUILD_DATE=YYYY-MM-DD` to override the cutoff date.
+These flags work only with `npm run dev`. Production builds, CI and `NODE_ENV=production` ignore them. `BUILD_DATE=YYYY-MM-DD` overrides the cutoff date for local builds only; production builds and CI ignore it.
 
 ## Documentation
 - [Blog Creation Workflow](docs/BLOG_WORKFLOW.md)

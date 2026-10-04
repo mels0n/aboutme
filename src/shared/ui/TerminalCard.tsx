@@ -39,6 +39,8 @@ export interface CardProps {
 export function TerminalCard({ title, description, link, website, tags, liveStats }: CardProps) {
     // Current register of fetched live variables
     const [fetchedStats, setFetchedStats] = useState<Record<string, string>>({});
+    // True only while the latest poll succeeded; a failed poll keeps the last values but drops the LIVE claim.
+    const [isLive, setIsLive] = useState(false);
 
     /*
      * Side Effect: Live Data Polling (Daemon)
@@ -55,6 +57,7 @@ export function TerminalCard({ title, description, link, website, tags, liveStat
         const fetchData = async () => {
             try {
                 const res = await fetch(liveStats.url);
+                if (!res.ok) throw new Error(`Live stats responded with ${res.status}`);
                 const data = await res.json();
 
                 const newStats: Record<string, string> = {};
@@ -64,8 +67,10 @@ export function TerminalCard({ title, description, link, website, tags, liveStat
                     }
                 });
                 setFetchedStats(newStats);
+                setIsLive(Object.keys(newStats).length > 0);
             } catch (err) {
                 console.error("Failed to fetch live stats", err);
+                setIsLive(false);
             }
         };
 
@@ -74,7 +79,6 @@ export function TerminalCard({ title, description, link, website, tags, liveStat
         return () => clearInterval(interval);
     }, [liveStats?.url, liveStats?.mapping]);
 
-    const isLive = Object.keys(fetchedStats).length > 0;
     const inlined = templateKeys(description);
     const feed = Object.entries(fetchedStats).filter(([label]) => !inlined.has(label));
 

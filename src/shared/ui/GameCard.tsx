@@ -44,6 +44,8 @@ export interface CardProps {
 export function GameCard({ title, description, link, website, image, manaCost = "{3}", typeLine = "Enchantment", flavorText, liveStats }: CardProps) {
     // Stores dynamic stats fetched from liveStats.url
     const [fetchedStats, setFetchedStats] = useState<Record<string, string>>({});
+    // True only while the latest poll succeeded; a failed poll keeps the last values but drops the Live claim.
+    const [isLive, setIsLive] = useState(false);
 
     /*
      * Side Effect: Live Data Polling
@@ -60,6 +62,7 @@ export function GameCard({ title, description, link, website, image, manaCost = 
         const fetchData = async () => {
             try {
                 const res = await fetch(liveStats.url);
+                if (!res.ok) throw new Error(`Live stats responded with ${res.status}`);
                 const data = await res.json();
 
                 const newStats: Record<string, string> = {};
@@ -69,8 +72,10 @@ export function GameCard({ title, description, link, website, image, manaCost = 
                     }
                 });
                 setFetchedStats(newStats);
+                setIsLive(Object.keys(newStats).length > 0);
             } catch (err) {
                 console.error("Failed to fetch live stats", err);
+                setIsLive(false);
             }
         };
 
@@ -132,10 +137,12 @@ export function GameCard({ title, description, link, website, image, manaCost = 
                     {/* Live readings from the project's stats endpoint */}
                     {Object.keys(fetchedStats).length > 0 && (
                         <div className={`mt-2 shrink-0 font-serif text-[#1f1b16] flex flex-wrap items-center gap-2 ${textSizeClass}`}>
-                            <span className="inline-flex items-center gap-1 font-bold uppercase tracking-wider text-emerald-800" title="Live reading, refreshed every minute">
-                                <LiveDot color="bg-emerald-700" />
-                                Live
-                            </span>
+                            {isLive && (
+                                <span className="inline-flex items-center gap-1 font-bold uppercase tracking-wider text-emerald-800" title="Live reading, refreshed every minute">
+                                    <LiveDot color="bg-emerald-700" />
+                                    Live
+                                </span>
+                            )}
                             {Object.entries(fetchedStats).map(([label, value]) => (
                                 <span key={label}>
                                     <span>{"{" + label + "}"}</span>: {value}

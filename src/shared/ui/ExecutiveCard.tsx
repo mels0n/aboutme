@@ -45,7 +45,7 @@ export interface CardProps {
 export function ExecutiveCard({ title, description, link, website, stats: initialStats, liveStats }: CardProps) {
     // State to hold the currently displayed statistics; initialized with static data.
     const [stats, setStats] = useState(initialStats);
-    // Labels that have received at least one live reading; static KPIs never join this set.
+    // Labels the latest poll returned a reading for; cleared when a poll fails so a stale value never shows as Live.
     const [liveLabels, setLiveLabels] = useState<Set<string>>(new Set());
 
     /*
@@ -69,6 +69,7 @@ export function ExecutiveCard({ title, description, link, website, stats: initia
         const fetchData = async () => {
             try {
                 const res = await fetch(liveStats.url);
+                if (!res.ok) throw new Error(`Live stats responded with ${res.status}`);
                 const data = await res.json();
 
                 setLiveLabels(new Set(
@@ -91,6 +92,7 @@ export function ExecutiveCard({ title, description, link, website, stats: initia
                 }));
             } catch (err) {
                 console.error("Failed to fetch live stats", err);
+                setLiveLabels(new Set());
             }
         };
 

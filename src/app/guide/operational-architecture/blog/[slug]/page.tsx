@@ -12,12 +12,16 @@ import { BreadcrumbSchema } from "@/shared/ui/BreadcrumbSchema";
 // Slugs not prerendered at build 404 instead of rendering on demand.
 export const dynamicParams = false;
 
+// Heading ids are produced twice: from raw markdown for the table of
+// contents, and from rendered children for the h2/h3 anchors. Both must go
+// through headingSlug so the TOC links land on the matching heading.
 function headingSlug(text: string): string {
-    return text
+    const slug = text
         .toLowerCase()
         .replace(/[^a-z0-9\s-]/g, "")
         .trim()
         .replace(/\s+/g, "-");
+    return slug || "section";
 }
 
 function nodeText(children: ReactNode): string {
@@ -296,8 +300,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                 On this page
                             </h2>
                             <ol className="space-y-2 border-l border-border">
-                                {toc.map((item) => (
-                                    <li key={item.id}>
+                                {toc.map((item, idx) => (
+                                    <li key={idx}>
                                         <a
                                             href={`#${item.id}`}
                                             className="block -ml-px border-l-2 border-transparent pl-4 text-sm leading-snug text-foreground/60 hover:text-blue-700 hover:border-blue-700 transition-colors"

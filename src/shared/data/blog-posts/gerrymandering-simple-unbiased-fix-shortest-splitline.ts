@@ -5,22 +5,22 @@ export const gerrymanderingSimpleUnbiasedFixShortestSplitline: BlogPost = {
     slug: "gerrymandering-simple-unbiased-fix-shortest-splitline",
     title: "How to End Gerrymandering: Let a Simple Rule Draw the Map",
     author: "Christopher Melson",
-    role: "Builder, Fair House Maps · Operational Architect",
-    date: "2026-11-05",
-    lastUpdated: "2026-11-05",
+    role: "Builder, Fair Maps · Operational Architect",
+    date: "2026-10-14",
+    lastUpdated: "2026-10-14",
     ogImage: "/images/blog/gerrymandering-simple-unbiased-fix-shortest-splitline-og.jpg",
-    summary: "Every US redistricting safeguard patches the same flaw: human discretion. A three-step rule using only population and geography draws all 435 districts.",
+    summary: "Every US redistricting safeguard patches the same flaw: human discretion. A three-step rule using only population and geography draws all 7,210 U.S. House, State House and State Senate districts.",
     polymorphicSummary: {
-        executive: "Christopher Melson, who built the Fair House Maps tool, argues that gerrymandering is a risk no safeguard has retired, because every safeguard leaves human discretion in place. One person one vote, the Voting Rights Act, preclearance, limits on racial gerrymanders and independent commissions all try to legislate fairness around mapmakers who know party, race and incumbent data. Louisiana v. Callais, decided April 29, 2026, narrowed Section 2 to a strong inference of intentional discrimination. Maps keep being drawn, struck, redrawn and reinstated in Louisiana, Alabama, North Carolina, Ohio and Utah. Commissions cost real money, about $14.1 million in California and about $8 million in Arizona, and still deadlock or get sued. The decision is whether to keep paying for supervision or remove the discretion. Roughly 7 in 10 Democrats, Independents and Republicans say states should not draw districts that favor a party, and a published rule using only population and geography draws all 435 districts with a widest population gap of 31 people.",
+        executive: "Christopher Melson, who built the Fair Maps tool, argues that gerrymandering is a risk no safeguard has retired, because every safeguard leaves human discretion in place. One person one vote, the Voting Rights Act, preclearance, limits on racial gerrymanders and independent commissions all try to legislate fairness around mapmakers who know party, race and incumbent data. Louisiana v. Callais, decided April 29, 2026, narrowed Section 2 to a strong inference of intentional discrimination. Maps keep being drawn, struck, redrawn and reinstated in Louisiana, Alabama, North Carolina, Ohio and Utah. Commissions cost real money, about $14.1 million in California and about $8 million in Arizona, and still deadlock or get sued. The decision is whether to keep paying for supervision or remove the discretion. Roughly 7 in 10 Democrats, Independents and Republicans say states should not draw districts that favor a party, and a published rule using only population and geography now draws 7,210 districts across the U.S. House, State House and State Senate, with a widest U.S. House population gap of 43 people.",
         strategist: "Christopher Melson treats redistricting reform as an operating-model problem. The current model adds controls downstream of a discretionary step. Courts review maps after they are drawn, preclearance reviewed them before, and commissions change who draws them, and each control creates a new party with a reason to contest it. The result is a cycle of reversals rather than a settled process. The alternative model deletes the discretionary step. Sequencing is straightforward: fix the inputs first, population and geography only, then fix the procedure, then publish the output and its fingerprint so that verification belongs to the public. The governing principle is that the simplest design with the fewest inputs is best, because every extra input, including a communities-of-interest allowance, is a place where judgment and therefore bias can enter. The trade-offs are stated openly in the project: county and city splits, and no communities-of-interest allowance. The Callais decision, which narrowed Section 2, shows how little a supervision-based model can be relied on once courts change course. The claim is a neutral process, not a guaranteed outcome.",
-        engineer: "This is Christopher Melson's mechanism-level description of Fair House Maps, which draws congressional districts from 2020 Census data. The only inputs are block population, block polygon, a block internal point used to order blocks across a guide line, and the apportioned seat count. Party, election results, incumbent addresses and race are never read. The cut step tests 1,800 straight guide lines at 0.1 degree intervals in a gnomonic projection, assigns blocks by distance from the line until the low side reaches its seat share, requires both sides to be single connected pieces, and keeps the line with the shortest real border. A state with N seats takes exactly N minus 1 cuts. Blocks are never split. A greedy balance then moves one border block at a time to a neighbor when it strictly narrows the gap and preserves contiguity, so it always terminates. There are no knobs, no random numbers and no seeds, ties break in fixed order, trigonometry uses fdlibm routines checked by golden IEEE 754 tests, and each state publishes SHA-256 fingerprints. Core logic is about 780 lines of TypeScript."
+        engineer: "This is Christopher Melson's mechanism-level description of Fair Maps, which draws U.S. House, State House and State Senate districts from 2020 Census data, 7,210 districts in all. The only inputs are block population, block polygon, a block internal point used to order blocks across a guide line, and the district count for the chamber. Party, election results, incumbent addresses and race are never read. The cut step does not sample angles. It evaluates every possible straight line in a gnomonic projection, because the block order changes only when the line turns parallel to the segment between two blocks' internal points. Both sides must be single connected pieces, and the shortest real border wins. Exact ties go to the cut nearer its fair population share, then to GEOID order, and direction never breaks a tie. A state with N seats takes exactly N minus 1 cuts, and blocks are never split. A greedy balance then moves single border blocks between neighbors when a move strictly narrows the gap and keeps the giving district connected, so it always terminates. There are three fixed steps, no seeds and no tuning knobs, and each state publishes a SHA-256 fingerprint."
     },
     geoHighlights: [
         { label: "Core Argument", value: "Every US redistricting safeguard is a patch over one flaw, a human who knows party, race and incumbents holding the pen. Remove the human and give the tool only population and geography, because a rule cannot use what it never receives." },
         { label: "Target Audience", value: "Voters, civic-tech builders, journalists and policy staff asking how to end gerrymandering without trusting either party's mapmakers." },
-        { label: "Key Insight", value: "Louisiana v. Callais (April 29, 2026) narrowed Section 2 to a strong inference of intentional discrimination, leaving the main federal safeguard to police intent alone. Fair House Maps draws all 435 districts in three fixed steps and about 780 lines of core code." }
+        { label: "Key Insight", value: "Louisiana v. Callais (April 29, 2026) narrowed Section 2 to a strong inference of intentional discrimination, leaving the main federal safeguard to police intent alone. Fair Maps draws every U.S. House, State House and State Senate district, 7,210 in all, in three fixed steps with no seeds and no tuning knobs." }
     ],
-    content: `The way to end gerrymandering is to remove the person who draws the lines. Every safeguard the United States has built is a patch over the same flaw, a human holding the pen, and a patch cannot fix a flaw it leaves in place. I built a tool that removes the human: [Fair House Maps](https://fairmaps.melson.us) draws all 435 House districts from population and geography alone, in three fixed steps.
+    content: `The way to end gerrymandering is to remove the person who draws the lines. Every safeguard the United States has built is a patch over the same flaw, a human holding the pen, and a patch cannot fix a flaw it leaves in place. I built a tool that removes the human: [Fair Maps](https://fairmaps.melson.us) draws every U.S. House, State House and State Senate district, 7,210 in all, from population and geography alone, in three fixed steps.
 
 My work as an operational architect is mostly about finding the point where a process depends on someone's discretion and asking whether that point needs to exist (see [what an operational architect does](/guide/operational-architecture/blog/operational-architect-definitive-guide)). Redistricting is the clearest case I know. This is not a partisan argument, and both parties appear in the evidence below.
 
@@ -29,7 +29,7 @@ My work as an operational architect is mostly about finding the point where a pr
 > - Louisiana v. Callais (April 29, 2026) did not strike down Section 2, but it narrowed it to a strong inference of intentional discrimination. A rule that never receives race or party data cannot have intent.
 > - Leaving humans in the loop produces endless reversal: maps drawn, struck, redrawn and reinstated in state after state.
 > - About 7 in 10 Democrats, Independents and Republicans say states should not draw districts that favor a party.
-> - Simplest is best: population plus geography, three fixed steps, no knobs, no seeds, about 780 lines of core code, and a SHA-256 fingerprint anyone can rerun and match.
+> - Simplest is best: population plus geography, three fixed steps, three fixed steps, no seeds, no tuning knobs, and a SHA-256 fingerprint anyone can rerun and match.
 
 ---
 
@@ -121,39 +121,41 @@ Nobody can settle that in advance. CalMatters found [public commenters in Califo
 
 Even rule-bound bodies keep discretion. The [Boundary Commission for England](https://boundarycommissionforengland.independent.gov.uk/2023-review/guide-to-the-2023-review-of-parliamentary-constituencies/page/3/) keeps constituencies within 5 percent of an electoral quota of 73,393, and [Canada uses ten provincial commissions](https://www.elections.ca/content.aspx?section=res&dir=cir%2Fred%2Ffaq&document=index&lang=e) of three members each, chaired by a judge. Both still weigh local ties, so judgment remains.
 
-## The simple fix: Fair House Maps and shortest splitline
+## The simple fix: Fair Maps and shortest splitline
 
-The principle is that the simplest design with the fewest inputs is best. Every input is a place where bias can enter, so the rule takes two things, population and geography, and runs three fixed steps. Warren D. Smith [published the shortest splitline method on RangeVoting.org](https://rangevoting.org/Splitlining.html), and Fair House Maps builds on it for all 50 states and 435 seats.
+The principle is that the simplest design with the fewest inputs is best. Every input is a place where bias can enter, so the rule takes two things, population and geography, and runs three fixed steps. Fair Maps applies a shortest splitline rule, which draws districts by cutting a region again and again with the shortest straight line that splits its people correctly, to all 50 states and three chambers.
 
 ### What goes in, and what never does
 
-For each 2020 Census block: its population count, its polygon, and an internal point used only to order blocks across a guide line. Plus the number of House seats each state received in the 2020 apportionment. That is all.
+For each 2020 Census block: its population count, its polygon, and an internal point used only to order blocks across a guide line. Plus the number of districts in the chamber: the 2020 apportionment for the U.S. House, and the district count from the Census Bureau's 2025 state legislative files for the State House and State Senate. That is all.
 
-It never reads party registration, election results, incumbent addresses, race or ethnicity data, or county and city boundaries. Counties are counted afterward, for reporting only, and the 119th Congress lines appear in the viewer for comparison and are never an input. The tool cannot use what it never receives.
+It never reads party registration, election results, incumbent addresses, race or ethnicity data, or county and city boundaries. Counties are counted afterward, for reporting only, and the current district lines (the 119th Congress, and the 2025 state legislative files) appear in the viewer for comparison and are never an input. The tool cannot use what it never receives.
 
 ### The three steps in plain language
 
-1. **Cut.** A state needing seven seats splits them into three and four. The rule tests 1,800 straight guide lines, one every 0.1 degree across 180 degrees. For each line, blocks are placed by distance from it and population accumulates until one side holds its share of seats. Among lines that leave each side as one connected piece, the one with the shortest real border wins. Then it repeats on each side until every piece has one seat. A state with N seats takes exactly N minus 1 cuts.
-2. **Keep blocks whole.** Census blocks are never split. Stray isolated groups join the surrounding side, and any line that strands a piece is rejected so the next shortest is tried.
-3. **Balance.** The rule finds the district furthest from the ideal population, then moves one border block to a neighbor if that strictly narrows the gap and keeps the source district connected. It repeats until no move helps, so it always stops.
+1. **Cut.** A state needing seven seats splits them into three and four. The rule does an exact search over every possible straight guide line, with no sampled angles. As a line turns, the order of blocks across it changes only when the line becomes parallel to the segment between two blocks' internal points, so each stretch between those moments gives one candidate split. For each candidate, population accumulates across the line until one side holds its share of seats. Among lines that leave each side as one connected piece, the one with the shortest real border wins. Then it repeats on each side until every piece has one seat. A state with N seats takes exactly N minus 1 cuts.
+2. **Keep blocks whole.** Census blocks are never split. A stray block or group cut off from its side joins the side around it, and the line is slid so the people still split evenly. A line that cannot leave each side in one connected piece is passed over for the next shortest.
+3. **Balance.** The rule starts with the district furthest from the ideal population and moves one border block to a neighbor when that strictly narrows the gap between the two districts and leaves the district it came from in one connected piece. Of the allowed moves it takes the one that brings the districts closest to equal overall, and settles any tie by the shorter total border, then GEOID order. It stops when no move helps, so it always stops.
 
 ### Simplicity you can audit
 
-There are no knobs, no random numbers and no seeds. Every tie is broken by a fixed order. The core logic is about 780 lines of TypeScript, roughly 690 for the cut and 88 for the balance, plus about 500 lines of deterministic math. JavaScript engines compute trigonometry slightly differently, so the project uses fdlibm routines instead, and golden IEEE 754 bit-pattern tests lock the results.
+There are no knobs, no random numbers and no seeds: three fixed steps. Every tie is settled by a fixed order. The shortest border wins, then the cut whose first side has people nearer its fair share, then GEOID order. Direction never breaks a tie. JavaScript engines compute trigonometry slightly differently, so the project uses its own port of fdlibm instead, and a test fails if the engine's own versions appear in the generator.
 
-Every state publishes a SHA-256 fingerprint of its final block assignment and a SHA-256 of the Census input file, plus its full cut sequence and a ledger of every block moved in balancing. Anyone can rerun a state and match the fingerprint. To reproduce one, clone the [public repository](https://github.com/mels0n/str-redistricting) and run \`npm install && npm run explore -- --states CO\`.
+Every map publishes a SHA-256 fingerprint of its final block assignment, checked against a pinned SHA-256 of each Census input file, plus its full cut sequence and every balancing move. Anyone can rerun a state and match the fingerprint. To reproduce one, clone the [public repository](https://github.com/mels0n/str-redistricting) and run \`npm install && npm run explore -- --states CO\`.
 
 ### The numbers
 
-The run covers 50 of 50 states, 435 seats and 8,126,956 census blocks. After balancing, the widest population range is New York at 31 people across 26 seats. Florida is 29, Texas 20, California 12 and Colorado 3, and every other state falls between 0 and 13. Colorado shows the balancing step at work: a range of 361 people before balancing, 3 after, in 20 moves, with all eight districts contiguous. The [viewer](https://fairmaps.melson.us) lets you look up your district by address and replay every cut.
+The site covers all 50 states and three chambers: 435 U.S. House districts, 4,833 State House districts and 1,942 State Senate districts, 7,210 in all. Nebraska has a single legislative chamber, so it has a State Senate map and no State House map. Each chamber is drawn independently by the same rule, and state redistricting laws are not applied.
+
+After balancing, the widest U.S. House population range is Florida at 43 people across 28 seats, then New York at 33, California at 26, Tennessee at 16 and Pennsylvania at 14. The median across the 50 states is 2.5 people, and ten states come out at exactly 0. Colorado shows the balancing step at work: a range of 222 people before balancing, 3 after, in 17 moves, with all eight districts contiguous. The median range is 30 people for State House maps and 19 for State Senate maps, and each state's page shows its own figures. The [viewer](https://fairmaps.melson.us) lets you switch chambers, look up your district by address, and replay every cut and balancing move.
 
 ## What this approach gives up
 
-Four trade-offs, and the project states them.
+Three trade-offs, and the project states them.
 
 ### County and city splits
 
-Colorado splits 21 of its 64 counties and Texas splits 108 of 254.
+Counties and cities are not used to draw, so a district can split them. Counties are counted afterward for reporting, and the viewer lists the counties each district touches.
 
 ### No communities-of-interest allowance
 
@@ -162,10 +164,6 @@ A communities-of-interest allowance is another human-judgment input. Someone has
 ### Greedy balancing
 
 The balance step moves single blocks and is not globally optimal.
-
-### A fixed angle step
-
-The 0.1 degree step is part of the recipe. A different step would draw a different, equally rule-bound map.
 
 Humans still choose the rule. The difference is that they choose it once, in public, before anyone can aim it at a particular district, and anyone can rerun it and see what it does.
 
@@ -179,7 +177,7 @@ Urban clustering can skew results under any neutral rule: Chen and Rodden's [res
 
 ## Where do you go from here?
 
-Look up your own district at [Fair House Maps](https://fairmaps.melson.us), compare it with your current one, and read the "How it works" page. Then pick a state, rerun it from the [GitHub repository](https://github.com/mels0n/str-redistricting) and check that your fingerprint matches the published one.
+Look up your own district at [Fair Maps](https://fairmaps.melson.us), compare it with your current one, and read the "How it works" page. Then pick a state, rerun it from the [GitHub repository](https://github.com/mels0n/str-redistricting) and check that your fingerprint matches the published one.
 
 It is the same principle as the [approval-gate model for AI agents](/guide/operational-architecture/blog/governing-ai-agents-approval-gate-model): bound discretion and make every decision auditable. A rule nobody can tune beats discretion everyone suspects.
 
@@ -191,7 +189,7 @@ You remove the human from the drawing step. Every safeguard so far, from one per
 
 ### What is the shortest splitline algorithm?
 
-It is a method for drawing equal-population districts by repeatedly cutting a region with the shortest straight split that divides its population in the right ratio. Warren D. Smith published the idea on RangeVoting.org. Fair House Maps builds on it with 2020 Census blocks, a fixed balancing step and a published fingerprint for each state.
+It is a method for drawing equal-population districts by repeatedly cutting a region with the shortest straight split that divides its population in the right ratio. Fair Maps applies it with 2020 Census blocks, an exact search over every straight line, a fixed balancing step and a published fingerprint for each map.
 
 ### Is gerrymandering legal in the United States?
 
@@ -205,9 +203,9 @@ Commissions change who draws but still leave a human who knows party, race and i
 
 Yes, and Louisiana v. Callais strengthens the case. Section 2 now reaches only a strong inference of intentional discrimination, and a rule that never receives race or party data cannot have intent, because intent requires an intender. Critics note race-blind maps can produce fewer majority-minority districts, but the protection that once justified race-conscious drawing has been narrowed to a test only a human mapmaker can fail.
 
-### How can I check the Fair House Maps map for my district?
+### How can I check the Fair Maps map for my district?
 
-Open fairmaps.melson.us, pick your state, and look up your district by address, then compare it with your current district side by side. To verify the map itself, clone the public repository and rerun the state with npm run explore. The output should match the published SHA-256 fingerprint exactly.
+Open fairmaps.melson.us, pick your chamber and state, look up your district by address, and compare it with the current district lines. To verify the map itself, clone the public repository and rerun the state with npm run explore. The output should match the published SHA-256 fingerprint exactly.
 
 ---
 
@@ -251,8 +249,7 @@ Open fairmaps.melson.us, pick your state, and look up your district by address, 
 - [36] New America. "Can Commissions Make Districting Fairer?" New America. [newamerica.org](https://www.newamerica.org/political-reform/reports/what-we-know-about-redistricting-and-redistricting-reform/can-commissions-make-districting-fairer/)
 - [37] Boundary Commission for England. "Guide to the 2023 Review of Parliamentary Constituencies." Boundary Commission for England, 2023. [boundarycommissionforengland.independent.gov.uk](https://boundarycommissionforengland.independent.gov.uk/2023-review/guide-to-the-2023-review-of-parliamentary-constituencies/page/3/)
 - [38] Elections Canada. "Electoral Boundaries Readjustment FAQ." Elections Canada. [elections.ca](https://www.elections.ca/content.aspx?section=res&dir=cir%2Fred%2Ffaq&document=index&lang=e)
-- [39] Smith, Warren D. "Splitlining." RangeVoting.org. [rangevoting.org](https://rangevoting.org/Splitlining.html)
-- [40] Chen, Jowei; Rodden, Jonathan. "Unintentional Gerrymandering: Political Geography and Electoral Bias in Legislatures." Quarterly Journal of Political Science, 2013. [stanford.edu](https://web.stanford.edu/~jrodden/wp/florida.pdf)
-- [41] Melson, Christopher. "str-redistricting (Fair House Maps and Splitline Generator)." GitHub, 2026. [github.com](https://github.com/mels0n/str-redistricting)
+- [39] Chen, Jowei; Rodden, Jonathan. "Unintentional Gerrymandering: Political Geography and Electoral Bias in Legislatures." Quarterly Journal of Political Science, 2013. [stanford.edu](https://web.stanford.edu/~jrodden/wp/florida.pdf)
+- [40] Melson, Christopher. "str-redistricting (Fair Maps and Splitline Generator)." GitHub, 2026. [github.com](https://github.com/mels0n/str-redistricting)
 `
 };

@@ -120,12 +120,12 @@ export const projects: ProjectData[] = [
         tags: ["typescript", "logic-solver", "calendar"]
     },
     {
-        title: "Fair House Maps",
-        description: "Draws every U.S. House district from 2020 Census block counts in three fixed steps: cut the state along the shortest line that splits its people evenly, keep census blocks whole, then balance single border blocks. No party data, no election results, no incumbent addresses, and anyone who reruns it gets the identical map. The public site finds your district by address, replays every cut and balancing move, and compares against the 119th Congress lines.",
+        title: "Fair Maps",
+        description: "Draws every U.S. House, State House and State Senate district from 2020 Census blocks in three fixed steps: cut along the shortest line that splits the people evenly (an exact search over every possible straight cut, no sampled angles), keep census blocks whole, then balance single border blocks. It uses no party data, no election results and no incumbent addresses, and anyone who reruns it gets the identical map, checkable by fingerprint. The public site finds your district by address and compares it against the enacted lines.",
         link: "github.com/mels0n/str-redistricting",
         website: "https://fairmaps.melson.us",
         image: "/fair_house_maps.png",
-        kpis: [{ label: "States", value: "50 of 50" }, { label: "Widest Range", value: "31 people" }],
+        kpis: [{ label: "Districts", value: "7,210" }, { label: "Widest Range", value: "43 people" }],
         manaCost: "{3}{W}{W}",
         typeLine: "Legendary Sorcery",
         flavorText: "Voters pick their politicians. Not the other way around.",

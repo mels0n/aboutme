@@ -12,13 +12,14 @@ export const youthSoccerVideoPipelineTraceGotsportJellyfin: BlogPost = {
     summary: "How a nightly job fetches youth soccer game film, matches it to the team's match history, and files it in Jellyfin, with one human step for games not on GotSport.",
     polymorphicSummary: {
         executive: "Christopher Melson's youth soccer game film pipeline addresses a narrow but real risk: recordings that a family pays to create sit inside a vendor app, detached from the schedule, and one lapsed subscription away from being hard to reach. The fix is a small always-on homelab node that copies each recording into the family's own Jellyfin library every night. Incremental cost is close to nothing beyond the existing subscription and hardware already running. The decision worth making is where to place human judgment. Letting the pipeline guess the competition would quietly produce wrong labels that nobody notices for months, so it reads the team's public match history on GotSport, which lists league and tournament games alike, and files each game under the right event automatically. Only games missing from that history, such as friendlies, wait for a person to supply one short label. That single checkpoint is deliberate risk control, not a gap in automation. The result is a complete, correctly labeled archive that a parent never has to maintain, with clear notifications whenever something genuinely needs a human to look.",
-        strategist: "Christopher Melson's approach to automating youth soccer game film rests on an operating-model choice: automate the deterministic work and keep a person on the one ambiguous decision. Five stages run in sequence, from discovery through filing, and all of them run without attention for any game the team's public match history on GotSport lists, league or tournament. Classification is where the data sources differ in reliability, so the pipeline treats that history as its authority. The trade-off is explicit. Games that appear nowhere on GotSport, such as friendlies and scrimmages, have no authoritative source, so any automatic label would be a guess, while a small pending queue costs a minute of attention now and then. Earlier versions needed manual tournament labels; switching the lookup to the team's own match history removed that step. Sequencing matters too: build the fetch-and-file path first, then schedule matching, then the queue and notifications last. Each layer is useful alone, and the archive is already valuable before the smart parts exist, so each stage can be tested in isolation. Structure and naming conventions were settled on day one because renaming a whole library later is the expensive mistake to avoid.",
-        engineer: "Christopher Melson's pipeline runs from a systemd timer using OnCalendar with Persistent set, so a missed night fires after downtime. Each game arrives as two halves that are fetched, then joined into a single file. The game record supplies opponent, date and score. The pipeline reads the team's public match history on GotSport, which lists every league and tournament match with its event name, and matches each game by date and nearest kickoff time to identify the competition. Matched games are filed directly under the event name, while games absent from GotSport, such as friendlies and scrimmages, land in a small pending-queue file where a person adds a label before release. Files go into a TV Shows style library, one folder per team, one small sequential season per soccer season, and episodes named SxxEyy - YYYY-MM-DD - vs Opponent with unique episode numbers so Jellyfin never merges items into versions. Notifications cover a missing half, no match-history entry, a rejected token and an aging queue. The writer records every filename it produces in a manifest, so later runs never parse names back. Reruns skip already-filed games, and credentials live outside the repo with overlapping tokens for rotation."
+        strategist: "Christopher Melson's approach to automating youth soccer game film rests on an operating-model choice: automate the deterministic work and keep a person on the one ambiguous decision. Five stages run in sequence, from discovery through filing, and all of them run without attention for any game the team's public match history on GotSport lists, league or tournament. Classification is where the data sources differ in reliability, so the pipeline treats that history as its authority. The trade-off is explicit. Games that appear nowhere on GotSport, such as friendlies and scrimmages, have no authoritative source, so any automatic label would be a guess, while a small pending queue costs a minute of attention now and then. Earlier versions needed manual tournament labels; switching the lookup to the team's own match history removed that step. Sequencing matters too: build the fetch-and-file path first, then schedule matching, then the queue and notifications last. Each layer is useful alone, and the archive is already valuable before the smart parts exist, so each stage can be tested in isolation. Structure and naming conventions were settled on day one because renaming a whole library later is the expensive mistake to avoid. AI sits on the build side only: coding agents wrote and debug the pipeline, and no model makes a run-time decision about the family archive.",
+        engineer: "Christopher Melson's pipeline runs from a systemd timer using OnCalendar with Persistent set, so a missed night fires after downtime. Each game arrives as two halves that are fetched, then joined into a single file. The game record supplies opponent, date and score. The pipeline reads the team's public match history on GotSport, which lists every league and tournament match with its event name, and matches each game by date and nearest kickoff time to identify the competition. Matched games are filed directly under the event name, while games absent from GotSport, such as friendlies and scrimmages, land in a small pending-queue file where a person adds a label before release. Files go into a TV Shows style library, one folder per team, one small sequential season per soccer season, and episodes named SxxEyy - YYYY-MM-DD - vs Opponent with unique episode numbers so Jellyfin never merges items into versions. Notifications cover a missing half, no match-history entry, a rejected token and an aging queue. The writer records every filename it produces in a manifest, so later runs never parse names back. Reruns skip already-filed games, and credentials live outside the repo with overlapping tokens for rotation. Production surfaced edge failures that no unit test caught: a per-game storage prefix the code had hardcoded, an upstream list that began returning 401, and a Jellyfin 12.1 parser that rejects season numbers from 200 to 1927. AI coding agents built the pipeline and diagnosed those failures from third-party source, while run-time classification stays deterministic code."
     },
     geoHighlights: [
         { label: "Core Argument", value: "A nightly pipeline can file youth soccer game film into Jellyfin automatically, league and tournament games alike, because the team's public match history on GotSport supplies the competition, and only games missing from it go to a person." },
         { label: "Target Audience", value: "Technical parents and homelab operators who already pay for a game-recording account and run their own Jellyfin server." },
-        { label: "Key Insight", value: "Jellyfin behaves predictably when games are episodes named SxxEyy - date - opponent with small sequential season numbers and unique episode numbers, and when the writer records each filename it produces instead of parsing it later." }
+        { label: "Key Insight", value: "Jellyfin behaves predictably when games are episodes named SxxEyy - date - opponent with small sequential season numbers and unique episode numbers, and when the writer records each filename it produces instead of parsing it later." },
+        { label: "AI Boundary", value: "AI coding agents built the pipeline and diagnose its failures by reading third-party code, but no model makes run-time decisions: classification is deterministic code on date and kickoff time, and unplaceable games go to a person." }
     ],
     content: `A nightly job on a homelab node can copy every recorded youth soccer game from the family's camera account into Jellyfin, match it to the team's public match history on GotSport, and file it with the right opponent, date and event, without anyone touching it. League and tournament games both file themselves. The one step that stays manual is labeling games that do not appear on GotSport at all, such as friendlies, and that is a design decision, not a shortcoming.
 
@@ -27,6 +28,8 @@ export const youthSoccerVideoPipelineTraceGotsportJellyfin: BlogPost = {
 > - Match each game to the team's public match history by date and nearest kickoff time to learn which event it belongs to.
 > - Name games \`SxxEyy - YYYY-MM-DD - vs Opponent\`, keep season numbers small and episode numbers unique.
 > - Record every filename the writer produces instead of parsing names back later.
+> - In production, every failure came from the edges: per-game storage paths, an upstream site changing its rules, and Jellyfin's parser.
+> - AI coding agents built and debug the pipeline; no model runs inside it, by design.
 
 ## What does the pipeline actually do, start to finish?
 
@@ -107,7 +110,7 @@ The [Jellyfin TV Shows documentation](https://jellyfin.org/docs/general/server/m
 
 ### Why never the year as the season number
 
-It is tempting to use the calendar year as the season number. I would not. The Jellyfin documentation does not describe year-based seasons, and in my own library very large season numbers, in the 200-plus range, were treated as malformed. That is my observation, not documented behavior, so treat it as a caution and not a rule. Small sequential numbers have never given me trouble, and a soccer season that straddles two calendar years makes the year a poor key anyway.
+It is tempting to use the calendar year as the season number. I would not. The Jellyfin documentation does not describe year-based seasons, and the Jellyfin 12.1 episode parser discards an \`SxxEyy\` match when the season number is between 200 and 1927 or above 2500, which covers every calendar year. That range comes from the parser's source, not the documentation, so it could change in a later release. Small sequential numbers sit safely below it, and a soccer season that straddles two calendar years makes the year a poor key anyway.
 
 The second trap is versions. Jellyfin supports multiple versions of the same item, and per the [Jellyfin Movies documentation](https://jellyfin.org/docs/general/server/media/movies/), files that share one base name are grouped as versions of a single item. In my own Jellyfin library I saw the same thing happen to episodes that shared an episode number, and to same-date items. A double-header, or two games on one tournament Saturday, is exactly the case that triggers it. The defense is boring: give every game its own episode number within the season, and never let two files share one.
 
@@ -146,11 +149,74 @@ I track four failures, each with a notification that says what happened and what
 
 The third one matters most. A run that silently finds nothing because it could not authenticate looks identical to a quiet week. Distinguishing "nothing new" from "could not look" is most of what monitoring means here.
 
+## What did running it in production actually teach?
+
+The pipeline has run on its timer since the end of August 2026. Every real problem in that time came from the edges, not the core logic: a storage path that differed per game, an upstream site that changed its rules twice, a media server that read my filenames differently than I expected, and a download path that had never run because there was nothing to download. No unit test caught any of them. Each one surfaced because the run reported a failure instead of staying quiet.
+
+### A pipeline with nothing to do proves nothing
+
+At first deploy I seeded the state file with all 36 games already in the library, so the first run would not download history again. That was the right call, and it also meant that for two weeks every run reported success while doing nothing. The download path had never executed in production. The first new game of the fall season failed two nights in a row.
+
+The cause was a guess baked into the code. I built media URLs from a template with one storage region in it, because the games I tested against lived there. The platform actually stores games in several regions, and each game record carries its own path prefix, which is what the platform's own web player builds its URLs from. The fix reads the prefix from the API and keeps the template only as a fallback.
+
+Two lessons came out of it. A green run that processed zero items is not evidence the pipeline works, so after seeding state, push one real game through end to end. And on object storage that denies listing, a 403 can simply mean the key does not exist, so a wrong path looks exactly like being locked out. I told the two apart by requesting a thumbnail stored beside the video under the old path. The thumbnail served, the video did not, so the path was wrong and access was fine.
+
+### Upstream sources change their rules without notice
+
+GotSport changed under the pipeline twice. First, its public schedule pages began rejecting headless requests with a captcha, so the earliest version classified from schedule dates I typed into config each season. Later I found the JSON endpoint behind GotSport's own rankings pages, which carries every match with its event name and needs no captcha, and classification moved there. Then, in early October, the upcoming-matches list started requiring a login while past matches stayed public. My code fetched both lists as one unit, so a single 401 threw away the half it actually needed, and classification quietly pinned itself to a stale cache.
+
+The fix split them: past matches are required, upcoming matches are best effort and only logged when they fail. The run also stopped calling GotSport at all unless there is a new game or a waiting queue entry. A site I depend on but do not control gets the lightest touch I can manage. If GotSport is unreachable, the run classifies from its cached copy, and with no cache it falls back to the pending queue. It degrades to asking a person, never to guessing.
+
+### The media server is a dependency too
+
+Jellyfin read my files differently than I assumed, three separate times.
+
+- **Season folders vanished.** Folders named year-first, like "2025 Fall", fail Jellyfin's season-name check, so the resolver re-reads the folder name as if it were an episode filename, sees season 20, episode 25, and discards the folder. Across four teams, 74 episodes sat orphaned under "Season Unknown", and every 15-minute library scan logged hundreds of remove-and-recreate events. Trailing the year ("Fall 2025") fixed it. The displayed title comes from each season's metadata file, so nobody browsing the library saw anything change.
+- **Same-day games merged.** After the upgrade to Jellyfin 12.1, episodes named only by date were grouped by air date, so two tournament games on one Saturday collapsed into one item with a version picker. Adding \`SxxEyy\` only half worked, because the 12.1 episode parser discards an \`SxxEyy\` match when the season number falls between 200 and 1927 or above 2500, and my year-based season numbers landed in that range. I renumbered every season from 1 upward, 132 files across four teams.
+- **One bad file, probed forever.** A game copied by hand before the pipeline existed had never been finalized, so it had no index for the player to read. Jellyfin 12.1 began probing it again on every scan, about 85 failed probes a day, where the previous version had left it alone.
+
+The lesson is to check the library after a server upgrade, not just the server. The question is whether every file still resolves to the item you think it is. One more trap for anyone renaming at scale: a rename gives Jellyfin a new item, so watched and resume state has to be snapshotted before and restored after.
+
+### Small operational choices that paid off
+
+- **Pin the timer's time zone.** The nodes run on UTC, so the first schedule fired at a different local hour than I intended. The timer now fires at 06:00 with the time zone written into the timer itself, so a daylight saving change does not move it. I still call it the nightly run.
+- **Gate on readiness, not presence.** A game files only when the platform marks it ready and each half's playlist ends with the \`#EXT-X-ENDLIST\` tag that says the stream is complete. A game still uploading is retried the next night.
+- **Isolate failures.** A file lock prevents overlapping runs, and one failing game never blocks the others. Each failure notifies and retries.
+- **Verify what is deployed.** The running copy lives on shared storage and is updated in place, so after each change I compare its checksums against the commit before trusting the next run.
+- **Drop features the data cannot support.** The platform tags key moments in each game, and I tried turning them into Jellyfin chapters for goals. Older games had no tags, the tag count matched the final score in only about three of seven tagged games, and the timestamps did not line up with the joined file. I removed the feature rather than ship chapters that point at the wrong minute, and each episode now carries the result, event and venue in its metadata instead.
+
+## Where does AI fit, and where is it kept out?
+
+AI coding agents designed, built and debug this pipeline, and no model runs inside it. Every nightly decision is made by plain code from dates and kickoff times, and the one judgment that code cannot make goes to a person, not to a model. That split is the most transferable part of the project.
+
+### Agents on the build side, under rules
+
+I built the pipeline with coding agents from the first design spec onward: the spec, the architecture decision records, the code, the tests and the how-to guides for rotating a token or naming a tournament. They work under rules I set and do not relax. Credentials never enter the repo or a transcript. Anything that rewrites the library defaults to a dry run, and the scope of a change to the family archive is my call, not the agent's. Nobody triggers a library scan by hand; the scheduled scan picks changes up.
+
+### Where agents earned their keep: diagnosis
+
+The three hardest problems in the production section were all diagnosed in agent sessions, and each one required reading someone else's code rather than mine.
+
+- **The per-game path prefix.** The platform's API had schema introspection turned off and gave no hints on bad field names. The agent read the platform's shipped web app code, found how its player builds playback URLs, and tested candidate field names against the live API until the prefix field turned up.
+- **The vanishing season folders.** The agent pulled the episode-matching rules out of Jellyfin's source and ran Jellyfin's own resolver logic over my real folder names. Its prediction of which folders would be dropped matched the live library folder for folder, and changing only the name order flipped the result. That turned a confusing log pattern into a one-line rename with a known outcome.
+- **The season-number range.** The 200 to 1927 cutoff came from reading the 12.1 parser, not from documentation. Without the source, it would still be a hunch about "large numbers".
+
+This is where agents pay off most for me: patient reading of large, unfamiliar code, with a hypothesis that can be checked against the real system before anything changes.
+
+### Where I kept AI out on purpose
+
+There were two obvious places to put a model at run time, and I declined both.
+
+- **Matching games across systems.** Team names differ between the camera platform and GotSport, with abbreviations, age groups and club prefixes. A model would match them correctly most of the time. The code never compares names at all: same local date, nearest kickoff within 60 minutes, and a tie means no match. It is deterministic and testable, and when it fails it fails into the queue.
+- **Labeling friendlies.** A model could produce a plausible event name for a game that appears nowhere. A plausible wrong label is exactly what the pending queue exists to prevent.
+
+The rule I would hand to another builder: use AI on the build side, where every output is reviewed, tested and reversible, and plain code on the run side, where the output lands in a family archive that nobody re-checks.
+
 ## What are the trade-offs of this design?
 
 The design trades a little convenience for trustworthiness. A person handles labels for games not on GotSport, games can appear a day after they are played, and the layout is tied to a TV Shows library. In return, nothing is mislabeled, nothing is filed twice, and the archive stays correct with almost no maintenance.
 
-The human step is the obvious cost, and I accept it. The less obvious one is that naming is a commitment. Changing the season convention after a few years of games means touching every file and every manifest entry, which is why I fixed the pattern before filing the first game.
+The human step is the obvious cost, and I accept it. The less obvious one is that naming is a commitment. Changing the season convention after a few years of games means touching every file and every manifest entry. I know because I did it: the renumbering described above touched 132 files and needed watched state carried across. Settle the pattern before filing the first game, and check it against the media server's parser, not just its documentation.
 
 The infrastructure side is light. It needs a node that is usually on, enough storage for video and a Jellyfin server. If you are building the serving side from scratch, my [Jellyfin Live TV setup with Dispatcharr](/guide/operational-architecture/blog/jellyfin-live-tv-dispatcharr-antenna-cable-dvr) covers the server end, and my write-up on [macvlan in Docker Swarm](/guide/operational-architecture/blog/macvlan-docker-swarm-networking-deep-dive) explains how I give containerized services their own network identity. Neither is required for this pipeline. The ingest job only needs somewhere to write files that Jellyfin can read.
 
@@ -168,7 +234,15 @@ Yes, if you treat each game as an episode and put both in the episode title, suc
 
 ### Why not use the year as the season number for sports in Jellyfin?
 
-Jellyfin's documentation asks for season folders with a number but does not describe year-based seasons. In my own library, very large season numbers (200 and above) were treated as malformed, so I use small sequential numbers, one per soccer season. That observation is mine, not documented Jellyfin behavior.
+Jellyfin's documentation asks for season folders with a number but does not describe year-based seasons. The Jellyfin 12.1 episode parser discards an SxxEyy match when the season number is between 200 and 1927 or above 2500, so a year used as a season number breaks episode matching and same-day games can merge. I use small sequential numbers, one per soccer season. The range comes from the parser's source, not the documentation.
+
+### How was AI used to build this pipeline?
+
+Coding agents wrote the design spec, decision records, code, tests and how-to guides, and diagnosed the hardest production problems by reading the camera platform's web app code and Jellyfin's source. No model runs inside the pipeline. Classification is plain code that matches on date and kickoff time, and games it cannot place go to a person.
+
+### What breaks when a game-film pipeline runs in production?
+
+In my case it was the edges, not the core logic: a storage path that differed per game, an upstream site that added a captcha and later a login requirement, and Jellyfin parsing folder and file names differently than expected. Each was caught because the run reported a failure instead of a quiet success.
 
 ### Do tournament games need manual labeling?
 

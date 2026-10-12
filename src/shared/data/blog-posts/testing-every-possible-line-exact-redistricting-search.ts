@@ -38,7 +38,7 @@ A measurable gain. In my own prototype measurements, the exact winner for Rhode 
 
 ### Why start with a proof of concept
 
-The first cut step tried 1,800 directions, one every 0.1 degrees, and ranked the candidate lines by border length rounded to the centimeter. That was the right first stage: 0.1 degree is a fine step, 1,800 candidates is a cheap search, and it let me prove the pipeline end to end on all 50 states quickly, with California in about 2.6 minutes. The public history shows the handover to stage two: a commit that [compared lengths exactly instead of rounding them](https://github.com/mels0n/str-redistricting/commit/61264a8), and the one that followed, which states [the cut search no longer samples 1,800 directions](https://github.com/mels0n/str-redistricting/commit/544a5b8).
+The first cut step tried 1,800 directions, one every 0.1 degrees, and ranked the candidate lines by border length rounded to the centimeter. That was the right first stage: 0.1 degree is a fine step, 1,800 candidates is a cheap search, and it let me prove the pipeline end to end on all 50 states quickly, with California in about 2.6 minutes. The public history on GitHub shows the handover to stage two: a change that [compared lengths exactly instead of rounding them](https://github.com/mels0n/str-redistricting), and the one that followed, which states the cut search no longer samples 1,800 directions.
 
 The remaining question was how much the 0.1 degree step mattered. The way to measure it was to stop sampling.
 
@@ -46,7 +46,7 @@ The remaining question was how much the 0.1 degree step mattered. The way to mea
 
 As a cutting line turns, the two sides it creates only change at particular angles: the ones where the line runs parallel to the segment between two blocks' center points. Between two such angles, every direction gives the same split, the same strays and the same border. So the half turn falls into ranges, and checking each range once covers every straight line.
 
-The project's own method notes put it plainly: [the generator does not sample directions, and a state's first cut has roughly one range per block](https://github.com/mels0n/str-redistricting/blob/main/docs/explanation/how-districts-are-drawn.md). "Every line" feels infinite, yet it is about as many candidates as there are blocks.
+The project's own method notes put it plainly: [the generator does not sample directions, and a state's first cut has roughly one range per block](https://github.com/mels0n/str-redistricting). "Every line" feels infinite, yet it is about as many candidates as there are blocks.
 
 ### What the numbers said
 
@@ -55,7 +55,7 @@ Here are my prototype measurements of the first cut, grid against exact:
 - **Rhode Island:** the grid's winner was at 69.4 degrees with a 61,953 m border. The exact winner was at 88.472 to 88.488 degrees with a 61,548 m border. That is 405 m, or 0.65%, shorter. The winning range is only 0.016 degrees wide, sitting between grid lines that measured 62,122 m and 63,749 m, so it is easy to pass over when sampling.
 - **California:** the grid's winner was at 44.3 degrees with a 537,096 m border. The exact winner was at 15.9193 to 15.9202 degrees with a 535,224 m border. That is 1,872 m, or 0.35%, shorter. This is a lower bound, because in the prototype I only evaluated windows around the best grid directions.
 
-For reference, the published engine today records [California's first cut at 15.9197 degrees and 535,224 m](https://raw.githubusercontent.com/mels0n/str-redistricting/main/public/data/CA/cuts.json) and [Rhode Island's at 88.48 degrees and 61,544 m](https://raw.githubusercontent.com/mels0n/str-redistricting/main/public/data/RI/cuts.json). Rhode Island is 4 meters off its prototype figure, probably because later rule changes touched how strays settle.
+For reference, the published engine today records [California's first cut at 15.9197 degrees and 535,224 m](https://github.com/mels0n/str-redistricting) and Rhode Island's at 88.48 degrees and 61,544 m. Rhode Island is 4 meters off its prototype figure, probably because later rule changes touched how strays settle.
 
 ### What it did to real maps
 
@@ -70,7 +70,7 @@ I then compared the old grid maps against the first exact maps for the whole cou
 
 Because a rule that claims the shortest border makes a claim about every line, and a sample only proves the best sampled line. Once the result depends on the step size, the step is an extra rule that nobody voted on and nobody documented. A proof of concept can carry it; the finished method should not.
 
-A finer grid does not escape this. A 0.01 degree step is about 18,000 lines, set against roughly half a million ranges: [California's first cut has 527,534 candidate ranges](https://raw.githubusercontent.com/mels0n/str-redistricting/main/public/data/CA/stats.json) in the published engine, and [Rhode Island's has 26,908](https://raw.githubusercontent.com/mels0n/str-redistricting/main/public/data/RI/stats.json). Even that finer grid touches a few percent of them at best.
+A finer grid does not escape this. A 0.01 degree step is about 18,000 lines, set against roughly half a million ranges: [California's first cut has 527,534 candidate ranges](https://github.com/mels0n/str-redistricting) in the published engine, and Rhode Island's has 26,908. Even that finer grid touches a few percent of them at best.
 
 The test I apply is simple. Change the knob and ask whether the map changes. A 0.1 degree step fails that test, so it belongs to a proof of concept and not to the final method. That distinction comes back in the section on speed-ups.
 
@@ -122,7 +122,7 @@ The next step gave less than I had estimated, and profiling again explained why:
 
 The first exact version took about 28 times the grid's runtime, and profiling-driven changes brought it to about 3.4 times, with the map unchanged at every step.
 
-One caveat. Those figures are from the prototype. The shipped engine, with every tie rule added since, takes [California's U.S. House map 15.3 minutes in the published metrics](https://raw.githubusercontent.com/mels0n/str-redistricting/main/public/data/CA/stats.json), against about 157 seconds in the grid era. Exactness made the maps slower, and I would make the trade again. You can see the maps it produces at [Fair Maps](https://fairmaps.melson.us).
+One caveat. Those figures are from the prototype. The shipped engine, with every tie rule added since, takes [California's U.S. House map 15.3 minutes in the published metrics](https://github.com/mels0n/str-redistricting), against about 157 seconds in the grid era. Exactness made the maps slower, and I would make the trade again. You can see the maps it produces at [Fair Maps](https://fairmaps.melson.us).
 
 ## What else did profiling find?
 
@@ -132,15 +132,15 @@ Three smaller wins, each found the same way: measure, find the dominant cost, fi
 
 Running the cut search on a worker pool, each state alone on 14 threads against the old single-thread baseline, gave these timings (my own measurements): Colorado 35.1 to 11.2 seconds, California 357.1 to 67.9 seconds, Texas 475.1 to 87.5 seconds. Loading, topology, balancing and writing stay single-threaded, which caps the gain.
 
-[Workers claim directions from an atomic counter and write each candidate into its own slot of a shared result buffer](https://github.com/mels0n/str-redistricting/commit/d9a5d0f), so results never depend on scheduling. Thread count can change how long a run takes. It cannot change a map.
+[Workers claim directions from an atomic counter and write each candidate into its own slot of a shared result buffer](https://github.com/mels0n/str-redistricting), so results never depend on scheduling. Thread count can change how long a run takes. It cannot change a map.
 
 ### Nevada's tie stretches
 
-A later profile showed about 70% of Nevada's runtime at 8 threads was serial work: re-sweeping tie stretches on the main thread. [Making each stretch one pool task took Nevada at 8 threads from 53.3 to 23.7 seconds](https://github.com/mels0n/str-redistricting/commit/7205bb9), and the commit records the output as byte-identical for Connecticut, Nevada, Rhode Island and Vermont at 1 and 4 threads.
+A later profile showed about 70% of Nevada's runtime at 8 threads was serial work: re-sweeping tie stretches on the main thread. [Making each stretch one pool task took Nevada at 8 threads from 53.3 to 23.7 seconds](https://github.com/mels0n/str-redistricting), and the output was byte-identical for Connecticut, Nevada, Rhode Island and Vermont at 1 and 4 threads.
 
 ### Balancer connectivity
 
-The balancer checked that a district stayed connected by searching the whole district. Removing a block can only cut paths through that block, so the check now searches only around it. [Balancing California takes 1.1 seconds instead of 1.9, with the same moves and maps](https://github.com/mels0n/str-redistricting/commit/8b989bf).
+The balancer checked that a district stayed connected by searching the whole district. Removing a block can only cut paths through that block, so the check now searches only around it. [Balancing California takes 1.1 seconds instead of 1.9, with the same moves and maps](https://github.com/mels0n/str-redistricting).
 
 ## What ideas did I reject, and why?
 
@@ -156,7 +156,7 @@ A fixed fraction fails too. Picture a dumbbell: the guide line runs the long way
 
 Exact arithmetic is awkward, and rounding coordinates to whole numbers (about 6 millimeters) would simplify it. But it moves every point, so a map could change for reasons unrelated to the sweep. I chose exact sign tests on the coordinates as stored instead.
 
-The need is easy to see on a four-digit calculator. 1.234 times 5.678 is 7.006652, and 2.345 times 2.988 is 7.006860. Both round to 7.007, so the difference reads as zero, a false tie. Keep each product's leftover and the exact difference is minus 0.000208. [The engine computes the quick answer first and falls back to exact integers only at real near-ties](https://github.com/mels0n/str-redistricting/blob/main/docs/explanation/how-districts-are-drawn.md), with no tolerance.
+The need is easy to see on a four-digit calculator. 1.234 times 5.678 is 7.006652, and 2.345 times 2.988 is 7.006860. Both round to 7.007, so the difference reads as zero, a false tie. Keep each product's leftover and the exact difference is minus 0.000208. [The engine computes the quick answer first and falls back to exact integers only at real near-ties](https://github.com/mels0n/str-redistricting), with no tolerance.
 
 Comparing directions works the same way, without angles. Which ramp is steeper, 3 over 10 or 2 over 7? Compare 3 times 7 with 2 times 10: 21 beats 20, so 3 over 10. Every "which comes first" question in the sweep is a multiply-and-subtract like that.
 
@@ -172,7 +172,7 @@ The evidence was layered. California's fingerprint, 1208afea3c4f in my prototype
 
 Fingerprints are the coarse net. The fine net was self-checks that rebuilt every pass from scratch and compared every block (8,204 of 8,204 in the first phase, 13,674 of 13,674 in the second), plus brute force over every Rhode Island range (41,443 of 41,443).
 
-They caught a swap-order bug, and once the checker itself was wrong rather than the engine. A reused tracker could also be handed more free blocks than its arrays were sized for, and in Hawaii that hung a run. [The fix sizes a tracker's heaps for every block](https://github.com/mels0n/str-redistricting/commit/ac19828), with a timeout test so a corrupt tracker fails fast instead of looping.
+They caught a swap-order bug, and once the checker itself was wrong rather than the engine. A reused tracker could also be handed more free blocks than its arrays were sized for, and in Hawaii that hung a run. [The fix sizes a tracker's heaps for every block](https://github.com/mels0n/str-redistricting), with a timeout test so a corrupt tracker fails fast instead of looping.
 
 For tie rules, versioning and release gates, [the post on design rules and release gates](/guide/operational-architecture/blog/redistricting-without-bias-operational-architect-ai-code-gates) covers the rest.
 
@@ -218,17 +218,7 @@ It moved district lines for real people. In my sweep-stage comparison of the old
 
 ### Works Cited
 
-- [1] mels0n. "How districts are drawn." Fair Maps method documentation, GitHub, 2026. [github.com](https://github.com/mels0n/str-redistricting/blob/main/docs/explanation/how-districts-are-drawn.md)
-- [2] mels0n. "Commit 61264a8: feat(splitline): compare candidate borders by exact length, summed in block order." str-redistricting, GitHub, 2026. [github.com](https://github.com/mels0n/str-redistricting/commit/61264a8)
-- [3] mels0n. "Commit 544a5b8: feat(engine)!: cut along the shortest of every straight line, by an exact rotational sweep." str-redistricting, GitHub, 2026. [github.com](https://github.com/mels0n/str-redistricting/commit/544a5b8)
-- [4] mels0n. "Commit d9a5d0f: perf(generator): search cut directions on a worker-thread pool." str-redistricting, GitHub, 2026. [github.com](https://github.com/mels0n/str-redistricting/commit/d9a5d0f)
-- [5] mels0n. "Commit 7205bb9: perf(engine): sweep tie stretches in the worker pool and report the scan counters." str-redistricting, GitHub, 2026. [github.com](https://github.com/mels0n/str-redistricting/commit/7205bb9)
-- [6] mels0n. "Commit 8b989bf: perf(balance): check a district stays connected by searching only around the block." str-redistricting, GitHub, 2026. [github.com](https://github.com/mels0n/str-redistricting/commit/8b989bf)
-- [7] mels0n. "Commit ac19828: fix(engine): size a tracker's heaps for every block, since a reused tracker can take more free blocks than it started with." str-redistricting, GitHub, 2026. [github.com](https://github.com/mels0n/str-redistricting/commit/ac19828)
-- [8] mels0n. "California published statistics (stats.json)." Fair Maps data, GitHub, 2026. [raw.githubusercontent.com](https://raw.githubusercontent.com/mels0n/str-redistricting/main/public/data/CA/stats.json)
-- [9] mels0n. "Rhode Island published statistics (stats.json)." Fair Maps data, GitHub, 2026. [raw.githubusercontent.com](https://raw.githubusercontent.com/mels0n/str-redistricting/main/public/data/RI/stats.json)
-- [10] mels0n. "California published cuts (cuts.json)." Fair Maps data, GitHub, 2026. [raw.githubusercontent.com](https://raw.githubusercontent.com/mels0n/str-redistricting/main/public/data/CA/cuts.json)
-- [11] mels0n. "Rhode Island published cuts (cuts.json)." Fair Maps data, GitHub, 2026. [raw.githubusercontent.com](https://raw.githubusercontent.com/mels0n/str-redistricting/main/public/data/RI/cuts.json)
-- [12] Melson, Christopher. "Fair Maps." Fair Maps, 2026. [fairmaps.melson.us](https://fairmaps.melson.us)
+- [1] Melson, Christopher. "Fair Maps." 2026. [fairmaps.melson.us](https://fairmaps.melson.us)
+- [2] Melson, Christopher. "str-redistricting (Fair Maps source code)." GitHub, 2026. [github.com](https://github.com/mels0n/str-redistricting)
 `
 };

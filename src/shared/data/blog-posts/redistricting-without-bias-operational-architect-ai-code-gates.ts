@@ -26,13 +26,13 @@ export const redistrictingWithoutBiasOperationalArchitectAiCodeGates: BlogPost =
 > - An output nobody can steer comes from deleting choices (ties, caps, rounding, seeds, engine math), not from supervising them.
 > - Reproducibility is the trust mechanism: the same inputs give the same map, bit for bit, on any computer.
 > - AI-written code is governed by gates a human designed: spec, plan, independent review, failing CI checks and a publish gate.
-> - The legislative release drew [7,210 districts](https://github.com/mels0n/str-redistricting/blob/main/config/legislative-districts.json) on an engine whose drawing code did not change, and fingerprints made that checkable.
+> - The legislative release drew [7,210 districts](https://github.com/mels0n/str-redistricting) on an engine whose drawing code did not change, and fingerprints made that checkable.
 
 ## What does it take to build an unbiased redistricting algorithm?
 
 **It takes removing every choice, not policing the people who make them.** The algorithm may read only population and geography, and every remaining decision point (ties, limits, rounding, random numbers, arithmetic, speed shortcuts) must be fixed by a written rule or deleted. Then the output must be reproducible so that anyone can check the claim.
 
-That is operational architecture applied to a map. What an [operational architect does](/guide/operational-architecture/blog/operational-architect-definitive-guide) is design the system so that the right outcome is the only outcome the system can produce, instead of hiring more reviewers to catch the wrong one. The method itself is short: cut a state with the shortest straight line that splits its people evenly, keep census blocks whole, then balance by moving single border blocks. It is all in the [plain-language explanation](https://github.com/mels0n/str-redistricting/blob/main/docs/explanation/how-districts-are-drawn.md) in the public repository.
+That is operational architecture applied to a map. What an [operational architect does](/guide/operational-architecture/blog/operational-architect-definitive-guide) is design the system so that the right outcome is the only outcome the system can produce, instead of hiring more reviewers to catch the wrong one. The method itself is short: cut a state with the shortest straight line that splits its people evenly, keep census blocks whole, then balance by moving single border blocks. It is all in the [plain-language explanation](https://github.com/mels0n/str-redistricting) in the public repository.
 
 ## Where do the hidden choices live?
 
@@ -46,7 +46,7 @@ In this system a tie means two different cuts whose borders are exactly equal in
 
 ### The rule today
 
-The [engine changelog](https://github.com/mels0n/str-redistricting/blob/main/changelog/engine.md) states it in one sentence: ties go to the shorter border, then to the sides nearer their fair shares of people, then to the GEOID. Direction never breaks a tie, and the [method documentation](https://github.com/mels0n/str-redistricting/blob/main/docs/explanation/how-districts-are-drawn.md) says so in plain words: no direction is preferred over another. Balancing has its own tie rules (shorter total border, then GEOID, never the district number), and districts are numbered from the side holding the lowest GEOID.
+The [engine changelog](https://github.com/mels0n/str-redistricting) states it in one sentence: ties go to the shorter border, then to the sides nearer their fair shares of people, then to the GEOID. Direction never breaks a tie, and the method documentation says so in plain words: no direction is preferred over another. Balancing has its own tie rules (shorter total border, then GEOID, never the district number), and districts are numbered from the side holding the lowest GEOID.
 
 ### The direction preferences I removed
 
@@ -58,13 +58,13 @@ One question exposed a hole. I asked whether a line read top-down and the same l
 
 ### The four-block strip
 
-Why do people come before GEOID in the order? A four-block strip with populations 3, 1, 1, 1 shows it. A sliver of directions splits off two of the six people, with a border exactly as long as the three-and-three split. GEOID alone would take the two-and-four cut. The people rule takes three and three, which is what the method is trying to do anyway. The case is pinned in a [public test](https://github.com/mels0n/str-redistricting/blob/main/tests/server/features/splitline-cut.test.ts), so the order cannot drift.
+Why do people come before GEOID in the order? A four-block strip with populations 3, 1, 1, 1 shows it. A sliver of directions splits off two of the six people, with a border exactly as long as the three-and-three split. GEOID alone would take the two-and-four cut. The people rule takes three and three, which is what the method is trying to do anyway. The case is pinned in a [public test](https://github.com/mels0n/str-redistricting), so the order cannot drift.
 
 ## Why no caps, no rounding, no seeds?
 
 Because each of them is a number or a coin flip somebody could later defend as reasonable and nobody could defend as neutral. A cap looks like a decision even when it is harmless. So the rule is no limit on strays, no rounding of coordinates, no random numbers, and no seed.
 
-The first version capped how many people a stray piece could hold, at one percent. I removed it, and the documentation now says there is [no limit on how many people a stray piece holds](https://github.com/mels0n/str-redistricting/blob/main/docs/explanation/how-districts-are-drawn.md). A line that strands a large region still has to win on border length like every other line. I rejected rounding coordinates to about six millimetres to make the arithmetic easy, because it would move every point, and then maps could change for reasons that have nothing to do with the rule. Inside the search, an early safety cap of 4,000 blocks was replaced with a search that needs none. Both paths gave the same answer, but a cap looks like a chosen number, and I did not want a chosen number anywhere.
+The first version capped how many people a stray piece could hold, at one percent. I removed it, and the documentation now says there is [no limit on how many people a stray piece holds](https://github.com/mels0n/str-redistricting). A line that strands a large region still has to win on border length like every other line. I rejected rounding coordinates to about six millimetres to make the arithmetic easy, because it would move every point, and then maps could change for reasons that have nothing to do with the rule. Inside the search, an early safety cap of 4,000 blocks was replaced with a search that needs none. Both paths gave the same answer, but a cap looks like a chosen number, and I did not want a chosen number anywhere.
 
 There are no random numbers and no seeds, because every map would depend on the seed and someone would ask why that one.
 
@@ -74,13 +74,13 @@ You stop trusting the platform. The JavaScript language lets an engine approxima
 
 ### Own trig and an allow-list test
 
-A test scans every server file and fails the build on any Math member outside a list of 13 (floor, ceil, round, trunc, abs, min, max, sqrt, sign, imul, clz32, fround and PI) and on the exponent operator. The file's stated reason is that [the generator must give the same map on any engine](https://github.com/mels0n/str-redistricting/blob/main/tests/server/shared/no-engine-math.test.ts). It began as a block-list of known offenders and became an allow-list, so a function added to the language later is refused by default.
+A test scans every server file and fails the build on any Math member outside a list of 13 (floor, ceil, round, trunc, abs, min, max, sqrt, sign, imul, clz32, fround and PI) and on the exponent operator. The file's stated reason is that [the generator must give the same map on any engine](https://github.com/mels0n/str-redistricting). It began as a block-list of known offenders and became an allow-list, so a function added to the language later is refused by default.
 
-The replacement trigonometry is a port of the fdlibm algorithms for sin, cos, atan, atan2 and asin. A [second test](https://github.com/mels0n/str-redistricting/blob/main/tests/server/shared/detmath.test.ts) holds 64 golden bit patterns across those five functions, so any engine running the suite checks that it reproduces the generator's arithmetic bit for bit. When I swapped the math in, [twelve states were republished and every fingerprint came out identical](https://github.com/mels0n/str-redistricting/commit/0343a8c), so replacing the math changed no map.
+The replacement trigonometry is a port of the fdlibm algorithms for sin, cos, atan, atan2 and asin. A [second test](https://github.com/mels0n/str-redistricting) holds 64 golden bit patterns across those five functions, so any engine running the suite checks that it reproduces the generator's arithmetic bit for bit. When I swapped the math in, twelve states were republished and every fingerprint came out identical, so replacing the math changed no map.
 
 ### Exact arithmetic with no tolerance
 
-Every sweep decision is the sign of (a minus b)(c minus d) minus (e minus f)(g minus h), computed on the coordinates as stored. The code first computes it in ordinary floats and accepts the answer only when it is larger than the worst-case rounding error. Otherwise it recomputes in exact integers. On a four-digit calculator, 1.234 times 5.678 and 2.345 times 2.988 both round to 7.007, a false tie. Keep each product's leftover and the true difference is minus 0.000208. There is no tolerance, because a tolerance is a number someone picked. The [exact module](https://github.com/mels0n/str-redistricting/blob/main/src/server/shared/exact/exact.ts) is 53 lines in the public repository.
+Every sweep decision is the sign of (a minus b)(c minus d) minus (e minus f)(g minus h), computed on the coordinates as stored. The code first computes it in ordinary floats and accepts the answer only when it is larger than the worst-case rounding error. Otherwise it recomputes in exact integers. On a four-digit calculator, 1.234 times 5.678 and 2.345 times 2.988 both round to 7.007, a false tie. Keep each product's leftover and the true difference is minus 0.000208. There is no tolerance, because a tolerance is a number someone picked. The [exact module](https://github.com/mels0n/str-redistricting) is 53 lines in the public repository.
 
 ### Whole micrometres
 
@@ -94,7 +94,7 @@ Exact search is expensive, so speed-ups were inevitable. My rule: switch the spe
 
 Each state publishes a SHA-256 fingerprint of its final assignment file, and every Census input is pinned by hash. Run the same code on the same inputs and the fingerprint matches on any computer and any thread count. A mismatch is evidence, not an opinion.
 
-The [public repository](https://github.com/mels0n/str-redistricting) pins [154 Census input hashes](https://github.com/mels0n/str-redistricting/blob/main/config/census-sha256.json): 50 state block files, 49 State House files, 50 State Senate files and 5 display files. They are checked on download and again on every cache reuse, and if a file is ever reissued the manifest changes only by a deliberate, visible edit. Each finished state also records a run stamp (the pinned input hash, the engine version, a fingerprint of the code that ran and the hash of every file written), and publishing refuses a state whose stamp does not match. On [fairmaps.melson.us](https://fairmaps.melson.us), each state page shows its fingerprint and a reproduce command that clones the tag that drew the map.
+The [public repository](https://github.com/mels0n/str-redistricting) pins 154 Census input hashes: 50 state block files, 49 State House files, 50 State Senate files and 5 display files. They are checked on download and again on every cache reuse, and if a file is ever reissued the manifest changes only by a deliberate, visible edit. Each finished state also records a run stamp (the pinned input hash, the engine version, a fingerprint of the code that ran and the hash of every file written), and publishing refuses a state whose stamp does not match. On [fairmaps.melson.us](https://fairmaps.melson.us), each state page shows its fingerprint and a reproduce command that clones the tag that drew the map.
 
 ## How do you govern an AI coding assistant?
 
@@ -106,11 +106,11 @@ Each change started as a written spec, became a plan of small tasks, was built, 
 
 ### CI gates that fail
 
-The [Code Standards workflow](https://github.com/mels0n/str-redistricting/blob/main/.github/workflows/standards.yml) runs layer-direction rules, typecheck, the test suite (over 1,400 passing tests in my last local run), the build and a version check. Its header says the point plainly: "a rule nobody has seen fail is a rule nobody knows is wired up." A second job redraws five fixture states (CT, NV, RI, VT and the Vermont State Senate) and compares their fingerprints with the base branch's file, never the pull request's own copy. A pull request cannot grade its own homework. There is also a guard that TypeScript is installed, because the dependency checker otherwise cruises zero modules and passes on a completely broken graph.
+The [Code Standards workflow](https://github.com/mels0n/str-redistricting) runs layer-direction rules, typecheck, the test suite (over 1,400 passing tests in my last local run), the build and a version check. Its header says the point plainly: "a rule nobody has seen fail is a rule nobody knows is wired up." A second job redraws five fixture states (CT, NV, RI, VT and the Vermont State Senate) and compares their fingerprints with the base branch's file, never the pull request's own copy. A pull request cannot grade its own homework. There is also a guard that TypeScript is installed, because the dependency checker otherwise cruises zero modules and passes on a completely broken graph.
 
 ### Versions and the publish gate
 
-Six components are versioned separately: engine, input, maps, schema, web and docs. With [enforcement on](https://github.com/mels0n/str-redistricting/blob/main/config/release.json), a change to a component without a version move fails the check. The publish step refuses to replace a published map that changed under the same engine major and the same Census input, and its error says to bump the engine major. A changed district count is the one allowed exception, because the old assignment cannot survive a different number of districts. [Version 1.0.0 was cut on 2026-10-11](https://github.com/mels0n/str-redistricting/blob/main/changelog/engine.md).
+Six components are versioned separately: engine, input, maps, schema, web and docs. With [enforcement on](https://github.com/mels0n/str-redistricting), a change to a component without a version move fails the check. The publish step refuses to replace a published map that changed under the same engine major and the same Census input, and its error says to bump the engine major. A changed district count is the one allowed exception, because the old assignment cannot survive a different number of districts. Version 1.0.0 was cut on 2026-10-11.
 
 <figure role="img" aria-label="Fair Maps uses seven layers of checks, from 13 allowed math functions to 154 pinned Census hashes, so no map change can ship unrecorded." style="margin:1.5rem 0;">
 <div style="display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:stretch;font-size:0.9rem;line-height:1.35;">
@@ -145,12 +145,12 @@ They caught mistakes in the code, whoever wrote it, and none was found by trust.
 - **Swap order.** The same pair of blocks can swap places in two passes at the same direction. A self-check failed, and the fix was to move every tracker with an event at that exact direction before any re-settle.
 - **Tracker direction.** A reused tracker must take the current direction before it is updated. On a Rhode Island sweep the range counts changed even though results matched, and setting the direction first brought the count back.
 - **The checker was wrong.** The from-scratch reference used by the self-checks built too few passes at the start. Lengths and sides agreed but pass counts did not, and the reference was the thing at fault.
-- **The Hawaii infinite loop.** A reused tracker could be handed more free blocks than its arrays held. JavaScript silently drops out-of-range typed-array writes, so the heaps held duplicates and the search could loop forever. The fix sized the arrays for every block in the piece, and a [public test](https://github.com/mels0n/str-redistricting/blob/main/tests/server/features/splitline-tracker-capacity.test.ts) runs the case with a 10-second timeout. All 50 states were then redrawn from scratch.
+- **The Hawaii infinite loop.** A reused tracker could be handed more free blocks than its arrays held. JavaScript silently drops out-of-range typed-array writes, so the heaps held duplicates and the search could loop forever. The fix sized the arrays for every block in the piece, and a [public test](https://github.com/mels0n/str-redistricting) runs the case with a 10-second timeout. All 50 states were then redrawn from scratch.
 - **Release machinery.** Before 1.0.0, the publish gate would have refused the very regeneration the release needed, no 1.0 tags existed so every reproduce command pointed at nothing, and a state that failed mid-run could have its old plan republished under the new stamp. All were fixed before the cut.
 
 ## What happened when the legislative maps shipped on the same engine?
 
-The Fair Maps gates held. Its legislative release added State House and State Senate maps, [435 plus 4,833 plus 1,942, or 7,210 districts](https://github.com/mels0n/str-redistricting/blob/main/config/legislative-districts.json), and a diff of the drawing code against the 1.0.0 tag is empty. California's published fingerprint is identical before and after.
+The Fair Maps gates held. Its legislative release added State House and State Senate maps, [435 plus 4,833 plus 1,942, or 7,210 districts](https://github.com/mels0n/str-redistricting), and a diff of the drawing code against the 1.0.0 tag is empty. California's published fingerprint is identical before and after.
 
 The directories for cutting, balancing, the custom math, the exact arithmetic and the geometry did not change between \`engine-v1.0.0\` and the 1.1.0 release. The engine minor bump covers new capability around it: a chamber option, per-chamber seat counts, and pinning and counting of the Census legislative files. New gates came with it. A \`VT:state-senate\` fixture joined the other four, and the fixture and publish gates now treat a changed district count as an input change. A CI check keeps the district counts honest, and a parity test keeps chamber naming consistent across generator, viewer and share pages.
 
@@ -199,19 +199,7 @@ Each state page shows the SHA-256 fingerprint of its assignment file and a repro
 
 ### Works Cited
 
-- [1] Melson, C. "Fair Maps: districts drawn by a rule." Fair Maps, 2026. [fairmaps.melson.us](https://fairmaps.melson.us)
-- [2] Melson, C. "str-redistricting (Fair Maps source code and tests)." GitHub, 2026. [github.com](https://github.com/mels0n/str-redistricting)
-- [3] Melson, C. "How districts are drawn." Fair Maps documentation, 2026. [github.com](https://github.com/mels0n/str-redistricting/blob/main/docs/explanation/how-districts-are-drawn.md)
-- [4] Melson, C. "Engine changelog." Fair Maps, 2026. [github.com](https://github.com/mels0n/str-redistricting/blob/main/changelog/engine.md)
-- [5] Melson, C. "splitline-cut test." Fair Maps, 2026. [github.com](https://github.com/mels0n/str-redistricting/blob/main/tests/server/features/splitline-cut.test.ts)
-- [6] Melson, C. "no-engine-math test." Fair Maps, 2026. [github.com](https://github.com/mels0n/str-redistricting/blob/main/tests/server/shared/no-engine-math.test.ts)
-- [7] Melson, C. "detmath golden bit patterns test." Fair Maps, 2026. [github.com](https://github.com/mels0n/str-redistricting/blob/main/tests/server/shared/detmath.test.ts)
-- [8] Melson, C. "Exact arithmetic module." Fair Maps, 2026. [github.com](https://github.com/mels0n/str-redistricting/blob/main/src/server/shared/exact/exact.ts)
-- [9] Melson, C. "Pinned Census input hashes." Fair Maps, 2026. [github.com](https://github.com/mels0n/str-redistricting/blob/main/config/census-sha256.json)
-- [10] Melson, C. "Code Standards workflow." Fair Maps, 2026. [github.com](https://github.com/mels0n/str-redistricting/blob/main/.github/workflows/standards.yml)
-- [11] Melson, C. "Release configuration." Fair Maps, 2026. [github.com](https://github.com/mels0n/str-redistricting/blob/main/config/release.json)
-- [12] Melson, C. "splitline tracker capacity test." Fair Maps, 2026. [github.com](https://github.com/mels0n/str-redistricting/blob/main/tests/server/features/splitline-tracker-capacity.test.ts)
-- [13] Melson, C. "Legislative district counts." Fair Maps, 2026. [github.com](https://github.com/mels0n/str-redistricting/blob/main/config/legislative-districts.json)
-- [14] Melson, C. "data: republish after engine-independent math" (commit 0343a8c). Fair Maps, 2026. [github.com](https://github.com/mels0n/str-redistricting/commit/0343a8c)
+- [1] Melson, Christopher. "Fair Maps." 2026. [fairmaps.melson.us](https://fairmaps.melson.us)
+- [2] Melson, Christopher. "str-redistricting (Fair Maps source code)." GitHub, 2026. [github.com](https://github.com/mels0n/str-redistricting)
 `,
 };

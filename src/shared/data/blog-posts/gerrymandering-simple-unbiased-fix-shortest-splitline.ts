@@ -250,6 +250,7 @@ Open fairmaps.melson.us, pick your chamber and state, look up your district by a
 - [37] Boundary Commission for England. "Guide to the 2023 Review of Parliamentary Constituencies." Boundary Commission for England, 2023. [boundarycommissionforengland.independent.gov.uk](https://boundarycommissionforengland.independent.gov.uk/2023-review/guide-to-the-2023-review-of-parliamentary-constituencies/page/3/)
 - [38] Elections Canada. "Electoral Boundaries Readjustment FAQ." Elections Canada. [elections.ca](https://www.elections.ca/content.aspx?section=res&dir=cir%2Fred%2Ffaq&document=index&lang=e)
 - [39] Chen, Jowei; Rodden, Jonathan. "Unintentional Gerrymandering: Political Geography and Electoral Bias in Legislatures." Quarterly Journal of Political Science, 2013. [stanford.edu](https://web.stanford.edu/~jrodden/wp/florida.pdf)
-- [40] Melson, Christopher. "str-redistricting (Fair Maps and Splitline Generator)." GitHub, 2026. [github.com](https://github.com/mels0n/str-redistricting)
+- [40] Melson, Christopher. "Fair Maps." 2026. [fairmaps.melson.us](https://fairmaps.melson.us)
+- [41] Melson, Christopher. "str-redistricting (Fair Maps source code)." GitHub, 2026. [github.com](https://github.com/mels0n/str-redistricting)
 `
 };

@@ -38,7 +38,7 @@ const staticRoutes: SitemapEntry[] = [
     { url: `${BASE_URL}/faq`, lastModified: '2026-04-23', changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/guide/lab`, lastModified: '2026-05-19', changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/guide/office`, lastModified: '2026-05-19', changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE_URL}/guide/operational-architecture`, lastModified: '2026-01-15', changeFrequency: 'monthly', priority: 1.0 },
+    { url: `${BASE_URL}/guide/operational-architecture`, lastModified: '2026-10-12', changeFrequency: 'monthly', priority: 1.0 },
     { url: `${BASE_URL}/guide/operational-architecture/case-studies`, lastModified: '2026-01-10', changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE_URL}/guide/operational-architecture/blog`, lastModified: blogIndexLastModified, changeFrequency: 'weekly', priority: 0.9 },
 ];

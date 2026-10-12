@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { diagnosticContent } from "@/shared/data/diagnostic_content";
 import { BreadcrumbSchema } from "@/shared/ui/BreadcrumbSchema";
+import { officeBlogPosts } from "@/shared/data/published_blog_posts";
+import Link from "next/link";
 
 export const metadata: Metadata = {
     title: "What is an Operational Architect?",
@@ -12,6 +14,9 @@ export const metadata: Metadata = {
 
 export default function OperationalArchitectGuide() {
     const { header, values, diagnosis } = diagnosticContent;
+    const latestPosts = [...officeBlogPosts]
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .slice(0, 3);
 
     // AEO/SEO: FAQ Schema
     const faqSchema = {
@@ -195,6 +200,40 @@ export default function OperationalArchitectGuide() {
                 <blockquote className="text-2xl md:text-3xl font-display font-bold text-foreground/90 max-w-3xl mx-auto">
                     {diagnosis.closing}
                 </blockquote>
+            </section>
+
+            {/* 5. Further reading: internal links into the blog and case studies */}
+            <section className="space-y-8 border-t border-border pt-12">
+                <header className="flex flex-wrap items-baseline justify-between gap-4">
+                    <h2 className="text-2xl font-bold font-display text-foreground">Latest Analysis</h2>
+                    <Link
+                        href="/guide/operational-architecture/blog"
+                        className="text-sm font-sans font-bold uppercase tracking-widest text-blue-600 hover:text-blue-800 transition-colors"
+                    >
+                        All articles <span aria-hidden="true">&rarr;</span>
+                    </Link>
+                </header>
+                <ul className="grid gap-6 md:grid-cols-3">
+                    {latestPosts.map((post) => (
+                        <li key={post.id} className="bg-surface border border-border rounded-xl p-6 space-y-3">
+                            <time dateTime={post.date} className="block text-xs font-sans uppercase tracking-widest text-foreground/50">
+                                {new Date(`${post.date}T00:00:00`).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                            </time>
+                            <h3 className="text-lg font-bold font-display leading-snug text-foreground">
+                                <Link href={`/guide/operational-architecture/blog/${post.slug}`} className="hover:text-blue-700 transition-colors">
+                                    {post.title}
+                                </Link>
+                            </h3>
+                            <p className="text-sm text-foreground/70 leading-relaxed line-clamp-3">{post.summary}</p>
+                        </li>
+                    ))}
+                </ul>
+                <p className="text-foreground/70">
+                    For outcomes from real engagements, see the{" "}
+                    <Link href="/guide/operational-architecture/case-studies" className="font-bold text-blue-700 hover:text-blue-900 underline underline-offset-4">
+                        Operational Architecture case studies
+                    </Link>.
+                </p>
             </section>
 
             {/* JSON-LD Injection */}

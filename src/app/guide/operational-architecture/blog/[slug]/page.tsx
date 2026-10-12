@@ -191,18 +191,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             ].join(" ")}>
                 {/* GEO Optimization: Structured Data Block. Kept light so it
                     reads as a summary strip, not a competing column. */}
-                <dl className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-4 mb-8 md:mb-12 py-5 border-y border-slate-200 font-sans not-prose">
-                    {post.geoHighlights.map((highlight, hIdx) => (
-                        <div key={hIdx} className="flex flex-col">
-                            <dt className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">
-                                {highlight.label}
-                            </dt>
-                            <dd className="text-sm text-slate-700 leading-relaxed">
-                                {highlight.value}
-                            </dd>
-                        </div>
-                    ))}
-                </dl>
+                {post.geoHighlights.length > 0 && (
+                    <dl className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-4 mb-8 md:mb-12 py-5 border-y border-slate-200 font-sans not-prose">
+                        {post.geoHighlights.map((highlight, hIdx) => (
+                            <div key={hIdx} className="flex flex-col">
+                                <dt className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">
+                                    {highlight.label}
+                                </dt>
+                                <dd className="text-sm text-slate-700 leading-relaxed">
+                                    {highlight.value}
+                                </dd>
+                            </div>
+                        ))}
+                    </dl>
+                )}
 
                 <div className="react-markdown">
                     <ReactMarkdown

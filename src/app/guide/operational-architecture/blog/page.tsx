@@ -13,6 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default function BlogListPage() {
+    const sortedPosts = [...officeBlogPosts].sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
+
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
@@ -33,7 +37,7 @@ export default function BlogListPage() {
     };
 
     return (
-        <main className="max-w-4xl mx-auto px-6 py-10 md:py-20 font-serif text-foreground">
+        <main className="max-w-7xl mx-auto px-6 lg:px-10 py-10 md:py-16 font-serif text-foreground">
             <SectionJsonLd data={jsonLd} />
             <BreadcrumbSchema items={[
                 { name: "Home", url: "https://chris.melson.us" },
@@ -52,59 +56,46 @@ export default function BlogListPage() {
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-4 md:mb-8">
                 Operational Architecture Blog
             </h1>
-            <p className="text-xl text-foreground/70 mb-8 md:mb-16 leading-relaxed">
+            <p className="text-xl text-foreground/70 mb-8 md:mb-12 leading-relaxed max-w-3xl">
                 Insights, analysis, and strategic perspectives on building resilient organizations,
                 scaling engineering teams, and navigating the agentic shift.
             </p>
 
-            <div className="space-y-10 md:space-y-16">
-                {officeBlogPosts.map((post, idx) => (
-                    <article key={idx} className="border-t border-current/10 pt-8 md:pt-16 group">
-                        <header className="mb-8">
-                            <div className="text-xs font-mono uppercase tracking-widest opacity-50 mb-4">
-                                {new Date(post.date).toLocaleDateString('en-US', {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                })}
+            <ol className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 border-t border-current/10 pt-8 md:pt-12">
+                {sortedPosts.map((post, idx) => (
+                    <li key={post.id} className={idx === 0 ? "md:col-span-2" : undefined}>
+                        <article className="group relative flex h-full flex-col rounded-lg border border-slate-200 bg-white/60 p-6 md:p-8 transition-colors hover:border-blue-700/40 hover:bg-blue-50/30">
+                            <div className="text-xs font-sans uppercase tracking-widest text-foreground/50 mb-3">
+                                {idx === 0 && <span className="text-blue-700 font-bold">Latest · </span>}
+                                <time dateTime={post.date}>
+                                    {new Date(`${post.date}T00:00:00`).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    })}
+                                </time>
+                                <span aria-hidden="true"> · </span>
+                                {Math.ceil(post.content.split(/\s+/).length / 225)} min read
                             </div>
-                            <h2 className="text-3xl font-bold font-display mb-4 group-hover:text-blue-700 transition-colors">
-                                <Link href={`/guide/operational-architecture/blog/${post.slug}`}>
+                            <h2 className={`font-bold font-display leading-tight mb-3 group-hover:text-blue-700 transition-colors ${idx === 0 ? "text-2xl md:text-4xl" : "text-xl md:text-2xl"}`}>
+                                {/* Stretched link: the whole card is the click target. */}
+                                <Link
+                                    href={`/guide/operational-architecture/blog/${post.slug}`}
+                                    className="after:absolute after:inset-0 after:rounded-lg focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-blue-700"
+                                >
                                     {post.title}
                                 </Link>
                             </h2>
-                            <div className="bg-slate-50 border border-slate-200 p-6 rounded-lg text-slate-800 mb-6">
-                                <h3 className="font-bold mb-2 text-sm uppercase tracking-wide opacity-70">Executive Summary</h3>
-                                <p className="leading-relaxed">{post.polymorphicSummary.executive}</p>
-                            </div>
-
-                            {/* GEO Highlights Preview */}
-                            {post.geoHighlights && post.geoHighlights.length > 0 && (
-                                <dl className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
-                                    {post.geoHighlights.map((highlight, hIdx) => (
-                                        <div key={hIdx} className="flex flex-col">
-                                            <dt className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">
-                                                {highlight.label}
-                                            </dt>
-                                            <dd className="font-bold text-slate-900 leading-tight text-sm">
-                                                {highlight.value}
-                                            </dd>
-                                        </div>
-                                    ))}
-                                </dl>
-                            )}
-
-                            <Link
-                                href={`/guide/operational-architecture/blog/${post.slug}`}
-                                className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-blue-600 hover:text-blue-800 transition-colors border-b-2 border-blue-600/20 hover:border-blue-800 pb-1"
-                            >
-                                Read Full Article
-                                <span aria-hidden="true">&rarr;</span>
-                            </Link>
-                        </header>
-                    </article>
+                            <p className={`text-foreground/75 leading-relaxed mb-6 ${idx === 0 ? "line-clamp-5 md:text-lg" : "line-clamp-4"}`}>
+                                {post.polymorphicSummary.executive}
+                            </p>
+                            <span className="mt-auto inline-flex items-center gap-2 text-sm font-sans font-bold uppercase tracking-widest text-blue-600 group-hover:text-blue-800 transition-colors" aria-hidden="true">
+                                Read article &rarr;
+                            </span>
+                        </article>
+                    </li>
                 ))}
-            </div>
+            </ol>
         </main>
     );
 }

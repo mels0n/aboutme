@@ -32,7 +32,7 @@ export const redistrictingWithoutBiasOperationalArchitectAiCodeGates: BlogPost =
 
 **It takes removing every choice, not policing the people who make them.** The algorithm may read only population and geography, and every remaining decision point (ties, limits, rounding, random numbers, arithmetic, speed-ups) must be fixed by a written rule or deleted. Then the output must be reproducible so that anyone can check the claim.
 
-That is operational architecture applied to a map. What an [operational architect does](/guide/operational-architecture/blog/operational-architect-definitive-guide) is design the system so that the right outcome is the only outcome the system can produce, instead of hiring more reviewers to catch the wrong one. The method itself is short: cut a state with the shortest straight line that splits its people evenly, keep census blocks whole, then balance by moving single border blocks. It is all in the [plain-language explanation](https://github.com/mels0n/str-redistricting) in the public repository.
+That is operational architecture applied to a map. What an [operational architect does](/guide/operational-architecture/blog/operational-architect-definitive-guide) is design the system so that the right outcome is the only outcome the system can produce, instead of hiring more reviewers to catch the wrong one. The method itself is short: cut a state with the shortest straight line that splits its people evenly, keep census blocks whole, then balance by moving single border blocks. It is all in the [plain-language explanation](https://github.com/mels0n/str-redistricting/blob/main/docs/explanation/how-districts-are-drawn.md) in the public repository.
 
 ## Where do the hidden choices live?
 
@@ -46,7 +46,7 @@ In this system a tie means two different cuts whose borders are exactly equal in
 
 ### The rule
 
-The engine changelog states it in one sentence: ties go to the shorter border, then to the sides nearer their fair shares of people, then to the GEOID. Balancing has its own tie rules (shorter total border, then GEOID, never the district number), and districts are numbered from the side holding the lowest GEOID.
+The [engine changelog](https://github.com/mels0n/str-redistricting/blob/main/changelog/engine.md) states it in one sentence: ties go to the shorter border, then to the sides nearer their fair shares of people, then to the GEOID. Balancing has its own tie rules (shorter total border, then GEOID, never the district number), and districts are numbered from the side holding the lowest GEOID.
 
 ### Direction never breaks a tie
 
@@ -74,13 +74,13 @@ You stop trusting the platform. The JavaScript language lets an engine approxima
 
 ### Own trig and an allow-list test
 
-A test scans every server file and fails the build on any Math member outside a list of 13 (floor, ceil, round, trunc, abs, min, max, sqrt, sign, imul, clz32, fround and PI) and on the exponent operator. The file's stated reason is that the generator must give the same map on any engine. It is an allow-list rather than a block-list of known offenders, so a function added to the language later is refused by default.
+[A test scans every server file](https://github.com/mels0n/str-redistricting/blob/main/tests/server/shared/no-engine-math.test.ts) and fails the build on any Math member outside a list of 13 (floor, ceil, round, trunc, abs, min, max, sqrt, sign, imul, clz32, fround and PI) and on the exponent operator. The file's stated reason is that the generator must give the same map on any engine. It is an allow-list rather than a block-list of known offenders, so a function added to the language later is refused by default.
 
-The trigonometry is a port of the fdlibm algorithms for sin, cos, atan, atan2 and asin. A second test holds 64 golden bit patterns across those five functions, so any engine running the suite checks that it reproduces the generator's arithmetic bit for bit. When I swapped the math in, twelve states were republished and every fingerprint came out identical, so replacing the math changed no map.
+The trigonometry is a port of the fdlibm algorithms for sin, cos, atan, atan2 and asin. [A second test](https://github.com/mels0n/str-redistricting/blob/main/tests/server/shared/detmath.test.ts) holds 64 golden bit patterns across those five functions, so any engine running the suite checks that it reproduces the generator's arithmetic bit for bit. When I swapped the math in, twelve states were republished and every fingerprint came out identical, so replacing the math changed no map.
 
 ### Exact arithmetic with no tolerance
 
-Every sweep decision is the sign of (a minus b)(c minus d) minus (e minus f)(g minus h), computed on the coordinates as stored. The code first computes it in ordinary floats and accepts the answer only when it is larger than the worst-case rounding error. Otherwise it recomputes in exact integers. On a four-digit calculator, 1.234 times 5.678 and 2.345 times 2.988 both round to 7.007, a false tie. Keep each product's leftover and the true difference is minus 0.000208. There is no tolerance, because a tolerance is a number someone picked. The exact module is 53 lines in the public repository.
+Every sweep decision is the sign of (a minus b)(c minus d) minus (e minus f)(g minus h), computed on the coordinates as stored. The code first computes it in ordinary floats and accepts the answer only when it is larger than the worst-case rounding error. Otherwise it recomputes in exact integers. On a four-digit calculator, 1.234 times 5.678 and 2.345 times 2.988 both round to 7.007, a false tie. Keep each product's leftover and the true difference is minus 0.000208. There is no tolerance, because a tolerance is a number someone picked. [The exact module](https://github.com/mels0n/str-redistricting/blob/main/src/server/shared/exact/exact.ts) is 53 lines in the public repository.
 
 ### Whole micrometres
 
@@ -94,7 +94,7 @@ Exact search is expensive, so speed-ups are held to one rule: switch the speed-u
 
 Each state publishes a SHA-256 fingerprint of its final assignment file, and every Census input is pinned by hash. Run the same code on the same inputs and the fingerprint matches on any computer and any thread count. A mismatch is evidence, not an opinion.
 
-The public repository pins 154 Census input hashes: 50 state block files, 49 State House files, 50 State Senate files and 5 display files. They are checked on download and again on every cache reuse, and if a file is ever reissued the manifest changes only by a deliberate, visible edit. Each finished state also records a run stamp (the pinned input hash, the engine version, a fingerprint of the code that ran and the hash of every file written), and publishing refuses a state whose stamp does not match. On [fairmaps.melson.us](https://fairmaps.melson.us), each state page shows its fingerprint and a reproduce command that clones the tag that drew the map.
+The public repository [pins 154 Census input hashes](https://github.com/mels0n/str-redistricting/blob/main/config/census-sha256.json): 50 state block files, 49 State House files, 50 State Senate files and 5 display files. They are checked on download and again on every cache reuse, and if a file is ever reissued the manifest changes only by a deliberate, visible edit. Each finished state also records a run stamp (the pinned input hash, the engine version, a fingerprint of the code that ran and the hash of every file written), and publishing refuses a state whose stamp does not match. On [fairmaps.melson.us](https://fairmaps.melson.us), each state page shows its fingerprint and a reproduce command that clones the tag that drew the map.
 
 ## How do you govern an AI coding assistant?
 
@@ -106,11 +106,11 @@ Each change started as a written spec, became a plan of small tasks, was built, 
 
 ### CI gates that fail
 
-The Code Standards workflow runs layer-direction rules, typecheck, the test suite (over 1,400 passing tests in my last local run), the build and a version check. Its header says the point plainly: "a rule nobody has seen fail is a rule nobody knows is wired up." A second job redraws five fixture states (CT, NV, RI, VT and the Vermont State Senate) and compares their fingerprints with the base branch's file, never the pull request's own copy. A pull request cannot grade its own homework. There is also a guard that TypeScript is installed, because the dependency checker otherwise cruises zero modules and passes on a completely broken graph.
+[The Code Standards workflow](https://github.com/mels0n/str-redistricting/blob/main/.github/workflows/standards.yml) runs layer-direction rules, typecheck, the test suite (over 1,400 passing tests in my last local run), the build and a version check. Its header says the point plainly: "a rule nobody has seen fail is a rule nobody knows is wired up." A second job redraws five fixture states (CT, NV, RI, VT and the Vermont State Senate) and compares their fingerprints with the base branch's file, never the pull request's own copy. A pull request cannot grade its own homework. There is also a guard that TypeScript is installed, because the dependency checker otherwise cruises zero modules and passes on a completely broken graph.
 
 ### Versions and the publish gate
 
-Six components are versioned separately: engine, input, maps, schema, web and docs. With enforcement on, a change to a component without a version move fails the check. The publish step refuses to replace a published map that changed under the same engine major and the same Census input, and its error says to bump the engine major. A changed district count is the one allowed exception, because the old assignment cannot survive a different number of districts. Version 1.0.0 was cut on 2026-10-11.
+Six components are versioned separately: engine, input, maps, schema, web and docs. With enforcement on, a change to a component without a version move fails the check. [The publish step](https://github.com/mels0n/str-redistricting/blob/main/src/server/features/publish/gate.ts) refuses to replace a published map that changed under the same engine major and the same Census input, and its error says to bump the engine major. A changed district count is the one allowed exception, because the old assignment cannot survive a different number of districts. Version 1.0.0 was cut on 2026-10-11.
 
 <figure role="img" aria-label="Fair Maps uses seven layers of checks, from 13 allowed math functions to 154 pinned Census hashes, so no map change can ship unrecorded." style="margin:1.5rem 0;">
 <div style="display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:stretch;font-size:0.9rem;line-height:1.35;">

@@ -6,8 +6,8 @@ export const redistrictingWithoutBiasOperationalArchitectAiCodeGates: BlogPost =
     title: "Unbiased Redistricting Algorithm, Built With AI on a Leash",
     author: "Christopher Melson",
     role: "Builder, Fair Maps · Operational Architect",
-    date: "2026-10-15",
-    lastUpdated: "2026-10-15",
+    date: "2026-11-19",
+    lastUpdated: "2026-11-19",
     ogImage: "/images/blog/redistricting-without-bias-operational-architect-ai-code-gates-og.jpg",
     summary: "How I designed an unbiased redistricting algorithm with no discretion in it, then governed an AI coding assistant with specs, review and CI gates.",
     polymorphicSummary: {
@@ -30,19 +30,19 @@ export const redistrictingWithoutBiasOperationalArchitectAiCodeGates: BlogPost =
 
 ## What does it take to build an unbiased redistricting algorithm?
 
-**It takes removing every choice, not policing the people who make them.** The algorithm may read only population and geography, and every remaining decision point (ties, limits, rounding, random numbers, arithmetic, speed shortcuts) must be fixed by a written rule or deleted. Then the output must be reproducible so that anyone can check the claim.
+**It takes removing every choice, not policing the people who make them.** The algorithm may read only population and geography, and every remaining decision point (ties, limits, rounding, random numbers, arithmetic, speed-ups) must be fixed by a written rule or deleted. Then the output must be reproducible so that anyone can check the claim.
 
 That is operational architecture applied to a map. What an [operational architect does](/guide/operational-architecture/blog/operational-architect-definitive-guide) is design the system so that the right outcome is the only outcome the system can produce, instead of hiring more reviewers to catch the wrong one. The method itself is short: cut a state with the shortest straight line that splits its people evenly, keep census blocks whole, then balance by moving single border blocks. It is all in the [plain-language explanation](https://github.com/mels0n/str-redistricting) in the public repository.
 
 ## Where do the hidden choices live?
 
-Discretion hides in places that do not look like decisions. In a map drawer I found seven: the inputs, the tie-breaks, the caps, the rounding, the seeds, the arithmetic and the speed shortcuts. Each one can tilt a map without anyone ever choosing a district line.
+Discretion hides in places that do not look like decisions. A map drawer can hide seven: the inputs, the tie-breaks, the caps, the rounding, the seeds, the arithmetic and the speed-ups. Each one can tilt a map without anyone ever choosing a district line.
 
 Inputs are the obvious one, and the rule is simple: no party data, election results, incumbent addresses or race data, ever. The other six are quieter. A tie-break that prefers one direction is a choice. So is a cap that says a stray piece may hold at most some share of people. Rounding coordinates is a choice, a random seed is a choice, and floating-point math that differs by engine is a choice nobody made on purpose. A faster search that changes the answer is a choice too. The next three sections take them in turn.
 
 ## How do you settle ties without picking a side?
 
-In this system a tie means two different cuts whose borders are exactly equal in length. Settling one by a written order, with no preference for any direction, removes the last place a tie could lean. The order today is shorter border, then people nearer fair shares, then GEOID.
+In this system a tie means two different cuts whose borders are exactly equal in length. Settling one by a written order, with no preference for any direction, removes the last place a tie could lean. The order is shorter border, then people nearer fair shares, then GEOID.
 
 ### The rule
 
@@ -58,7 +58,7 @@ A line read top-down and the same line read bottom-up are both candidates, so an
 
 ### The four-block strip
 
-Why do people come before GEOID in the order? A four-block strip with populations 3, 1, 1, 1 shows it. A sliver of directions splits off two of the six people, with a border exactly as long as the three-and-three split. GEOID alone would take the two-and-four cut. The people rule takes three and three, which is what the method is trying to do anyway. The case is pinned in a public test, so the order cannot drift. How the proof of concept grew into these rules is the subject of [the next post](/guide/operational-architecture/blog/testing-every-possible-line-exact-redistricting-search).
+Why do people come before GEOID in the order? A four-block strip with populations 3, 1, 1, 1 shows it. A sliver of directions splits off two of the six people, with a border exactly as long as the three-and-three split. GEOID alone would take the two-and-four cut. The people rule takes three and three, which is what the method is trying to do anyway. The case is pinned in a public test, so the order cannot drift. A later post covers how the proof of concept grew into an exact search of every possible line.
 
 ## Why no caps, no rounding, no seeds?
 
@@ -74,9 +74,9 @@ You stop trusting the platform. The JavaScript language lets an engine approxima
 
 ### Own trig and an allow-list test
 
-A test scans every server file and fails the build on any Math member outside a list of 13 (floor, ceil, round, trunc, abs, min, max, sqrt, sign, imul, clz32, fround and PI) and on the exponent operator. The file's stated reason is that the generator must give the same map on any engine. It began as a block-list of known offenders and became an allow-list, so a function added to the language later is refused by default.
+A test scans every server file and fails the build on any Math member outside a list of 13 (floor, ceil, round, trunc, abs, min, max, sqrt, sign, imul, clz32, fround and PI) and on the exponent operator. The file's stated reason is that the generator must give the same map on any engine. It is an allow-list rather than a block-list of known offenders, so a function added to the language later is refused by default.
 
-The replacement trigonometry is a port of the fdlibm algorithms for sin, cos, atan, atan2 and asin. A second test holds 64 golden bit patterns across those five functions, so any engine running the suite checks that it reproduces the generator's arithmetic bit for bit. When I swapped the math in, twelve states were republished and every fingerprint came out identical, so replacing the math changed no map.
+The trigonometry is a port of the fdlibm algorithms for sin, cos, atan, atan2 and asin. A second test holds 64 golden bit patterns across those five functions, so any engine running the suite checks that it reproduces the generator's arithmetic bit for bit. When I swapped the math in, twelve states were republished and every fingerprint came out identical, so replacing the math changed no map.
 
 ### Exact arithmetic with no tolerance
 
@@ -88,7 +88,7 @@ Border lengths are stored as whole micrometres, so a sum comes out the same in a
 
 ### The speed-up rule
 
-Exact search is expensive, so speed-ups were inevitable. My rule: switch the speed-up off, and the map must be bit-for-bit identical. A 0.1 degree angle step fails that test, because change the step and the map can change. It would be a rule in disguise, so the search steps through every possible line instead.
+Exact search is expensive, so speed-ups are held to one rule: switch the speed-up off, and the map must be bit-for-bit identical. A speed-up that can change the answer is not allowed, so the search checks every possible straight line.
 
 ## How can anyone verify a map?
 
@@ -145,7 +145,7 @@ They caught mistakes in the code, whoever wrote it, and none was found by trust.
 - **Swap order.** The same pair of blocks can swap places in two passes at the same direction. A self-check failed, and every tracker with an event at that exact direction now moves before any re-settle.
 - **Tracker direction.** A reused tracker must take the current direction before it is updated. On a Rhode Island sweep the range counts changed even though results matched, and setting the direction first brought the count back.
 - **The checker was wrong.** The from-scratch reference used by the self-checks built too few passes at the start. Lengths and sides agreed but pass counts did not, and the reference was the thing at fault.
-- **The Hawaii infinite loop.** A reused tracker could be handed more free blocks than its arrays held. JavaScript silently drops out-of-range typed-array writes, so the heaps held duplicates and the search could loop forever. The arrays are now sized for every block in the piece, and a public test runs the case with a 10-second timeout. All 50 states were then redrawn from scratch.
+- **The Hawaii infinite loop.** A reused tracker could be handed more free blocks than its arrays held. JavaScript silently drops out-of-range typed-array writes, so the heaps held duplicates and the search could loop forever. The arrays are now sized for every block in the piece, and a public test runs the case with a 10-second timeout. All 50 states were then run again from scratch.
 - **Release machinery.** Before 1.0.0, the publish gate would have refused the very regeneration the release needed, no 1.0 tags existed so every reproduce command pointed at nothing, and a state that failed mid-run could have its old plan republished under the new stamp. All were fixed before the cut.
 
 ## What happened when the legislative maps shipped on the same engine?
@@ -167,7 +167,7 @@ Four rules transfer, and so do some honest limits. Delete choices instead of sup
 
 The limits are stated in the documentation: border lengths are measured on a sphere rather than an ellipsoid, exactness is relative to the projected double-precision coordinates, and ranges joined across a chunk edge are identified by length plus a 64-bit fingerprint, not block by block. The maps are not the districts in use. Equality is as close as whole blocks allow.
 
-The [code and tests](https://github.com/mels0n/str-redistricting) are public. Next: [how the proof of concept became an exact search of every possible line](/guide/operational-architecture/blog/testing-every-possible-line-exact-redistricting-search).
+The [code and tests](https://github.com/mels0n/str-redistricting) are public. A later post covers how the proof of concept grew into an exact search of every possible line.
 
 ## Frequently Asked Questions
 

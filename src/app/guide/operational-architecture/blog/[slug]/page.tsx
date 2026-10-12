@@ -189,15 +189,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 // theme, so this mirrors OfficeBlogModal's executive variant.
                 "prose-headings:text-blue-800 prose-a:text-blue-700 prose-strong:text-blue-900",
             ].join(" ")}>
-                {/* GEO Optimization: Structured Data Block. On wide screens
-                    it moves into the sidebar. */}
-                <dl className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 md:mb-12 p-4 md:p-6 bg-slate-50 rounded-lg border border-slate-200 not-prose lg:hidden">
+                {/* GEO Optimization: Structured Data Block. Kept light so it
+                    reads as a summary strip, not a competing column. */}
+                <dl className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-4 mb-8 md:mb-12 py-5 border-y border-slate-200 font-sans not-prose">
                     {post.geoHighlights.map((highlight, hIdx) => (
                         <div key={hIdx} className="flex flex-col">
-                            <dt className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">
+                            <dt className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">
                                 {highlight.label}
                             </dt>
-                            <dd className="font-bold text-slate-900 leading-tight">
+                            <dd className="text-sm text-slate-700 leading-relaxed">
                                 {highlight.value}
                             </dd>
                         </div>
@@ -280,22 +280,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </article>
 
             <aside className="hidden lg:block">
-                <div className="sticky top-8 space-y-8 font-sans">
-                    <dl className="space-y-4 p-5 bg-slate-50 rounded-lg border border-slate-200">
-                        {post.geoHighlights.map((highlight, hIdx) => (
-                            <div key={hIdx}>
-                                <dt className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">
-                                    {highlight.label}
-                                </dt>
-                                <dd className="font-serif font-bold text-slate-900 leading-snug">
-                                    {highlight.value}
-                                </dd>
-                            </div>
-                        ))}
-                    </dl>
-
+                <div className="sticky top-8 font-sans">
                     {toc.length > 0 && (
-                        <nav aria-label="On this page" className="max-h-[calc(100vh-24rem)] overflow-y-auto">
+                        <nav aria-label="On this page" className="max-h-[calc(100vh-4rem)] overflow-y-auto">
                             <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">
                                 On this page
                             </h2>

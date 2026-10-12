@@ -18,11 +18,11 @@ import { officeCaseStudies } from '../src/shared/data/office_case_studies';
 const BASE_URL = 'https://chris.melson.us';
 
 // The blog index lists every published post, so it changes whenever one
-// publishes. Its lastmod is the newer of the latest post date and the last
+// publishes or is updated. Its lastmod is the newer of the latest post date and the last
 // layout change to the index page itself.
 const BLOG_INDEX_LAYOUT_DATE = '2026-10-12';
 const blogIndexLastModified = officeBlogPosts
-    .map(post => post.date)
+    .map(post => post.lastUpdated ?? post.date)
     .reduce((latest, date) => (date > latest ? date : latest), BLOG_INDEX_LAYOUT_DATE);
 
 interface SitemapEntry {

@@ -89,6 +89,20 @@ export default function BlogListPage() {
                             <p className={`text-foreground/75 leading-relaxed mb-6 ${idx === 0 ? "line-clamp-5 md:text-lg" : "line-clamp-4"}`}>
                                 {post.polymorphicSummary.executive}
                             </p>
+                            {post.geoHighlights.length > 0 && (
+                                <dl className={`grid gap-x-6 gap-y-3 mb-6 pt-4 border-t border-slate-200 font-sans ${idx === 0 ? "sm:grid-cols-3" : ""}`}>
+                                    {post.geoHighlights.map((highlight) => (
+                                        <div key={highlight.label}>
+                                            <dt className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-500">
+                                                {highlight.label}
+                                            </dt>
+                                            <dd className="text-sm font-semibold text-slate-800 leading-snug">
+                                                {highlight.value}
+                                            </dd>
+                                        </div>
+                                    ))}
+                                </dl>
+                            )}
                             <span className="mt-auto inline-flex items-center gap-2 text-sm font-sans font-bold uppercase tracking-widest text-blue-600 group-hover:text-blue-800 transition-colors" aria-hidden="true">
                                 Read article &rarr;
                             </span>

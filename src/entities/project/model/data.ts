@@ -125,7 +125,7 @@ export const projects: ProjectData[] = [
         link: "github.com/mels0n/str-redistricting",
         website: "https://fairmaps.melson.us",
         image: "/fair_house_maps.png",
-        kpis: [{ label: "Districts", value: "7,210" }, { label: "Widest Range", value: "43 people" }],
+        kpis: [{ label: "Districts", value: "7,210" }, { label: "Partisan Inputs", value: "0" }],
         manaCost: "{3}{W}{W}",
         typeLine: "Legendary Sorcery",
         flavorText: "Voters pick their politicians. Not the other way around.",

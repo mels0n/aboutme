@@ -167,7 +167,7 @@ Four rules transfer, and so do some honest limits. Delete choices instead of sup
 
 The limits are stated in the documentation: border lengths are measured on a sphere rather than an ellipsoid, exactness is relative to the projected double-precision coordinates, and ranges joined across a chunk edge are identified by length plus a 64-bit fingerprint, not block by block. The maps are not the districts in use. Equality is as close as whole blocks allow.
 
-The [code and tests](https://github.com/mels0n/str-redistricting) are public. Next: [the day my own shortcut turned out wrong](/guide/operational-architecture/blog/testing-every-possible-line-exact-redistricting-search).
+The [code and tests](https://github.com/mels0n/str-redistricting) are public. Next: [how the proof of concept became an exact search of every possible line](/guide/operational-architecture/blog/testing-every-possible-line-exact-redistricting-search).
 
 ## Frequently Asked Questions
 

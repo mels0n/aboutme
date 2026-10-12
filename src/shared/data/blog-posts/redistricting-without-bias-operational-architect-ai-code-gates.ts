@@ -20,7 +20,7 @@ export const redistrictingWithoutBiasOperationalArchitectAiCodeGates: BlogPost =
         { label: "Target Audience", value: "Operators, engineering leaders and civic-tech builders deciding how to govern AI-written code where public trust is the product." },
         { label: "Key Insight", value: "After the legislative release the unchanged 1.0 engine drew 7,210 districts, and fixtures, a publish gate and SHA-256 fingerprints made that claim checkable by anyone." },
     ],
-    content: `I am Christopher Melson, and on Fair Maps I built an unbiased redistricting algorithm, then stopped an AI coding assistant, and myself, from steering it. Design removed every choice a person or machine could make. Governance means nothing merges without gates I designed. The [civic argument for a rule nobody can tune](/guide/operational-architecture/blog/gerrymandering-simple-unbiased-fix-shortest-splitline) is a separate post. This one is the build, live at [fairmaps.melson.us](https://fairmaps.melson.us).
+    content: `I am Christopher Melson, and on Fair Maps I built an unbiased redistricting algorithm, then stopped an AI coding assistant, and myself, from steering it. Design removes every choice a person or machine could make. Governance means nothing merges without gates I designed. The [civic argument for a rule nobody can tune](/guide/operational-architecture/blog/gerrymandering-simple-unbiased-fix-shortest-splitline) is a separate post. This one is the build, live at [fairmaps.melson.us](https://fairmaps.melson.us).
 
 > **Key Takeaways**
 > - An output nobody can steer comes from deleting choices (ties, caps, rounding, seeds, engine math), not from supervising them.
@@ -44,27 +44,27 @@ Inputs are the obvious one, and the rule is simple: no party data, election resu
 
 In this system a tie means two different cuts whose borders are exactly equal in length. Settling one by a written order, with no preference for any direction, removes the last place a tie could lean. The order today is shorter border, then people nearer fair shares, then GEOID.
 
-### The rule today
+### The rule
 
-The engine changelog states it in one sentence: ties go to the shorter border, then to the sides nearer their fair shares of people, then to the GEOID. Direction never breaks a tie, and the method documentation says so in plain words: no direction is preferred over another. Balancing has its own tie rules (shorter total border, then GEOID, never the district number), and districts are numbered from the side holding the lowest GEOID.
+The engine changelog states it in one sentence: ties go to the shorter border, then to the sides nearer their fair shares of people, then to the GEOID. Balancing has its own tie rules (shorter total border, then GEOID, never the district number), and districts are numbered from the side holding the lowest GEOID.
 
-### The direction preferences I removed
+### Direction never breaks a tie
 
-The first version did not work that way. It ranked candidate lines by border length rounded to the centimetre, then by nearest north-south, then by the smaller direction index, then by fewer seats on the low side. Those last three were rules about direction with no basis in the data. They favored one orientation of the map over another for a reason no census block could explain. I removed them, and I replaced the rounding with exact comparison, so only exactly equal borders reach the tie rules.
+Borders are compared exactly, not rounded, so only borders that are exactly equal ever reach the tie rules. When they do, direction plays no part. A preference for the nearer north-south line, for an earlier direction, or for fewer seats on one side would be a rule about direction with no basis in the data. It would favor one orientation of the map over another for a reason no census block could explain. The method documentation says it in plain words: no direction is preferred over another.
 
-### Lines read from both ends
+### Every line is checked from both ends
 
-One question exposed a hole. I asked whether a line read top-down and the same line read bottom-up were both being checked. They were not. On an exact tie, the walk that fills the first side stopped wherever it reached the tie second, and the version from the other end was never examined. The fix re-sweeps only the stretches that contain a tie, on the piece turned half way round, so it is nowhere near twice the work.
+A line read top-down and the same line read bottom-up are both candidates, so an exact tie is seen from either side. On an exact tie, the walk that fills the first side can stop in two places, and the version from the other end is checked too. Only the stretches that contain a tie are swept again, on the piece turned half way round, so the cost is nowhere near twice the work.
 
 ### The four-block strip
 
-Why do people come before GEOID in the order? A four-block strip with populations 3, 1, 1, 1 shows it. A sliver of directions splits off two of the six people, with a border exactly as long as the three-and-three split. GEOID alone would take the two-and-four cut. The people rule takes three and three, which is what the method is trying to do anyway. The case is pinned in a public test, so the order cannot drift.
+Why do people come before GEOID in the order? A four-block strip with populations 3, 1, 1, 1 shows it. A sliver of directions splits off two of the six people, with a border exactly as long as the three-and-three split. GEOID alone would take the two-and-four cut. The people rule takes three and three, which is what the method is trying to do anyway. The case is pinned in a public test, so the order cannot drift. How the proof of concept grew into these rules is the subject of [the next post](/guide/operational-architecture/blog/testing-every-possible-line-exact-redistricting-search).
 
 ## Why no caps, no rounding, no seeds?
 
 Because each of them is a number or a coin flip somebody could later defend as reasonable and nobody could defend as neutral. A cap looks like a decision even when it is harmless. So the rule is no limit on strays, no rounding of coordinates, no random numbers, and no seed.
 
-The first version capped how many people a stray piece could hold, at one percent. I removed it, and the documentation now says there is no limit on how many people a stray piece holds. A line that strands a large region still has to win on border length like every other line. I rejected rounding coordinates to about six millimetres to make the arithmetic easy, because it would move every point, and then maps could change for reasons that have nothing to do with the rule. Inside the search, an early safety cap of 4,000 blocks was replaced with a search that needs none. Both paths gave the same answer, but a cap looks like a chosen number, and I did not want a chosen number anywhere.
+There is no limit on how many people a stray piece holds. A line that strands a large region still has to win on border length like every other line. Coordinates are never rounded to make the arithmetic easy: rounding to about six millimetres would move every point, and then maps could change for reasons that have nothing to do with the rule. Inside the search there is no internal cap either, only a search that needs none. A cap can give the same answer as no cap, but it looks like a chosen number, and the design allows no chosen number anywhere.
 
 There are no random numbers and no seeds, because every map would depend on the seed and someone would ask why that one.
 
@@ -88,7 +88,7 @@ Border lengths are stored as whole micrometres, so a sum comes out the same in a
 
 ### The speed-up rule
 
-Exact search is expensive, so speed-ups were inevitable. My rule: switch the speed-up off, and the map must be bit-for-bit identical. A 0.1 degree angle step fails that test, because change the step and the map can change. It was a rule in disguise. The next post, linked at the end, tells how that rule caught my own shortcut.
+Exact search is expensive, so speed-ups were inevitable. My rule: switch the speed-up off, and the map must be bit-for-bit identical. A 0.1 degree angle step fails that test, because change the step and the map can change. It would be a rule in disguise, so the search steps through every possible line instead.
 
 ## How can anyone verify a map?
 
@@ -142,10 +142,10 @@ I made the same argument for finance in the [approval-gate model for AI agents](
 
 They caught mistakes in the code, whoever wrote it, and none was found by trust. Self-checks that rebuild every result from scratch and compare it, plus review and CI, found a swap-order bug, a tracker direction bug, a wrong checker, an infinite loop in Hawaii and problems in the release machinery.
 
-- **Swap order.** The same pair of blocks can swap places in two passes at the same direction. A self-check failed, and the fix was to move every tracker with an event at that exact direction before any re-settle.
+- **Swap order.** The same pair of blocks can swap places in two passes at the same direction. A self-check failed, and every tracker with an event at that exact direction now moves before any re-settle.
 - **Tracker direction.** A reused tracker must take the current direction before it is updated. On a Rhode Island sweep the range counts changed even though results matched, and setting the direction first brought the count back.
 - **The checker was wrong.** The from-scratch reference used by the self-checks built too few passes at the start. Lengths and sides agreed but pass counts did not, and the reference was the thing at fault.
-- **The Hawaii infinite loop.** A reused tracker could be handed more free blocks than its arrays held. JavaScript silently drops out-of-range typed-array writes, so the heaps held duplicates and the search could loop forever. The fix sized the arrays for every block in the piece, and a public test runs the case with a 10-second timeout. All 50 states were then redrawn from scratch.
+- **The Hawaii infinite loop.** A reused tracker could be handed more free blocks than its arrays held. JavaScript silently drops out-of-range typed-array writes, so the heaps held duplicates and the search could loop forever. The arrays are now sized for every block in the piece, and a public test runs the case with a 10-second timeout. All 50 states were then redrawn from scratch.
 - **Release machinery.** Before 1.0.0, the publish gate would have refused the very regeneration the release needed, no 1.0 tags existed so every reproduce command pointed at nothing, and a state that failed mid-run could have its old plan republished under the new stamp. All were fixed before the cut.
 
 ## What happened when the legislative maps shipped on the same engine?

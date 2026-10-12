@@ -17,13 +17,17 @@ import { officeCaseStudies } from '../src/shared/data/office_case_studies';
 
 const BASE_URL = 'https://chris.melson.us';
 
-// The blog index lists every published post, so it changes whenever one
-// publishes or is updated. Its lastmod is the newer of the latest post date and the last
-// layout change to the index page itself.
-const BLOG_INDEX_LAYOUT_DATE = '2026-10-12';
-const blogIndexLastModified = officeBlogPosts
-    .map(post => post.lastUpdated ?? post.date)
-    .reduce((latest, date) => (date > latest ? date : latest), BLOG_INDEX_LAYOUT_DATE);
+// Pages that list published posts (the blog index, and the guide page's
+// latest-posts section) change whenever a post publishes or is updated. Their
+// lastmod is the newer of the latest post date and the page's own last layout
+// change.
+function latestPostDateSince(layoutDate: string): string {
+    return officeBlogPosts
+        .map(post => post.lastUpdated ?? post.date)
+        .reduce((latest, date) => (date > latest ? date : latest), layoutDate);
+}
+const blogIndexLastModified = latestPostDateSince('2026-10-12');
+const guideLastModified = latestPostDateSince('2026-10-12');
 
 interface SitemapEntry {
     url: string;
@@ -38,7 +42,7 @@ const staticRoutes: SitemapEntry[] = [
     { url: `${BASE_URL}/faq`, lastModified: '2026-04-23', changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/guide/lab`, lastModified: '2026-05-19', changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/guide/office`, lastModified: '2026-05-19', changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE_URL}/guide/operational-architecture`, lastModified: '2026-10-12', changeFrequency: 'monthly', priority: 1.0 },
+    { url: `${BASE_URL}/guide/operational-architecture`, lastModified: guideLastModified, changeFrequency: 'monthly', priority: 1.0 },
     { url: `${BASE_URL}/guide/operational-architecture/case-studies`, lastModified: '2026-01-10', changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE_URL}/guide/operational-architecture/blog`, lastModified: blogIndexLastModified, changeFrequency: 'weekly', priority: 0.9 },
 ];

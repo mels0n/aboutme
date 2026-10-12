@@ -43,5 +43,35 @@
       "provider": "pixabay"
     },
     "at": "2026-10-03T15:32:44.314Z"
+  },
+  "redistricting-without-bias-operational-architect-ai-code-gates": {
+    "source": "stock",
+    "provider": "pixabay",
+    "model": null,
+    "mime": "image/jpeg",
+    "bytes": 186979,
+    "attribution": {
+      "title": "sketch, draw, abstract, circle, technical, rating, image, measure, plan, design, technical, technical, technical, technical, technical, measure",
+      "creator": "422737",
+      "license": "Pixabay Content License",
+      "source": "https://pixabay.com/photos/sketch-draw-abstract-circle-450633/",
+      "provider": "pixabay"
+    },
+    "at": "2026-10-12T16:23:11.044Z"
+  },
+  "testing-every-possible-line-exact-redistricting-search": {
+    "source": "stock",
+    "provider": "pixabay",
+    "model": null,
+    "mime": "image/jpeg",
+    "bytes": 77807,
+    "attribution": {
+      "title": "stop watch, watch, white, quick, dial, second, clock, speed, timer, minute, gray clock, gray watch, gray stop, stop watch, stop watch, stop watch, stop watch, quick, quick, timer, timer, timer, timer, timer, Pakistan, Lahore, Punjab",
+      "creator": "Sadia",
+      "license": "Pixabay Content License",
+      "source": "https://pixabay.com/photos/stop-watch-watch-white-quick-dial-396862/",
+      "provider": "pixabay"
+    },
+    "at": "2026-10-12T16:24:47.394Z"
   }
 }

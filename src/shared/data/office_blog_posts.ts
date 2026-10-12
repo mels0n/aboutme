@@ -22,6 +22,8 @@ import { jellyfinLiveTvDispatcharr } from "./blog-posts/jellyfin-live-tv-dispatc
 import { youthSoccerVideoPipelineTraceGotsportJellyfin } from "./blog-posts/youth-soccer-video-pipeline-trace-gotsport-jellyfin";
 import { governingAiAgentsApprovalGateModel } from "./blog-posts/governing-ai-agents-approval-gate-model";
 import { gerrymanderingSimpleUnbiasedFixShortestSplitline } from "./blog-posts/gerrymandering-simple-unbiased-fix-shortest-splitline";
+import { redistrictingWithoutBiasOperationalArchitectAiCodeGates } from "./blog-posts/redistricting-without-bias-operational-architect-ai-code-gates";
+import { testingEveryPossibleLineExactRedistrictingSearch } from "./blog-posts/testing-every-possible-line-exact-redistricting-search";
 
 export type { BlogPost } from "./blog-post-type";
 
@@ -44,5 +46,7 @@ export const allOfficeBlogPosts: BlogPost[] = [
     jellyfinLiveTvDispatcharr,
     youthSoccerVideoPipelineTraceGotsportJellyfin,
     governingAiAgentsApprovalGateModel,
-    gerrymanderingSimpleUnbiasedFixShortestSplitline
+    gerrymanderingSimpleUnbiasedFixShortestSplitline,
+    redistrictingWithoutBiasOperationalArchitectAiCodeGates,
+    testingEveryPossibleLineExactRedistrictingSearch
 ];

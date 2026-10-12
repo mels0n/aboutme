@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { BlogPost, officeBlogPosts } from "@/shared/data/published_blog_posts";
 import { OfficeBlogModal } from "./OfficeBlogModal";
@@ -47,22 +48,39 @@ export const OfficeBlogGrid = ({ mode: propMode }: OfficeBlogGridProps) => {
                         Operational Insights
                     </h2>
                     <div className="h-px bg-foreground/20 flex-grow" />
+                    <Link
+                        href="/guide/operational-architecture/blog"
+                        className={cn(
+                            "flex items-center gap-1 text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-colors",
+                            mode === 'engineer' ? "text-green-700 hover:text-green-500" :
+                                mode === 'strategist' ? "text-indigo-700 hover:text-indigo-500" : "text-blue-800 hover:text-blue-600"
+                        )}
+                    >
+                        View all articles <ArrowRight className="w-3 h-3" />
+                    </Link>
                 </div>
 
                 {/* Horizontal Scroll Container */}
                 <div className="flex overflow-x-auto gap-6 pb-8 -mx-4 px-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-foreground/10 hover:scrollbar-thumb-foreground/20">
                     {[...officeBlogPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((post) => (
-                        <motion.div
+                        // A real link so crawlers can walk to each post; a plain
+                        // click still opens the modal in place.
+                        <motion.a
                             key={post.id}
+                            href={`/guide/operational-architecture/blog/${post.slug}`}
                             whileHover={{ y: -5 }}
                             className={cn(
-                                "group cursor-pointer relative overflow-hidden rounded-lg border bg-surface/50 backdrop-blur-sm p-6 transition-colors duration-300",
+                                "group block cursor-pointer relative overflow-hidden rounded-lg border bg-surface/50 backdrop-blur-sm p-6 transition-colors duration-300",
                                 "w-[70vw] md:w-[350px] snap-center flex-shrink-0",
                                 mode === 'engineer' ? "border-green-800/20 hover:border-green-500/50 hover:bg-green-50/10" :
                                     mode === 'strategist' ? "border-indigo-800/20 hover:border-indigo-500/50 hover:bg-indigo-50/10" :
                                         "border-blue-900/20 hover:border-blue-700/50 hover:bg-blue-50/10"
                             )}
-                            onClick={() => setSelectedPost(post)}
+                            onClick={(e) => {
+                                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                                e.preventDefault();
+                                setSelectedPost(post);
+                            }}
                         >
                             <div className="space-y-4">
                                 <div className="flex justify-between items-start mb-4 text-xs font-mono uppercase tracking-widest opacity-50">
@@ -100,7 +118,7 @@ export const OfficeBlogGrid = ({ mode: propMode }: OfficeBlogGridProps) => {
                                     Read Analysis ({Math.ceil(post.content.split(/\s+/).length / 225)} min read) <ArrowUpRight className="w-3 h-3" />
                                 </div>
                             </div>
-                        </motion.div>
+                        </motion.a>
                     ))}
                 </div>
             </motion.div>

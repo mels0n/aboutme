@@ -171,7 +171,7 @@ Stage three came later, as a separate step in the move from the proof of concept
 - **People, then GEOID.** An exact tie goes to the sides nearer their fair shares of people, then to the lowest GEOID. Direction never decides.
 - **Both ends of every line.** An exact tie can be reached from either end of a line, so both versions are candidates. Only the stretches that contain a tie are swept again, on the piece turned half way round, so the cost is nowhere near double.
 
-The purpose is simple: no orientation or rounding choice that comes from outside the data can tip an exact tie. These rules affect only exact ties, never which line is shortest, which is why they are a separate concern from the search and could be settled after it.
+The purpose is simple: no orientation or rounding choice that comes from outside the data can tip an exact tie. These rules affect only exact ties, never which line is shortest, which is why they are a separate concern from the search and could be settled after it. Balancing follows the same logic in the current release (engine 2.0.0, maps release 3): a move that keeps two districts exactly as close to equal but shortens the border is now made, since the method's own measure is border length, with people first and then border in balancing, and border first and then people in the cut.
 
 The full tie rules, with the reasoning behind each, are in [the post on design rules and release gates](/guide/operational-architecture/blog/redistricting-without-bias-operational-architect-ai-code-gates).
 
@@ -181,9 +181,9 @@ Prove the pipeline cheaply, measure what full fidelity buys, then pay for it del
 
 The order mattered. Brute force gave me a reference, profiling told me where the time went, and the identical-output test meant each gain was real. It is the same discipline as [measuring before you scale](/guide/operational-architecture/blog/scalability-is-an-engineering-problem): find the actual bottleneck, not the one you assume.
 
-One note on cost. The shipped engine, with the stage-three rules and everything else added since the sweep stage, takes [California's U.S. House map 15.3 minutes in the published metrics](https://github.com/mels0n/str-redistricting), against about 157 seconds in the proof-of-concept era. That figure is the total of all the changes together, not a measure of either stage alone. Exactness made the maps slower, and I would make the trade again.
+One note on cost. The shipped engine, with the stage-three rules and everything added since the sweep stage, takes longer per state than the proof of concept's roughly 157 seconds for California. Exactness made the maps slower, and I would make the trade again. Later releases kept speeding up drawing without changing any map, with Texas's State Senate falling from about 42 minutes to about 16.
 
-The payoff of building in stages is that version 1.0 has not needed rewriting. The state legislative release, [7,210 districts across three chambers](https://fairmaps.melson.us), runs on the same exact engine with the drawing code unchanged. If you want to check my work, rerun a state from the [public repository](https://github.com/mels0n/str-redistricting) and compare fingerprints, or explore the maps at [Fair Maps](https://fairmaps.melson.us). It is the same habit I describe in [what an operational architect actually does](/guide/operational-architecture/blog/operational-architect-definitive-guide), applied to my own code first.
+The payoff of building in stages is that the stage-two search has not needed rewriting. The state legislative release, [7,210 districts across three chambers](https://fairmaps.melson.us), ran on the same exact engine with the drawing code unchanged. If you want to check my work, rerun a state from the [public repository](https://github.com/mels0n/str-redistricting) and compare fingerprints, or explore the maps at [Fair Maps](https://fairmaps.melson.us). It is the same habit I describe in [what an operational architect actually does](/guide/operational-architecture/blog/operational-architect-definitive-guide), applied to my own code first.
 
 ## Frequently Asked Questions
 
@@ -217,7 +217,7 @@ They settle exact ties only: borders compared exactly, then the sides nearer the
 
 ### How long does Fair Maps take to draw California now?
 
-The published metrics record 15.3 minutes for California's U.S. House map in the shipped engine, against about 157 seconds in the proof-of-concept era. That total includes everything added since the sweep stage. Exactness costs run time, a trade I chose deliberately. The prototype's 8.8 minutes was an earlier version of the engine.
+The shipped engine takes longer per state than the proof of concept's roughly 157 seconds for California, because it checks every line and settles every tie. Exactness costs run time, a trade I chose deliberately. The prototype's 8.8 minutes was an earlier version of the engine.
 
 ### What did the exact search change in the maps?
 

@@ -219,7 +219,7 @@ They settle exact ties only: borders compared exactly, then the sides nearer the
 
 ### Why is the shipped engine slower than the proof of concept?
 
-The shipped engine takes longer per state than the proof of concept's roughly 157 seconds for California, because it checks every line and settles every tie. Exactness costs run time, a trade I chose deliberately. The prototype's 8.8 minutes was an earlier version of the engine, and later releases made drawing faster without changing any map.
+The shipped engine takes longer per state than the proof of concept's roughly 157 seconds for California, because it checks every line and settles every tie. Exactness costs run time, a trade I chose deliberately. The prototype's 8.8 minutes was an earlier version of the engine, and later releases made drawing faster, and the speed-ups alone change no map.
 
 ### What did the exact search change in the maps?
 

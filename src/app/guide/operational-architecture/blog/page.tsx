@@ -1,5 +1,6 @@
 import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { officeBlogPosts } from "@/shared/data/published_blog_posts";
+import { readMinutes } from "@/shared/data/post-card-type";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { JsonLdScript } from "@/shared/ui/JsonLdScript";
@@ -49,7 +50,7 @@ export default function BlogListPage() {
                                     })}
                                 </time>
                                 <span aria-hidden="true"> · </span>
-                                {Math.ceil(post.content.split(/\s+/).length / 225)} min read
+                                {readMinutes(post.content)} min read
                             </div>
                             <h2 className={`font-bold font-display leading-tight mb-3 group-hover:text-blue-700 transition-colors ${idx === 0 ? "text-2xl md:text-4xl" : "text-xl md:text-2xl"}`}>
                                 {/* Stretched link: the whole card is the click target. */}

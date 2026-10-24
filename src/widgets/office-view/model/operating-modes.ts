@@ -23,7 +23,7 @@ export interface OperatingMode {
  * Shared definition of the three operating modes for the office view's lens
  * switchers (top nav and case study modal), so their labels, icons and colours
  * stay in step. Slugs are still mirrored in shared/config/seo-routes.ts,
- * shared/ui/PersonaToggle.tsx and OfficeBlogModal.tsx; keep those in sync.
+ * and shared/ui/PersonaToggle.tsx; keep those in sync.
  */
 export const OPERATING_MODES: readonly OperatingMode[] = [
     {

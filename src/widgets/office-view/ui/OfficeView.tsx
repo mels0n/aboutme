@@ -50,8 +50,8 @@ export const OfficeView = ({ mode: propMode }: OfficeViewProps) => {
         <AnimatePresence mode="wait">
             <motion.div
                 key="office-view"
-                // Visible from the first paint, behind the intro modal's blur, so
-                // the server-rendered content counts as the page's main paint.
+                // Visible from the first paint, so the server-rendered content
+                // counts as the page's main paint.
                 initial={false}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}

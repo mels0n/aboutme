@@ -6,11 +6,15 @@ import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
 import { Compass, Server, Users } from "lucide-react";
 
+/**
+ * "How this site works": explains the three lenses. Opens only when a visitor
+ * asks for it (the header button); the page is fully usable without it.
+ */
 export const GatekeeperModal = () => {
-    const { setIntroDismissed } = usePersonaStore();
+    const { setIntroOpen } = usePersonaStore();
 
     const handleEnter = () => {
-        setIntroDismissed(true);
+        setIntroOpen(false);
     };
 
     useEffect(() => {
@@ -19,17 +23,20 @@ export const GatekeeperModal = () => {
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [setIntroDismissed]);
+    }, [setIntroOpen]);
 
     return (
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="how-this-site-works"
             className="fixed inset-0 z-[200] flex items-center justify-center px-4 md:px-6"
         >
-            {/* Glassmorphism Backdrop */}
-            <div className="absolute inset-0 bg-background/60 backdrop-blur-xl" />
+            {/* Glassmorphism Backdrop: a click outside the card closes it */}
+            <div className="absolute inset-0 bg-background/60 backdrop-blur-xl" onClick={handleEnter} />
 
             {/* Content Container */}
             <div className="relative z-10 w-full max-w-3xl flex flex-col items-center text-center">
@@ -42,7 +49,7 @@ export const GatekeeperModal = () => {
                 >
                     {/* Headline */}
                     <div className="space-y-4 md:space-y-6">
-                        <h2 className="text-xl md:text-3xl font-serif font-bold text-foreground leading-tight max-w-3xl mx-auto">
+                        <h2 id="how-this-site-works" className="text-xl md:text-3xl font-serif font-bold text-foreground leading-tight max-w-3xl mx-auto">
                             This Portfolio is Polymorphic.
                         </h2>
                         <p className="text-sm md:text-lg text-foreground/80 font-serif leading-relaxed max-w-3xl mx-auto">
@@ -89,7 +96,7 @@ export const GatekeeperModal = () => {
                             onClick={handleEnter}
                             className="text-sm font-mono font-bold uppercase tracking-[0.2em] text-foreground/60 hover:text-foreground transition-all hover:scale-105 px-4 py-2"
                         >
-                            [ ENTER ]
+                            [ CLOSE ]
                         </button>
                     </div>
                 </motion.div>            </div>

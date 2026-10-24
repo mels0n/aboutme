@@ -15,15 +15,15 @@ const MODES: PersonaMode[] = ['executive', 'strategist', 'engineer'];
  * Global state interface for managing the current user persona.
  */
 interface PersonaStore {
-    /** Whether the introductory gatekeeper modal has been dismissed. */
-    introDismissed: boolean;
+    /** Whether the "how this site works" modal is open. Opened on request only; not persisted. */
+    introOpen: boolean;
     /** The active persona mode. */
     mode: PersonaMode;
     /** The active view mode ('OFFICE' or 'LAB'). */
     viewMode: 'OFFICE' | 'LAB';
 
-    /** Sets the dismissed state of the intro modal. */
-    setIntroDismissed: (value: boolean) => void;
+    /** Opens or closes the "how this site works" modal. */
+    setIntroOpen: (value: boolean) => void;
     /** Immutably updates the current persona mode. */
     setMode: (mode: PersonaMode) => void;
     /** Sets the view mode. */
@@ -44,8 +44,8 @@ export const usePersonaStore = create<PersonaStore>()(
         (set) => ({
             mode: 'executive',
             viewMode: 'OFFICE',
-            introDismissed: false,
-            setIntroDismissed: (value) => set({ introDismissed: value }),
+            introOpen: false,
+            setIntroOpen: (value) => set({ introOpen: value }),
             setMode: (mode) => set({ mode }),
             setViewMode: (viewMode) => set({ viewMode }),
             cycleMode: (direction) => set((state) => {
@@ -64,7 +64,6 @@ export const usePersonaStore = create<PersonaStore>()(
             name: 'persona-storage',
             storage: createJSONStorage(() => localStorage),
             partialize: (state) => ({
-                introDismissed: state.introDismissed,
                 mode: state.mode
             }),
         }

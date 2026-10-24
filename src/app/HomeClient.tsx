@@ -11,7 +11,7 @@ import { OfficeNavControls } from "@/widgets/office-view/ui/OfficeNavControls";
 import { GatekeeperModal } from "@/widgets/gatekeeper/ui/GatekeeperModal"; // Adjust path if needed
 import { ModeTransitionGlitch } from "@/shared/ui/ModeTransitionGlitch";
 
-import { ChevronsRight, RefreshCw } from "lucide-react";
+import { ChevronsRight, HelpCircle, RefreshCw } from "lucide-react";
 
 
 
@@ -23,7 +23,7 @@ interface HomeClientProps {
 // No Suspense boundary: nothing here reads search params during render, so
 // the full page is in the server HTML rather than a loading skeleton.
 export function HomeClient({ initialMode, initialView }: HomeClientProps) {
-    const { mode, cycleMode, viewMode, setMode, setViewMode, introDismissed } = usePersonaStore();
+    const { mode, cycleMode, viewMode, setMode, setViewMode, introOpen, setIntroOpen } = usePersonaStore();
     const [hasHydrated, setHasHydrated] = useState(false);
 
     // Initialize state from props (Server-Side SEO / Direct Link)
@@ -80,25 +80,36 @@ export function HomeClient({ initialMode, initialView }: HomeClientProps) {
             }}
         >
             <AnimatePresence mode="wait">
-                {hasHydrated && !introDismissed && <GatekeeperModal />}
+                {hasHydrated && introOpen && <GatekeeperModal />}
             </AnimatePresence>
-            {introDismissed && <ModeTransitionGlitch />}
+            <ModeTransitionGlitch />
 
             {/* --- Sticky Header / Toggle --- */}
             <nav className="fixed top-0 left-0 w-full z-50 py-4 px-6 backdrop-blur-md bg-background/80 border-b border-border/50 flex items-center justify-between gap-4">
 
-                {/* Left Side: Empty Spacer (Hidden on mobile to save space, present on desktop for balance if needed) */}
-                <div className="hidden md:block flex-1" />
+                {/* Left Side: "How this site works" opens the explainer modal on request */}
+                <div className="md:flex-1 flex items-center">
+                    <button
+                        type="button"
+                        onClick={() => setIntroOpen(true)}
+                        className="inline-flex items-center gap-2 text-xs font-sans text-foreground/60 hover:text-foreground transition-colors"
+                        aria-haspopup="dialog"
+                    >
+                        <HelpCircle className="w-4 h-4" aria-hidden="true" />
+                        <span className="sr-only lg:not-sr-only">How this site works</span>
+                    </button>
+                </div>
 
                 {/* Center: Controls (Office or Lab) */}
                 {/* On Mobile: It flows naturally. On Desktop: Absolute center. */}
                 <div className="md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 flex justify-center items-center">
-                    <AnimatePresence mode="wait">
+                    {/* initial={false}: visible in the first paint; switching views still animates */}
+                    <AnimatePresence mode="wait" initial={false}>
                         {viewMode === 'OFFICE' ? (
                             <motion.div
                                 key="office-nav"
                                 initial={{ opacity: 0, y: -10 }}
-                                animate={introDismissed ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                             >
                                 <OfficeNavControls />
@@ -107,7 +118,7 @@ export function HomeClient({ initialMode, initialView }: HomeClientProps) {
                             <motion.div
                                 key="lab-nav"
                                 initial={{ opacity: 0, y: 10 }}
-                                animate={introDismissed ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 10 }}
                                 className="flex items-center gap-4"
                             >
@@ -144,7 +155,7 @@ export function HomeClient({ initialMode, initialView }: HomeClientProps) {
             </nav>
 
             {/* --- Main Content Area --- */}
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
                 {viewMode === 'OFFICE' ? (
                     <OfficeView key="office" mode={resolvedMode} />
                 ) : (

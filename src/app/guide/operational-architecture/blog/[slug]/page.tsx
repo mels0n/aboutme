@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { notFound } from "next/navigation";
 import { officeBlogPosts } from "@/shared/data/published_blog_posts";
+import { readMinutes as readingTime } from "@/shared/data/post-card-type";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -61,7 +62,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     }
 
     // Works Cited is pulled out of the prose flow and rendered as a citation
-    // footer, matching OfficeBlogModal.
+    // footer.
     let bodyContent = post.content;
     let worksCitedHeader: string | null = null;
     let worksCitedContent: string | null = null;
@@ -76,7 +77,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     const toc = tableOfContents(bodyContent);
     const shift = headingShift(bodyContent);
     const related = relatedPosts(post, officeBlogPosts);
-    const readMinutes = Math.ceil(post.content.split(/\s+/).length / 225);
+    const readMinutes = readingTime(post.content);
     const publishedLabel = new Date(`${post.date}T00:00:00`).toLocaleDateString('en-US', {
         year: 'numeric', month: 'long', day: 'numeric'
     });
@@ -122,8 +123,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 // Headings
                 "prose-headings:font-display prose-headings:font-bold prose-headings:scroll-mt-8",
                 "prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4",
-                // Accent — /guide routes always render the default (executive)
-                // theme, so this mirrors OfficeBlogModal's executive variant.
+                // Accent: /guide routes always render the default (executive)
+                // theme.
                 "prose-headings:text-blue-800 prose-a:text-blue-700 prose-strong:text-blue-900",
             ].join(" ")}>
                 {/* GEO Optimization: Structured Data Block. Kept light so it

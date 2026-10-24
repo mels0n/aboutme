@@ -26,6 +26,7 @@ export const myNewPost: BlogPost = {
     id: "unique-id", // Must be unique
     slug: "url-friendly-slug", // Used in URL
     title: "Title of the Post",
+    seoTitle: "Shorter search title", // Required when title is over 60 characters (the build fails otherwise). Used for <title> and social cards; the page heading keeps title.
     author: "Author Name",
     role: "Operational Architect", // or relevant persona
     date: "YYYY-MM-DD", // Used for sorting (Newest First)

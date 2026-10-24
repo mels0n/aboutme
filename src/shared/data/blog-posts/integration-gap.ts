@@ -4,6 +4,7 @@ export const integrationGap: BlogPost = {
     id: "integration-gap",
     slug: "bridging-the-integration-gap",
     title: "Bridging the \"Integration Gap\" to Prevent M&A Value Destruction",
+    seoTitle: "The Integration Gap: Preventing M&A Value Destruction",
     author: "Christopher Melson",
     role: "Operational Architect",
     date: "2025-12-15",

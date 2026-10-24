@@ -184,11 +184,11 @@ export function blogPostGraph(post: PostInput): JsonLdGraph {
         webPageNode({
             type: "WebPage",
             url,
-            name: post.title,
+            name: post.seoTitle ?? post.title,
             description: post.summary,
             extra: { mainEntity: ref(articleId(post.slug)) },
         }),
-        breadcrumbNode(url, [HOME, GUIDE, BLOG, { name: post.title, url }]),
+        breadcrumbNode(url, [HOME, GUIDE, BLOG, { name: post.seoTitle ?? post.title, url }]),
         blogNode(),
         blogPostingNode(post),
     );
@@ -227,11 +227,11 @@ export function caseStudyGraph(study: CaseStudyInput): JsonLdGraph {
         webPageNode({
             type: "WebPage",
             url,
-            name: study.title,
+            name: study.seoTitle ?? study.title,
             description: study.summary.executive,
             extra: { mainEntity: ref(pageId(url, "article")) },
         }),
-        breadcrumbNode(url, [HOME, GUIDE, CASE_STUDIES, { name: study.title, url }]),
+        breadcrumbNode(url, [HOME, GUIDE, CASE_STUDIES, { name: study.seoTitle ?? study.title, url }]),
         caseStudyNode(study),
     );
 }

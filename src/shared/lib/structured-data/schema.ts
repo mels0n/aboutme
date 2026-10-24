@@ -28,21 +28,34 @@ export type ResumeInput = z.infer<typeof resumeSchema>;
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "expected YYYY-MM-DD");
 
+/** Longest title a search result shows in full. */
+export const MAX_SEARCH_TITLE = 60;
+
+/** A title too long for a search result needs a shorter `seoTitle`; the build fails until it has one. */
+const fitsSearchResult = (item: { title: string; seoTitle?: string }) =>
+    (item.seoTitle ?? item.title).length <= MAX_SEARCH_TITLE;
+const searchTitleMessage = {
+    message: `title is over ${MAX_SEARCH_TITLE} characters: add a seoTitle of ${MAX_SEARCH_TITLE} or fewer`,
+    path: ["seoTitle"],
+};
+
 export const postSchema = z.object({
     slug: z.string().min(1),
     title: z.string().min(1),
+    seoTitle: z.string().min(1).optional(),
     summary: z.string().min(1),
     date: isoDate,
     lastUpdated: isoDate.optional(),
     ogImage: z.string().optional(),
     keywords: z.array(z.string().min(1)).optional(),
     content: z.string(),
-});
+}).refine(fitsSearchResult, searchTitleMessage);
 export type PostInput = z.infer<typeof postSchema>;
 
 export const caseStudySchema = z.object({
     slug: z.string().min(1),
     title: z.string().min(1),
+    seoTitle: z.string().min(1).optional(),
     date: isoDate,
     summary: z.object({ executive: z.string(), strategist: z.string() }),
     fullReport: z.object({
@@ -51,7 +64,7 @@ export const caseStudySchema = z.object({
         action: z.string(),
         result: z.string(),
     }),
-});
+}).refine(fitsSearchResult, searchTitleMessage);
 export type CaseStudyInput = z.infer<typeof caseStudySchema>;
 
 export const projectSchema = z.object({

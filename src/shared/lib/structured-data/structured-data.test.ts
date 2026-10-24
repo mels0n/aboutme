@@ -181,6 +181,20 @@ describe("blog", () => {
         expect(graph["@graph"].filter((n) => n["@type"] === "BlogPosting")).toHaveLength(officeBlogPosts.length);
     });
 
+    it("rejects a title too long for a search result unless a seoTitle is set", () => {
+        const long = "A".repeat(61);
+        expect(() => blogPostingNode({ ...post, title: long })).toThrow(/seoTitle/);
+        const node = blogPostingNode({ ...post, title: long, seoTitle: "Short title" });
+        expect(node).toMatchObject({ headline: long, alternativeHeadline: "Short title" });
+        expect(() => blogPostingNode({ ...post, title: long, seoTitle: "B".repeat(61) })).toThrow(/seoTitle/);
+    });
+
+    it("every published post and case study has a search title of 60 characters or fewer", () => {
+        for (const item of [...officeBlogPosts, ...officeCaseStudies]) {
+            expect((item.seoTitle ?? item.title).length, item.slug).toBeLessThanOrEqual(60);
+        }
+    });
+
     it("rejects a post with a malformed date at build time", () => {
         expect(() => blogPostingNode({ ...post, date: "May 20" })).toThrow();
     });

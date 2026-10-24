@@ -4,6 +4,7 @@ export const lifxVlanIotDiscovery: BlogPost = {
     id: "lifx-vlan-iot-discovery",
     slug: "lifx-vlan-iot-discovery",
     title: "LIFX on a Segmented IoT VLAN: Why Discovery Breaks and How to Fix It",
+    seoTitle: "LIFX on an IoT VLAN: Fixing Broken Discovery",
     author: "Christopher Melson",
     role: "Homelab Architect",
     date: "2026-08-13",

@@ -24,6 +24,8 @@ export interface OfficeCaseStudy {
     slug: string;
     date: string;
     title: string;
+    /** Search-result title when `title` runs past about 60 characters. */
+    seoTitle?: string;
     summary: {
         executive: string;
         strategist: string;
@@ -47,6 +49,7 @@ export const officeCaseStudies: OfficeCaseStudy[] = [
         slug: "ma-integration-gap",
         date: "2026-01-01",
         title: "The M&A Integration Gap: 'Auditable' Governance & DORA Compliance",
+        seoTitle: "M&A Integration Gap: Auditable Governance and DORA",
         summary: {
             executive: "$1.3M+ M&A revenue gap closed via zero-cost restructuring. Perpetual startup converted to EU DORA-compliant function; 30% of Sales capacity returned to revenue generation.",
             strategist: "Designed the 'Two-Pillar' Target Operating Model (TOM), bifurcating 'Venue & API' (Machine) from 'GUI & UX' (Human) workflows. Solved critical visibility gaps via 'Transparent-by-Design' architecture.",
@@ -211,6 +214,7 @@ export const officeCaseStudies: OfficeCaseStudy[] = [
         slug: "systemic-collapse-turnaround",
         date: "2026-01-03",
         title: "Systemic Collapse: The 'Data Sovereignty' Protocol & Shadow IT Elimination",
+        seoTitle: "Systemic Collapse: Data Sovereignty and Shadow IT",
         summary: {
             executive: "Stabilized a business unit in systemic collapse (100% leadership attrition). Engineered a 'Zero-Regulatory-Risk' environment by killing 'Shadow IT' & 'WhatsApp' trading. Reduced attrition from 40% to 6% via culture overhaul.",
             strategist: "Deployed a 'Mercenary Squad' strategy to bypass internal promotion paralysis. Divested the 'Toxic Asset' (NEST) to save the wider portfolio. Enforced Data Sovereignty to end 'Opinion-Based Management'.",

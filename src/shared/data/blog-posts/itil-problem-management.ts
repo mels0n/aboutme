@@ -4,6 +4,7 @@ export const itilProblemManagement: BlogPost = {
     id: "itil-problem-management",
     slug: "problem-management-post-merger-integration",
     title: "Why Problem Management Collapses During Post-Merger Integration, and How to Rebuild It",
+    seoTitle: "Why Problem Management Collapses After a Merger",
     author: "Christopher Melson",
     role: "Operational Architect",
     date: "2026-05-19",

@@ -77,7 +77,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
 
     return pageMetadata({
-        title: post.title,
+        title: post.seoTitle ?? post.title,
         description: post.summary,
         path: `/guide/operational-architecture/blog/${post.slug}`,
         type: "article",

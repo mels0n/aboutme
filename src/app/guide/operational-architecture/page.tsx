@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { diagnosticContent } from "@/shared/data/diagnostic_content";
 import { JsonLdScript } from "@/shared/ui/JsonLdScript";
 import { guideGraph } from "@/shared/lib/structured-data";
@@ -7,13 +7,12 @@ import Link from "next/link";
 
 const GUIDE_TITLE = "What is an Operational Architect?";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
     title: GUIDE_TITLE,
     description: diagnosticContent.header.definition.part2,
-    alternates: {
-        canonical: "/guide/operational-architecture",
-    },
-};
+    path: "/guide/operational-architecture",
+    type: "article",
+});
 
 export default function OperationalArchitectGuide() {
     const { header, values, diagnosis } = diagnosticContent;

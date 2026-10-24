@@ -1,5 +1,6 @@
 
 import { Metadata } from "next";
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { officeCaseStudies } from "@/shared/data/office_case_studies";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -25,24 +26,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const study = officeCaseStudies.find((s) => s.slug === slug);
     if (!study) return {};
 
-    return {
-        title: `${study.title} | Case Study`,
+    return pageMetadata({
+        title: study.title,
         description: study.summary.executive,
-        alternates: {
-            canonical: `/guide/operational-architecture/case-studies/${study.slug}`,
-        },
-        openGraph: {
-            title: `${study.title} | Case Study`,
-            description: study.summary.executive,
-            url: `/guide/operational-architecture/case-studies/${study.slug}`,
-            type: "article",
-        },
-        twitter: {
-            card: "summary_large_image",
-            title: `${study.title} | Case Study`,
-            description: study.summary.executive,
-        }
-    };
+        path: `/guide/operational-architecture/case-studies/${study.slug}`,
+        type: "article",
+        publishedTime: study.date,
+    });
 }
 
 export default async function CaseStudyPage({ params }: Props) {

@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { BlogPost, officeBlogPosts } from "@/shared/data/published_blog_posts";
 import { OfficeBlogModal } from "./OfficeBlogModal";
 import { TrustBadge } from "@/shared/ui/TrustBadge";
@@ -19,19 +18,20 @@ export const OfficeBlogGrid = ({ mode: propMode }: OfficeBlogGridProps) => {
     const { mode: storeMode } = usePersonaStore();
     const mode = propMode || storeMode;
 
-    const searchParams = useSearchParams();
     const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
 
-    // Deep Link Handler
+    // Deep link (?blog=slug, from a shared link): read once on mount. Reading
+    // window.location instead of useSearchParams keeps the statically rendered
+    // home page from falling back to its loading skeleton.
     useEffect(() => {
-        const blogSlug = searchParams.get('blog');
+        const blogSlug = new URLSearchParams(window.location.search).get('blog');
         if (blogSlug) {
             const post = officeBlogPosts.find(p => p.slug === blogSlug);
             if (post) {
                 setSelectedPost(post);
             }
         }
-    }, [searchParams]);
+    }, []);
 
     return (
         <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

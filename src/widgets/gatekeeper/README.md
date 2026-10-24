@@ -13,5 +13,4 @@ The **Gatekeeper** is the entry point and mode-switching mechanism for the "Tri-
 ## Governance
 Changes to mode names here **MUST** propagate to:
 1.  `src/app/page.tsx` (Metadata)
-2.  `src/shared/ui/JsonLd.tsx` (`featureList`)
-3.  `src/features/persona-explanation`
+2.  `src/features/persona-explanation`

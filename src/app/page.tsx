@@ -1,59 +1,12 @@
-import { Metadata, ResolvingMetadata } from "next";
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { HomeClient } from "./HomeClient";
-
-import { siteConfig } from "@/shared/config/site-config";
 
 const PAGE = {
     name: "Christopher Melson | Operational Architect for the Agentic Age",
     description: "Operations executive closing M&A integration gaps, stabilizing distressed environments, and building resilient teams. Executive, Strategist, Engineer.",
 };
 
-type Props = {
-    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
-}
-
-export async function generateMetadata(
-    props: Props,
-    parent: ResolvingMetadata
-): Promise<Metadata> {
-    const params = await props.searchParams;
-
-    // OpenGraph and meta description — substantive description required for
-    // Lighthouse SEO audit ("Document does not have a meta description").
-    const title = PAGE.name;
-    const summary = PAGE.description;
-
-    // Absolute URL construction required for OpenGraph
-    const baseUrl = process.env.NEXT_PUBLIC_URL || siteConfig.url;
-    const ogUrlString = `${baseUrl}/opengraph-image`;
-
-    return {
-        title: title,
-        description: summary,
-        alternates: {
-            canonical: '/',
-        },
-        openGraph: {
-            title: title,
-            description: summary,
-            images: [
-                {
-                    url: ogUrlString,
-                    width: 1200,
-                    height: 630,
-                    alt: title,
-                },
-            ],
-            type: "profile",
-        },
-        twitter: {
-            card: 'summary_large_image',
-            title: title,
-            description: summary,
-            images: [ogUrlString],
-        },
-    };
-}
+export const metadata = pageMetadata({ ...PAGE, title: PAGE.name, path: "/", type: "profile" });
 
 import { ServerSideResume } from "@/shared/ui/ServerSideResume";
 import { SemanticNavGraph } from "@/shared/ui/SemanticNavGraph";

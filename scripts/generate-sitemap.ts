@@ -10,7 +10,7 @@
 //
 // Runs via the `prebuild` npm script (tsx), so `next build` on Vercel
 // always regenerates it. public/sitemap.xml is gitignored.
-import { writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { officeBlogPosts } from '../src/shared/data/published_blog_posts';
 import { officeCaseStudies } from '../src/shared/data/office_case_studies';
@@ -26,8 +26,12 @@ function latestPostDateSince(layoutDate: string): string {
         .map(post => post.lastUpdated ?? post.date)
         .reduce((latest, date) => (date > latest ? date : latest), layoutDate);
 }
-const blogIndexLastModified = latestPostDateSince('2026-10-12');
-const guideLastModified = latestPostDateSince('2026-10-12');
+// Static-route dates are the last change to each page's content or layout;
+// update the date when the page changes. 2026-10-24: site footer navigation,
+// per-page titles and social metadata, structured data on every page.
+const SITE_LAYOUT_CHANGED = '2026-10-24';
+const blogIndexLastModified = latestPostDateSince(SITE_LAYOUT_CHANGED);
+const guideLastModified = latestPostDateSince(SITE_LAYOUT_CHANGED);
 
 interface SitemapEntry {
     url: string;
@@ -37,13 +41,13 @@ interface SitemapEntry {
 }
 
 const staticRoutes: SitemapEntry[] = [
-    { url: BASE_URL, lastModified: '2026-10-12', changeFrequency: 'monthly', priority: 1.0 },
-    { url: `${BASE_URL}/about`, lastModified: '2026-04-23', changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE_URL}/faq`, lastModified: '2026-04-23', changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE_URL}/guide/lab`, lastModified: '2026-05-19', changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE_URL}/guide/office`, lastModified: '2026-05-19', changeFrequency: 'monthly', priority: 0.8 },
+    { url: BASE_URL, lastModified: SITE_LAYOUT_CHANGED, changeFrequency: 'monthly', priority: 1.0 },
+    { url: `${BASE_URL}/about`, lastModified: SITE_LAYOUT_CHANGED, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE_URL}/faq`, lastModified: SITE_LAYOUT_CHANGED, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/guide/lab`, lastModified: SITE_LAYOUT_CHANGED, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE_URL}/guide/office`, lastModified: SITE_LAYOUT_CHANGED, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/guide/operational-architecture`, lastModified: guideLastModified, changeFrequency: 'monthly', priority: 1.0 },
-    { url: `${BASE_URL}/guide/operational-architecture/case-studies`, lastModified: '2026-01-10', changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE_URL}/guide/operational-architecture/case-studies`, lastModified: SITE_LAYOUT_CHANGED, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE_URL}/guide/operational-architecture/blog`, lastModified: blogIndexLastModified, changeFrequency: 'weekly', priority: 0.9 },
 ];
 
@@ -101,3 +105,15 @@ for (const filename of ['sitemap.xml', 'sitemap-pages.xml']) {
     writeFileSync(outPath, xml, 'utf8');
     console.log(`${filename} written: ${entries.length} URLs -> ${outPath}`);
 }
+
+// llms.txt: the hand-written template plus the current list of published
+// posts, so the article list can never fall behind the blog.
+const template = readFileSync(join(import.meta.dirname, 'llms.template.md'), 'utf8')
+    .replace(/^<!--[\s\S]*?-->\r?\n/, '');
+const articles = [...officeBlogPosts]
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .map(post => `- [${post.title}](${BASE_URL}/guide/operational-architecture/blog/${post.slug})`)
+    .join('\n');
+const llmsPath = join(import.meta.dirname, '..', 'public', 'llms.txt');
+writeFileSync(llmsPath, template.replace('{{BLOG_ARTICLES}}', articles), 'utf8');
+console.log(`llms.txt written: ${officeBlogPosts.length} articles -> ${llmsPath}`);

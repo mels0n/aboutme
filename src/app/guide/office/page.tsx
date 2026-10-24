@@ -1,21 +1,18 @@
-import { Metadata } from "next";
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import Link from "next/link";
 import { OFFICE_CONTENT } from "@/shared/data/office-content";
 import { JsonLdScript } from "@/shared/ui/JsonLdScript";
 import { officeGraph } from "@/shared/lib/structured-data";
 
-export const metadata: Metadata = {
-    title: OFFICE_CONTENT.title,
-    description: OFFICE_CONTENT.subtitle,
-    alternates: {
-        canonical: "/guide/office",
-    },
-};
+// OFFICE_CONTENT.title runs past what a search result shows.
+const OFFICE_TITLE = "The Office: Operational Architecture & Leadership";
+
+export const metadata = pageMetadata({ title: OFFICE_TITLE, description: OFFICE_CONTENT.subtitle, path: "/guide/office" });
 
 export default function OfficeGuidePage() {
     return (
         <main className="max-w-4xl mx-auto px-6 py-24 space-y-12">
-            <JsonLdScript graph={officeGraph({ name: OFFICE_CONTENT.title, description: OFFICE_CONTENT.subtitle })} />
+            <JsonLdScript graph={officeGraph({ name: OFFICE_TITLE, description: OFFICE_CONTENT.subtitle })} />
             <nav className="mb-8">
                 <Link href="/" className="text-sm font-bold uppercase tracking-widest text-foreground/60 hover:text-foreground transition-colors flex items-center gap-2">
                     &larr; Return to Main Interface

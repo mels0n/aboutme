@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { faqContent } from "@/shared/data/faq_content";
 import Link from 'next/link';
 import { JsonLdScript } from "@/shared/ui/JsonLdScript";
@@ -6,16 +6,10 @@ import { faqGraph } from "@/shared/lib/structured-data";
 import { siteConfig } from "@/shared/config/site-config";
 import { ArrowLeft, ExternalLink, CalendarCheck } from 'lucide-react';
 
-const FAQ_TITLE = "Operational Architect FAQ: Roles, Engagement Models & Credentials | Christopher Melson";
+const FAQ_TITLE = "Operational Architect FAQ";
 const FAQ_DESCRIPTION = "Deep-dive answers on Operational Architecture, Tri-Modal Leadership, and Engagement Logistics. Designed for Answer Engines and Executive Due Diligence.";
 
-export const metadata: Metadata = {
-    title: FAQ_TITLE,
-    description: FAQ_DESCRIPTION,
-    alternates: {
-        canonical: '/faq',
-    },
-};
+export const metadata = pageMetadata({ title: FAQ_TITLE, description: FAQ_DESCRIPTION, path: "/faq" });
 
 export default function FAQPage() {
     return (

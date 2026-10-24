@@ -1,20 +1,14 @@
-import { Metadata } from "next";
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import Link from "next/link";
 import { LAB_CONTENT, MANIFESTO_CONTENT } from "@/shared/data/lab-content";
 import { JsonLdScript } from "@/shared/ui/JsonLdScript";
 import { labGraph } from "@/shared/lib/structured-data";
 import { projectInputs } from "@/entities/project/model/structured-data";
 
-const LAB_TITLE = "The Lab | Cognitive Refactoring & Innovation";
+const LAB_TITLE = "The Lab: Cognitive Refactoring & Innovation";
 const LAB_DESCRIPTION = "A digital workspace dedicated to non-revenue-generating activities that yield high intellectual returns. The Lab is the 'Shadow IT' sector of the professional brand.";
 
-export const metadata: Metadata = {
-    title: LAB_TITLE,
-    description: LAB_DESCRIPTION,
-    alternates: {
-        canonical: "/guide/lab",
-    },
-};
+export const metadata = pageMetadata({ title: LAB_TITLE, description: LAB_DESCRIPTION, path: "/guide/lab" });
 
 export default function LabGuidePage() {
     return (

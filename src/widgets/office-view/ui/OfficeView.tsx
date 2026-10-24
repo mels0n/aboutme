@@ -11,7 +11,6 @@ import { ExecutiveAbstract } from "./branding/ExecutiveAbstract";
 import { TechMatrix } from "./branding/TechMatrix";
 import { cn } from "@/shared/lib/utils";
 import { OfficeAbout } from "./OfficeAbout";
-import { Footer } from "@/widgets/shared/Footer";
 import { MobileResumeActions } from "./MobileResumeActions";
 import { OfficeResume } from "./OfficeResume";
 import { OfficeOA } from "./OfficeOA";
@@ -22,7 +21,7 @@ interface OfficeViewProps {
 }
 
 export const OfficeView = ({ mode: propMode }: OfficeViewProps) => {
-    const { mode: storeMode, introDismissed } = usePersonaStore();
+    const { mode: storeMode } = usePersonaStore();
     const mode = propMode || storeMode;
 
     // Global Font Overrides
@@ -51,11 +50,15 @@ export const OfficeView = ({ mode: propMode }: OfficeViewProps) => {
         <AnimatePresence mode="wait">
             <motion.div
                 key="office-view"
-                initial={{ opacity: 0 }}
-                animate={introDismissed ? { opacity: 1 } : { opacity: 0 }}
+                // Visible from the first paint, behind the intro modal's blur, so
+                // the server-rendered content counts as the page's main paint.
+                initial={false}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.7, ease: "easeInOut" }}
                 style={fontStyles[mode]} // <--- Inject Global Font Variables
+                // Marks the page as having the fixed corner buttons; globals.css pads the site footer so they never cover it.
+                data-floating-actions
                 className={cn(
                     "w-full min-h-screen pt-32 pb-20 px-6 transition-colors duration-700 ease-in-out relative",
                     // Executive Mode (Default)
@@ -114,7 +117,6 @@ export const OfficeView = ({ mode: propMode }: OfficeViewProps) => {
                         view={faqView}
                     />
 
-                    <Footer />
                 </div>
             </motion.div>
         </AnimatePresence>

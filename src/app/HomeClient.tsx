@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, Suspense, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { usePersonaStore } from "@/shared/lib/store";
 import { PersonaToggle } from "@/shared/ui/PersonaToggle";
 import { ViewToggle } from "@/shared/ui/ViewToggle";
@@ -21,18 +20,9 @@ interface HomeClientProps {
     initialView?: 'OFFICE' | 'LAB';
 }
 
-import { GatekeeperSkeleton } from "@/widgets/gatekeeper/ui/GatekeeperSkeleton";
-
+// No Suspense boundary: nothing here reads search params during render, so
+// the full page is in the server HTML rather than a loading skeleton.
 export function HomeClient({ initialMode, initialView }: HomeClientProps) {
-    return (
-        <Suspense fallback={<GatekeeperSkeleton />}>
-            <HomeContent initialMode={initialMode} initialView={initialView} />
-        </Suspense>
-    );
-}
-
-function HomeContent({ initialMode, initialView }: HomeClientProps) {
-    const searchParams = useSearchParams();
     const { mode, cycleMode, viewMode, setMode, setViewMode, introDismissed } = usePersonaStore();
     const [hasHydrated, setHasHydrated] = useState(false);
 

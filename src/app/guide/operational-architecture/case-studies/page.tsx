@@ -1,20 +1,14 @@
-import { Metadata } from "next";
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { officeCaseStudies } from "@/shared/data/office_case_studies";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { JsonLdScript } from "@/shared/ui/JsonLdScript";
 import { caseStudyIndexGraph } from "@/shared/lib/structured-data";
 
-const CASE_STUDIES_TITLE = "Operational Architecture Case Studies | Chris Melson";
+const CASE_STUDIES_TITLE = "Operational Architecture Case Studies";
 const CASE_STUDIES_DESCRIPTION = "Detailed breakdown of operational turnarounds, including DORA compliance, Post-Merger Integration, and Strategic Asset Rescue.";
 
-export const metadata: Metadata = {
-    title: CASE_STUDIES_TITLE,
-    description: CASE_STUDIES_DESCRIPTION,
-    alternates: {
-        canonical: "/guide/operational-architecture/case-studies",
-    },
-};
+export const metadata = pageMetadata({ title: CASE_STUDIES_TITLE, description: CASE_STUDIES_DESCRIPTION, path: "/guide/operational-architecture/case-studies" });
 
 export default function CaseStudiesPage() {
     return (

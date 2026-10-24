@@ -65,3 +65,9 @@ Every page renders one `@graph` of schema.org JSON-LD in its HTML, built in `src
 *   Each page graph carries the Person and WebSite in full, so every `@id` reference resolves inside that page. The home page is the `ProfilePage`, `/about` the `AboutPage`, posts are `BlogPosting` inside a `Blog`, case studies and the guide are `Article`, and inner pages carry a `BreadcrumbList`.
 *   Source data is parsed with zod at the boundary, and each finished graph is checked (references resolve, URLs absolute, no email or phone) before it renders, so bad data fails the build. Facts come from `site-config.ts`, `resume.json`, the blog and case-study data, and the Lab project cards.
 *   `npm test` runs the vitest suite, which builds every page's graph from the real data.
+
+### 5. Page Metadata and Crawl Files
+*   Every page builds its metadata with `pageMetadata()` (`src/shared/lib/seo/metadata.ts`): title, description, canonical, Open Graph and Twitter card for that page. The layout appends " | Christopher Melson" only when the title still fits a search result.
+*   `scripts/generate-sitemap.ts` runs before every build and writes `public/sitemap.xml`, `public/sitemap-pages.xml` and `public/llms.txt` (from `scripts/llms.template.md` plus the published posts). All three are generated and gitignored; edit the script or the template. Static-route `lastmod` dates live in the script and are updated by hand when a page changes.
+*   `public/robots.txt` is a static file. Keep `/api/og` allowed: it serves the social card images.
+

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { BentoHeader } from "@/widgets/about/ui/BentoHeader";
 import { AboutIntro } from "@/widgets/about/ui/AboutIntro";
 import { FunctionalSections } from "@/widgets/about/ui/FunctionalSections";
@@ -9,27 +9,9 @@ import { JsonLdScript } from "@/shared/ui/JsonLdScript";
 import { aboutGraph } from "@/shared/lib/structured-data";
 
 const ABOUT_TITLE = "About Christopher Melson | Executive & Board Advisor";
-const ABOUT_DESCRIPTION = "Transformation Executive & Operational Architect with 13 years at LSEG, Refinitiv, and Thomson Reuters. Specializing in M&A integration, DORA compliance, and organizational resilience.";
+const ABOUT_DESCRIPTION = "Transformation Executive & Operational Architect. 13 years at LSEG, Refinitiv and Thomson Reuters leading M&A integration, DORA compliance and resilience.";
 
-export const metadata: Metadata = {
-    title: { absolute: ABOUT_TITLE },
-    description: ABOUT_DESCRIPTION,
-    alternates: {
-        canonical: '/about',
-    },
-    openGraph: {
-        title: "About Christopher Melson | Executive & Board Advisor",
-        description: "Transformation Executive & Operational Architect. M&A integration, DORA compliance, organizational resilience.",
-        url: "https://chris.melson.us/about",
-        type: "profile",
-        images: [{ url: "https://chris.melson.us/opengraph-image", width: 1200, height: 630, alt: "Christopher Melson" }],
-    },
-    twitter: {
-        card: 'summary_large_image',
-        title: "About Christopher Melson | Executive & Board Advisor",
-        description: "Transformation Executive & Operational Architect. M&A integration, DORA compliance, organizational resilience.",
-    },
-};
+export const metadata = pageMetadata({ title: ABOUT_TITLE, description: ABOUT_DESCRIPTION, path: "/about", type: "profile" });
 
 export default function AboutPage() {
     return (

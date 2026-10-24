@@ -1,20 +1,14 @@
-import { Metadata } from "next";
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { officeBlogPosts } from "@/shared/data/published_blog_posts";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { JsonLdScript } from "@/shared/ui/JsonLdScript";
 import { blogIndexGraph } from "@/shared/lib/structured-data";
 
-const BLOG_TITLE = "Operational Architecture Blog | Chris Melson";
+const BLOG_TITLE = "Operational Architecture Blog";
 const BLOG_DESCRIPTION = "Insights, articles, and analysis on operational architecture, engineering management, and organizational scaling.";
 
-export const metadata: Metadata = {
-    title: BLOG_TITLE,
-    description: BLOG_DESCRIPTION,
-    alternates: {
-        canonical: "/guide/operational-architecture/blog",
-    },
-};
+export const metadata = pageMetadata({ title: BLOG_TITLE, description: BLOG_DESCRIPTION, path: "/guide/operational-architecture/blog" });
 
 export default function BlogListPage() {
     const sortedPosts = [...officeBlogPosts].sort(

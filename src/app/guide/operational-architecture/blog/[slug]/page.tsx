@@ -7,7 +7,8 @@ import rehypeRaw from 'rehype-raw';
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import type { ReactNode } from "react";
-import { BreadcrumbSchema } from "@/shared/ui/BreadcrumbSchema";
+import { JsonLdScript } from "@/shared/ui/JsonLdScript";
+import { blogPostGraph } from "@/shared/lib/structured-data";
 
 // Slugs not prerendered at build 404 instead of rendering on demand.
 export const dynamicParams = false;
@@ -117,36 +118,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         year: 'numeric', month: 'long', day: 'numeric'
     });
 
-    const postUrl = `https://chris.melson.us/guide/operational-architecture/blog/${post.slug}`;
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "@id": postUrl,
-        "url": postUrl,
-        "mainEntityOfPage": { "@type": "WebPage", "@id": postUrl },
-        "headline": post.title,
-        "description": post.summary,
-        "author": { "@id": "https://chris.melson.us/#person" },
-        "publisher": { "@id": "https://chris.melson.us/#person" },
-        "datePublished": post.date,
-        "dateModified": post.lastUpdated ?? post.date,
-        "image": [post.ogImage ?? "https://chris.melson.us/opengraph-image"],
-        "wordCount": post.content.split(/\s+/).length,
-        "articleBody": post.content,
-    };
-
     return (
         <main className="max-w-7xl mx-auto px-6 lg:px-10 py-10 md:py-16 font-serif text-foreground">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-            />
-            <BreadcrumbSchema items={[
-                { name: "Home", url: "https://chris.melson.us" },
-                { name: "Operational Architecture", url: "https://chris.melson.us/guide/operational-architecture" },
-                { name: "Blog", url: "https://chris.melson.us/guide/operational-architecture/blog" },
-                { name: post.title, url: postUrl },
-            ]} />
+            <JsonLdScript graph={blogPostGraph(post)} />
 
             <Link
                 href="/guide/operational-architecture/blog"

@@ -10,5 +10,21 @@ export const siteConfig = {
     links: {
         github: "https://github.com/mels0n",
         linkedin: "https://www.linkedin.com/in/chris-melson/",
-    }
+        untapWeb: "https://untapweb.com",
+        cvPdf: "/christopher-melson-cv.pdf",
+    },
+    // Facts the Person entity in the structured data states. Every value here
+    // is also shown on the site; the Fair Maps site describes the same entity
+    // with the same name, alternate name and title.
+    person: {
+        name: "Chris Melson",
+        alternateNames: ["Christopher Melson", "Christopher M. Melson", "Chris M. Melson"],
+        givenName: "Christopher",
+        familyName: "Melson",
+        jobTitle: "Transformation Executive & Operational Architect",
+        description: "Operational Architect for the Agentic Age",
+        disambiguatingDescription: "Operations Executive & Architect. Distinct from the Civil Engineer (LSU) and the Football Coach.",
+        location: { city: "Saint Louis", region: "MO", country: "US" },
+        headshot: "/chris-melson-headshot.jpg",
+    },
 };

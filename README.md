@@ -58,3 +58,10 @@ This project is optimized for Answer Engine Optimization (AEO).
 Backend/API logic is organized by business feature, not technical layer.
 *   See `src/features/` for isolated business logic.
 *   Do not share state between features unless via `shared/lib/store`.
+
+### 4. Structured Data (JSON-LD)
+Every page renders one `@graph` of schema.org JSON-LD in its HTML, built in `src/shared/lib/structured-data/`.
+*   `https://chris.melson.us/#person` is the canonical Person entity (name, alternate names, title, location, education, skills, roles, `sameAs`). The WebSite (`/#website`) is published and authored by it. Other sites point at it through their own `sameAs`.
+*   Each page graph carries the Person and WebSite in full, so every `@id` reference resolves inside that page. The home page is the `ProfilePage`, `/about` the `AboutPage`, posts are `BlogPosting` inside a `Blog`, case studies and the guide are `Article`, and inner pages carry a `BreadcrumbList`.
+*   Source data is parsed with zod at the boundary, and each finished graph is checked (references resolve, URLs absolute, no email or phone) before it renders, so bad data fails the build. Facts come from `site-config.ts`, `resume.json`, the blog and case-study data, and the Lab project cards.
+*   `npm test` runs the vitest suite, which builds every page's graph from the real data.

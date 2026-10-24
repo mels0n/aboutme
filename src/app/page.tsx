@@ -3,6 +3,11 @@ import { HomeClient } from "./HomeClient";
 
 import { siteConfig } from "@/shared/config/site-config";
 
+const PAGE = {
+    name: "Christopher Melson | Operational Architect for the Agentic Age",
+    description: "Operations executive closing M&A integration gaps, stabilizing distressed environments, and building resilient teams. Executive, Strategist, Engineer.",
+};
+
 type Props = {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
@@ -15,8 +20,8 @@ export async function generateMetadata(
 
     // OpenGraph and meta description — substantive description required for
     // Lighthouse SEO audit ("Document does not have a meta description").
-    const title = "Christopher Melson | Operational Architect for the Agentic Age";
-    const summary = "Operations executive closing M&A integration gaps, stabilizing distressed environments, and building resilient teams. Executive, Strategist, Engineer.";
+    const title = PAGE.name;
+    const summary = PAGE.description;
 
     // Absolute URL construction required for OpenGraph
     const baseUrl = process.env.NEXT_PUBLIC_URL || siteConfig.url;
@@ -52,7 +57,9 @@ export async function generateMetadata(
 
 import { ServerSideResume } from "@/shared/ui/ServerSideResume";
 import { SemanticNavGraph } from "@/shared/ui/SemanticNavGraph";
-import { JsonLd } from "@/shared/ui/JsonLd";
+import { JsonLdScript } from "@/shared/ui/JsonLdScript";
+import { homeGraph } from "@/shared/lib/structured-data";
+import { projectInputs } from "@/entities/project/model/structured-data";
 import resume from "@/shared/data/resume.json";
 import { ResumeData } from "@/shared/types/resume";
 
@@ -61,7 +68,7 @@ export default function Page() {
         <>
             <ServerSideResume data={resume as unknown as ResumeData} />
             <SemanticNavGraph />
-            <JsonLd />
+            <JsonLdScript graph={homeGraph(PAGE, projectInputs.filter((project) => project.website))} />
             <HomeClient />
         </>
     );

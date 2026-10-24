@@ -5,10 +5,15 @@ import { FunctionalSections } from "@/widgets/about/ui/FunctionalSections";
 
 import { aboutContent } from "@/shared/data/about-content";
 import Link from 'next/link';
+import { JsonLdScript } from "@/shared/ui/JsonLdScript";
+import { aboutGraph } from "@/shared/lib/structured-data";
+
+const ABOUT_TITLE = "About Christopher Melson | Executive & Board Advisor";
+const ABOUT_DESCRIPTION = "Transformation Executive & Operational Architect with 13 years at LSEG, Refinitiv, and Thomson Reuters. Specializing in M&A integration, DORA compliance, and organizational resilience.";
 
 export const metadata: Metadata = {
-    title: { absolute: "About Christopher Melson | Executive & Board Advisor" },
-    description: "Transformation Executive & Operational Architect with 13 years at LSEG, Refinitiv, and Thomson Reuters. Specializing in M&A integration, DORA compliance, and organizational resilience.",
+    title: { absolute: ABOUT_TITLE },
+    description: ABOUT_DESCRIPTION,
     alternates: {
         canonical: '/about',
     },
@@ -27,28 +32,9 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-    // WebPage node referencing the existing #person entity established on the homepage.
-    // The Person data lives in JsonLd.tsx; this page only declares what it is "about".
-    const pageSchema = {
-        "@context": "https://schema.org",
-        "@graph": [{
-            "@type": "WebPage",
-            "@id": "https://chris.melson.us/about#webpage",
-            "url": "https://chris.melson.us/about",
-            "name": "About Christopher Melson | Executive & Board Advisor",
-            "isPartOf": { "@id": "https://chris.melson.us/#website" },
-            "about": { "@id": "https://chris.melson.us/#person" },
-            "mainEntity": { "@id": "https://chris.melson.us/#person" },
-            "inLanguage": "en-US"
-        }]
-    };
-
     return (
         <main className="min-h-screen bg-background text-foreground selection:bg-blue-100 selection:text-slate-900 overflow-x-hidden">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
-            />
+            <JsonLdScript graph={aboutGraph({ name: ABOUT_TITLE, description: ABOUT_DESCRIPTION })} />
 
             <div className="max-w-7xl mx-auto px-6 py-6 md:py-12">
                 {/* Navigation Back */}

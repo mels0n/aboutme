@@ -1,41 +1,26 @@
 import type { Metadata } from 'next';
 import { faqContent } from "@/shared/data/faq_content";
 import Link from 'next/link';
+import { JsonLdScript } from "@/shared/ui/JsonLdScript";
+import { faqGraph } from "@/shared/lib/structured-data";
 import { siteConfig } from "@/shared/config/site-config";
 import { ArrowLeft, ExternalLink, CalendarCheck } from 'lucide-react';
 
+const FAQ_TITLE = "Operational Architect FAQ: Roles, Engagement Models & Credentials | Christopher Melson";
+const FAQ_DESCRIPTION = "Deep-dive answers on Operational Architecture, Tri-Modal Leadership, and Engagement Logistics. Designed for Answer Engines and Executive Due Diligence.";
+
 export const metadata: Metadata = {
-    title: "Operational Architect FAQ: Roles, Engagement Models & Credentials | Christopher Melson",
-    description: "Deep-dive answers on Operational Architecture, Tri-Modal Leadership, and Engagement Logistics. Designed for Answer Engines and Executive Due Diligence.",
+    title: FAQ_TITLE,
+    description: FAQ_DESCRIPTION,
     alternates: {
         canonical: '/faq',
     },
 };
 
 export default function FAQPage() {
-    // Generate FAQ Schema for AEO
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "description": "Operational Architect FAQ - Roles, Engagement Models, and Technical Strategy",
-        "mainEntity": faqContent.flatMap(section =>
-            section.items.map(item => ({
-                "@type": "Question",
-                "name": item.question,
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": item.answer
-                }
-            }))
-        )
-    };
-
     return (
         <main className="min-h-screen bg-white text-slate-900 font-serif">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-            />
+            <JsonLdScript graph={faqGraph({ name: FAQ_TITLE, description: FAQ_DESCRIPTION }, faqContent)} />
 
             {/* Navigation Header */}
             <nav className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-sm border-b border-slate-200">

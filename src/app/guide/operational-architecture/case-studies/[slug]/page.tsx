@@ -4,7 +4,8 @@ import { officeCaseStudies } from "@/shared/data/office_case_studies";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { BreadcrumbSchema } from "@/shared/ui/BreadcrumbSchema";
+import { JsonLdScript } from "@/shared/ui/JsonLdScript";
+import { caseStudyGraph } from "@/shared/lib/structured-data";
 
 interface Props {
     params: Promise<{
@@ -52,34 +53,9 @@ export default async function CaseStudyPage({ params }: Props) {
         notFound();
     }
 
-    const studyUrl = `https://chris.melson.us/guide/operational-architecture/case-studies/${study.slug}`;
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "@id": studyUrl,
-        "url": studyUrl,
-        "mainEntityOfPage": { "@type": "WebPage", "@id": studyUrl },
-        "headline": study.title,
-        "description": study.summary.executive,
-        "author": { "@id": "https://chris.melson.us/#person" },
-        "publisher": { "@id": "https://chris.melson.us/#person" },
-        "datePublished": study.date,
-        "dateModified": study.date,
-        "articleBody": `Situation: ${study.fullReport.situation}\nTask: ${study.fullReport.task}\nAction: ${study.fullReport.action}\nResult: ${study.fullReport.result}`,
-    };
-
     return (
         <main className="min-h-screen bg-white text-slate-900 font-serif py-20 px-6">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-            />
-            <BreadcrumbSchema items={[
-                { name: "Home", url: "https://chris.melson.us" },
-                { name: "Operational Architecture", url: "https://chris.melson.us/guide/operational-architecture" },
-                { name: "Case Studies", url: "https://chris.melson.us/guide/operational-architecture/case-studies" },
-                { name: study.title, url: studyUrl },
-            ]} />
+            <JsonLdScript graph={caseStudyGraph(study)} />
 
             <div className="max-w-3xl mx-auto">
                 <Link

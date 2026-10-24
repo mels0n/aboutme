@@ -30,6 +30,7 @@ export const myNewPost: BlogPost = {
     role: "Operational Architect", // or relevant persona
     date: "YYYY-MM-DD", // Used for sorting (Newest First)
     summary: "Brief summary for the card view.",
+    keywords: ["optional", "topic keywords"], // Optional. Emitted as BlogPosting.keywords in the page structured data.
     polymorphicSummary: {
         executive: "Summary customized for Executive persona.",
         strategist: "Summary customized for Strategist persona.",

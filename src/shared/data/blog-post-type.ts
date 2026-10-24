@@ -16,6 +16,8 @@ export interface BlogPost {
     };
     content: string;
     ogImage?: string;
+    /** Topic keywords, emitted as BlogPosting.keywords when present. */
+    keywords?: string[];
     geoHighlights: {
         label: string;
         value: string;

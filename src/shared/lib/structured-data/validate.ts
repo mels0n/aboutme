@@ -7,7 +7,9 @@ const URL_KEYS = new Set([
 
 const PII_PATTERNS: [string, RegExp][] = [
     ["email address", /[^\s@"]+@[^\s@"]+\.[a-z]{2,}/i],
-    ["phone number", /\b\d{3}[-.\s]\d{3}[-.\s]\d{4}\b/],
+    // 314-555-0100, 314.555.0100, (314) 555-0100, +1 314 555 0100. A bare ten-digit
+    // run is not matched: image and photo ids in URLs look exactly like one.
+    ["phone number", /(?:\+?1[-.\s])?(?:\(\d{3}\)\s?|\b\d{3}[-.\s])\d{3}[-.\s]\d{4}\b/],
 ];
 
 function isReference(value: unknown): value is { "@id": string } {

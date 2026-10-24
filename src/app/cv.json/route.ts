@@ -45,8 +45,6 @@ export async function GET() {
             name: data.basics.name,
             label: data.basics.headline,
             image: data.basics.picture.url,
-            email: data.basics.email,
-            phone: data.basics.phone,
             url: data.basics.url.href,
             summary: data.sections.summary.content.replace(/<[^>]*>/g, '').trim(), // Strip HTML for main summary
             location: {

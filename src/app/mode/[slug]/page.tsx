@@ -19,17 +19,15 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
     const label = slug.split("-").map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
 
-    // Same content as the home page in another persona. Canonical points
-    // home and the page stays out of the index; links on it are followed.
-    return {
-        ...pageMetadata({
-            title: label,
-            description: "Operations executive closing M&A integration gaps, stabilizing distressed environments, and building resilient teams.",
-            path: "/",
-            type: "profile",
-        }),
-        robots: { index: false, follow: true },
-    };
+    // Same content as the home page in another persona. The canonical folds
+    // these pages into the home page. No noindex: with a canonical it is a
+    // conflicting signal that Google can apply to the canonical target.
+    return pageMetadata({
+        title: label,
+        description: "Operations executive closing M&A integration gaps, stabilizing distressed environments, and building resilient teams.",
+        path: "/",
+        type: "profile",
+    });
 }
 
 export default async function ModePage(props: Props) {

@@ -115,5 +115,9 @@ const articles = [...officeBlogPosts]
     .map(post => `- [${post.title}](${BASE_URL}/guide/operational-architecture/blog/${post.slug})`)
     .join('\n');
 const llmsPath = join(import.meta.dirname, '..', 'public', 'llms.txt');
-writeFileSync(llmsPath, template.replace('{{BLOG_ARTICLES}}', articles), 'utf8');
+if (!template.includes('{{BLOG_ARTICLES}}')) {
+    throw new Error('scripts/llms.template.md is missing the {{BLOG_ARTICLES}} placeholder');
+}
+// A replacer function, so a "$" in a post title is copied literally.
+writeFileSync(llmsPath, template.replace('{{BLOG_ARTICLES}}', () => articles), 'utf8');
 console.log(`llms.txt written: ${officeBlogPosts.length} articles -> ${llmsPath}`);

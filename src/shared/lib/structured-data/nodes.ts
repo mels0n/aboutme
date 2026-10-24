@@ -195,10 +195,10 @@ export function webPageNode({ type, url, name, description, breadcrumb = true, e
 /** Word count of the readable text: markup, inline SVG and link targets do not count. */
 export function wordCount(markdown: string): number {
     const text = markdown
+        .replace(/`{3}[\s\S]*?`{3}/g, " ")
         .replace(/<(script|style|svg)[\s\S]*?<\/\1>/gi, " ")
         .replace(/<[^>]+>/g, " ")
-        .replace(/\]\([^)]*\)/g, "] ")
-        .replace(/`{3}[\s\S]*?`{3}/g, " ");
+        .replace(/\]\([^)]*\)/g, "] ");
     return text.split(/\s+/).filter((token) => /[\p{L}\p{N}]/u.test(token)).length;
 }
 

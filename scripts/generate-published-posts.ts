@@ -16,6 +16,7 @@ import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { allOfficeBlogPosts } from '../src/shared/data/office_blog_posts';
 import { postSchema } from '../src/shared/lib/structured-data/schema';
+import { blogPostGraph } from '../src/shared/lib/structured-data/graphs';
 
 const OUT_PATH = join(import.meta.dirname, '..', 'src', 'shared', 'data', 'published-posts.generated.ts');
 
@@ -44,14 +45,21 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(buildDate)) {
     throw new Error(`BUILD_DATE must be YYYY-MM-DD, got "${buildDate}"`);
 }
 
-// Validate every post, scheduled and draft included, with the schema the
-// structured data uses. A bad post then fails here, on the next dev run or
-// build after it is written, not on the unattended deploy of its publish day.
+// Validate every post, scheduled and draft included: the schema, then the
+// post's full structured-data graph with every check the page build runs
+// (https URLs, no email or phone, references resolve). A bad post then fails
+// here, on the next dev run or build after it is written, not on the
+// unattended deploy of its publish day.
 for (const post of allOfficeBlogPosts) {
     const result = postSchema.safeParse(post);
     if (!result.success) {
         const issues = result.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`).join('; ');
         throw new Error(`blog post "${post.slug}" is invalid: ${issues}`);
+    }
+    try {
+        blogPostGraph(post);
+    } catch (error) {
+        throw new Error(`blog post "${post.slug}" has invalid structured data: ${(error as Error).message}`);
     }
 }
 

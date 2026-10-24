@@ -1,4 +1,7 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import resume from "@/shared/data/resume.json";
 import { faqContent } from "@/shared/data/faq_content";
 import { officeCaseStudies } from "@/shared/data/office_case_studies";
 import { officeBlogPosts } from "@/shared/data/published_blog_posts";
@@ -80,9 +83,12 @@ describe("Person entity", () => {
 
     it("lists the Skills & Expertise keywords, both institutions and every degree", () => {
         expect(person.knowsAbout).toContain("Post-Merger Integration (PMI)");
-        expect((person.knowsAbout as string[]).length).toBe(13);
+        const skills = resume.sections.skills.items.flatMap((item) => (item.visible ? item.keywords : []));
+        expect(person.knowsAbout).toEqual(skills);
         const alumni = (person.alumniOf as { name: string }[]).map((a) => a.name);
-        expect(alumni).toEqual(["Webster University", "Ranken Technical College"]);
+        expect(alumni).toContain("Webster University");
+        expect(alumni).toContain("Ranken Technical College");
+        expect(new Set(alumni).size).toBe(alumni.length);
         const degrees = (person.hasCredential as { name: string }[]).map((c) => c.name);
         expect(degrees).toContain("Master of Business Administration (MBA)");
         expect(degrees).toContain("Bachelor of Science (BS), Computer Science");
@@ -90,7 +96,12 @@ describe("Person entity", () => {
 
     it("dates roles year-month and leaves out the undated 'Previous Roles' row", () => {
         const roles = (person.worksFor as Record<string, unknown>[]).filter((w) => w["@type"] === "EmployeeRole");
-        expect(roles).toHaveLength(4);
+        const datedRows = resume.sections.experience.items.filter((item) => item.visible && item.date);
+        expect(roles).toHaveLength(datedRows.length);
+        for (const role of roles) {
+            expect(role.startDate).toMatch(/^\d{4}-\d{2}$/);
+            expect(String(role.roleName)).not.toMatch(/^Previous Roles/);
+        }
         expect(roles[0]).toMatchObject({
             roleName: "Head of FX Operations Programs and Strategy",
             startDate: "2023-10",
@@ -174,6 +185,17 @@ describe("blog", () => {
         expect(wordCount(post.content)).toBe(7);
     });
 
+    it("drops fenced code before markup, so a < in code does not swallow prose", () => {
+        expect(wordCount("one two\n\n```ts\nconst a: Array<string> = [];\n```\n\nthree > four")).toBe(4);
+    });
+
+    it("every local ogImage exists under public/", () => {
+        for (const item of officeBlogPosts) {
+            if (!item.ogImage || /^https?:\/\//.test(item.ogImage)) continue;
+            expect(existsSync(join(process.cwd(), "public", item.ogImage)), `${item.slug}: ${item.ogImage}`).toBe(true);
+        }
+    });
+
     it("the index lists every post by reference and defines each one", () => {
         const graph = blogIndexGraph(page, officeBlogPosts);
         const blog = byId(graph, ids.blog)!;
@@ -250,6 +272,18 @@ describe("graph validation", () => {
     it("flags duplicate ids and personal contact data", () => {
         expect(() => finalizeGraph([base, base])).toThrow(/duplicate/);
         expect(() => finalizeGraph([{ ...base, description: "write me at someone@example.com" }])).toThrow(/email/);
+    });
+
+    it.each(["314-555-0100", "314.555.0100", "(314) 555-0100", "(314)555-0100", "+1 314 555 0100"])(
+        "flags the phone number %s",
+        (phone) => {
+            expect(() => finalizeGraph([{ ...base, description: `call ${phone}` }])).toThrow(/phone/);
+        },
+    );
+
+    it("does not mistake dates and years for phone numbers", () => {
+        expect(() => finalizeGraph([{ ...base, description: "2023-10 to 2025-11, published 2026-05-20, $1.3M in 2024" }])).not.toThrow();
+        expect(() => finalizeGraph([{ ...base, image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200" }])).not.toThrow();
     });
 });
 

@@ -11,21 +11,10 @@ import type { ReactNode } from "react";
 import { JsonLdScript } from "@/shared/ui/JsonLdScript";
 import { blogPostGraph } from "@/shared/lib/structured-data";
 import { relatedPosts } from "@/entities/post/model/related-posts";
+import { headingShift, headingSlug, tableOfContents } from "@/entities/post/model/headings";
 
 // Slugs not prerendered at build 404 instead of rendering on demand.
 export const dynamicParams = false;
-
-// Heading ids are produced twice: from raw markdown for the table of
-// contents, and from rendered children for the h2/h3 anchors. Both must go
-// through headingSlug so the TOC links land on the matching heading.
-function headingSlug(text: string): string {
-    const slug = text
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, "")
-        .trim()
-        .replace(/\s+/g, "-");
-    return slug || "section";
-}
 
 function nodeText(children: ReactNode): string {
     if (typeof children === "string" || typeof children === "number") return String(children);
@@ -34,30 +23,6 @@ function nodeText(children: ReactNode): string {
         return nodeText((children as { props: { children?: ReactNode } }).props.children);
     }
     return "";
-}
-
-// Posts use either ## or ### as their top section level. The table of
-// contents follows whichever is the shallowest level with 2+ headings.
-function tableOfContents(markdown: string): { id: string; text: string }[] {
-    for (const level of [2, 3]) {
-        const pattern = new RegExp(`^${"#".repeat(level)} (.+)$`, "gm");
-        const items = [...markdown.matchAll(pattern)].map((m) => {
-            const text = m[1]
-                .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
-                .replace(/[*_`]/g, "")
-                .trim();
-            return { id: headingSlug(text), text };
-        });
-        if (items.length >= 2) return items;
-    }
-    return [];
-}
-
-// Posts use ## or ### as their top section level. Rendered headings shift so
-// the top level is always h2 under the page's h1 (no skipped levels); the
-// shifted tags keep the size of the level they were written at.
-function headingShift(markdown: string): number {
-    return /^## /m.test(markdown) ? 0 : 1;
 }
 
 export async function generateStaticParams() {

@@ -69,5 +69,5 @@ Every page renders one `@graph` of schema.org JSON-LD in its HTML, built in `src
 ### 5. Page Metadata and Crawl Files
 *   Every page builds its metadata with `pageMetadata()` (`src/shared/lib/seo/metadata.ts`): title, description, canonical, Open Graph and Twitter card for that page. The layout appends " | Christopher Melson" only when the title still fits a search result.
 *   `scripts/generate-sitemap.ts` runs before every build and writes `public/sitemap.xml`, `public/sitemap-pages.xml` and `public/llms.txt` (from `scripts/llms.template.md` plus the published posts). All three are generated and gitignored; edit the script or the template. Static-route `lastmod` dates live in the script and are updated by hand when a page changes.
-*   `public/robots.txt` is a static file. Keep `/api/og` allowed: it serves the social card images.
+*   `public/robots.txt` is a static file. Keep `/api/og` allowed (it serves the social card images) and never disallow `/_next/` (crawlers need the JS and CSS to render pages).
 

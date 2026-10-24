@@ -8,7 +8,7 @@ export const fractionalCtoRole: BlogPost = {
     role: "Operational Architect",
     date: "2026-06-28",
     lastUpdated: "2026-06-28",
-    ogImage: "/images/blog/fractional-cto-role-og.jpg",
+    ogImage: "/images/blog/fractional-cto-team.jpg",
     summary: "Most fractional CTO descriptions come from recruiters, not operators. Here is what they actually do each week, with advisory, embedded, and interim modes explained.",
     polymorphicSummary: {
         executive: "A fractional CTO is not a part-time employee or a figurehead for investor decks. They own a defined technical scope (architecture decisions, vendor contracts, team structure, technology roadmap) for a fixed weekly commitment. The engagement is designed to end: a good fractional CTO plans their own exit and transfers ownership to a permanent hire or an empowered internal team. For boards and PE operating partners, the key metric is whether the engagement produced durable infrastructure, not whether the CTO attended meetings.",

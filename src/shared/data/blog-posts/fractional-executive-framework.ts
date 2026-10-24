@@ -8,7 +8,7 @@ export const fractionalExecutiveFramework: BlogPost = {
     role: "Operational Architect",
     date: "2026-06-28",
     summary: "Fractional executives cost 30-50% of full-time. A decision framework for CEOs: which roles deliver ROI, when to hire, and how to avoid the most common failures.",
-    ogImage: "/images/blog/fractional-executive-og.jpg",
+    ogImage: "/images/blog/fractional-exec-meeting.jpg",
     lastUpdated: "2026-06-28",
     polymorphicSummary: {
         executive: "A fractional executive delivers C-suite capability at 30-50% of the fully loaded cost of a full-time hire, with no severance exposure and a typical ramp time measured in weeks rather than months. For PE portfolio companies on a 3-5 year value-creation timeline, the math is straightforward. This post presents the decision criteria, cost structure, and red flags that boards and sponsors should apply before approving either a fractional or full-time executive search.",

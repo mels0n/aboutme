@@ -28,6 +28,13 @@ export function HomeClient({ initialMode, initialView }: HomeClientProps) {
     const introTrigger = useRef<HTMLButtonElement>(null);
     const introWasOpen = useRef(false);
 
+    // Leaving the page with the explainer open must not re-open it on return.
+    // The reset lives here, not in the modal: React StrictMode (on in dev)
+    // runs a mounted component's effect cleanup once, which would close the
+    // modal right after it opened. Here that rehearsal runs at page mount,
+    // while the explainer is still closed.
+    useEffect(() => () => setIntroOpen(false), [setIntroOpen]);
+
     // Return focus to the "How this site works" button when the explainer closes.
     useEffect(() => {
         if (introWasOpen.current && !introOpen) introTrigger.current?.focus();

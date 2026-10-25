@@ -22,11 +22,7 @@ export const GatekeeperModal = () => {
             if (e.key === 'Escape') handleClose();
         };
         window.addEventListener('keydown', handleKeyDown);
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-            // Leaving the page with the explainer open must not re-open it on return.
-            setIntroOpen(false);
-        };
+        return () => window.removeEventListener('keydown', handleKeyDown);
     }, [setIntroOpen]);
 
     return (

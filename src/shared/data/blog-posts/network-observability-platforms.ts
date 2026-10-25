@@ -4,6 +4,7 @@ export const networkObservabilityPlatforms: BlogPost = {
     id: "network-observability-platforms",
     slug: "network-observability-platforms",
     title: "The Paradigm Shift in Financial Telemetry: AI-Driven Network Observability",
+    seoTitle: "AI-Driven Network Observability for Financial Telemetry",
     author: "Christopher Melson",
     role: "Operational Architect",
     date: "2026-03-22",

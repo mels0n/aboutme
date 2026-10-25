@@ -26,10 +26,12 @@ export const myNewPost: BlogPost = {
     id: "unique-id", // Must be unique
     slug: "url-friendly-slug", // Used in URL
     title: "Title of the Post",
+    seoTitle: "Shorter search title", // Required when title is over 60 characters (the build fails otherwise). Used for <title> and social cards; the page heading keeps title.
     author: "Author Name",
     role: "Operational Architect", // or relevant persona
     date: "YYYY-MM-DD", // Used for sorting (Newest First)
     summary: "Brief summary for the card view.",
+    keywords: ["optional", "topic keywords"], // Optional. Emitted as BlogPosting.keywords in the page structured data.
     polymorphicSummary: {
         executive: "Summary customized for Executive persona.",
         strategist: "Summary customized for Strategist persona.",
@@ -91,4 +93,4 @@ After adding a post:
 1.  Run `npm run dev`.
 2.  Navigate to the "Office" view.
 3.  Verify the card appears in the grid (sorted by date).
-4.  Click the card to ensure the modal opens and content renders correctly.
+4.  Click the card and confirm the post page opens and renders correctly.

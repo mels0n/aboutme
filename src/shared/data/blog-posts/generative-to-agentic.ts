@@ -4,6 +4,7 @@ export const generativeToAgentic: BlogPost = {
     id: "generative-to-agentic",
     slug: "orchestrating-the-transition-generative-to-agentic-ai",
     title: "Orchestrating the Transition: From \"Generative\" to \"Agentic\" AI",
+    seoTitle: "From Generative to Agentic AI: Orchestrating the Shift",
     author: "Christopher Melson",
     role: "Operational Architect",
     date: "2026-01-12",

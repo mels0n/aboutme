@@ -4,6 +4,7 @@ export const agenticShift: BlogPost = {
     id: "agentic-shift",
     slug: "agentic-shift-se-3-0",
     title: "The Agentic Shift: Operationalizing Human-Agent Development Pods in the 2026 Enterprise",
+    seoTitle: "The Agentic Shift: Human-Agent Development Pods",
     author: "Christopher Melson",
     role: "Operational Architect",
     date: "2026-01-14",

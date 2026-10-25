@@ -23,7 +23,7 @@ export interface OperatingMode {
  * Shared definition of the three operating modes for the office view's lens
  * switchers (top nav and case study modal), so their labels, icons and colours
  * stay in step. Slugs are still mirrored in shared/config/seo-routes.ts,
- * shared/ui/PersonaToggle.tsx and OfficeBlogModal.tsx; keep those in sync.
+ * and shared/ui/PersonaToggle.tsx; keep those in sync.
  */
 export const OPERATING_MODES: readonly OperatingMode[] = [
     {
@@ -60,7 +60,8 @@ export const getOperatingMode = (id: OperatingModeId): OperatingMode =>
 
 /**
  * Soft-navigation URL for a mode: /mode/<slug>, keeping the current query
- * string minus modal-state params (blog) so they don't re-open on a lens switch.
+ * string minus the legacy `blog` share param (old links redirect to the post
+ * page; a lens switch should not carry it along).
  */
 export const getModeUrl = (id: OperatingModeId, search: string): string => {
     const params = new URLSearchParams(search);

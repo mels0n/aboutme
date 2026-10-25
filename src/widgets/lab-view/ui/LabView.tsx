@@ -15,7 +15,7 @@ import { PersonaExplanation } from "@/features/persona-explanation";
 import { LAB_CONTENT } from "@/shared/data/lab-content";
 
 export const LabView = () => {
-    const { mode, setMode, introDismissed } = usePersonaStore();
+    const { mode, setMode } = usePersonaStore();
 
     // Intro sequence logic was in Page.tsx. 
     // Since "The Lab" is now a sub-view, we might want to run the intro only if accessing Lab for the first time?
@@ -46,7 +46,7 @@ export const LabView = () => {
         <motion.div
             key="lab-view"
             initial={{ opacity: 0 }}
-            animate={introDismissed ? { opacity: 1 } : { opacity: 0 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="w-full"
         >

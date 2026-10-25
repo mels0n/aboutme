@@ -3,6 +3,7 @@ import { Inter, Young_Serif, Merriweather, JetBrains_Mono, Roboto_Slab } from "n
 import "./globals.css";
 import { ThemeMetadata } from "@/shared/ui/ThemeMetadata";
 import GoogleAnalytics from "@/shared/ui/GoogleAnalytics";
+import { Footer } from "@/widgets/shared/Footer";
 
 /*
  * Font Configuration
@@ -29,16 +30,19 @@ const merriweather = Merriweather({
     subsets: ["latin"],
 });
 
-// Body serif font for Strategist (Game Table feel)
+// Body serif font for Strategist (Game Table feel). Only the strategist
+// persona uses it, so it is not preloaded on every page.
 const robotoSlab = Roboto_Slab({
     variable: "--font-roboto-slab",
     subsets: ["latin"],
+    preload: false,
 });
 
 // Monospace font for code and terminal UI (Engineer mode)
 const jetbrains = JetBrains_Mono({
     variable: "--font-jetbrains",
     subsets: ["latin"],
+    preload: false,
 });
 
 export const metadata: Metadata = {
@@ -54,8 +58,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Christopher Melson | Polymorphic Portfolio",
         description: "Operational Architect for the Agentic Age. Tri-Modal Leadership combining Strategic Design, Resilient Operations, and Technical Execution.",
-        url: "https://chris.melson.us",
-        siteName: "Christopher Melson Portfolio",
+        siteName: "Christopher Melson",
         locale: "en_US",
         type: "profile",
     },
@@ -65,12 +68,10 @@ export const metadata: Metadata = {
         description: "Executive. Strategist. Engineer.",
         images: ["/opengraph-image"],
     },
+    // Indexing is the default; only the googlebot preview limits are set here so
+    // a page's own robots (404, /mode) is the only robots meta it carries.
     robots: {
-        index: true,
-        follow: true,
         googleBot: {
-            index: true,
-            follow: true,
             "max-video-preview": -1,
             "max-image-preview": "large",
             "max-snippet": -1,
@@ -110,6 +111,7 @@ export default function RootLayout({
                 <GoogleAnalytics />
                 <ThemeMetadata />
                 {children}
+                <Footer />
             </body>
         </html>
     );

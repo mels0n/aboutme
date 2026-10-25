@@ -4,6 +4,7 @@ export const localSeoForSmallBusiness: BlogPost = {
     id: "local-seo-for-small-business",
     slug: "local-seo-for-small-business",
     title: "Why I Built Untap Web: The Local SEO Gap Only an Operator Could See",
+    seoTitle: "Why I Built Untap Web: The Local SEO Gap",
     author: "Christopher Melson",
     role: "Founder, Untap Web · Operational Architect",
     date: "2026-06-28",

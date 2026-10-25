@@ -2,11 +2,10 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { BlogPost, officeBlogPosts } from "@/shared/data/published_blog_posts";
-import { OfficeBlogModal } from "./OfficeBlogModal";
+import { useRouter } from "next/navigation";
+import { officePostCards } from "@/shared/data/published_post_cards";
 import { TrustBadge } from "@/shared/ui/TrustBadge";
 import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
@@ -19,19 +18,18 @@ export const OfficeBlogGrid = ({ mode: propMode }: OfficeBlogGridProps) => {
     const { mode: storeMode } = usePersonaStore();
     const mode = propMode || storeMode;
 
-    const searchParams = useSearchParams();
-    const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+    const router = useRouter();
 
-    // Deep Link Handler
+    // Old share links (/mode/<slug>?blog=<post>) opened the post in a modal
+    // here. Posts now have only their own page, so send those links there.
+    // Read from window.location: useSearchParams would push the statically
+    // rendered home page to client rendering.
     useEffect(() => {
-        const blogSlug = searchParams.get('blog');
-        if (blogSlug) {
-            const post = officeBlogPosts.find(p => p.slug === blogSlug);
-            if (post) {
-                setSelectedPost(post);
-            }
+        const blogSlug = new URLSearchParams(window.location.search).get('blog');
+        if (blogSlug && officePostCards.some((card) => card.slug === blogSlug)) {
+            router.replace(`/guide/operational-architecture/blog/${blogSlug}`);
         }
-    }, [searchParams]);
+    }, [router]);
 
     return (
         <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -62,9 +60,8 @@ export const OfficeBlogGrid = ({ mode: propMode }: OfficeBlogGridProps) => {
 
                 {/* Horizontal Scroll Container */}
                 <div className="flex overflow-x-auto gap-6 pb-8 -mx-4 px-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-foreground/10 hover:scrollbar-thumb-foreground/20">
-                    {[...officeBlogPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((post) => (
-                        // A real link so crawlers can walk to each post; a plain
-                        // click still opens the modal in place.
+                    {[...officePostCards].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((post) => (
+                        // Each card opens the post's own page.
                         <motion.a
                             key={post.id}
                             href={`/guide/operational-architecture/blog/${post.slug}`}
@@ -76,11 +73,6 @@ export const OfficeBlogGrid = ({ mode: propMode }: OfficeBlogGridProps) => {
                                     mode === 'strategist' ? "border-indigo-800/20 hover:border-indigo-500/50 hover:bg-indigo-50/10" :
                                         "border-blue-900/20 hover:border-blue-700/50 hover:bg-blue-50/10"
                             )}
-                            onClick={(e) => {
-                                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-                                e.preventDefault();
-                                setSelectedPost(post);
-                            }}
                         >
                             <div className="space-y-4">
                                 <div className="flex justify-between items-start mb-4 text-xs font-mono uppercase tracking-widest opacity-50">
@@ -115,7 +107,7 @@ export const OfficeBlogGrid = ({ mode: propMode }: OfficeBlogGridProps) => {
                                     mode === 'engineer' ? "text-green-700" :
                                         mode === 'strategist' ? "text-indigo-700" : "text-blue-800"
                                 )}>
-                                    Read Analysis ({Math.ceil(post.content.split(/\s+/).length / 225)} min read) <ArrowUpRight className="w-3 h-3" />
+                                    Read Analysis ({post.readMinutes} min read) <ArrowUpRight className="w-3 h-3" />
                                 </div>
                             </div>
                         </motion.a>
@@ -123,20 +115,6 @@ export const OfficeBlogGrid = ({ mode: propMode }: OfficeBlogGridProps) => {
                 </div>
             </motion.div>
 
-            <OfficeBlogModal
-                post={selectedPost}
-                onClose={() => {
-                    setSelectedPost(null);
-                    if (typeof window !== 'undefined') {
-                        const url = new URL(window.location.href);
-                        if (url.searchParams.has('blog')) {
-                            url.searchParams.delete('blog');
-                            const newUrl = url.pathname + (url.searchParams.toString() ? `?${url.searchParams.toString()}` : '');
-                            window.history.replaceState(null, '', newUrl);
-                        }
-                    }
-                }}
-            />
         </section>
     );
 };

@@ -2,7 +2,7 @@ import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
 import { motion } from "framer-motion";
 import { Briefcase, Sword, Terminal } from "lucide-react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 /**
  * A floating control toggle that allows the user to switch between application personas
@@ -15,7 +15,6 @@ export function PersonaToggle() {
     const { mode, setMode } = usePersonaStore();
     const router = useRouter();
     const pathname = usePathname();
-    const searchParams = useSearchParams();
 
     // Configuration for the available toggle options
     const options = [
@@ -37,7 +36,8 @@ export function PersonaToggle() {
 
         if (isOfficeView) {
             // Soft Navigation: Update URL locally to preserve context
-            const params = new URLSearchParams(searchParams.toString());
+            // Read at click time; useSearchParams would push the static home page to client rendering.
+            const params = new URLSearchParams(window.location.search);
             params.delete('mode'); // CRITICAL: Remove legacy mode param to prevent state locking
 
             const newPath = `/mode/${MODE_SLUGS[newMode]}`;

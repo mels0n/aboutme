@@ -4,6 +4,7 @@ export const udmFirewallVsPfSense: BlogPost = {
     id: "unifi-firewall-enough-homelab-security",
     slug: "unifi-firewall-enough-homelab-security",
     title: "Is Your UniFi Firewall Enough? The Homelab Security Deep-Dive",
+    seoTitle: "Is Your UniFi Firewall Enough for Homelab Security?",
     author: "Christopher Melson",
     role: "Homelab Architect",
     date: "2026-05-21",

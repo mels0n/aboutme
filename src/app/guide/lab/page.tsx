@@ -1,18 +1,19 @@
-import { Metadata } from "next";
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import Link from "next/link";
 import { LAB_CONTENT, MANIFESTO_CONTENT } from "@/shared/data/lab-content";
+import { JsonLdScript } from "@/shared/ui/JsonLdScript";
+import { labGraph } from "@/shared/lib/structured-data";
+import { projectInputs } from "@/entities/project/model/structured-data";
 
-export const metadata: Metadata = {
-    title: "The Lab | Cognitive Refactoring & Innovation",
-    description: "A digital workspace dedicated to non-revenue-generating activities that yield high intellectual returns. The Lab is the 'Shadow IT' sector of the professional brand.",
-    alternates: {
-        canonical: "/guide/lab",
-    },
-};
+const LAB_TITLE = "The Lab: Cognitive Refactoring & Innovation";
+const LAB_DESCRIPTION = "A digital workspace dedicated to non-revenue-generating activities that yield high intellectual returns. The Lab is the 'Shadow IT' sector of the professional brand.";
+
+export const metadata = pageMetadata({ title: LAB_TITLE, description: LAB_DESCRIPTION, path: "/guide/lab" });
 
 export default function LabGuidePage() {
     return (
         <main className="max-w-4xl mx-auto px-6 py-24 space-y-12">
+            <JsonLdScript graph={labGraph({ name: LAB_TITLE, description: LAB_DESCRIPTION }, projectInputs)} />
             <nav className="mb-8">
                 <Link href="/" className="text-sm font-bold uppercase tracking-widest text-foreground/60 hover:text-foreground transition-colors flex items-center gap-2">
                     &larr; Return to Main Interface

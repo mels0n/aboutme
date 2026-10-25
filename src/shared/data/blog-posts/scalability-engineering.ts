@@ -4,6 +4,7 @@ export const scalabilityEngineering: BlogPost = {
     id: "scalability-engineering",
     slug: "scalability-is-an-engineering-problem",
     title: "Scalability is an Engineering Problem: Architecting the Target Operating Model",
+    seoTitle: "Scalability Is an Engineering Problem",
     author: "Christopher Melson",
     role: "Operational Architect",
     date: "2025-12-29",

@@ -1,28 +1,21 @@
 import { Metadata } from "next";
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { notFound } from "next/navigation";
 import { officeBlogPosts } from "@/shared/data/published_blog_posts";
+import { readMinutes as readingTime } from "@/shared/data/post-card-type";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import type { ReactNode } from "react";
-import { BreadcrumbSchema } from "@/shared/ui/BreadcrumbSchema";
+import { JsonLdScript } from "@/shared/ui/JsonLdScript";
+import { blogPostGraph } from "@/shared/lib/structured-data";
+import { relatedPosts } from "@/entities/post/model/related-posts";
+import { headingShift, headingSlug, tableOfContents } from "@/entities/post/model/headings";
 
 // Slugs not prerendered at build 404 instead of rendering on demand.
 export const dynamicParams = false;
-
-// Heading ids are produced twice: from raw markdown for the table of
-// contents, and from rendered children for the h2/h3 anchors. Both must go
-// through headingSlug so the TOC links land on the matching heading.
-function headingSlug(text: string): string {
-    const slug = text
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, "")
-        .trim()
-        .replace(/\s+/g, "-");
-    return slug || "section";
-}
 
 function nodeText(children: ReactNode): string {
     if (typeof children === "string" || typeof children === "number") return String(children);
@@ -31,23 +24,6 @@ function nodeText(children: ReactNode): string {
         return nodeText((children as { props: { children?: ReactNode } }).props.children);
     }
     return "";
-}
-
-// Posts use either ## or ### as their top section level. The table of
-// contents follows whichever is the shallowest level with 2+ headings.
-function tableOfContents(markdown: string): { id: string; text: string }[] {
-    for (const level of [2, 3]) {
-        const pattern = new RegExp(`^${"#".repeat(level)} (.+)$`, "gm");
-        const items = [...markdown.matchAll(pattern)].map((m) => {
-            const text = m[1]
-                .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
-                .replace(/[*_`]/g, "")
-                .trim();
-            return { id: headingSlug(text), text };
-        });
-        if (items.length >= 2) return items;
-    }
-    return [];
 }
 
 export async function generateStaticParams() {
@@ -66,28 +42,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         };
     }
 
-    const ogImageUrl = `/api/og?title=${encodeURIComponent(post.title)}&date=${post.date}`;
-
-    return {
-        title: post.title,
+    return pageMetadata({
+        title: post.seoTitle ?? post.title,
         description: post.summary,
-        alternates: {
-            canonical: `/guide/operational-architecture/blog/${post.slug}`,
-        },
-        openGraph: {
-            title: post.title,
-            description: post.summary,
-            url: `/guide/operational-architecture/blog/${post.slug}`,
-            type: "article",
-            images: [{ url: ogImageUrl, width: 1200, height: 630, alt: post.title }],
-        },
-        twitter: {
-            card: "summary_large_image",
-            title: post.title,
-            description: post.summary,
-            images: [ogImageUrl],
-        }
-    };
+        path: `/guide/operational-architecture/blog/${post.slug}`,
+        type: "article",
+        image: { url: `/api/og?title=${encodeURIComponent(post.title)}&date=${post.date}`, width: 1200, height: 630 },
+        publishedTime: post.date,
+        modifiedTime: post.lastUpdated,
+    });
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -99,7 +62,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     }
 
     // Works Cited is pulled out of the prose flow and rendered as a citation
-    // footer, matching OfficeBlogModal.
+    // footer.
     let bodyContent = post.content;
     let worksCitedHeader: string | null = null;
     let worksCitedContent: string | null = null;
@@ -112,41 +75,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     }
 
     const toc = tableOfContents(bodyContent);
-    const readMinutes = Math.ceil(post.content.split(/\s+/).length / 225);
+    const shift = headingShift(bodyContent);
+    const related = relatedPosts(post, officeBlogPosts);
+    const readMinutes = readingTime(post.content);
     const publishedLabel = new Date(`${post.date}T00:00:00`).toLocaleDateString('en-US', {
         year: 'numeric', month: 'long', day: 'numeric'
     });
 
-    const postUrl = `https://chris.melson.us/guide/operational-architecture/blog/${post.slug}`;
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "@id": postUrl,
-        "url": postUrl,
-        "mainEntityOfPage": { "@type": "WebPage", "@id": postUrl },
-        "headline": post.title,
-        "description": post.summary,
-        "author": { "@id": "https://chris.melson.us/#person" },
-        "publisher": { "@id": "https://chris.melson.us/#person" },
-        "datePublished": post.date,
-        "dateModified": post.lastUpdated ?? post.date,
-        "image": [post.ogImage ?? "https://chris.melson.us/opengraph-image"],
-        "wordCount": post.content.split(/\s+/).length,
-        "articleBody": post.content,
-    };
-
     return (
         <main className="max-w-7xl mx-auto px-6 lg:px-10 py-10 md:py-16 font-serif text-foreground">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-            />
-            <BreadcrumbSchema items={[
-                { name: "Home", url: "https://chris.melson.us" },
-                { name: "Operational Architecture", url: "https://chris.melson.us/guide/operational-architecture" },
-                { name: "Blog", url: "https://chris.melson.us/guide/operational-architecture/blog" },
-                { name: post.title, url: postUrl },
-            ]} />
+            <JsonLdScript graph={blogPostGraph(post)} />
 
             <Link
                 href="/guide/operational-architecture/blog"
@@ -157,7 +95,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </Link>
 
             <header className="mb-8 md:mb-12 max-w-4xl">
-                <div className="text-xs font-sans uppercase tracking-widest text-foreground/50 mb-4">
+                <div className="text-xs font-sans uppercase tracking-widest text-foreground/70 mb-4">
                     <time dateTime={post.date}>{publishedLabel}</time>
                     <span aria-hidden="true"> · </span>
                     {readMinutes} min read
@@ -185,8 +123,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 // Headings
                 "prose-headings:font-display prose-headings:font-bold prose-headings:scroll-mt-8",
                 "prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4",
-                // Accent — /guide routes always render the default (executive)
-                // theme, so this mirrors OfficeBlogModal's executive variant.
+                // Accent: /guide routes always render the default (executive)
+                // theme.
                 "prose-headings:text-blue-800 prose-a:text-blue-700 prose-strong:text-blue-900",
             ].join(" ")}>
                 {/* GEO Optimization: Structured Data Block. Kept light so it
@@ -231,9 +169,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                             h2: ({ node, children, ...props }) => (
                                 <h2 id={headingSlug(nodeText(children))} {...props}>{children}</h2>
                             ),
-                            h3: ({ node, children, ...props }) => (
-                                <h3 id={headingSlug(nodeText(children))} {...props}>{children}</h3>
-                            ),
+                            h3: ({ node, children, ...props }) => shift
+                                ? <h2 id={headingSlug(nodeText(children))} {...props} className="text-xl mt-8 mb-4">{children}</h2>
+                                : <h3 id={headingSlug(nodeText(children))} {...props}>{children}</h3>,
+                            h4: ({ node, children, ...props }) => shift
+                                ? <h3 {...props} className="text-base">{children}</h3>
+                                : <h4 {...props}>{children}</h4>,
                             blockquote: ({ node, ...props }) => (
                                 <blockquote
                                     className="border-l-4 border-blue-500/50 pl-4 italic bg-surface/30 p-4 rounded-r-lg my-6"
@@ -248,17 +189,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                 {worksCitedContent && (
                     <div className="mt-12 pt-8 border-t border-border not-prose">
-                        <h3 className="text-sm font-bold uppercase tracking-widest opacity-50 mb-4 font-mono">
+                        <h2 className="text-sm font-bold uppercase tracking-widest opacity-75 mb-4 font-mono">
                             {worksCitedHeader}
-                        </h3>
-                        <div className="text-xs opacity-60 space-y-2 font-mono">
+                        </h2>
+                        <div className="text-xs opacity-80 space-y-2 font-mono">
                             <ReactMarkdown
                                 components={{
                                     a: ({ node, ...props }) => (
                                         <a
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="hover:underline hover:opacity-100 transition-opacity text-foreground hover:text-foreground/80"
+                                            className="underline underline-offset-2 decoration-foreground/40 hover:decoration-foreground transition-colors text-foreground"
                                             {...props}
                                         />
                                     ),
@@ -306,6 +247,33 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </aside>
             </div>
 
+            {related.length > 0 && (
+                <section aria-labelledby="keep-reading" className="mt-10 pt-10 md:mt-16 md:pt-16 border-t border-border font-sans">
+                    <h2 id="keep-reading" className="text-xs font-bold uppercase tracking-widest text-slate-600 mb-6">
+                        Keep reading
+                    </h2>
+                    <ul className="grid gap-6 md:grid-cols-3">
+                        {related.map((item) => (
+                            <li key={item.slug}>
+                                <Link
+                                    href={`/guide/operational-architecture/blog/${item.slug}`}
+                                    className="font-display font-bold text-lg leading-snug text-blue-800 hover:text-blue-950 hover:underline underline-offset-4"
+                                >
+                                    {item.title}
+                                </Link>
+                                <p className="mt-2 text-sm text-foreground/70 leading-relaxed line-clamp-3">{item.summary}</p>
+                            </li>
+                        ))}
+                    </ul>
+                    <p className="mt-8 text-sm text-foreground/70">
+                        For outcomes from real engagements, see the{" "}
+                        <Link href="/guide/operational-architecture/case-studies" className="font-bold text-blue-700 hover:text-blue-900 underline underline-offset-4">
+                            case studies
+                        </Link>.
+                    </p>
+                </section>
+            )}
+
             <div className="mt-10 pt-10 md:mt-16 md:pt-16 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
                 <Link
                     href="/guide/operational-architecture/blog"
@@ -314,7 +282,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <ArrowLeft className="w-4 h-4" />
                     All articles
                 </Link>
-                <p className="text-sm opacity-50 font-mono">
+                <p className="text-sm opacity-75 font-mono">
                     Original content published on chris.melson.us
                 </p>
             </div>

@@ -1,16 +1,18 @@
-import { Metadata } from "next";
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { diagnosticContent } from "@/shared/data/diagnostic_content";
-import { BreadcrumbSchema } from "@/shared/ui/BreadcrumbSchema";
+import { JsonLdScript } from "@/shared/ui/JsonLdScript";
+import { guideGraph } from "@/shared/lib/structured-data";
 import { officeBlogPosts } from "@/shared/data/published_blog_posts";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-    title: "What is an Operational Architect?",
+const GUIDE_TITLE = "What is an Operational Architect?";
+
+export const metadata = pageMetadata({
+    title: GUIDE_TITLE,
     description: diagnosticContent.header.definition.part2,
-    alternates: {
-        canonical: "/guide/operational-architecture",
-    },
-};
+    path: "/guide/operational-architecture",
+    type: "article",
+});
 
 export default function OperationalArchitectGuide() {
     const { header, values, diagnosis } = diagnosticContent;
@@ -18,44 +20,25 @@ export default function OperationalArchitectGuide() {
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .slice(0, 3);
 
-    // AEO/SEO: FAQ Schema
-    const faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": header.title,
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": `${header.definition.part1} ${header.definition.part2} ${header.definition.part3}` // Full Bio
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What does an Operational Architect do?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": `An Operational Architect focuses on ${values.map(v => v.title).join(', ')}. They translate technical debt into P&L risk and orchestrate value streams.`
-                }
-            },
-            {
-                "@type": "Question",
-                "name": diagnosis.title,
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": `${diagnosis.subtitle} Triggers include: ${diagnosis.triggers.map(t => t.title).join(', ')}.`
-                }
-            }
-        ]
-    };
+    // AEO/SEO: the same three questions the page answers, as FAQ structured data.
+    const faq = [
+        {
+            question: header.title,
+            answer: `${header.definition.part1} ${header.definition.part2} ${header.definition.part3}`,
+        },
+        {
+            question: "What does an Operational Architect do?",
+            answer: `An Operational Architect focuses on ${values.map(v => v.title).join(', ')}. They translate technical debt into P&L risk and orchestrate value streams.`,
+        },
+        {
+            question: diagnosis.title,
+            answer: `${diagnosis.subtitle} Triggers include: ${diagnosis.triggers.map(t => t.title).join(', ')}.`,
+        },
+    ];
 
     return (
         <main className="max-w-4xl mx-auto px-6 py-24 space-y-12">
-            <BreadcrumbSchema items={[
-                { name: "Home", url: "https://chris.melson.us" },
-                { name: "Operational Architecture", url: "https://chris.melson.us/guide/operational-architecture" },
-            ]} />
+            <JsonLdScript graph={guideGraph({ name: GUIDE_TITLE, description: diagnosticContent.header.definition.part2 }, faq)} />
 
             {/* 1. Header & Answer First Block */}
             <header className="space-y-6">
@@ -235,12 +218,6 @@ export default function OperationalArchitectGuide() {
                     </Link>.
                 </p>
             </section>
-
-            {/* JSON-LD Injection */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
         </main >
     );
 }

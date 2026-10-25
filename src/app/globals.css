@@ -79,3 +79,9 @@ body {
   font-family: var(--font-body);
   transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease;
 }
+
+/* The Office view's fixed corner buttons (Resume, About Me) sit over the
+   bottom of the viewport; leave room so they never cover the site footer. */
+body:has([data-floating-actions]) > footer[role="contentinfo"] {
+  padding-bottom: 8rem;
+}

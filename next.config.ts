@@ -26,6 +26,12 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      // Older copies of the resume, still linked for printing. The canonical
+      // PDF is /christopher-melson-cv.pdf; these stay out of the index.
+      {
+        source: '/:file(chris-melson|chris-melson-print).pdf',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+      },
     ];
   },
   images: {

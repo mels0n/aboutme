@@ -1,6 +1,5 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { usePersonaStore } from "@/shared/lib/store";
 import { cn } from "@/shared/lib/utils";
 import { motion } from "framer-motion";
@@ -9,7 +8,6 @@ import { OPERATING_MODES, OperatingModeId, getModeUrl } from "../model/operating
 
 export const OfficeNavControls = () => {
     const { mode, setMode } = usePersonaStore();
-    const searchParams = useSearchParams();
 
     const controls = OPERATING_MODES;
 
@@ -18,7 +16,8 @@ export const OfficeNavControls = () => {
         setMode(id);
 
         // Soft Navigation: Update URL without refreshing/scrolling
-        window.history.pushState(null, '', getModeUrl(id, searchParams.toString()));
+        // Read at click time; useSearchParams would push the static home page to client rendering.
+        window.history.pushState(null, '', getModeUrl(id, window.location.search.slice(1)));
     };
 
     return (

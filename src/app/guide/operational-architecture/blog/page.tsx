@@ -1,49 +1,24 @@
-import { Metadata } from "next";
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { officeBlogPosts } from "@/shared/data/published_blog_posts";
+import { readMinutes } from "@/shared/data/post-card-type";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { BreadcrumbSchema } from "@/shared/ui/BreadcrumbSchema";
+import { JsonLdScript } from "@/shared/ui/JsonLdScript";
+import { blogIndexGraph } from "@/shared/lib/structured-data";
 
-export const metadata: Metadata = {
-    title: "Operational Architecture Blog | Chris Melson",
-    description: "Insights, articles, and analysis on operational architecture, engineering management, and organizational scaling.",
-    alternates: {
-        canonical: "/guide/operational-architecture/blog",
-    },
-};
+const BLOG_TITLE = "Operational Architecture Blog";
+const BLOG_DESCRIPTION = "Insights, articles, and analysis on operational architecture, engineering management, and organizational scaling.";
+
+export const metadata = pageMetadata({ title: BLOG_TITLE, description: BLOG_DESCRIPTION, path: "/guide/operational-architecture/blog" });
 
 export default function BlogListPage() {
     const sortedPosts = [...officeBlogPosts].sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
 
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        "name": "Operational Architecture Blog",
-        "author": {
-            "@id": "https://chris.melson.us/#person"
-        },
-        "hasPart": officeBlogPosts.map((post) => ({
-            "@type": "BlogPosting",
-            "headline": post.title,
-            "datePublished": post.date,
-            "author": {
-                "@type": "Person",
-                "name": post.author
-            },
-            "description": post.summary
-        }))
-    };
-
     return (
         <main className="max-w-7xl mx-auto px-6 lg:px-10 py-10 md:py-16 font-serif text-foreground">
-            <SectionJsonLd data={jsonLd} />
-            <BreadcrumbSchema items={[
-                { name: "Home", url: "https://chris.melson.us" },
-                { name: "Operational Architecture", url: "https://chris.melson.us/guide/operational-architecture" },
-                { name: "Blog", url: "https://chris.melson.us/guide/operational-architecture/blog" },
-            ]} />
+            <JsonLdScript graph={blogIndexGraph({ name: BLOG_TITLE, description: BLOG_DESCRIPTION }, sortedPosts)} />
 
             <Link
                 href="/"
@@ -75,7 +50,7 @@ export default function BlogListPage() {
                                     })}
                                 </time>
                                 <span aria-hidden="true"> · </span>
-                                {Math.ceil(post.content.split(/\s+/).length / 225)} min read
+                                {readMinutes(post.content)} min read
                             </div>
                             <h2 className={`font-bold font-display leading-tight mb-3 group-hover:text-blue-700 transition-colors ${idx === 0 ? "text-2xl md:text-4xl" : "text-xl md:text-2xl"}`}>
                                 {/* Stretched link: the whole card is the click target. */}
@@ -111,14 +86,5 @@ export default function BlogListPage() {
                 ))}
             </ol>
         </main>
-    );
-}
-
-function SectionJsonLd({ data }: { data: any }) {
-    return (
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-        />
     );
 }

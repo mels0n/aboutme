@@ -4,6 +4,7 @@ export const macvlanDockerSwarmNetworking: BlogPost = {
     id: "macvlan-docker-swarm-networking-deep-dive",
     slug: "macvlan-docker-swarm-networking-deep-dive",
     title: "Macvlan in Docker Swarm: Why We Use It, What Breaks, and How We Fixed It",
+    seoTitle: "Macvlan in Docker Swarm: Uses, Pitfalls and Fixes",
     author: "Christopher Melson",
     role: "Homelab Architect",
     date: "2026-07-30",

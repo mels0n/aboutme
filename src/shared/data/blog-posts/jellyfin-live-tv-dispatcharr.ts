@@ -4,6 +4,7 @@ export const jellyfinLiveTvDispatcharr: BlogPost = {
     id: "jellyfin-live-tv-dispatcharr-antenna-cable-dvr",
     slug: "jellyfin-live-tv-dispatcharr-antenna-cable-dvr",
     title: "Jellyfin Live TV From Antenna or Cable: Dispatcharr, EPG and DVR",
+    seoTitle: "Jellyfin Live TV: Antenna or Cable With Dispatcharr",
     author: "Christopher Melson",
     role: "Homelab Architect",
     date: "2026-09-24",

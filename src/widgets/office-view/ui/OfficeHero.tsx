@@ -8,7 +8,7 @@ interface OfficeHeroProps {
 }
 
 export const OfficeHero = ({ mode: propMode }: OfficeHeroProps) => {
-    const { mode: storeMode, introDismissed } = usePersonaStore();
+    const { mode: storeMode } = usePersonaStore();
     const mode = propMode || storeMode;
 
     return (
@@ -18,14 +18,16 @@ export const OfficeHero = ({ mode: propMode }: OfficeHeroProps) => {
             {/* Visual Connector to Nav Bar */}
             <motion.div
                 initial={{ height: 0 }}
-                animate={introDismissed ? { height: 48 } : { height: 0 }}
+                animate={{ height: 48 }}
                 transition={{ duration: 1, delay: 0.5 }}
                 className="absolute top-0 w-px bg-gradient-to-b from-border to-transparent opacity-50 hidden md:block"
             />
 
+            {/* initial={false}: the hero is the page's main content, so it is
+                visible in the first paint rather than fading in after hydration. */}
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={introDismissed ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                initial={false}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
                 className="w-full max-w-7xl px-4 grid grid-cols-1 gap-8 items-center relative"
             >

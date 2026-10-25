@@ -47,9 +47,11 @@ next-env.d.ts
 # Generated at build time by scripts/generate-sitemap.ts
 /public/sitemap.xml
 /public/sitemap-pages.xml
+/public/llms.txt
 
 # Generated at build time by scripts/generate-published-posts.ts
 /src/shared/data/published-posts.generated.ts
+/src/shared/data/published-post-cards.generated.ts
 
 # Local-only working files (never published)
 CLAUDE.md

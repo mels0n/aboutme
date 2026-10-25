@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { notFound } from "next/navigation";
 import { HomeClient } from "@/app/HomeClient";
 import { OFFICE_MODES, OfficeSlug } from "@/shared/config/seo-routes";
@@ -16,31 +17,17 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         return {};
     }
 
-    const title = "Christopher Melson";
-    const description = "How can I help your firm?";
-    const url = "https://chris.melson.us";
-    const images = [{ url: `${url}/opengraph-image`, width: 1200, height: 630, alt: title }];
+    const label = slug.split("-").map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
 
-    return {
-        title,
-        description,
-        alternates: {
-            canonical: `/`,
-        },
-        openGraph: {
-            title,
-            description,
-            url: `${url}/mode/${slug}`,
-            images,
-            type: "profile",
-        },
-        twitter: {
-            card: "summary_large_image",
-            title,
-            description,
-            images,
-        }
-    };
+    // Same content as the home page in another persona. The canonical folds
+    // these pages into the home page. No noindex: with a canonical it is a
+    // conflicting signal that Google can apply to the canonical target.
+    return pageMetadata({
+        title: label,
+        description: "Operations executive closing M&A integration gaps, stabilizing distressed environments, and building resilient teams.",
+        path: "/",
+        type: "profile",
+    });
 }
 
 export default async function ModePage(props: Props) {

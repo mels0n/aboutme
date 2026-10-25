@@ -10,4 +10,4 @@ The **Office View** allows users to explore Christopher Melson's professional hi
 - **URL:** `/guide/operational-architecture`
 
 ## Governance
-Any changes to the workflow or terminology in this widget (e.g., changing "Executive Mode" to "Strategic Design") **MUST** be reflected in the Semantic Twin guide and Schema (`JsonLd.tsx`).
+Any changes to the workflow or terminology in this widget (e.g., changing "Executive Mode" to "Strategic Design") **MUST** be reflected in the Semantic Twin guide. Page structured data lives in `src/shared/lib/structured-data/`.

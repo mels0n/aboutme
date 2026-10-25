@@ -1,46 +1,19 @@
-import { Metadata } from "next";
+import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { officeCaseStudies } from "@/shared/data/office_case_studies";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { BreadcrumbSchema } from "@/shared/ui/BreadcrumbSchema";
+import { JsonLdScript } from "@/shared/ui/JsonLdScript";
+import { caseStudyIndexGraph } from "@/shared/lib/structured-data";
 
-export const metadata: Metadata = {
-    title: "Operational Architecture Case Studies | Chris Melson",
-    description: "Detailed breakdown of operational turnarounds, including DORA compliance, Post-Merger Integration, and Strategic Asset Rescue.",
-    alternates: {
-        canonical: "/guide/operational-architecture/case-studies",
-    },
-};
+const CASE_STUDIES_TITLE = "Operational Architecture Case Studies";
+const CASE_STUDIES_DESCRIPTION = "Detailed breakdown of operational turnarounds, including DORA compliance, Post-Merger Integration, and Strategic Asset Rescue.";
+
+export const metadata = pageMetadata({ title: CASE_STUDIES_TITLE, description: CASE_STUDIES_DESCRIPTION, path: "/guide/operational-architecture/case-studies" });
 
 export default function CaseStudiesPage() {
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        "name": "Operational Architecture Case Studies",
-        "author": {
-            "@id": "https://chris.melson.us/#person"
-        },
-        "hasPart": officeCaseStudies.map((study) => ({
-            "@type": "Article",
-            "headline": study.title,
-            "description": study.summary.strategist,
-            "articleBody": `
-        Situation: ${study.fullReport.situation}
-        Task: ${study.fullReport.task}
-        Action: ${study.fullReport.action}
-        Result: ${study.fullReport.result}
-      `
-        }))
-    };
-
     return (
         <main className="max-w-4xl mx-auto px-6 py-20 font-serif text-foreground">
-            <SectionJsonLd data={jsonLd} />
-            <BreadcrumbSchema items={[
-                { name: "Home", url: "https://chris.melson.us" },
-                { name: "Operational Architecture", url: "https://chris.melson.us/guide/operational-architecture" },
-                { name: "Case Studies", url: "https://chris.melson.us/guide/operational-architecture/case-studies" },
-            ]} />
+            <JsonLdScript graph={caseStudyIndexGraph({ name: CASE_STUDIES_TITLE, description: CASE_STUDIES_DESCRIPTION }, officeCaseStudies)} />
 
             <Link
                 href="/"
@@ -101,14 +74,5 @@ export default function CaseStudiesPage() {
                 ))}
             </div>
         </main>
-    );
-}
-
-function SectionJsonLd({ data }: { data: any }) {
-    return (
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-        />
     );
 }

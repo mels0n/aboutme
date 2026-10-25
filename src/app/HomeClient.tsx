@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePersonaStore } from "@/shared/lib/store";
 import { PersonaToggle } from "@/shared/ui/PersonaToggle";
 import { ViewToggle } from "@/shared/ui/ViewToggle";
@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { LabView } from "@/widgets/lab-view/ui/LabView";
 import { OfficeView } from "@/widgets/office-view/ui/OfficeView";
 import { OfficeNavControls } from "@/widgets/office-view/ui/OfficeNavControls";
-import { GatekeeperModal } from "@/widgets/gatekeeper/ui/GatekeeperModal"; // Adjust path if needed
+import { GatekeeperModal } from "@/widgets/gatekeeper/ui/GatekeeperModal";
 import { ModeTransitionGlitch } from "@/shared/ui/ModeTransitionGlitch";
 
 import { ChevronsRight, HelpCircle, RefreshCw } from "lucide-react";
@@ -25,6 +25,14 @@ interface HomeClientProps {
 export function HomeClient({ initialMode, initialView }: HomeClientProps) {
     const { mode, cycleMode, viewMode, setMode, setViewMode, introOpen, setIntroOpen } = usePersonaStore();
     const [hasHydrated, setHasHydrated] = useState(false);
+    const introTrigger = useRef<HTMLButtonElement>(null);
+    const introWasOpen = useRef(false);
+
+    // Return focus to the "How this site works" button when the explainer closes.
+    useEffect(() => {
+        if (introWasOpen.current && !introOpen) introTrigger.current?.focus();
+        introWasOpen.current = introOpen;
+    }, [introOpen]);
 
     // Initialize state from props (Server-Side SEO / Direct Link)
     useEffect(() => {
@@ -82,7 +90,9 @@ export function HomeClient({ initialMode, initialView }: HomeClientProps) {
             <AnimatePresence mode="wait">
                 {hasHydrated && introOpen && <GatekeeperModal />}
             </AnimatePresence>
-            <ModeTransitionGlitch />
+            {/* Mounted only after the URL and stored lens are applied, so the
+                initial mode sync is not mistaken for a lens switch. */}
+            {hasHydrated && <ModeTransitionGlitch />}
 
             {/* --- Sticky Header / Toggle --- */}
             <nav className="fixed top-0 left-0 w-full z-50 py-4 px-6 backdrop-blur-md bg-background/80 border-b border-border/50 flex items-center justify-between gap-4">
@@ -90,9 +100,10 @@ export function HomeClient({ initialMode, initialView }: HomeClientProps) {
                 {/* Left Side: "How this site works" opens the explainer modal on request */}
                 <div className="md:flex-1 flex items-center">
                     <button
+                        ref={introTrigger}
                         type="button"
                         onClick={() => setIntroOpen(true)}
-                        className="inline-flex items-center gap-2 text-xs font-sans text-foreground/60 hover:text-foreground transition-colors"
+                        className="inline-flex items-center gap-2 min-h-11 min-w-11 lg:min-w-0 -ml-3 px-3 rounded-md text-xs font-sans text-foreground/60 hover:text-foreground transition-colors"
                         aria-haspopup="dialog"
                     >
                         <HelpCircle className="w-4 h-4" aria-hidden="true" />

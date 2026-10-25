@@ -11,4 +11,4 @@ This directory contains **Widgets** in accordance with Feature-Sliced Design (FS
 ## Current Implementations
 - **`office-view`**: The main interface for the "Operational Architect" (Executive/Strategist) modes.
 - **`lab-view`**: The interface for the "Engineer" (Technical Execution) mode.
-- **`gatekeeper`**: The modal/flow for selecting the operating mode.
+- **`gatekeeper`**: The "How this site works" explainer, opened on request from the home page header.

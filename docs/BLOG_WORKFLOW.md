@@ -93,4 +93,4 @@ After adding a post:
 1.  Run `npm run dev`.
 2.  Navigate to the "Office" view.
 3.  Verify the card appears in the grid (sorted by date).
-4.  Click the card to ensure the modal opens and content renders correctly.
+4.  Click the card and confirm the post page opens and renders correctly.

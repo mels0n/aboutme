@@ -60,7 +60,8 @@ export const getOperatingMode = (id: OperatingModeId): OperatingMode =>
 
 /**
  * Soft-navigation URL for a mode: /mode/<slug>, keeping the current query
- * string minus modal-state params (blog) so they don't re-open on a lens switch.
+ * string minus the legacy `blog` share param (old links redirect to the post
+ * page; a lens switch should not carry it along).
  */
 export const getModeUrl = (id: OperatingModeId, search: string): string => {
     const params = new URLSearchParams(search);

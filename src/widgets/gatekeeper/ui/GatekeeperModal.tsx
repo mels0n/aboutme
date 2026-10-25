@@ -13,16 +13,20 @@ import { Compass, Server, Users } from "lucide-react";
 export const GatekeeperModal = () => {
     const { setIntroOpen } = usePersonaStore();
 
-    const handleEnter = () => {
+    const handleClose = () => {
         setIntroOpen(false);
     };
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') handleEnter();
+            if (e.key === 'Escape') handleClose();
         };
         window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            // Leaving the page with the explainer open must not re-open it on return.
+            setIntroOpen(false);
+        };
     }, [setIntroOpen]);
 
     return (
@@ -36,7 +40,7 @@ export const GatekeeperModal = () => {
             className="fixed inset-0 z-[200] flex items-center justify-center px-4 md:px-6"
         >
             {/* Glassmorphism Backdrop: a click outside the card closes it */}
-            <div className="absolute inset-0 bg-background/60 backdrop-blur-xl" onClick={handleEnter} />
+            <div className="absolute inset-0 bg-background/60 backdrop-blur-xl" onClick={handleClose} />
 
             {/* Content Container */}
             <div className="relative z-10 w-full max-w-3xl flex flex-col items-center text-center">
@@ -93,7 +97,8 @@ export const GatekeeperModal = () => {
                     {/* Button */}
                     <div className="pt-2 md:pt-4">
                         <button
-                            onClick={handleEnter}
+                            autoFocus
+                            onClick={handleClose}
                             className="text-sm font-mono font-bold uppercase tracking-[0.2em] text-foreground/60 hover:text-foreground transition-all hover:scale-105 px-4 py-2"
                         >
                             [ CLOSE ]

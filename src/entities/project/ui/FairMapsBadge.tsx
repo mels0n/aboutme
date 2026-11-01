@@ -3,17 +3,19 @@
  * image linking back, no script. The badge endpoint notes the embedding page's
  * address, so it stays a raw <img> rather than a proxied next/image.
  */
+const FAIR_MAPS = "https://fairmaps.melson.us";
+
 export function FairMapsBadge() {
     return (
         <aside
             aria-label="Fair Maps"
             className="not-prose mt-12 flex flex-col sm:flex-row items-center gap-6 rounded-lg border border-border bg-surface/30 p-6 font-sans"
         >
-            <a href="https://fairmaps.melson.us/" className="shrink-0">
+            <a href={`${FAIR_MAPS}/`} className="shrink-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                    src="https://fairmaps.melson.us/api/badge?badge=crest"
-                    srcSet="https://fairmaps.melson.us/api/badge?badge=crest&scale=2 2x"
+                    src={`${FAIR_MAPS}/api/badge?badge=crest`}
+                    srcSet={`${FAIR_MAPS}/api/badge?badge=crest&scale=2 2x`}
                     width={160}
                     height={190}
                     alt="Fair Maps: districts drawn by a rule"
@@ -27,7 +29,7 @@ export function FairMapsBadge() {
                     geography alone. Look up your district and compare it with the lines in use today.
                 </p>
                 <a
-                    href="https://fairmaps.melson.us/"
+                    href={`${FAIR_MAPS}/`}
                     className="mt-3 inline-block text-sm font-bold text-blue-700 hover:text-blue-900 underline underline-offset-4"
                 >
                     Open Fair Maps

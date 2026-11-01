@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { relatedPosts } from "./related-posts";
+import { isFairMapsPost, relatedPosts } from "./related-posts";
 
 const post = (slug: string, role: string, date: string) => ({ slug, role, date });
 
@@ -23,5 +23,17 @@ describe("relatedPosts", () => {
 
     it("returns fewer when there are not enough posts", () => {
         expect(relatedPosts(posts[0], posts.slice(0, 2))).toHaveLength(1);
+    });
+});
+
+describe("isFairMapsPost", () => {
+    it("matches the Fair Maps series whatever follows the separator", () => {
+        expect(isFairMapsPost(posts[0])).toBe(true);
+        expect(isFairMapsPost({ role: "Builder, Fair Maps" })).toBe(true);
+    });
+
+    it("rejects other series", () => {
+        expect(isFairMapsPost(posts[2])).toBe(false);
+        expect(isFairMapsPost(posts[3])).toBe(false);
     });
 });

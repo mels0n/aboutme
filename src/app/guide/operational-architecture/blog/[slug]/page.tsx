@@ -11,7 +11,8 @@ import { ArrowLeft } from "lucide-react";
 import type { ReactNode } from "react";
 import { JsonLdScript } from "@/shared/ui/JsonLdScript";
 import { blogPostGraph } from "@/shared/lib/structured-data";
-import { relatedPosts } from "@/entities/post/model/related-posts";
+import { relatedPosts, series } from "@/entities/post/model/related-posts";
+import { FairMapsBadge } from "@/entities/project/ui/FairMapsBadge";
 import { headingShift, headingSlug, tableOfContents } from "@/entities/post/model/headings";
 
 // Slugs not prerendered at build 404 instead of rendering on demand.
@@ -77,6 +78,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     const toc = tableOfContents(bodyContent);
     const shift = headingShift(bodyContent);
     const related = relatedPosts(post, officeBlogPosts);
+    const isFairMapsPost = series(post) === "Builder, Fair Maps";
     const readMinutes = readingTime(post.content);
     const publishedLabel = new Date(`${post.date}T00:00:00`).toLocaleDateString('en-US', {
         year: 'numeric', month: 'long', day: 'numeric'
@@ -186,6 +188,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         {bodyContent}
                     </ReactMarkdown>
                 </div>
+
+                {isFairMapsPost && <FairMapsBadge />}
 
                 {worksCitedContent && (
                     <div className="mt-12 pt-8 border-t border-border not-prose">

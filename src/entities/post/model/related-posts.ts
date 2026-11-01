@@ -5,7 +5,7 @@ type RelatablePost = { slug: string; role: string; date: string };
  * Architect") or its lane ("Homelab Architect"); the part before " · " groups
  * posts that belong together.
  */
-const series = (post: RelatablePost) => post.role.split(" · ")[0];
+export const series = (post: Pick<RelatablePost, "role">) => post.role.split(" · ")[0];
 
 const newestFirst = (a: RelatablePost, b: RelatablePost) => b.date.localeCompare(a.date);
 

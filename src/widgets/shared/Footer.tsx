@@ -3,18 +3,15 @@ import { siteConfig } from "@/shared/config/site-config";
 import { UntapBadge } from "@/shared/ui/UntapBadge";
 import { Github, Linkedin } from "lucide-react";
 
-// Visible links to every section, on every page. The home page's content is
+// Visible links to the main sections, on every page. The home page's content is
 // an interactive app, so this is how readers and crawlers reach the rest of
 // the site from it.
 const SITE_LINKS = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
-    { href: "/guide/operational-architecture", label: "Operational Architecture" },
     { href: "/guide/operational-architecture/case-studies", label: "Case Studies" },
     { href: "/guide/operational-architecture/blog", label: "Blog" },
     { href: "/faq", label: "FAQ" },
-    { href: "/guide/office", label: "The Office" },
-    { href: "/guide/lab", label: "The Lab" },
     { href: siteConfig.links.cvPdf, label: "Resume (PDF)" },
 ];
 

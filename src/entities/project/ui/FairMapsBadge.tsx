@@ -20,6 +20,7 @@ export function FairMapsBadge() {
                     height={190}
                     alt="Fair Maps: districts drawn by a rule"
                     loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
                 />
             </a>
             <div className="text-center sm:text-left">

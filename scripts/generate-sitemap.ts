@@ -26,10 +26,20 @@ function latestPostDateSince(layoutDate: string): string {
         .map(post => post.lastUpdated ?? post.date)
         .reduce((latest, date) => (date > latest ? date : latest), layoutDate);
 }
+function latestOf(a: string, b: string): string {
+    return b > a ? b : a;
+}
 // Static-route dates are the last change to each page's content or layout;
 // update the date when the page changes. 2026-10-24: site footer navigation,
 // per-page titles and social metadata, structured data on every page.
 const SITE_LAYOUT_CHANGED = '2026-10-24';
+// The password generator page links to its blog post once that post is
+// published, so its lastmod is the newer of its own last change and the post's.
+const PASSWORD_GENERATOR_CHANGED = '2026-11-11';
+const passwordGeneratorPost = officeBlogPosts.find(post => post.slug === 'password-generator-passphrases-entropy');
+const passwordGeneratorLastModified = passwordGeneratorPost
+    ? latestOf(PASSWORD_GENERATOR_CHANGED, passwordGeneratorPost.lastUpdated ?? passwordGeneratorPost.date)
+    : PASSWORD_GENERATOR_CHANGED;
 const blogIndexLastModified = latestPostDateSince(SITE_LAYOUT_CHANGED);
 const guideLastModified = latestPostDateSince(SITE_LAYOUT_CHANGED);
 
@@ -46,7 +56,7 @@ const staticRoutes: SitemapEntry[] = [
     { url: `${BASE_URL}/faq`, lastModified: SITE_LAYOUT_CHANGED, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/guide/lab`, lastModified: SITE_LAYOUT_CHANGED, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/guide/office`, lastModified: SITE_LAYOUT_CHANGED, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE_URL}/tools/password-generator`, lastModified: '2026-11-11', changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/tools/password-generator`, lastModified: passwordGeneratorLastModified, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/guide/operational-architecture`, lastModified: guideLastModified, changeFrequency: 'monthly', priority: 1.0 },
     { url: `${BASE_URL}/guide/operational-architecture/case-studies`, lastModified: SITE_LAYOUT_CHANGED, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE_URL}/guide/operational-architecture/blog`, lastModified: blogIndexLastModified, changeFrequency: 'weekly', priority: 0.9 },

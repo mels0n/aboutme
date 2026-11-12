@@ -2,6 +2,7 @@
 import { describe, expect, it } from "vitest";
 import { GeneratorError } from "./errors";
 import { randomInt, shuffle, type RandomSource } from "./random";
+import { chiSquare, critical } from "./stats-helpers";
 
 /** A source that replays the given words, then throws if asked for more. */
 function scripted(words: number[]): { source: RandomSource; calls: () => number } {
@@ -66,6 +67,24 @@ describe("shuffle", () => {
     it("returns the same array it was given", () => {
         const arr = [1, 2, 3];
         expect(shuffle(arr)).toBe(arr);
+    });
+
+    it("draws j = randomInt(i + 1) for i from n - 1 down to 1", () => {
+        // Words 4, 5, 7, 9 give j = 4 % 5, 5 % 4, 7 % 3, 9 % 2 = 4, 1, 1, 1 for i = 4, 3, 2, 1.
+        const { source, calls } = scripted([4, 5, 7, 9]);
+        expect(shuffle(["a", "b", "c", "d", "e"], source)).toEqual(["a", "c", "d", "b", "e"]);
+        expect(calls()).toBe(4);
+    });
+
+    it("reaches all 24 orderings of four items about equally often", { timeout: 30_000 }, () => {
+        const runs = 48_000;
+        const counts = new Map<string, number>();
+        for (let i = 0; i < runs; i++) {
+            const key = shuffle([1, 2, 3, 4]).join("");
+            counts.set(key, (counts.get(key) ?? 0) + 1);
+        }
+        expect(counts.size).toBe(24);
+        expect(chiSquare([...counts.values()], runs / 24)).toBeLessThan(critical(23));
     });
 
     it("handles empty and single-element arrays", () => {

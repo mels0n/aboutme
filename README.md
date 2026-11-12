@@ -48,11 +48,10 @@ The project structure strictly follows FSD layers:
 *   `entities/`: Domain models and data fetching (`project`, `blog`).
 *   `shared/`: Reusable primitives and utilities.
 
-### 2. AEO/GEO Protocol (Semantic Twins)
+### 2. AEO/GEO Protocol
 This project is optimized for Answer Engine Optimization (AEO).
-*   **Rule:** Every major feature slice MUST have a corresponding "Semantic Twin" page in `src/app/guide`.
-*   **Purpose:** Allows AI agents to index the logic/intent of the feature.
-*   **Implementation:** `src/shared/data` serves as the Single Source of Truth (SSOT) for both the UI component and the Guide page.
+*   **Purpose:** Lets AI agents index the logic and intent of the site's content.
+*   **Implementation:** `src/shared/data` serves as the Single Source of Truth (SSOT) for both the UI components and the Guide pages.
 
 ### 3. Vertical Sliced Architecture (VSA)
 Backend/API logic is organized by business feature, not technical layer.

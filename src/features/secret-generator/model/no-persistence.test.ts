@@ -7,9 +7,10 @@ import { describe, expect, it } from "vitest";
 /*
  * The generator promises to save nothing: no storage, no cookies, no network,
  * no logging and no state in the web address. This test reads the source and
- * fails the build if any API that could break that promise appears. A token
- * is built from parts below so that this file does not contain the strings
- * it forbids.
+ * fails if any of the listed APIs that could break that promise appears. It
+ * is a blocklist, not a proof that no other route exists, and CI runs it on
+ * every pull request and every push to main. A token is built from parts
+ * below so that this file does not contain the strings it forbids.
  */
 const here = dirname(fileURLToPath(import.meta.url));
 const sliceDir = join(here, "..");
@@ -31,12 +32,28 @@ const FORBIDDEN: readonly string[] = [
     "console" + ".info",
     "console" + ".debug",
     "console" + ".warn",
+    "console" + ".error",
+    "console" + ".table",
+    "g" + "tag",
+    "send" + "Event",
+    "new " + "Image",
+    "window" + ".open",
+    "location" + ".href",
+    "location" + ".assign",
+    "post" + "Message",
+    "Event" + "Source",
+    "clipboard" + ".readText",
     "history" + ".pushState",
     "history" + ".replaceState",
     "useSearch" + "Params",
     "search" + "Params",
     "Math" + ".random",
 ];
+
+/** The forbidden tokens found in `text`. */
+export function findForbidden(text: string, tokens: readonly string[] = FORBIDDEN): string[] {
+    return tokens.filter((token) => text.includes(token));
+}
 
 function sourceFiles(dir: string): string[] {
     return readdirSync(dir).flatMap((name) => {
@@ -45,6 +62,17 @@ function sourceFiles(dir: string): string[] {
         return /\.tsx?$/.test(name) && !/\.test\.ts$/.test(name) ? [full] : [];
     });
 }
+
+describe("the matcher", () => {
+    it("reports a synthetic string that holds forbidden tokens", () => {
+        const sample = "const a = local" + "Storage.getItem('x'); fetch" + "('/y'); console" + ".error(a);";
+        expect(findForbidden(sample)).toEqual(["local" + "Storage", "fetch" + "(", "console" + ".error"]);
+    });
+
+    it("reports nothing for clean text", () => {
+        expect(findForbidden("const a = crypto.getRandomValues(new Uint32Array(1));")).toEqual([]);
+    });
+});
 
 describe("saves nothing", () => {
     const files = [...sourceFiles(sliceDir), pageFile];
@@ -57,7 +85,7 @@ describe("saves nothing", () => {
     it("uses no storage, network, logging, URL-state or non-cryptographic random API", () => {
         const hits = files.flatMap((file) => {
             const text = readFileSync(file, "utf8");
-            return FORBIDDEN.filter((token) => text.includes(token)).map(
+            return findForbidden(text).map(
                 (token) => `${relative(repoRoot, file)} contains "${token}"`,
             );
         });

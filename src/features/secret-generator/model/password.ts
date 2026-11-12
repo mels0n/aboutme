@@ -96,7 +96,12 @@ export interface PasswordSet {
 
 /** The enabled sets with their required counts, after the ambiguous filter. Validates the options. */
 export function passwordSets(input: PasswordOptions): PasswordSet[] {
-    const o = parseOrThrow(passwordSchema, input, "invalid-options");
+    // A minimum only matters while its set is on, so an off set's minimum is not validated.
+    const o = parseOrThrow(
+        passwordSchema,
+        { ...input, minNumbers: input.numbers ? input.minNumbers : 0, minSpecial: input.special ? input.minSpecial : 0 },
+        "invalid-options",
+    );
     const keep = (chars: string) => (o.avoidAmbiguous ? [...chars].filter((c) => !AMBIGUOUS.has(c)).join("") : chars);
     const sets: PasswordSet[] = [];
     if (o.uppercase) sets.push({ chars: keep(UPPERCASE), min: 1 });

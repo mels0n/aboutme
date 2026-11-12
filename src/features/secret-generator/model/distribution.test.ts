@@ -4,24 +4,12 @@ import { EFF_LARGE_WORDLIST } from "./eff-large-wordlist";
 import { DEFAULT_PASSPHRASE_OPTIONS, generatePassphrase } from "./passphrase";
 import { DEFAULT_PASSWORD_OPTIONS, LOWERCASE, SPECIAL, UPPERCASE, generatePassword } from "./password";
 import { randomInt } from "./random";
+import { chiSquare, critical } from "./stats-helpers";
 
-/**
- * Chi-square critical value for `df` degrees of freedom at one-sided p = 1e-6
- * (z = 4.753), by the Wilson-Hilferty approximation. A fair generator crosses
- * it about once in a million runs, so these tests are not flaky; a modulo-bias
- * or off-by-one bug on these sample sizes lands far beyond it.
- */
-function critical(df: number): number {
-    const z = 4.753;
-    const a = 2 / (9 * df);
-    return df * (1 - a + z * Math.sqrt(a)) ** 3;
-}
+// The sampling loops are CPU-heavy; an explicit timeout keeps slow machines from failing them.
+const HEAVY = { timeout: 30_000 };
 
-function chiSquare(observed: number[], expectedEach: number): number {
-    return observed.reduce((sum, o) => sum + (o - expectedEach) ** 2 / expectedEach, 0);
-}
-
-describe("randomInt is uniform", () => {
+describe("randomInt is uniform", HEAVY, () => {
     it.each([7776, 70, 36])("n = %i passes a chi-square test over 200,000 draws", (n) => {
         const samples = 200_000;
         const counts = new Array<number>(n).fill(0);
@@ -30,7 +18,7 @@ describe("randomInt is uniform", () => {
     });
 });
 
-describe("generated output is uniform", () => {
+describe("generated output is uniform", HEAVY, () => {
     it("every lowercase letter is equally likely in lowercase-only passwords", () => {
         const length = 100;
         const runs = 2000;

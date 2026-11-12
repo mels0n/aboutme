@@ -25,27 +25,29 @@ type Props = {
 
 export function OutputPanel({ state, onRegenerate, entropyNote }: Props) {
     const outputRef = useRef<HTMLTextAreaElement>(null);
-    const [message, setMessage] = useState("");
+    // The announcement remembers which value it was about, so it stops showing once the value changes.
+    const [note, setNote] = useState({ text: "", forValue: "" });
 
     // The announcement is cleared a moment later so a second copy announces again.
     useEffect(() => {
-        if (!message) return;
-        const timer = setTimeout(() => setMessage(""), 3000);
+        if (!note.text) return;
+        const timer = setTimeout(() => setNote({ text: "", forValue: "" }), 3000);
         return () => clearTimeout(timer);
-    }, [message]);
+    }, [note]);
 
     const value = state.status === "ready" ? state.value : "";
+    const message = note.forValue === value ? note.text : "";
 
     async function copy() {
         if (!value) return;
         try {
             await navigator.clipboard.writeText(value);
-            setMessage("Copied");
+            setNote({ text: "Copied", forValue: value });
         } catch {
             // Clipboard API blocked or unavailable: select the text so Ctrl+C works.
             outputRef.current?.focus();
             outputRef.current?.select();
-            setMessage("Press Ctrl+C to copy");
+            setNote({ text: "Press Ctrl+C to copy", forValue: value });
         }
     }
 

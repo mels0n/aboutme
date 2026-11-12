@@ -9,7 +9,7 @@ const PATH = "/tools/password-generator";
 const TITLE = "Free Secure Password Generator: Private, No Sign-Up";
 const H1 = "Free, Private Password Generator";
 const DESCRIPTION =
-    "Free, private password, passphrase and username generator. Made in your browser with the Web Crypto API. No sign-up, nothing sent, stored or logged.";
+    "Free, private password, passphrase and username generator. Made in your browser with the Web Crypto API. No sign-up. What it makes is never sent or saved.";
 
 export const metadata = pageMetadata({
     title: TITLE,
@@ -22,8 +22,8 @@ const FEATURES = [
     "Random passwords from 5 to 128 characters with uppercase, lowercase, numbers and special characters",
     "Passphrases of 3 to 20 words from the EFF large wordlist with a custom separator",
     "Random-word, plus-addressed email and catch-all email usernames",
-    "Exact entropy and number of possible outputs shown for every result",
-    "Generated in the browser with the Web Crypto API, never sent, stored or logged",
+    "Counted entropy and number of possible outputs shown for every result",
+    "Generated in the browser with the Web Crypto API, and the generated values are never sent, stored or logged",
     "No sign-up, no account, no usage limits and no ads",
     "Source published on GitHub to read, audit and test",
 ];
@@ -31,7 +31,7 @@ const FEATURES = [
 const SELLING_POINTS = [
     { title: "Free", text: "No sign-up, no account, no limits and no ads." },
     { title: "Private", text: "Made in your browser. It saves nothing and sends nothing." },
-    { title: "Secure", text: "Cryptographic randomness, unbiased selection and exact entropy for every result." },
+    { title: "Secure", text: "Cryptographic randomness, unbiased selection and counted entropy for every result." },
     { title: "Published source", text: "Every line is on GitHub to read, audit and test." },
 ];
 
@@ -118,7 +118,7 @@ export default function PasswordGeneratorPage() {
                     <li>It does not put a value in the web address or log it. Your settings are not saved either.</li>
                     <li>The output box has spell-check turned off, so browser spell-check services never see it.</li>
                     <li>Once the page has loaded, generating needs no internet connection. The word list loads with the page.</li>
-                    <li>This site uses Google Analytics, which records an ordinary page view. The generated values are never part of it.</li>
+                    <li>This site uses Google Analytics, which records page views and basic usage and sets its own cookies. Generated values are never part of it.</li>
                 </ul>
                 <p>
                     Copying puts the value on your clipboard, and clipboard managers such as Windows clipboard
@@ -140,7 +140,9 @@ export default function PasswordGeneratorPage() {
                     Passphrases use the EFF large wordlist of 7,776 words, so each word adds about 12.9 bits.
                     Entropy counts how many different results the generator could have produced, written in bits.
                     Each extra bit doubles that count, and an attacker who knows your settings would have to try
-                    that many possibilities in the worst case. The exact figure is shown beside every result.
+                    that many possibilities in the worst case. The figure is shown beside every result. For passwords with minimum counts, it is a tight upper bound
+                    rather than an exact measurement, because filling the required slots first weights the possible
+                    outputs very slightly unevenly.
                 </p>
                 <p>
                     NIST SP 800-63B Rev 4 favours length over composition rules, so a long random passphrase is a
@@ -201,13 +203,14 @@ export default function PasswordGeneratorPage() {
                     projects, so the code is there to inspect and test, not to copy. Read the{" "}
                     <External href={SOURCE_URL}>source</External> and the{" "}
                     <External href={TESTS_URL}>tests</External>, which check that every choice is equally likely, that
-                    the entropy figures are exact and that the generator saves nothing: a test fails the build if any
-                    storage, network or logging code is added. The EFF wordlist inside it is CC BY 4.0, not covered by
+                    the entropy counts match the rules and that the generator saves nothing. One test fails if any of the
+                    listed storage, network, logging or web-address APIs appear in the generator&apos;s source, and
+                    it runs on every change before merge. The EFF wordlist inside it is CC BY 4.0, not covered by
                     that license.
                 </p>
                 <p>
                     You can run the tests yourself, and you can open your browser&apos;s network tab while you
-                    generate to confirm that nothing is sent.
+                    generate to confirm that the generator sends nothing. You will see only the page&apos;s own files and Google Analytics.
                 </p>
             </section>
 

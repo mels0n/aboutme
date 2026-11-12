@@ -156,11 +156,11 @@ export const projects: ProjectData[] = [
     },
     {
         title: "Password Generator",
-        description: "Makes passwords, passphrases and usernames entirely in your browser. It draws from the Web Crypto API with rejection sampling, builds passphrases from the EFF large wordlist, and shows the exact entropy of every result. Nothing is sent, stored or logged. The source is published on GitHub to read and audit.",
+        description: "Makes passwords, passphrases and usernames entirely in your browser. It draws from the Web Crypto API with rejection sampling, builds passphrases from the EFF large wordlist, and shows the counted entropy of every result. The generated values are never sent, stored or logged. The source is published on GitHub to read and audit.",
         link: "github.com/mels0n/aboutme/tree/main/src/features/secret-generator",
         website: "https://chris.melson.us/tools/password-generator",
         image: "/password_generator.png",
-        kpis: [{ label: "Wordlist", value: "7,776" }, { label: "Data Sent", value: "0" }],
+        kpis: [{ label: "Wordlist", value: "7,776" }, { label: "Values Sent", value: "0" }],
         manaCost: "{1}{U}",
         typeLine: "Artifact - Tool",
         flavorText: "Nothing leaves the table.",

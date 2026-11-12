@@ -81,6 +81,16 @@ describe("generatePassword", () => {
 });
 
 describe("validation", () => {
+    it("ignores a nonsense minimum while its set is off", () => {
+        expect(generatePassword(opts({ numbers: false, minNumbers: Number.NaN }))).toHaveLength(20);
+        expect(generatePassword(opts({ special: false, minSpecial: -3 }))).toHaveLength(20);
+    });
+
+    it("still rejects a nonsense minimum while its set is on", () => {
+        expect(() => generatePassword(opts({ minNumbers: Number.NaN }))).toThrow(GeneratorError);
+        expect(() => generatePassword(opts({ minSpecial: 10 }))).toThrow(GeneratorError);
+    });
+
     it.each([4, 129, 0, 20.5, Number.NaN])("rejects length %s", (length) => {
         expect(() => generatePassword(opts({ length }))).toThrow(GeneratorError);
     });

@@ -8,7 +8,7 @@ The source is published here so you can read it, audit it and run its tests. Reu
 
 ## Security design
 
-- **Randomness.** Every choice comes from `crypto.getRandomValues`. `Math.random` is never used, and a test fails if it appears.
+- **Randomness.** Every choice comes from `crypto.getRandomValues`. `Math.random` is never used, and a test fails if it appears in the generator's source.
 - **No modulo bias.** Picking an index from a set of size `n` uses rejection sampling: random 32-bit words at or above the largest multiple of `n` are discarded and redrawn, so every item is equally likely.
 - **Shuffle.** Required characters (minimum numbers and specials, at least one of each enabled set) are reserved first, the remaining slots are filled from the full pool, and the result is shuffled with Fisher-Yates using the same unbiased index draw.
 - **Entropy is counted, not estimated.** The figure shown is log2 of the number of valid outputs for the current settings, found by inclusion-exclusion over the minimum rules. Reserve-then-shuffle weights that space very slightly unevenly, so the figure is a tight upper bound on true entropy rather than an exact measurement.
@@ -17,18 +17,18 @@ The source is published here so you can read it, audit it and run its tests. Reu
 ## Privacy: it saves nothing
 
 - No browser storage, cookies, service workers or caches. Settings are not remembered and nothing is kept between visits.
-- No network requests of its own, no logging, and no state in the URL.
+- Apart from loading its own word list from this site, the generator makes no network requests. It does no logging and keeps no state in the URL.
 - Values are generated only after the page mounts, so they are never in the server-rendered HTML.
 - The output field has spellcheck turned off.
 - Closing or refreshing the page erases the value.
 
-`model/no-persistence.test.ts` reads every source file in this folder and in the tool's page and fails if any of those APIs appear. You can also watch the browser's network tab while generating to confirm nothing is sent.
+`model/no-persistence.test.ts` reads every non-test TypeScript file in this folder and in the tool's page and fails if any of a listed set of storage, network, logging, web-address and non-cryptographic-random APIs appear. The list is a blocklist, not proof that no other route exists. A GitHub Actions workflow runs the tests and the type check on every pull request and every push to main. You can also watch the browser's network tab while generating to confirm the generator sends nothing.
 
-The site this lives in loads Google Analytics globally, which records ordinary page views and sets its own cookies. The generated values are never part of that, but the generator does not control it.
+The site this lives in loads Google Analytics globally, which records page views and basic usage and sets its own cookies. Generated values are never part of it, but the generator does not control it.
 
 ## Layout
 
-- `model/` is pure TypeScript with no React and no DOM: `random.ts` (unbiased draws and shuffle), `password.ts`, `passphrase.ts`, `username.ts`, `entropy.ts`, `strength.ts`, `faq.ts` and the wordlist. Every module here has tests next to it (distribution chi-square tests, constraint tests, entropy tests).
+- `model/` is pure TypeScript with no React and no DOM: `random.ts` (unbiased draws and shuffle), `password.ts`, `passphrase.ts`, `username.ts`, `entropy.ts`, `strength.ts`, `faq.ts` and the wordlist. The generation modules (random, password, passphrase, username, entropy, strength) have tests next to them (distribution chi-square tests, scripted-source tests, constraint tests, entropy tests).
 - `ui/` holds the React client components.
 - `index.ts` is the slice's public API.
 

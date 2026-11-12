@@ -21,12 +21,12 @@ export const SECRET_GENERATOR_FAQ: readonly FaqEntry[] = [
     {
         question: "Does it save, store or send my passwords?",
         answer:
-            "No. It saves nothing. Each value is made in your browser after the page loads and lives in memory until you refresh, change a setting or leave. The generator does not put it in the web address, save it to browser storage, log it or send it anywhere. The site uses Google Analytics, which records an ordinary page view, but the generated values are never part of it.",
+            "No. It saves nothing. Each value is made in your browser after the page loads and lives in memory until you refresh, change a setting or leave. The generator does not put it in the web address, save it to browser storage, log it or send it anywhere. The site uses Google Analytics, which records page views and basic usage and sets its own cookies. Generated values are never part of it.",
     },
     {
         question: "Does it work offline?",
         answer:
-            "Once the page has loaded, generating needs no internet connection. The code and the 7,776-word list are part of the page, and the generator makes no network requests of its own. There is no installable offline mode, so open the page while you are online first.",
+            "Once the page has loaded, generating needs no internet connection. The code and the 7,776-word list are part of the page, and apart from loading its own word list from this site, the generator makes no network requests. There is no installable offline mode, so open the page while you are online first.",
     },
     {
         question: "How long should a password be?",

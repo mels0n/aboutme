@@ -46,6 +46,7 @@ const staticRoutes: SitemapEntry[] = [
     { url: `${BASE_URL}/faq`, lastModified: SITE_LAYOUT_CHANGED, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/guide/lab`, lastModified: SITE_LAYOUT_CHANGED, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE_URL}/guide/office`, lastModified: SITE_LAYOUT_CHANGED, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE_URL}/tools/password-generator`, lastModified: '2026-11-11', changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE_URL}/guide/operational-architecture`, lastModified: guideLastModified, changeFrequency: 'monthly', priority: 1.0 },
     { url: `${BASE_URL}/guide/operational-architecture/case-studies`, lastModified: SITE_LAYOUT_CHANGED, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE_URL}/guide/operational-architecture/blog`, lastModified: blogIndexLastModified, changeFrequency: 'weekly', priority: 0.9 },

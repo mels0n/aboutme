@@ -4,7 +4,7 @@ import {
     CASE_STUDIES_PATH, LAB_URL,
     blogNode, blogPostingNode, blogUrl, breadcrumbNode, caseStudyNode, caseStudyUrl,
     cvNode, headshotNode, ogImageNode, personNode, postUrl, projectId, projectNode,
-    untapWebNode, webPageNode, websiteNode, type Crumb,
+    untapWebNode, webApplicationNode, webPageNode, websiteNode, type Crumb,
 } from "./nodes";
 import {
     faqSectionSchema, type CaseStudyInput, type JsonLdGraph, type JsonLdNode, type PostInput, type ProjectInput,
@@ -157,6 +157,37 @@ export function officeGraph(page: Page): JsonLdGraph {
     return graph(
         webPageNode({ type: "WebPage", url, ...page, extra: { about: ref(ids.person) } }),
         breadcrumbNode(url, [HOME, { name: "The Office", url }]),
+    );
+}
+
+/* ---------------------------------------------------------------- tools */
+
+type ToolExtras = { featureList: string[]; faq: { question: string; answer: string }[] };
+
+/**
+ * A single-purpose tool page: a WebPage whose main entity is a free
+ * WebApplication, plus a FAQPage node for the questions answered on the page.
+ */
+export function toolGraph(page: Page, path: string, { featureList, faq }: ToolExtras): JsonLdGraph {
+    const url = abs(path);
+    return graph(
+        webPageNode({
+            type: "WebPage",
+            url,
+            ...page,
+            extra: { about: ref(ids.person), mainEntity: ref(pageId(url, "webapplication")) },
+        }),
+        breadcrumbNode(url, [HOME, { name: page.name, url }]),
+        webApplicationNode({ url, ...page, featureList }),
+        {
+            "@type": "FAQPage",
+            "@id": pageId(url, "faq"),
+            url,
+            name: `${page.name} FAQ`,
+            isPartOf: ref(pageId(url, "webpage")),
+            inLanguage: LANGUAGE,
+            mainEntity: questions([{ items: faq }]),
+        },
     );
 }
 

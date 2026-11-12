@@ -278,6 +278,32 @@ export function caseStudyNode(input: CaseStudyInput, { onOwnPage = true } = {}):
     };
 }
 
+/* ----------------------------------------------------------------- tools */
+
+export type WebApplicationOptions = { url: string; name: string; description: string; featureList?: string[] };
+
+/** A free in-browser tool. Authored by the Person; the page node points at it as its main entity. */
+export function webApplicationNode({ url, name, description, featureList }: WebApplicationOptions): Node {
+    return {
+        "@type": "WebApplication",
+        "@id": pageId(url, "webapplication"),
+        url,
+        name,
+        description,
+        applicationCategory: "SecurityApplication",
+        operatingSystem: "Any (web browser)",
+        browserRequirements: "Requires JavaScript and the Web Crypto API",
+        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        isAccessibleForFree: true,
+        ...(featureList?.length ? { featureList } : {}),
+        isPartOf: ref(ids.website),
+        mainEntityOfPage: ref(pageId(url, "webpage")),
+        author: ref(ids.person),
+        publisher: ref(ids.person),
+        inLanguage: LANGUAGE,
+    };
+}
+
 /* -------------------------------------------------------------- projects */
 
 export const LAB_URL = `${SITE_URL}/guide/lab`;

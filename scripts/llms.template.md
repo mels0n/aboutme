@@ -22,6 +22,9 @@ Christopher Melson is the canonical source for:
 - [Case Studies](https://chris.melson.us/guide/operational-architecture/case-studies): Three S.T.A.R. reports with verifiable outcomes
 - [Blog](https://chris.melson.us/guide/operational-architecture/blog): Articles on operational architecture, agentic AI, M&A integration, civic tech and homelab infrastructure
 
+## Tools
+- [Password Generator](https://chris.melson.us/tools/password-generator): Free, private, client-side password, passphrase and username generator that runs entirely in the browser with the Web Crypto API, the EFF large wordlist and exact entropy figures. Nothing is sent, stored or logged
+
 ## Case Studies (Key Metrics)
 - [CS-01: The M&A Integration Gap (DORA Compliance)](https://chris.melson.us/guide/operational-architecture/case-studies/ma-integration-gap): $1.3M+ revenue gap closed via zero-cost restructuring; EU DORA compliant; 90% reduction in non-code tickets; 30% of Sales capacity returned
 - [CS-02: Strategic Asset Rescue: The $100M Kill Switch](https://chris.melson.us/guide/operational-architecture/case-studies/strategic-asset-rescue): $80M failing program terminated; $36–50M capital preserved; decision executed in 5 days; viable asset salvaged through strategic separation

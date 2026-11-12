@@ -280,10 +280,30 @@ export function caseStudyNode(input: CaseStudyInput, { onOwnPage = true } = {}):
 
 /* ----------------------------------------------------------------- tools */
 
-export type WebApplicationOptions = { url: string; name: string; description: string; featureList?: string[] };
+export type ToolSource = { repository: string; url: string };
+export type WebApplicationOptions = {
+    url: string; name: string; description: string; featureList?: string[]; source?: ToolSource;
+};
+
+const POLYFORM_STRICT_URL = "https://polyformproject.org/licenses/strict/1.0.0/";
+export const toolSourceId = (url: string) => pageId(url, "source");
+
+/** The published source of a tool: readable and auditable, under the PolyForm Strict License (no reuse). */
+export function toolSourceNode(url: string, name: string, { repository, url: sourceUrl }: ToolSource): Node {
+    return {
+        "@type": "SoftwareSourceCode",
+        "@id": toolSourceId(url),
+        name: `${name} source code`,
+        codeRepository: repository,
+        url: sourceUrl,
+        license: POLYFORM_STRICT_URL,
+        programmingLanguage: "TypeScript",
+        author: ref(ids.person),
+    };
+}
 
 /** A free in-browser tool. Authored by the Person; the page node points at it as its main entity. */
-export function webApplicationNode({ url, name, description, featureList }: WebApplicationOptions): Node {
+export function webApplicationNode({ url, name, description, featureList, source }: WebApplicationOptions): Node {
     return {
         "@type": "WebApplication",
         "@id": pageId(url, "webapplication"),
@@ -296,6 +316,7 @@ export function webApplicationNode({ url, name, description, featureList }: WebA
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
         isAccessibleForFree: true,
         ...(featureList?.length ? { featureList } : {}),
+        ...(source ? { isBasedOn: ref(toolSourceId(url)) } : {}),
         isPartOf: ref(ids.website),
         mainEntityOfPage: ref(pageId(url, "webpage")),
         author: ref(ids.person),

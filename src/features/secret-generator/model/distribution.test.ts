@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: PolyForm-Strict-1.0.0
 import { describe, expect, it } from "vitest";
 import { EFF_LARGE_WORDLIST } from "./eff-large-wordlist";
 import { DEFAULT_PASSPHRASE_OPTIONS, generatePassphrase } from "./passphrase";

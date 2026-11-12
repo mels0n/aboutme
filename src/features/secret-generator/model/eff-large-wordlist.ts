@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: CC-BY-4.0
 /*
  * EFF Large Wordlist by the Electronic Frontier Foundation, licensed CC BY 4.0 (per https://www.eff.org/copyright).
  * Source: https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt

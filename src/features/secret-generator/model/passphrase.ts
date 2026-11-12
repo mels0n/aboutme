@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: PolyForm-Strict-1.0.0
 import { z } from "zod";
 import { GeneratorError, parseOrThrow } from "./errors";
 import { cryptoSource, pick, randomInt, type RandomSource } from "./random";

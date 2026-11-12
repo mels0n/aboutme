@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: PolyForm-Strict-1.0.0
 /**
  * # Secret Generator Feature Slice
  *

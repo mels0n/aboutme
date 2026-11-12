@@ -1,6 +1,4 @@
-import { readdirSync, readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+// SPDX-License-Identifier: PolyForm-Strict-1.0.0
 import { describe, expect, it } from "vitest";
 import { GeneratorError } from "./errors";
 import { randomInt, shuffle, type RandomSource } from "./random";
@@ -73,17 +71,5 @@ describe("shuffle", () => {
     it("handles empty and single-element arrays", () => {
         expect(shuffle([])).toEqual([]);
         expect(shuffle([9])).toEqual([9]);
-    });
-});
-
-describe("source hygiene", () => {
-    it("never uses the non-cryptographic generator in the slice", () => {
-        const dir = dirname(fileURLToPath(import.meta.url));
-        const banned = new RegExp("Math" + "\s*\.\s*random");
-        const files = [dir, join(dir, "..", "ui")].flatMap((d) =>
-            readdirSync(d).filter((f) => /\.tsx?$/.test(f) && !f.endsWith(".test.ts")).map((f) => join(d, f)),
-        );
-        expect(files.length).toBeGreaterThan(3);
-        for (const file of files) expect(readFileSync(file, "utf8"), file).not.toMatch(banned);
     });
 });

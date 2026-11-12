@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: PolyForm-Strict-1.0.0
 /**
  * The questions answered on the generator page. One list feeds both the
  * visible FAQ and the page's FAQPage structured data, so the two cannot drift.
@@ -18,9 +19,9 @@ export const SECRET_GENERATOR_FAQ: readonly FaqEntry[] = [
             "It can be, if the generator runs in your browser and never sends what it makes. This one creates every value on your device with the Web Crypto API, so the value never travels to a server. You can confirm it by watching your browser's network tab while you generate. The method is explained on this page so you can judge it for yourself.",
     },
     {
-        question: "Does it store or send my passwords?",
+        question: "Does it save, store or send my passwords?",
         answer:
-            "No. Each value is made in your browser after the page loads and lives in memory until you refresh, change a setting or leave. The generator does not put it in the web address, save it to browser storage, log it or send it anywhere. The site uses Google Analytics, which records an ordinary page view, but the generated values are never part of it.",
+            "No. It saves nothing. Each value is made in your browser after the page loads and lives in memory until you refresh, change a setting or leave. The generator does not put it in the web address, save it to browser storage, log it or send it anywhere. The site uses Google Analytics, which records an ordinary page view, but the generated values are never part of it.",
     },
     {
         question: "Does it work offline?",
@@ -41,6 +42,11 @@ export const SECRET_GENERATOR_FAQ: readonly FaqEntry[] = [
         question: "What is a plus-addressed or catch-all email username?",
         answer:
             "A plus-addressed email adds a plus sign and a random tag before the @ sign of your own address, so mail still reaches your inbox but each site gets a different address. A catch-all email is a random name at a domain you own, where your mail provider delivers every address to one inbox. Not every site accepts a plus sign.",
+    },
+    {
+        question: "Can I see the code?",
+        answer:
+            "Yes. The generator's source and its tests are published on GitHub for anyone to read and audit, under the PolyForm Strict License 1.0.0. That license allows noncommercial use but not redistribution, modification or reuse in other projects. Run the tests yourself, and watch your browser's network tab to confirm nothing is sent.",
     },
     {
         question: "How is this different from Bitwarden's generator?",

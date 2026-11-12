@@ -1,0 +1,66 @@
+// SPDX-License-Identifier: PolyForm-Strict-1.0.0
+import { readdirSync, readFileSync, statSync } from "node:fs";
+import { dirname, join, relative } from "node:path";
+import { fileURLToPath } from "node:url";
+import { describe, expect, it } from "vitest";
+
+/*
+ * The generator promises to save nothing: no storage, no cookies, no network,
+ * no logging and no state in the web address. This test reads the source and
+ * fails the build if any API that could break that promise appears. A token
+ * is built from parts below so that this file does not contain the strings
+ * it forbids.
+ */
+const here = dirname(fileURLToPath(import.meta.url));
+const sliceDir = join(here, "..");
+const repoRoot = join(sliceDir, "..", "..", "..");
+const pageFile = join(repoRoot, "src", "app", "tools", "password-generator", "page.tsx");
+
+const FORBIDDEN: readonly string[] = [
+    "local" + "Storage",
+    "session" + "Storage",
+    "indexed" + "DB",
+    "document" + ".cookie",
+    "caches" + ".",
+    "service" + "Worker",
+    "navigator" + ".sendBeacon",
+    "fetch" + "(",
+    "XMLHttp" + "Request",
+    "Web" + "Socket",
+    "console" + ".log",
+    "console" + ".info",
+    "console" + ".debug",
+    "console" + ".warn",
+    "history" + ".pushState",
+    "history" + ".replaceState",
+    "useSearch" + "Params",
+    "search" + "Params",
+    "Math" + ".random",
+];
+
+function sourceFiles(dir: string): string[] {
+    return readdirSync(dir).flatMap((name) => {
+        const full = join(dir, name);
+        if (statSync(full).isDirectory()) return sourceFiles(full);
+        return /\.tsx?$/.test(name) && !/\.test\.ts$/.test(name) ? [full] : [];
+    });
+}
+
+describe("saves nothing", () => {
+    const files = [...sourceFiles(sliceDir), pageFile];
+
+    it("scans the model, the UI and the page", () => {
+        expect(files.length).toBeGreaterThan(10);
+        expect(files).toContain(pageFile);
+    });
+
+    it("uses no storage, network, logging, URL-state or non-cryptographic random API", () => {
+        const hits = files.flatMap((file) => {
+            const text = readFileSync(file, "utf8");
+            return FORBIDDEN.filter((token) => text.includes(token)).map(
+                (token) => `${relative(repoRoot, file)} contains "${token}"`,
+            );
+        });
+        expect(hits, hits.join("\n")).toEqual([]);
+    });
+});

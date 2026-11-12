@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: PolyForm-Strict-1.0.0
 /**
  * Every failure the generator can report. The UI shows `message` as is, so
  * messages are plain sentences for the person at the keyboard.

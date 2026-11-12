@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: PolyForm-Strict-1.0.0
 import { describe, expect, it } from "vitest";
 import {
     countConstrainedStrings, emailTagEntropy, formatScientific, log2BigInt,

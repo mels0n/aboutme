@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: PolyForm-Strict-1.0.0
 import { EFF_WORDLIST_SIZE, type PassphraseOptions } from "./passphrase";
 import { passwordSets, type PasswordOptions } from "./password";
 import { EMAIL_TAG_ALPHABET, EMAIL_TAG_LENGTH, USERNAME_DIGITS, type RandomWordOptions } from "./username";

@@ -270,6 +270,24 @@ describe("tool page", () => {
         });
     });
 
+    it("links the published source, under a license that does not allow reuse, when given", () => {
+        const withSource = toolGraph(page, "/tools/password-generator", {
+            ...toolExtras,
+            source: { repository: "https://github.com/mels0n/aboutme", url: "https://github.com/mels0n/aboutme/tree/main/src/x" },
+        });
+        expect(node(withSource, "WebApplication")).toMatchObject({ isBasedOn: { "@id": `${url}#source` } });
+        expect(byId(withSource, `${url}#source`)).toMatchObject({
+            "@type": "SoftwareSourceCode",
+            codeRepository: "https://github.com/mels0n/aboutme",
+            url: "https://github.com/mels0n/aboutme/tree/main/src/x",
+            license: "https://polyformproject.org/licenses/strict/1.0.0/",
+            programmingLanguage: "TypeScript",
+            author: { "@id": ids.person },
+        });
+        expect(node(graph, "WebApplication")).not.toHaveProperty("isBasedOn");
+        expect(byId(graph, `${url}#source`)).toBeUndefined();
+    });
+
     it("adds a FAQPage whose questions are the ones passed in", () => {
         expect(node(graph, "FAQPage")).toMatchObject({
             "@id": `${url}#faq`,

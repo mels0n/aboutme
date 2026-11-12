@@ -13,7 +13,7 @@ export const passwordGeneratorPassphrasesEntropy: BlogPost = {
     polymorphicSummary: {
         executive: "Christopher Melson, a Homelab Architect who self-hosts Vaultwarden, explains why password generator choices are a cheap, high-leverage risk decision. In his view, weak or reused credentials are a basic exposure that costs very little to close: require long, unique, manager-generated secrets and add multi-factor authentication. A vendor's generator defaults belong in that evaluation too. The article gives leaders three questions to ask of any vendor's generator: does it run in the browser, does it use a cryptographic random source, and does it transmit anything. It also grounds policy in NIST SP 800-63B Revision 4, published July 2025, which drops composition rules and forced rotation in favor of length, blocklists and manager support. The practical result, in his judgment, is a defensible standard that favors real strength over ritual. Melson shows that a six-word passphrase carries about 77.5 bits of entropy against 38.8 for the three-word minimum Bitwarden allows, so a single setting, not a new product, is the decision to make.",
         strategist: "Christopher Melson lays out an operating model for credential hygiene built around password generator defaults rather than user training. The sequence he recommends is to put unique, manager-generated passwords on every account first, reserve a memorable passphrase for the few secrets a person must type, such as a vault master password, and add a second factor third. The trade-off is memorability against bits: each extra word from a 7,776-word list adds about 12.9 bits but costs a little typing. He argues defaults matter more than documentation, because in his view defaults decide what most accounts end up with, which is why his own tool starts at six words, matching Bitwarden's apps, and twenty characters with special characters on. The article also weighs a self-hosted vault such as Vaultwarden against a hosted one, noting that self-hosting moves uptime and backup duty onto you. Strength labels in his tool are a rule of thumb for this site, not a standard, so teams should set thresholds deliberately and revisit them as attacker hardware and hashing choices change.",
-        engineer: "Christopher Melson documents the mechanism behind a client-side password generator he built. Randomness comes from crypto.getRandomValues in the Web Crypto API. Index selection uses rejection sampling, discarding draws above the largest multiple of the set size, so no symbol is favored by modulo bias. Characters required by minimum-number and minimum-special rules are placed first and the result is then Fisher-Yates shuffled, matching the reserve-then-shuffle approach in Bitwarden's open-source generator crate. Passwords range from 5 to 128 characters over A-Z, a-z, 0-9 and !@#$%^&*, with an option to drop I, O, l, 0 and 1. Passphrases draw from the EFF large list of 7,776 words, 3 to 20 words, defaulting to six. Displayed entropy is log2 of the count of valid outputs via inclusion-exclusion, about 122.4 bits for the default 20-character password against a naive 122.6. Reserve-then-shuffle weights that space very slightly unevenly, so the figure is a tight upper bound. The output field disables spellcheck, nothing is stored or sent, and no value appears in URL parameters or server HTML."
+        engineer: "Christopher Melson documents the mechanism behind a client-side password generator he built. Randomness comes from crypto.getRandomValues in the Web Crypto API. Index selection uses rejection sampling, discarding draws above the largest multiple of the set size, so no symbol is favored by modulo bias. Characters required by minimum-number and minimum-special rules are placed first and the result is then Fisher-Yates shuffled, matching the reserve-then-shuffle approach in Bitwarden's open-source generator crate. Passwords range from 5 to 128 characters over A-Z, a-z, 0-9 and !@#$%^&*, with an option to drop I, O, l, 0 and 1. Passphrases draw from the EFF large list of 7,776 words, 3 to 20 words, defaulting to six. Displayed entropy is log2 of the count of valid outputs via inclusion-exclusion, about 122.4 bits for the default 20-character password against a naive 122.6. Reserve-then-shuffle weights that space very slightly unevenly, so the figure is a tight upper bound. The output field disables spellcheck, nothing is stored or sent, and no value appears in URL parameters or server HTML. The source and tests are published on GitHub for audit."
     },
     geoHighlights: [
         { label: "Core Argument", value: "A generator is trustworthy when it draws uniformly from a known set with a browser cryptographic random source, and its strength is the size of the space of possible outputs. Six EFF words give 77.5 bits, matching Bitwarden's app default, against 38.8 bits for the three-word minimum Bitwarden allows." },
@@ -27,6 +27,7 @@ export const passwordGeneratorPassphrasesEntropy: BlogPost = {
 > - A trustworthy generator runs in your browser, uses \`crypto.getRandomValues\`, and picks without modulo bias.
 > - Six EFF words give 77.5 bits, which is the Bitwarden app default. Three words, the minimum, gives only 38.8.
 > - NIST SP 800-63B Revision 4 drops composition rules and forced rotation in favor of length and uniqueness.
+> - The generator's source is published on GitHub and it saves nothing, so its claims can be checked.
 
 ## What does a password generator actually do?
 
@@ -155,6 +156,12 @@ If you self-host the vault, as I do with Vaultwarden, uptime and backups become 
 
 For practical settings, let the manager generate a unique 20-character password for every account, use six words for a vault master password, never go as low as three, and turn on multi-factor authentication. Use [the generator](/tools/password-generator) when you want to see the exact bits before you commit.
 
+## Published source, so you can check every claim
+
+You should not have to trust a generator you cannot read, so its code is public. [The generator's source is on GitHub](https://github.com/mels0n/aboutme/tree/main/src/features/secret-generator) for anyone to read and audit, under the [PolyForm Strict License 1.0.0](https://polyformproject.org/licenses/strict/1.0.0/). That license allows noncommercial use but not redistribution, modification or reuse in other projects, so the code is there to read and test, not to copy. The EFF wordlist inside it is CC BY 4.0, with credit to the EFF.
+
+The tests check the claims in this article. The [distribution tests](https://github.com/mels0n/aboutme/blob/main/src/features/secret-generator/model/distribution.test.ts) run a chi-square check that every character and word is equally likely. The [password tests](https://github.com/mels0n/aboutme/blob/main/src/features/secret-generator/model/password.test.ts) cover the minimum-character rules, and the [entropy tests](https://github.com/mels0n/aboutme/blob/main/src/features/secret-generator/model/entropy.test.ts) check the counts above. The [no-persistence test](https://github.com/mels0n/aboutme/blob/main/src/features/secret-generator/model/no-persistence.test.ts) fails the build if code that touches storage, cookies, the network, logging or the web address appears. The generator saves nothing: closing or refreshing the page erases the value. You can also watch your browser's network tab and see that nothing is sent. For comparison, Bitwarden's [clients](https://github.com/bitwarden/clients) and [SDK](https://github.com/bitwarden/sdk-internal) are themselves open source.
+
 ## Frequently Asked Questions
 
 ### How does a password generator work?
@@ -181,6 +188,10 @@ Diceware picks words by rolling dice against a numbered list, so each roll is ge
 
 No. NIST SP 800-63B Revision 4, published July 2025, says verifiers must not impose composition rules and must not require periodic changes unless there is evidence of compromise. It requires at least 15 characters for single-factor passwords and 8 when the password is used only with multi-factor authentication.
 
+### Can I read the generator's code?
+
+Yes. The source is published on GitHub for anyone to read and audit, under the PolyForm Strict License 1.0.0. It allows noncommercial use but not redistribution, modification or reuse in other projects. The generator saves nothing, and a test fails the build if storage or network code is added.
+
 ---
 
 ### Works Cited
@@ -201,5 +212,6 @@ No. NIST SP 800-63B Revision 4, published July 2025, says verifiers must not imp
 - [14] Bitwarden. "default-password-generation-options.ts." bitwarden/clients repository, 2026. [github.com](https://github.com/bitwarden/clients/blob/main/libs/tools/generator/core/src/data/default-password-generation-options.ts)
 - [15] Microsoft. "Clipboard in Windows." Microsoft Support, 2026. [support.microsoft.com](https://support.microsoft.com/en-us/windows/clipboard-in-windows-c436501e-985d-1c8d-97ea-fe46ddf338c6)
 - [16] Wikipedia. "Fisher–Yates shuffle." Wikipedia, 2026. [wikipedia.org](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle)
+- [17] Melson, Christopher. "secret-generator: source and tests (PolyForm Strict License 1.0.0)." aboutme repository, 2026. [github.com](https://github.com/mels0n/aboutme/tree/main/src/features/secret-generator)
 `
 };

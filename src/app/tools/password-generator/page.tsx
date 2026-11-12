@@ -25,13 +25,18 @@ const FEATURES = [
     "Exact entropy and number of possible outputs shown for every result",
     "Generated in the browser with the Web Crypto API, never sent, stored or logged",
     "No sign-up, no account, no usage limits and no ads",
+    "Source published on GitHub to read, audit and test",
 ];
 
 const SELLING_POINTS = [
     { title: "Free", text: "No sign-up, no account, no limits and no ads." },
-    { title: "Private", text: "Made in your browser. The values are never sent, stored or logged." },
+    { title: "Private", text: "Made in your browser. It saves nothing and sends nothing." },
     { title: "Secure", text: "Cryptographic randomness, unbiased selection and exact entropy for every result." },
+    { title: "Published source", text: "Every line is on GitHub to read, audit and test." },
 ];
+
+const SOURCE_URL = "https://github.com/mels0n/aboutme/tree/main/src/features/secret-generator";
+const TESTS_URL = `${SOURCE_URL}/model`;
 
 /*
  * Blog posts this page links to. The site builds only the posts that are
@@ -65,6 +70,7 @@ export default function PasswordGeneratorPage() {
                 graph={toolGraph({ name: H1, description: DESCRIPTION }, PATH, {
                     featureList: FEATURES,
                     faq: [...SECRET_GENERATOR_FAQ],
+                    source: { repository: "https://github.com/mels0n/aboutme", url: SOURCE_URL },
                 })}
             />
 
@@ -87,7 +93,7 @@ export default function PasswordGeneratorPage() {
 
             <SecretGenerator />
 
-            <ul className="grid gap-4 sm:grid-cols-3">
+            <ul className="grid gap-4 sm:grid-cols-2">
                 {SELLING_POINTS.map(({ title, text }) => (
                     <li key={title} className="rounded-lg border border-border bg-surface/50 p-4">
                         <p className={h3}>{title}</p>
@@ -108,7 +114,8 @@ export default function PasswordGeneratorPage() {
                 <h2 className={h2}>Why this password generator is private</h2>
                 <ul className="list-disc space-y-2 pl-5">
                     <li>Every value is made in your browser with the Web Crypto API, after the page loads. It is never in the HTML the server sends.</li>
-                    <li>The generator does not send a value anywhere, write it to browser storage, put it in the web address or log it. Your settings are not saved either.</li>
+                    <li><strong>It saves nothing.</strong> The generator writes nothing to browser storage or cookies, keeps nothing between visits and sends nothing. Closing or refreshing the page erases the value.</li>
+                    <li>It does not put a value in the web address or log it. Your settings are not saved either.</li>
                     <li>The output box has spell-check turned off, so browser spell-check services never see it.</li>
                     <li>Once the page has loaded, generating needs no internet connection. The word list loads with the page.</li>
                     <li>This site uses Google Analytics, which records an ordinary page view. The generated values are never part of it.</li>
@@ -184,6 +191,25 @@ export default function PasswordGeneratorPage() {
                     </p>
                 </section>
             )}
+
+            <section className={section}>
+                <h2 className={h2}>Published source</h2>
+                <p>
+                    The generator&apos;s code is published on GitHub for anyone to read and audit, under the{" "}
+                    <External href="https://polyformproject.org/licenses/strict/1.0.0/">PolyForm Strict License 1.0.0</External>.
+                    That license allows noncommercial use but not redistribution, modification or reuse in other
+                    projects, so the code is there to inspect and test, not to copy. Read the{" "}
+                    <External href={SOURCE_URL}>source</External> and the{" "}
+                    <External href={TESTS_URL}>tests</External>, which check that every choice is equally likely, that
+                    the entropy figures are exact and that the generator saves nothing: a test fails the build if any
+                    storage, network or logging code is added. The EFF wordlist inside it is CC BY 4.0, not covered by
+                    that license.
+                </p>
+                <p>
+                    You can run the tests yourself, and you can open your browser&apos;s network tab while you
+                    generate to confirm that nothing is sent.
+                </p>
+            </section>
 
             <section className={section}>
                 <h2 className={h2}>Credits</h2>

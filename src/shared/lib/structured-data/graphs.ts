@@ -4,7 +4,7 @@ import {
     CASE_STUDIES_PATH, LAB_URL,
     blogNode, blogPostingNode, blogUrl, breadcrumbNode, caseStudyNode, caseStudyUrl,
     cvNode, headshotNode, ogImageNode, personNode, postUrl, projectId, projectNode,
-    untapWebNode, webApplicationNode, webPageNode, websiteNode, type Crumb,
+    toolSourceNode, untapWebNode, webApplicationNode, webPageNode, websiteNode, type Crumb, type ToolSource,
 } from "./nodes";
 import {
     faqSectionSchema, type CaseStudyInput, type JsonLdGraph, type JsonLdNode, type PostInput, type ProjectInput,
@@ -162,13 +162,18 @@ export function officeGraph(page: Page): JsonLdGraph {
 
 /* ---------------------------------------------------------------- tools */
 
-type ToolExtras = { featureList: string[]; faq: { question: string; answer: string }[] };
+type ToolExtras = {
+    featureList: string[];
+    faq: { question: string; answer: string }[];
+    /** Where the tool's published source lives. Adds a SoftwareSourceCode node the application is based on. */
+    source?: ToolSource;
+};
 
 /**
  * A single-purpose tool page: a WebPage whose main entity is a free
  * WebApplication, plus a FAQPage node for the questions answered on the page.
  */
-export function toolGraph(page: Page, path: string, { featureList, faq }: ToolExtras): JsonLdGraph {
+export function toolGraph(page: Page, path: string, { featureList, faq, source }: ToolExtras): JsonLdGraph {
     const url = abs(path);
     return graph(
         webPageNode({
@@ -178,7 +183,8 @@ export function toolGraph(page: Page, path: string, { featureList, faq }: ToolEx
             extra: { about: ref(ids.person), mainEntity: ref(pageId(url, "webapplication")) },
         }),
         breadcrumbNode(url, [HOME, { name: page.name, url }]),
-        webApplicationNode({ url, ...page, featureList }),
+        webApplicationNode({ url, ...page, featureList, source }),
+        ...(source ? [toolSourceNode(url, page.name, source)] : []),
         {
             "@type": "FAQPage",
             "@id": pageId(url, "faq"),

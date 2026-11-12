@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: PolyForm-Strict-1.0.0
 /**
  * Plain-language labels for an entropy figure. These cut-offs are this site's
  * own rule of thumb, not a published standard, and the UI says so.

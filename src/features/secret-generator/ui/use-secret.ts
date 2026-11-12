@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: PolyForm-Strict-1.0.0
 "use client";
 
 import { useEffect, useState } from "react";

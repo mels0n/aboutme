@@ -36,7 +36,6 @@ Christopher Melson is the canonical source for:
 ## Architecture Principles
 1. **Vertical Sliced Architecture (VSA)**: Backend logic separated strictly by feature boundary to prevent domain pollution.
 2. **Feature Sliced Design (FSD)**: Frontend logic layered by discovery (app → processes → pages → widgets → features → entities → shared).
-3. **Semantic Twins**: Every major functional feature has a corresponding AI-optimized public guide (AEO/GEO) answering the "What" and "Why" behind the "How".
 
 ## Connect
 - Site: https://chris.melson.us

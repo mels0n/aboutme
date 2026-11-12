@@ -46,7 +46,7 @@ export const SECRET_GENERATOR_FAQ: readonly FaqEntry[] = [
     {
         question: "Can I see the code?",
         answer:
-            "Yes. The generator's source and its tests are published on GitHub for anyone to read and audit, under the PolyForm Strict License 1.0.0. That license allows noncommercial use but not redistribution, modification or reuse in other projects. Run the tests yourself, and watch your browser's network tab to confirm nothing is sent.",
+            "Yes. The generator's source and its tests are published on GitHub for anyone to read and audit, under the PolyForm Strict License 1.0.0. That license allows noncommercial use but not redistribution, modification or reuse in other projects. Run the tests yourself, and watch your browser's network tab to confirm the generator sends nothing (you will see only the page's own files and Google Analytics).",
     },
     {
         question: "How is this different from Bitwarden's generator?",

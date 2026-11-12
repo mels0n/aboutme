@@ -205,7 +205,7 @@ export default function PasswordGeneratorPage() {
                     <External href={TESTS_URL}>tests</External>, which check that every choice is equally likely, that
                     the entropy counts match the rules and that the generator saves nothing. One test fails if any of the
                     listed storage, network, logging or web-address APIs appear in the generator&apos;s source, and
-                    it runs on every change before merge. The EFF wordlist inside it is CC BY 4.0, not covered by
+                    it runs on every pull request and every push to main. The EFF wordlist inside it is CC BY 4.0, not covered by
                     that license.
                 </p>
                 <p>

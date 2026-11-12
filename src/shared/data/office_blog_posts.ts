@@ -24,6 +24,7 @@ import { governingAiAgentsApprovalGateModel } from "./blog-posts/governing-ai-ag
 import { gerrymanderingSimpleUnbiasedFixShortestSplitline } from "./blog-posts/gerrymandering-simple-unbiased-fix-shortest-splitline";
 import { redistrictingWithoutBiasOperationalArchitectAiCodeGates } from "./blog-posts/redistricting-without-bias-operational-architect-ai-code-gates";
 import { testingEveryPossibleLineExactRedistrictingSearch } from "./blog-posts/testing-every-possible-line-exact-redistricting-search";
+import { passwordGeneratorPassphrasesEntropy } from "./blog-posts/password-generator-passphrases-entropy";
 
 export type { BlogPost } from "./blog-post-type";
 
@@ -48,5 +49,6 @@ export const allOfficeBlogPosts: BlogPost[] = [
     governingAiAgentsApprovalGateModel,
     gerrymanderingSimpleUnbiasedFixShortestSplitline,
     redistrictingWithoutBiasOperationalArchitectAiCodeGates,
-    testingEveryPossibleLineExactRedistrictingSearch
+    testingEveryPossibleLineExactRedistrictingSearch,
+    passwordGeneratorPassphrasesEntropy
 ];

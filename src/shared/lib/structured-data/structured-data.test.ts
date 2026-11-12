@@ -8,7 +8,7 @@ import { officeBlogPosts } from "@/shared/data/published_blog_posts";
 import { projectInputs, plainDescription } from "@/entities/project/model/structured-data";
 import {
     aboutGraph, blogIndexGraph, blogPostGraph, caseStudyGraph, caseStudyIndexGraph,
-    faqGraph, guideGraph, homeGraph, labGraph, officeGraph, serializeGraph,
+    faqGraph, guideGraph, homeGraph, labGraph, officeGraph, serializeGraph, toolGraph,
     type JsonLdGraph,
 } from "./index";
 import { ids } from "./config";
@@ -17,6 +17,10 @@ import type { PostInput } from "./schema";
 import { finalizeGraph, graphProblems } from "./validate";
 
 const page = { name: "A page", description: "A description" };
+const toolExtras = {
+    featureList: ["Generates passwords", "Generates passphrases"],
+    faq: [{ question: "Is it free?", answer: "Yes. No sign-up and no limits." }],
+};
 const node = (graph: JsonLdGraph, type: string) =>
     graph["@graph"].find((n) => n["@type"] === type || (Array.isArray(n["@type"]) && n["@type"].includes(type)));
 const byId = (graph: JsonLdGraph, id: string) => graph["@graph"].find((n) => n["@id"] === id);
@@ -36,6 +40,7 @@ const allGraphs = (): [string, JsonLdGraph][] => [
     ["guide", guideGraph(page, [{ question: "Q?", answer: "A." }])],
     ["lab", labGraph(page, projectInputs)],
     ["office", officeGraph(page)],
+    ["tool", toolGraph(page, "/tools/password-generator", toolExtras)],
     ["blog index", blogIndexGraph(page, officeBlogPosts)],
     ["case study index", caseStudyIndexGraph(page, officeCaseStudies)],
     ...officeBlogPosts.map((p): [string, JsonLdGraph] => [`post ${p.slug}`, blogPostGraph(p)]),
@@ -245,6 +250,58 @@ describe("page types", () => {
     it("types case studies as Article", () => {
         const graph = caseStudyGraph(officeCaseStudies[0]);
         expect(node(graph, "Article")).toMatchObject({ author: { "@id": ids.person } });
+    });
+});
+
+describe("tool page", () => {
+    const graph = toolGraph(page, "/tools/password-generator", toolExtras);
+    const url = "https://chris.melson.us/tools/password-generator";
+
+    it("describes a free security web application authored by the Person", () => {
+        expect(node(graph, "WebApplication")).toMatchObject({
+            "@id": `${url}#webapplication`,
+            applicationCategory: "SecurityApplication",
+            operatingSystem: "Any (web browser)",
+            isAccessibleForFree: true,
+            offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            browserRequirements: "Requires JavaScript and the Web Crypto API",
+            featureList: toolExtras.featureList,
+            author: { "@id": ids.person },
+        });
+    });
+
+    it("links the published source, under a license that does not allow reuse, when given", () => {
+        const withSource = toolGraph(page, "/tools/password-generator", {
+            ...toolExtras,
+            source: { repository: "https://github.com/mels0n/aboutme", url: "https://github.com/mels0n/aboutme/tree/main/src/x" },
+        });
+        expect(node(withSource, "WebApplication")).toMatchObject({ isBasedOn: { "@id": `${url}#source` } });
+        expect(byId(withSource, `${url}#source`)).toMatchObject({
+            "@type": "SoftwareSourceCode",
+            codeRepository: "https://github.com/mels0n/aboutme",
+            url: "https://github.com/mels0n/aboutme/tree/main/src/x",
+            license: "https://polyformproject.org/licenses/strict/1.0.0/",
+            programmingLanguage: "TypeScript",
+            author: { "@id": ids.person },
+        });
+        expect(node(graph, "WebApplication")).not.toHaveProperty("isBasedOn");
+        expect(byId(graph, `${url}#source`)).toBeUndefined();
+    });
+
+    it("adds a FAQPage whose questions are the ones passed in", () => {
+        expect(node(graph, "FAQPage")).toMatchObject({
+            "@id": `${url}#faq`,
+            isPartOf: { "@id": `${url}#webpage` },
+            mainEntity: [
+                { "@type": "Question", name: "Is it free?", acceptedAnswer: { "@type": "Answer", text: "Yes. No sign-up and no limits." } },
+            ],
+        });
+    });
+
+    it("makes the application the main entity of the page and runs Home, page breadcrumbs", () => {
+        expect(byId(graph, `${url}#webpage`)).toMatchObject({ mainEntity: { "@id": `${url}#webapplication` } });
+        const crumbs = node(graph, "BreadcrumbList")!.itemListElement as { item: string }[];
+        expect(crumbs.map((c) => c.item)).toEqual(["https://chris.melson.us", url]);
     });
 });
 

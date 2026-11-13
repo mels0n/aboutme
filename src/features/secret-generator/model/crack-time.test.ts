@@ -9,7 +9,7 @@ import {
 } from "./crack-time";
 import { passphraseEntropy, passwordEntropy, type Entropy } from "./entropy";
 import { DEFAULT_PASSPHRASE_OPTIONS } from "./passphrase";
-import { DEFAULT_PASSWORD_OPTIONS } from "./password";
+import { DEFAULT_PASSWORD_OPTIONS, LOWERCASE, NUMBERS, SPECIAL, UPPERCASE } from "./password";
 
 const words = (numWords: number) => passphraseEntropy({ ...DEFAULT_PASSPHRASE_OPTIONS, numWords });
 const text = (entropy: Entropy, id: string) => crackTimeText(entropy, storageMethod(id));
@@ -109,10 +109,10 @@ describe("formatCrackTime", () => {
 
 describe("sanity points", () => {
     it("matches hand arithmetic for the EFF word lists", () => {
-        expect(text(words(6), "md5")).toBe("about 1,300 years");
+        expect(text(words(6), "md5")).toBe("about 990 years");
         expect(text(words(5), "md5")).toBe("about 2 months");
-        expect(text(words(5), "pbkdf2")).toBe("about 2 million years");
-        expect(text(words(6), "bcrypt")).toBe("about 31 billion years");
+        expect(text(words(5), "pbkdf2")).toBe("about 1.5 million years");
+        expect(text(words(6), "bcrypt")).toBe("about 23 billion years");
     });
 
     it("orders the methods by speed on this rig", () => {
@@ -154,8 +154,65 @@ describe("the blog post table", () => {
         }
     });
 
-    it("states the 12 x RTX 5090 rig and the 2025 Hive table", () => {
-        expect(post).toContain("12 RTX 5090");
-        expect(post).toContain("are-your-passwords-in-the-green-2025");
+    it("has the header line built from the expected labels", () => {
+        const header = `| Secret | ${["MD5", "SHA-1", "bcrypt (cost 10)", `PBKDF2-SHA256 (${PBKDF2_ITERATIONS.toLocaleString("en-US")})`].join(" | ")} |`;
+        expect(post.split("\n").map((l) => l.trimEnd())).toContain(header);
+    });
+
+    it("states the rig size and the 2026 Hive table", () => {
+        expect(post).toContain(`${RIG_GPU_COUNT} RTX 5090`);
+        expect(post).toContain("hivesystems.com/blog/are-your-passwords-in-the-green)");
+        expect(post).not.toContain("are-your-passwords-in-the-green-2025");
+        expect(post).not.toMatch(/12 RTX|12-GPU/);
+    });
+
+    it("keeps its prose figures equal to the model", () => {
+        const five = words(5);
+        const six = words(6);
+        // Key takeaway bullet.
+        expect(post).toContain(
+            `Five EFF words last ${text(five, "pbkdf2")} against PBKDF2 at 600,000 iterations on a ${RIG_GPU_COUNT}-GPU rig, but only ${text(five, "md5")} against MD5.`,
+        );
+        // "Read the table by column" paragraph.
+        expect(post).toContain(
+            `A five-word passphrase falls in ${text(five, "md5")} if the site used MD5, and lasts ${text(five, "pbkdf2")} if it used PBKDF2 at 600,000 iterations. Six words, my default, still takes ${text(six, "md5")} against MD5`,
+        );
+        // Blog FAQ.
+        expect(post).toContain(
+            `five words (${five.bits.toFixed(1)} bits) would take a ${RIG_GPU_COUNT}-GPU rig ${text(five, "pbkdf2")} on average`,
+        );
+        expect(post).toContain(`the same five words fall in ${text(five, "md5")}`);
+    });
+
+    it("keeps the rig paragraph rates equal to the model", () => {
+        const billions = (id: string) => ((storageMethod(id).perGpuRate as number) / 1e9).toFixed(1);
+        const perCard = (id: string) => Math.round(storageMethod(id).perGpuRate as number).toLocaleString("en-US");
+        expect(post).toContain(`${billions("md5")} billion guesses per second for MD5 and ${billions("sha1")} billion for SHA-1`);
+        expect(post).toContain(`(about ${perCard("bcrypt")} guesses per second per card)`);
+        expect(post).toContain(`(about ${perCard("pbkdf2")} per card)`);
+        expect(post).toContain("cost 10 is 32 times slower");
+        expect(2 ** (10 - 5)).toBe(32);
+        expect(post).toContain("600,000 iterations is about 600 times slower");
+        expect(Math.round(PBKDF2_ITERATIONS / 999 / 10) * 10).toBe(600);
+    });
+
+    it("keeps the symbol count in the table caption equal to the default character sets", () => {
+        const o = DEFAULT_PASSWORD_OPTIONS;
+        expect(o.avoidAmbiguous).toBe(false);
+        const symbols = [o.uppercase && UPPERCASE, o.lowercase && LOWERCASE, o.numbers && NUMBERS, o.special && SPECIAL]
+            .filter(Boolean)
+            .join("").length;
+        expect(post).toContain(`(${symbols} symbols, with at least one number and one special character)`);
+    });
+
+    it("keeps the SHA-1 four-word claim true", () => {
+        expect(post).toContain("a four-word passphrase falls in under an hour");
+        expect(averageCrackSeconds(words(4), storageMethod("sha1").perGpuRate as number)).toBeLessThan(HOUR);
+    });
+
+    it("keeps lastUpdated equal to date", () => {
+        const date = /\n\s+date: "(\d{4}-\d{2}-\d{2})"/.exec(post)?.[1];
+        const updated = /\n\s+lastUpdated: "(\d{4}-\d{2}-\d{2})"/.exec(post)?.[1];
+        expect(updated).toBe(date);
     });
 });

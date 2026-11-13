@@ -6,8 +6,9 @@ import { log2BigInt, type Entropy } from "./entropy";
  * method, after the site's database was stolen (an offline attack: the
  * attacker tests guesses on their own hardware, with no lockouts).
  *
- * Rig: 12 x NVIDIA RTX 5090, the hardware behind the Hive Systems 2025
- * password table (https://www.hivesystems.com/blog/are-your-passwords-in-the-green-2025).
+ * Rig: 16 x NVIDIA RTX 5090, the rig size used by the Hive Systems 2026
+ * password table (https://www.hivesystems.com/blog/are-your-passwords-in-the-green).
+ * Only the rig size is borrowed; the per-hash rates below are not Hive's.
  *
  * Per-GPU rates come from the hashcat v6.2.6 RTX 5090 benchmark
  * (https://gist.github.com/Chick3nman/09bac0775e6393468c2925c1e1363d5c).
@@ -29,8 +30,8 @@ import { log2BigInt, type Entropy } from "./entropy";
  * attacker knows how the secret was generated (every output equally likely).
  */
 
-export const RIG_GPU_COUNT = 12;
-export const RIG_LABEL = "12 x RTX 5090";
+export const RIG_GPU_COUNT = 16;
+export const RIG_LABEL = "16 x RTX 5090";
 
 export type CrackMethodKind = "plaintext" | "benchmarked" | "unbenchmarked";
 
@@ -57,7 +58,7 @@ export const STORAGE_METHODS: readonly StorageMethod[] = [
     {
         id: "plaintext",
         label: "Plain text or reversible encryption",
-        example: "RockYou 2009, Adobe 2013",
+        example: "RockYou 2009 (plain text); Adobe 2013 (encrypted)",
         perGpuRate: null,
         kind: "plaintext",
     },
@@ -66,7 +67,7 @@ export const STORAGE_METHODS: readonly StorageMethod[] = [
     {
         id: "bcrypt",
         label: "bcrypt, cost 10",
-        example: "Common web framework default; OWASP minimum is cost 10",
+        example: "A common framework default; OWASP minimum is cost 10",
         perGpuRate: BCRYPT_COST_10_RATE,
         kind: "benchmarked",
     },
@@ -86,9 +87,9 @@ export const STORAGE_METHODS: readonly StorageMethod[] = [
     },
 ];
 
-export const NO_CRACKING_TEXT = "No cracking needed: the password is read directly";
+export const NO_CRACKING_TEXT = "No cracking needed if the key is also taken: the password can be read directly";
 export const NO_BENCHMARK_TEXT =
-    "No verified GPU benchmark. Built to resist GPUs, so expect far slower than bcrypt.";
+    "No GPU benchmark in the source used here. Built to resist GPUs; how well depends on its memory and iteration settings.";
 
 /** The storage method with this id. Throws on an unknown id (a programming error). */
 export function storageMethod(id: string): StorageMethod {

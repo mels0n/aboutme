@@ -64,7 +64,7 @@ describe("the FAQ crack-time answer matches the model", () => {
     const answer = faq.slice(faq.indexOf("How long would it take to crack a generated password?"));
 
     it("states the rig size", () => {
-        expect(RIG_GPU_COUNT).toBe(12);
+        expect(RIG_GPU_COUNT).toBe(16);
         expect(answer).toContain(`${RIG_GPU_COUNT} RTX 5090 graphics cards`);
     });
 

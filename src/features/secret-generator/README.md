@@ -18,13 +18,13 @@ The source is published here so you can read it, audit it and run its tests. Reu
 
 For password and passphrase output the tool shows the average time to crack by storage method (`model/crack-time.ts`). It models an offline attack: a site's password database was stolen and the attacker tests guesses on their own hardware, with no lockouts or two-factor codes. Online guessing is not modeled.
 
-- **Formula.** Average time = (possible outputs / 2) / (guesses per second x 12). The attacker is assumed to know how the value was generated, and on average finds it after trying half of the possible outputs. The output count is the exact count from `model/entropy.ts`.
-- **Rig.** 12 x NVIDIA RTX 5090, the hardware behind the [Hive Systems 2025 password table](https://www.hivesystems.com/blog/are-your-passwords-in-the-green-2025).
+- **Formula.** Average time = (possible outputs / 2) / (guesses per second x 16). The attacker is assumed to know how the value was generated, and on average finds it after trying half of the possible outputs. The output count is the exact count from `model/entropy.ts`.
+- **Rig.** 16 x NVIDIA RTX 5090, the rig size used by the [Hive Systems 2026 password table](https://www.hivesystems.com/blog/are-your-passwords-in-the-green). Only the rig size is borrowed; the per-hash rates are not Hive's.
 - **Rates.** Per-GPU figures from the [hashcat v6.2.6 RTX 5090 benchmark](https://gist.github.com/Chick3nman/09bac0775e6393468c2925c1e1363d5c): MD5 220.6 GH/s and SHA-1 70,245.1 MH/s, used as published.
 - **bcrypt cost 10.** The benchmark runs bcrypt at cost 5 (32 iterations): 304.8 kH/s. Each cost step doubles the work, so cost 10 is 2^5 = 32 times slower: 304,800 / 32 = 9,525 H/s per GPU.
 - **PBKDF2-HMAC-SHA256, 600,000 iterations.** The benchmark runs 999 iterations: 11,157.2 kH/s. Work scales with iterations, so the rate is 11,157,200 x 999 / 600,000, about 18,577 H/s per GPU.
-- **Argon2id.** There is no verified GPU benchmark, so the tool gives no number. It is designed to resist GPUs (it needs a lot of memory per guess), so expect it to be far slower than bcrypt, but that is a design property, not a measurement.
-- **Plain text and reversible encryption.** Nothing to crack: the password is read directly.
+- **Argon2id.** There is no verified GPU benchmark, so the tool gives no number. It is designed to resist GPUs (it needs a lot of memory per guess), but how well depends on its memory and iteration settings. Bitwarden's defaults are 32 MiB, 6 iterations and 4 threads; OWASP's minimum is 19 MiB, 2 iterations and 1 thread.
+- **Plain text and reversible encryption.** Nothing to crack for plain text. Encrypted passwords can be read directly if the key is also taken.
 
 These are estimates from published benchmarks, scaled as above, not measurements of any real site. Real sites differ in salting, settings and hardware.
 

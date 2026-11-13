@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
+import { RIG_GPU_COUNT, crackTimeText, storageMethod } from "./crack-time";
 import { passphraseEntropy, passwordEntropy } from "./entropy";
 import { DEFAULT_PASSPHRASE_OPTIONS, EFF_WORDLIST_SIZE, MAX_WORDS, MIN_WORDS } from "./passphrase";
 import { DEFAULT_PASSWORD_OPTIONS, MAX_LENGTH, MIN_LENGTH } from "./password";
@@ -54,5 +55,28 @@ describe("the stated numbers match the constants", () => {
         for (const [, bits] of copy.matchAll(/about (\d+\.\d) bits/g)) {
             expect([passphraseBits, passwordBits, "12.9"]).toContain(bits);
         }
+    });
+});
+
+describe("the FAQ crack-time answer matches the model", () => {
+    const passphrase = passphraseEntropy(DEFAULT_PASSPHRASE_OPTIONS);
+    const password = passwordEntropy(DEFAULT_PASSWORD_OPTIONS);
+    const answer = faq.slice(faq.indexOf("How long would it take to crack a generated password?"));
+
+    it("states the rig size", () => {
+        expect(RIG_GPU_COUNT).toBe(12);
+        expect(answer).toContain(`${RIG_GPU_COUNT} RTX 5090 graphics cards`);
+    });
+
+    it("states the default passphrase times", () => {
+        expect(answer).toContain(`${crackTimeText(passphrase, storageMethod("md5"))} against MD5`);
+        expect(answer).toContain(`${crackTimeText(passphrase, storageMethod("pbkdf2"))} against PBKDF2-SHA256 with 600,000 iterations`);
+        expect(answer).toContain(`${crackTimeText(passphrase, storageMethod("bcrypt"))} against bcrypt at cost 10`);
+    });
+
+    it("states the default password time, which is the same for all three", () => {
+        const times = ["md5", "pbkdf2", "bcrypt"].map((id) => crackTimeText(password, storageMethod(id)));
+        expect(new Set(times).size).toBe(1);
+        expect(answer).toContain(`The default 20-character password takes ${times[0]} against all three.`);
     });
 });

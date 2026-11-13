@@ -26,6 +26,7 @@ export const passwordGeneratorPassphrasesEntropy: BlogPost = {
 > - Strength is the size of the space of possible outputs, measured in bits. It is not how random the string looks.
 > - A trustworthy generator runs in your browser, uses \`crypto.getRandomValues\`, and picks without modulo bias.
 > - Six EFF words give 77.5 bits, which is the Bitwarden app default. Three words, the minimum, gives only 38.8.
+> - How long a password survives depends on how the site stored it. Five EFF words last about 1.5 million years against PBKDF2 at 600,000 iterations on a 16-GPU rig, but only about 2 months against MD5.
 > - NIST SP 800-63B Revision 4 drops composition rules and forced rotation in favor of length and uniqueness.
 > - The generator's source is published on GitHub and it saves nothing, so its claims can be checked.
 
@@ -128,6 +129,48 @@ The minimum rules cost only a fraction of a bit at 20 characters: 0.20 bits, fro
 
 Six words sit about 38.8 bits above the three-word minimum, and each extra word adds 12.9 bits.
 
+## How long would it take to crack?
+
+It depends on how the site stored your password, and on whether the attacker is guessing at a login page or has already stolen the database. The two are very different problems.
+
+An online attack means guessing at a live login form. Sites slow that down with lockouts, rate limits and two-factor codes, so an attacker gets a handful of guesses, not billions. An offline attack starts after a breach. The attacker has the stored password data and tests guesses on their own hardware, with no lockouts and no one watching. Only the offline case is a matter of raw speed, and it is the one the table below covers.
+
+I borrow the rig size from [Hive Systems' 2026 table](https://www.hivesystems.com/blog/are-your-passwords-in-the-green): 16 RTX 5090 graphics cards. Hive's per-hash figures are theirs; the rates below are not. Per-card speeds come from the [hashcat v6.2.6 benchmark for the RTX 5090](https://gist.github.com/Chick3nman/09bac0775e6393468c2925c1e1363d5c): 220.6 billion guesses per second for MD5 and 70.2 billion for SHA-1. That benchmark measures bcrypt at cost 5 and PBKDF2 at 999 iterations, so I scale both to the settings sites actually use. Each bcrypt cost step doubles the work, so cost 10 is 32 times slower than the benchmarked cost 5 (about 9,525 guesses per second per card). PBKDF2 work grows with the iteration count, so 600,000 iterations is about 600 times slower than the benchmarked 999 (about 18,577 per card). The average attacker finds a value after trying half of the possible outputs, so each figure below is half the output count divided by the rig's speed.
+
+| Secret | MD5 | SHA-1 | bcrypt (cost 10) | PBKDF2-SHA256 (600,000) |
+| --- | --- | --- | --- | --- |
+| 4 EFF words | about 9 minutes | about 27 minutes | about 380 years | about 190 years |
+| 5 EFF words | about 2 months | about 5 months | about 3 million years | about 1.5 million years |
+| 6 EFF words | about 990 years | about 3,100 years | about 23 billion years | about 12 billion years |
+| 7 EFF words | about 7.7 million years | about 24 million years | more than a trillion years | more than a trillion years |
+| 14-character password | about 220,000 years | about 680,000 years | more than a trillion years | more than a trillion years |
+| 20-character password | more than a trillion years | more than a trillion years | more than a trillion years | more than a trillion years |
+
+Average time to crack with 16 RTX 5090 GPUs, offline, after a database theft. The passwords use all four character sets (70 symbols, with at least one number and one special character), as in my tool's defaults. The tool computes these figures live with the same code, and a test checks that this table matches it.
+
+Read the table by column, not by row. A five-word passphrase falls in about 2 months if the site used MD5, and lasts about 1.5 million years if it used PBKDF2 at 600,000 iterations. Six words, my default, still takes about 990 years against MD5, the weakest hash in the table. Four words is not enough for anything you care about.
+
+Argon2id, the newest of the common choices, has no column because I could not find a verified GPU benchmark for it, and I would rather give no number than a made-up one. It is designed to need a lot of memory for every guess, which limits what a graphics card's thousands of small cores can do. How well it protects depends on its memory and iteration settings: Bitwarden's defaults are 32 MiB, 6 iterations and 4 threads, and OWASP's minimum is 19 MiB, 2 iterations and 1 thread.
+
+### Bitwarden's key derivation setting
+
+Your password manager does the same job for your master password. Bitwarden stretches it with a key derivation function (KDF) before using it. [Bitwarden's default is PBKDF2-SHA256 with 600,000 iterations](https://bitwarden.com/help/kdf-algorithms/), which is the PBKDF2 column above. It also offers Argon2id, with defaults of 32 MiB of memory, 6 iterations and 4 parallel threads. [OWASP's password storage cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) lists Argon2id first, with a minimum of 19 MiB of memory, 2 iterations and 1 degree of parallelism, and recommends PBKDF2-HMAC-SHA256 at 600,000 iterations where FIPS-140 compliance is required.
+
+That is why a six-word master password is comfortable behind a slow KDF: the attacker pays the full 600,000-iteration cost for every guess. The same words stored by a site with MD5 would be a much weaker position.
+
+## What do banks and big sites actually use?
+
+Banks do not publish how they store passwords, so I cannot tell you what yours uses. The [PCI Security Standards Council](https://www.pcisecuritystandards.org/faq/articles/Frequently_Asked_Question/does-hashing-of-passwords-meet-the-intent-of-pci-dss-requirement-8-3-2) says that PCI DSS requirement 8.3.2 requires authentication factors to be unreadable in storage and in transit, and that hashing a password with strong cryptography meets that intent. It does not name an algorithm, so the requirement tells you passwords must not be readable, not how slow the hash has to be.
+
+Lockouts and two-factor codes are what stop online guessing. Hashing only matters after a breach, and the record of real breaches shows how much the storage method matters:
+
+- **RockYou, 2009.** [The Register reported](https://www.theregister.com/2009/12/17/rockyou_security_snafu/) that 32 million user login credentials were exposed, stored in plain text. Nothing needed cracking.
+- **LinkedIn, 2012.** [TechCrunch reported](https://techcrunch.com/2016/05/18/117-million-linkedin-emails-and-passwords-from-a-2012-hack-just-got-posted-online/) that hackers stole about 6.5 million passwords stored as unsalted SHA-1 hashes. In 2016, about 117 million emails and passwords from that breach were posted online. SHA-1 is the column in the table above where a four-word passphrase falls in under an hour.
+- **Adobe, 2013.** [Krebs on Security](https://krebsonsecurity.com/2013/10/adobe-breach-impacted-at-least-38-million-users/) reported that Adobe confirmed access to encrypted passwords for approximately 38 million active users, and that a file posted online appeared to hold more than 150 million records. [Bit-tech reported](https://www.bit-tech.net/news/tech/software/adobe-breach-2/1) that Adobe encrypted the passwords with Triple-DES in ECB mode. That is reversible encryption, not a hash.
+- **LastPass, 2022.** [Wladimir Palant's analysis](https://palant.info/2022/12/23/lastpass-has-been-breached-what-now/) quotes LastPass saying the attacker copied a backup of customer vault data. LastPass used PBKDF2-SHA256, with a default of 100,100 iterations, about a sixth of Bitwarden's 600,000. Palant notes that some accounts were never upgraded from 5,000 iterations. A stolen vault backup lets an attacker guess master passwords offline, which is why the iteration count matters.
+
+The pattern is the same each time. Plain text gives the attacker everything; reversible encryption does too once the key is taken. Fast hashes such as SHA-1 fall to a short passphrase quickly. A slow, salted hash plus a long random secret is the combination that holds.
+
 ## What NIST SP 800-63B Rev 4 requires
 
 NIST SP 800-63B Revision 4 tells services to require at least 15 characters for single-factor passwords and 8 when a password is only part of multi-factor login. It forbids composition rules and periodic rotation, requires a blocklist, and says services must allow password managers.
@@ -140,7 +183,7 @@ Most strength meters estimate how a human might have chosen a string, so they mi
 
 [zxcvbn, presented at USENIX Security 2016](https://www.usenix.org/conference/usenixsecurity16/technical-sessions/presentation/wheeler), was tested on leaked real-world passwords and argues that simple character-class counting is ineffective. That is a tool for judging what people typed. For a generated secret, the size of the space is known, so I show it directly.
 
-My labels are Weak under 40 bits, Fair from 40 to 59, Strong from 60 to 79 and Very strong at 80 or more. Those bands are this site's rule of thumb, not a standard. Crack-time charts have the same caveat. Hive Systems, a security vendor, publishes a [2026 crack-time table](https://www.hivesystems.com/blog/are-your-passwords-in-the-green) that assumes bcrypt at work factor 10 on 16 RTX 5090 GPUs. Treat it as context only, since its figures depend on that hardware and hash, not on passwords in general.
+My labels are Weak under 40 bits, Fair from 40 to 59, Strong from 60 to 79 and Very strong at 80 or more. Those bands are this site's rule of thumb, not a standard. Crack-time charts have the same caveat. Hive Systems, a security vendor, publishes a [2026 crack-time table](https://www.hivesystems.com/blog/are-your-passwords-in-the-green) that assumes bcrypt at work factor 10 on 16 RTX 5090 GPUs. Its figures depend on that hardware and hash, not on passwords in general, so the crack-time section above uses the same 16-GPU rig size but shows several storage methods side by side.
 
 ## How does this tool compare with Bitwarden's generator?
 
@@ -184,6 +227,14 @@ There is no universal standard number. My tool labels results under 40 bits Weak
 
 Diceware picks words by rolling dice against a numbered list, so each roll is genuinely random and no software is trusted. The EFF large list uses five dice per word for 7,776 entries, about 12.9 bits per word. A generator that draws uniformly from the same list gives the same strength as physical dice.
 
+### Is a 5-word passphrase enough?
+
+It depends on how the secret is stored. Against a slow key derivation function such as Bitwarden's default of PBKDF2 at 600,000 iterations, five words (64.6 bits) would take a 16-GPU rig about 1.5 million years on average, which is fine for a password manager master password. Against a fast hash such as MD5, which a careless site might use, the same five words fall in about 2 months. Six words is a safer default because you do not control how other sites store things.
+
+### Should I worry about someone guessing my password online?
+
+Less than you should worry about a breach. Sites block online guessing with lockouts, rate limits and two-factor codes, so an attacker gets only a few tries. The risk that makes length matter is an offline attack after a site's database is stolen, where nothing limits the guess rate except how slowly the site's hash runs.
+
 ### Does NIST require special characters and password rotation?
 
 No. NIST SP 800-63B Revision 4, published July 2025, says verifiers must not impose composition rules and must not require periodic changes unless there is evidence of compromise. It requires at least 15 characters for single-factor passwords and 8 when the password is used only with multi-factor authentication.
@@ -207,11 +258,20 @@ Yes. The source is published on GitHub for anyone to read and audit, under the P
 - [9] Lippert, Eric. "How much bias is introduced by the remainder technique?" Fabulous Adventures in Coding, 2013. [ericlippert.com](https://ericlippert.com/2013/12/16/how-much-bias-is-introduced-by-the-remainder-technique/)
 - [10] Wheeler, Daniel Lowe. "zxcvbn: Low-Budget Password Strength Estimation." USENIX Security Symposium, 2016. [usenix.org](https://www.usenix.org/conference/usenixsecurity16/technical-sessions/presentation/wheeler)
 - [11] Passbolt. "Spell-jacking on Google Chrome and Microsoft Edge" (incident record summarizing an otto-js report). Passbolt, 2022. [passbolt.com](https://www.passbolt.com/incidents/spell-jacking-chrome-edge)
-- [12] Hive Systems. "Are Your Passwords in the Green?" Hive Systems, 2026. [hivesystems.com](https://www.hivesystems.com/blog/are-your-passwords-in-the-green)
+- [12] Hive Systems. "Are Your Passwords in the Green?" (2026 table). Hive Systems, 2026. [hivesystems.com](https://www.hivesystems.com/blog/are-your-passwords-in-the-green)
 - [13] Bitwarden. "default-passphrase-generation-options.ts." bitwarden/clients repository, 2026. [github.com](https://github.com/bitwarden/clients/blob/main/libs/tools/generator/core/src/data/default-passphrase-generation-options.ts)
 - [14] Bitwarden. "default-password-generation-options.ts." bitwarden/clients repository, 2026. [github.com](https://github.com/bitwarden/clients/blob/main/libs/tools/generator/core/src/data/default-password-generation-options.ts)
 - [15] Microsoft. "Clipboard in Windows." Microsoft Support, 2026. [support.microsoft.com](https://support.microsoft.com/en-us/windows/clipboard-in-windows-c436501e-985d-1c8d-97ea-fe46ddf338c6)
 - [16] Wikipedia. "Fisher–Yates shuffle." Wikipedia, 2026. [wikipedia.org](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle)
 - [17] Melson, Christopher. "secret-generator: source and tests (PolyForm Strict License 1.0.0)." aboutme repository, 2026. [github.com](https://github.com/mels0n/aboutme/tree/main/src/features/secret-generator)
+- [18] Chick3nman. "RTX 5090 hashcat v6.2.6 benchmark." GitHub Gist, 2025. [gist.github.com](https://gist.github.com/Chick3nman/09bac0775e6393468c2925c1e1363d5c)
+- [19] Bitwarden. "KDF algorithms." Bitwarden Help Center, 2026. [bitwarden.com](https://bitwarden.com/help/kdf-algorithms/)
+- [20] OWASP. "Password Storage Cheat Sheet." OWASP Cheat Sheet Series, 2026. [cheatsheetseries.owasp.org](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)
+- [21] PCI Security Standards Council. "Does hashing of passwords meet the intent of PCI DSS Requirement 8.3.2?" PCI SSC FAQ, 2026. [pcisecuritystandards.org](https://www.pcisecuritystandards.org/faq/articles/Frequently_Asked_Question/does-hashing-of-passwords-meet-the-intent-of-pci-dss-requirement-8-3-2)
+- [22] The Register. "RockYou security snafu exposes 32 million passwords." The Register, 17 December 2009. [theregister.com](https://www.theregister.com/2009/12/17/rockyou_security_snafu/)
+- [23] TechCrunch. "117 million LinkedIn emails and passwords from a 2012 hack just got posted online." TechCrunch, 18 May 2016. [techcrunch.com](https://techcrunch.com/2016/05/18/117-million-linkedin-emails-and-passwords-from-a-2012-hack-just-got-posted-online/)
+- [24] Krebs, Brian. "Adobe Breach Impacted At Least 38 Million Users." Krebs on Security, 29 October 2013. [krebsonsecurity.com](https://krebsonsecurity.com/2013/10/adobe-breach-impacted-at-least-38-million-users/)
+- [25] Bit-tech. "Adobe data breach far worse than first claimed." Bit-tech, 2013. [bit-tech.net](https://www.bit-tech.net/news/tech/software/adobe-breach-2/1)
+- [26] Palant, Wladimir. "LastPass has been breached - what now?" palant.info, 23 December 2022. [palant.info](https://palant.info/2022/12/23/lastpass-has-been-breached-what-now/)
 `
 };

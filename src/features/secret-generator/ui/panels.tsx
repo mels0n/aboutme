@@ -33,7 +33,7 @@ export function PasswordPanel({ options, onChange }: PasswordPanelProps) {
 
     return (
         <div className="space-y-6">
-            <OutputPanel state={state} onRegenerate={regenerate} entropyNote="Counts every password your settings allow." />
+            <OutputPanel state={state} onRegenerate={regenerate} entropyNote="Counts every password your settings allow." showCrackTime />
             <div className="space-y-4 border-t border-border pt-4">
                 <RangeField label="Length" value={options.length} min={MIN_LENGTH} max={MAX_LENGTH} onChange={(length) => set({ length })} />
                 <fieldset className="space-y-1">
@@ -98,7 +98,7 @@ export function PassphrasePanel({ options, onChange, words }: PassphrasePanelPro
 
     return (
         <div className="space-y-6">
-            <OutputPanel state={state} onRegenerate={regenerate} entropyNote="Counts every passphrase your settings allow." />
+            <OutputPanel state={state} onRegenerate={regenerate} entropyNote="Counts every passphrase your settings allow." showCrackTime />
             <div className="space-y-4 border-t border-border pt-4">
                 <RangeField label="Number of words" value={options.numWords} min={MIN_WORDS} max={MAX_WORDS} onChange={(numWords) => set({ numWords })} />
                 <div className={grid}>

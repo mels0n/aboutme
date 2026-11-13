@@ -49,7 +49,10 @@ export const postSchema = z.object({
     ogImage: z.string().optional(),
     keywords: z.array(z.string().min(1)).optional(),
     content: z.string(),
-}).refine(fitsSearchResult, searchTitleMessage);
+}).refine(fitsSearchResult, searchTitleMessage).refine((p) => p.lastUpdated === undefined || p.lastUpdated >= p.date, {
+    message: "lastUpdated must not be earlier than date",
+    path: ["lastUpdated"],
+});
 export type PostInput = z.infer<typeof postSchema>;
 
 export const caseStudySchema = z.object({

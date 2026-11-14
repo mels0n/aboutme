@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { RIG_GPU_COUNT, crackTimeText, storageMethod } from "./crack-time";
+import { PBKDF2_ITERATIONS, RIG_GPU_COUNT, crackTimeText, storageMethod } from "./crack-time";
 import { passphraseEntropy, passwordEntropy } from "./entropy";
 import { DEFAULT_PASSPHRASE_OPTIONS, EFF_WORDLIST_SIZE, MAX_WORDS, MIN_WORDS } from "./passphrase";
 import { DEFAULT_PASSWORD_OPTIONS, MAX_LENGTH, MIN_LENGTH } from "./password";
@@ -63,6 +63,7 @@ describe("the FAQ explains why storage methods differ", () => {
         expect(faq).toContain("Why does the storage method change the crack time so much?");
         expect(faq).toContain("built to be fast");
         expect(faq).toContain("deliberately slow");
+        expect(faq).toContain(`(${PBKDF2_ITERATIONS.toLocaleString("en-US")} in the table; older sites often use far fewer)`);
     });
 });
 

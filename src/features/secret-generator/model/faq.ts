@@ -41,7 +41,7 @@ export const SECRET_GENERATOR_FAQ: readonly FaqEntry[] = [
     {
         question: "How long would it take to crack a generated password?",
         answer:
-            "It depends on how the site stored the password. The table under the generated value estimates the average time for an attacker with 16 RTX 5090 graphics cards who has stolen a site's password database. The default six-word passphrase takes about 990 years against MD5, about 12 billion years against PBKDF2-SHA256 with 600,000 iterations and about 23 billion years against bcrypt at cost 10. The default 20-character password takes more than a trillion years against all three. A site that stores passwords in plain text needs no cracking at all. Guessing against a live login is far slower, because sites use lockouts and two-factor codes.",
+            "It depends on how the site stored the password. The table under the generated value estimates the average time for an attacker with 16 RTX 5090 graphics cards who has stolen a site's password database. The default six-word passphrase takes about 990 years against MD5, about 12 billion years against PBKDF2-SHA256 with 600,000 iterations and about 23 billion years against bcrypt at cost 10. The same passphrase takes more than a trillion years against Argon2id, using a rate Specops measured on RTX 5090 cards without publishing the Argon2id settings. The default 20-character password takes more than a trillion years against all three. A site that stores passwords in plain text needs no cracking at all. Guessing against a live login is far slower, because sites use lockouts and two-factor codes.",
     },
     {
         question: "What is a plus-addressed or catch-all email username?",

@@ -72,6 +72,7 @@ describe("the FAQ crack-time answer matches the model", () => {
         expect(answer).toContain(`${crackTimeText(passphrase, storageMethod("md5"))} against MD5`);
         expect(answer).toContain(`${crackTimeText(passphrase, storageMethod("pbkdf2"))} against PBKDF2-SHA256 with 600,000 iterations`);
         expect(answer).toContain(`${crackTimeText(passphrase, storageMethod("bcrypt"))} against bcrypt at cost 10`);
+        expect(answer).toContain(`${crackTimeText(passphrase, storageMethod("argon2id"))} against Argon2id`);
     });
 
     it("states the default password time, which is the same for all three", () => {

@@ -2,8 +2,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { RIG_LABEL, STORAGE_METHODS, crackTimeText } from "../model/crack-time";
-import { formatScientific, type Entropy } from "../model/entropy";
+import { formatScientific } from "../model/entropy";
 import { STRENGTH_BANDS, strengthLabel } from "../model/strength";
 import { focusRing } from "./controls";
 import type { SecretState } from "./use-secret";
@@ -22,11 +21,9 @@ type Props = {
     onRegenerate: () => void;
     /** What the random part of the output is, for the entropy line. */
     entropyNote?: string;
-    /** Show the average time to crack by storage method. For secrets a site would store, not usernames. */
-    showCrackTime?: boolean;
 };
 
-export function OutputPanel({ state, onRegenerate, entropyNote, showCrackTime = false }: Props) {
+export function OutputPanel({ state, onRegenerate, entropyNote }: Props) {
     const outputRef = useRef<HTMLTextAreaElement>(null);
     // The announcement remembers which value it was about, so it stops showing once the value changes.
     const [note, setNote] = useState({ text: "", forValue: "" });
@@ -120,8 +117,6 @@ export function OutputPanel({ state, onRegenerate, entropyNote, showCrackTime = 
                 </dl>
             )}
 
-            {state.status === "ready" && showCrackTime && <CrackTimeTable entropy={state.entropy} />}
-
             <p className="text-xs text-foreground/70">
                 Strength labels are this site&apos;s own rule of thumb, not a standard. {BAND_SUMMARY}.
             </p>
@@ -145,42 +140,5 @@ function Outputs({ count }: { count: bigint }) {
         <span>
             about {mantissa} &times; 10<sup>{exponent}</sup>
         </span>
-    );
-}
-
-function CrackTimeTable({ entropy }: { entropy: Entropy }) {
-    const head = "px-3 py-2 text-xs font-bold uppercase tracking-wider text-foreground/70";
-    return (
-        <div className="space-y-2 border-t border-border pt-4">
-            <div className="overflow-x-auto rounded border border-border">
-                <table className="w-full border-collapse text-left text-sm text-foreground sm:min-w-[28rem]">
-                    <caption className="px-3 py-2 text-left text-sm font-bold">Average time to crack</caption>
-                    <thead>
-                        <tr className="border-b border-border bg-surface/60">
-                            <th scope="col" className={head}>Storage method</th>
-                            <th scope="col" className={`${head} hidden sm:table-cell`}>Example</th>
-                            <th scope="col" className={head}>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {STORAGE_METHODS.map((method) => (
-                            <tr key={method.id} className="border-b border-border last:border-b-0 align-top">
-                                <th scope="row" className="px-3 py-2 font-bold">
-                                    {method.label}
-                                    <span className="mt-1 block text-xs font-normal text-foreground/70 sm:hidden">{method.example}</span>
-                                </th>
-                                <td className="hidden px-3 py-2 text-foreground/70 sm:table-cell">{method.example}</td>
-                                <td className="px-3 py-2 font-bold">{crackTimeText(entropy, method)}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-            <p className="text-xs text-foreground/70">
-                Estimates assume an attacker with {RIG_LABEL} graphics cards testing guesses offline after a site&apos;s
-                password database was stolen. They count the average case, half of all possible values. Sites also
-                slow down online guessing with lockouts and two-factor codes, which this does not model.
-            </p>
-        </div>
     );
 }

@@ -137,20 +137,20 @@ An online attack means guessing at a live login form. Sites slow that down with 
 
 I borrow the rig size from [Hive Systems' 2026 table](https://www.hivesystems.com/blog/are-your-passwords-in-the-green): 16 RTX 5090 graphics cards. Hive's per-hash figures are theirs; the rates below are not. Per-card speeds come from the [hashcat v6.2.6 benchmark for the RTX 5090](https://gist.github.com/Chick3nman/09bac0775e6393468c2925c1e1363d5c): 220.6 billion guesses per second for MD5 and 70.2 billion for SHA-1. That benchmark measures bcrypt at cost 5 and PBKDF2 at 999 iterations, so I scale both to the settings sites actually use. Each bcrypt cost step doubles the work, so cost 10 is 32 times slower than the benchmarked cost 5 (about 9,525 guesses per second per card). PBKDF2 work grows with the iteration count, so 600,000 iterations is about 600 times slower than the benchmarked 999 (about 18,577 per card). The average attacker finds a value after trying half of the possible outputs, so each figure below is half the output count divided by the rig's speed.
 
-| Secret | MD5 | SHA-1 | bcrypt (cost 10) | PBKDF2-SHA256 (600,000) |
-| --- | --- | --- | --- | --- |
-| 4 EFF words | about 9 minutes | about 27 minutes | about 380 years | about 190 years |
-| 5 EFF words | about 2 months | about 5 months | about 3 million years | about 1.5 million years |
-| 6 EFF words | about 990 years | about 3,100 years | about 23 billion years | about 12 billion years |
-| 7 EFF words | about 7.7 million years | about 24 million years | more than a trillion years | more than a trillion years |
-| 14-character password | about 220,000 years | about 680,000 years | more than a trillion years | more than a trillion years |
-| 20-character password | more than a trillion years | more than a trillion years | more than a trillion years | more than a trillion years |
+| Secret | MD5 | SHA-1 | bcrypt (cost 10) | PBKDF2-SHA256 (600,000) | Argon2id (Specops) |
+| --- | --- | --- | --- | --- | --- |
+| 4 EFF words | about 9 minutes | about 27 minutes | about 380 years | about 190 years | about 59,000 years |
+| 5 EFF words | about 2 months | about 5 months | about 3 million years | about 1.5 million years | about 460 million years |
+| 6 EFF words | about 990 years | about 3,100 years | about 23 billion years | about 12 billion years | more than a trillion years |
+| 7 EFF words | about 7.7 million years | about 24 million years | more than a trillion years | more than a trillion years | more than a trillion years |
+| 14-character password | about 220,000 years | about 680,000 years | more than a trillion years | more than a trillion years | more than a trillion years |
+| 20-character password | more than a trillion years | more than a trillion years | more than a trillion years | more than a trillion years | more than a trillion years |
 
 Average time to crack with 16 RTX 5090 GPUs, offline, after a database theft. The passwords use all four character sets (70 symbols, with at least one number and one special character), as in my tool's defaults. The tool computes these figures live with the same code, and a test checks that this table matches it.
 
 Read the table by column, not by row. A five-word passphrase falls in about 2 months if the site used MD5, and lasts about 1.5 million years if it used PBKDF2 at 600,000 iterations. Six words, my default, still takes about 990 years against MD5, the weakest hash in the table. Four words is not enough for anything you care about.
 
-Argon2id, the newest of the common choices, has no column because I could not find a verified GPU benchmark for it, and I would rather give no number than a made-up one. It is designed to need a lot of memory for every guess, which limits what a graphics card's thousands of small cores can do. How well it protects depends on its memory and iteration settings: Bitwarden's defaults are 32 MiB, 6 iterations and 4 threads, and OWASP's minimum is 19 MiB, 2 iterations and 1 thread.
+Argon2id, the newest of the common choices, is the last column. It is designed to need a lot of memory for every guess, which limits what a graphics card's thousands of small cores can do. The figure comes from [Specops research as reported by CyberInsider](https://cyberinsider.com/argon2-algorithm-dramatically-slows-password-cracking-by-high-end-gpus/): 490 Argon2id hashes per second on a system of 8 RTX 5090 cards. I split that evenly over the 8 cards (about 61.25 per card) and scale it to the 16-card rig. Specops did not publish its Argon2 settings, so this is one measured data point, not a rate for every Argon2id deployment. How well it protects depends on the memory and iteration settings: Bitwarden's defaults are 32 MiB, 6 iterations and 4 threads, and OWASP's minimum is 19 MiB, 2 iterations and 1 thread.
 
 ### Bitwarden's key derivation setting
 
@@ -273,5 +273,6 @@ Yes. The source is published on GitHub for anyone to read and audit, under the P
 - [24] Krebs, Brian. "Adobe Breach Impacted At Least 38 Million Users." Krebs on Security, 29 October 2013. [krebsonsecurity.com](https://krebsonsecurity.com/2013/10/adobe-breach-impacted-at-least-38-million-users/)
 - [25] Bit-tech. "Adobe data breach far worse than first claimed." Bit-tech, 2013. [bit-tech.net](https://www.bit-tech.net/news/tech/software/adobe-breach-2/1)
 - [26] Palant, Wladimir. "LastPass has been breached - what now?" palant.info, 23 December 2022. [palant.info](https://palant.info/2022/12/23/lastpass-has-been-breached-what-now/)
+- [27] CyberInsider. "Argon2 Algorithm Dramatically Slows Password Cracking by High-End GPUs" (reporting Specops research). CyberInsider, 2026. [cyberinsider.com](https://cyberinsider.com/argon2-algorithm-dramatically-slows-password-cracking-by-high-end-gpus/)
 `
 };

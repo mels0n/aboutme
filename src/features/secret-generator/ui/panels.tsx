@@ -73,6 +73,7 @@ export function PasswordPanel({ options, onChange }: PasswordPanelProps) {
                     onChange={(avoidAmbiguous) => set({ avoidAmbiguous })}
                 />
             </div>
+            {state.status === "ready" && <CrackTimeTable entropy={state.entropy} />}
         </div>
     );
 }

@@ -75,9 +75,9 @@ describe("the FAQ crack-time answer matches the model", () => {
         expect(answer).toContain(`${crackTimeText(passphrase, storageMethod("argon2id"))} against Argon2id`);
     });
 
-    it("states the default password time, which is the same for all three", () => {
-        const times = ["md5", "pbkdf2", "bcrypt"].map((id) => crackTimeText(password, storageMethod(id)));
+    it("states the default password time, which is the same for all four", () => {
+        const times = ["md5", "pbkdf2", "bcrypt", "argon2id"].map((id) => crackTimeText(password, storageMethod(id)));
         expect(new Set(times).size).toBe(1);
-        expect(answer).toContain(`The default 20-character password takes ${times[0]} against all three.`);
+        expect(answer).toContain(`The default 20-character password takes ${times[0]} against all four.`);
     });
 });

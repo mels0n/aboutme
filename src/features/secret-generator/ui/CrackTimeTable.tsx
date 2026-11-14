@@ -30,7 +30,8 @@ export function CrackTimeTable({ entropy }: { entropy: Entropy }) {
                 </table>
             </div>
             <p className="text-xs text-foreground/70">
-                Average case for an offline attack on a stolen database with {RIG_LABEL} graphics
+                Old hashes such as MD5 were built to be fast; password hashes such as bcrypt, PBKDF2 and
+                Argon2id are deliberately slow, so each guess costs the attacker more. Average case for an offline attack on a stolen database with {RIG_LABEL} graphics
                 cards; sites also block online guessing with lockouts and two-factor codes.
             </p>
         </div>

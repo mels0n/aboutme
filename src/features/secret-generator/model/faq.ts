@@ -44,6 +44,11 @@ export const SECRET_GENERATOR_FAQ: readonly FaqEntry[] = [
             "It depends on how the site stored the password. The table below the settings estimates the average time for an attacker with 16 RTX 5090 graphics cards who has stolen a site's password database. The default six-word passphrase takes about 990 years against MD5, about 12 billion years against PBKDF2-SHA256 with 600,000 iterations and about 23 billion years against bcrypt at cost 10. The same passphrase takes more than a trillion years against Argon2id, using a rate Specops measured on RTX 5090 cards with Argon2id settings that were not stated (lighter settings crack faster). The default 20-character password takes more than a trillion years against all four. A site that stores passwords in plain text needs no cracking at all. Guessing against a live login is far slower, because sites use lockouts and two-factor codes.",
     },
     {
+        question: "Why does the storage method change the crack time so much?",
+        answer:
+            "MD5 and SHA-1 were built to be fast, for checksums and file integrity, so a graphics card can try billions of guesses a second. bcrypt, PBKDF2 and Argon2id are password hashes built to be deliberately slow: a cost setting makes every guess repeat the work. bcrypt's cost factor doubles the work with each step, PBKDF2 repeats its hash 600,000 times, and Argon2id repeats passes over a block of memory. The site pays that cost once per login, but an attacker pays it for every guess. Argon2id also needs a lot of memory per guess, which blunts graphics cards, since they have thousands of cores with little memory each. Plain text and reversible encryption need no guessing at all once the database (and the key) is stolen.",
+    },
+    {
         question: "What is a plus-addressed or catch-all email username?",
         answer:
             "A plus-addressed email adds a plus sign and a random tag before the @ sign of your own address, so mail still reaches your inbox but each site gets a different address. A catch-all email is a random name at a domain you own, where your mail provider delivers every address to one inbox. Not every site accepts a plus sign.",

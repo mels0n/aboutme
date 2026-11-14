@@ -58,6 +58,14 @@ describe("the stated numbers match the constants", () => {
     });
 });
 
+describe("the FAQ explains why storage methods differ", () => {
+    it("has the question and the fast-versus-slow reason", () => {
+        expect(faq).toContain("Why does the storage method change the crack time so much?");
+        expect(faq).toContain("built to be fast");
+        expect(faq).toContain("deliberately slow");
+    });
+});
+
 describe("the FAQ crack-time answer matches the model", () => {
     const passphrase = passphraseEntropy(DEFAULT_PASSPHRASE_OPTIONS);
     const password = passwordEntropy(DEFAULT_PASSWORD_OPTIONS);

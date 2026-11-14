@@ -4,7 +4,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import {
-    NO_BENCHMARK_TEXT, NO_CRACKING_TEXT, PBKDF2_ITERATIONS, RIG_GPU_COUNT, STORAGE_METHODS,
+    ARGON2ID_SPECOPS_GPUS, ARGON2ID_SPECOPS_RATE, NO_CRACKING_TEXT, PBKDF2_ITERATIONS, RIG_GPU_COUNT, STORAGE_METHODS,
     averageCrackSeconds, crackTimeText, formatCrackTime, storageMethod,
 } from "./crack-time";
 import { passphraseEntropy, passwordEntropy, type Entropy } from "./entropy";
@@ -34,12 +34,30 @@ describe("storage methods", () => {
         expect(storageMethod("pbkdf2").perGpuRate).toBeCloseTo(18_576.74, 2);
     });
 
-    it("gives no rate to plain text or Argon2id", () => {
+    it("gives no rate to plain text", () => {
         expect(storageMethod("plaintext").perGpuRate).toBeNull();
-        expect(storageMethod("argon2id").perGpuRate).toBeNull();
         expect(text(words(6), "plaintext")).toBe(NO_CRACKING_TEXT);
-        expect(text(words(6), "argon2id")).toBe(NO_BENCHMARK_TEXT);
-        expect(NO_BENCHMARK_TEXT).not.toMatch(/\d/);
+    });
+
+    it("derives the Argon2id rate from the Specops figure: 490 H/s over 8 cards", () => {
+        expect(ARGON2ID_SPECOPS_RATE).toBe(490);
+        expect(ARGON2ID_SPECOPS_GPUS).toBe(8);
+        expect(storageMethod("argon2id").perGpuRate).toBe(61.25);
+    });
+
+    it("gives every benchmarked method a finite positive rate", () => {
+        for (const m of STORAGE_METHODS.filter((x) => x.kind !== "plaintext")) {
+            expect(Number.isFinite(m.perGpuRate), m.id).toBe(true);
+            expect(m.perGpuRate, m.id).toBeGreaterThan(0);
+        }
+    });
+
+    it("states the Argon2id source and that its settings are not stated", () => {
+        const example = storageMethod("argon2id").example;
+        expect(example).toContain("Specops");
+        expect(example).toContain("not stated");
+        expect(example).toContain("lighter settings crack faster");
+        expect(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "faq.ts"), "utf8")).toContain("Specops");
     });
 
     it("throws on an unknown id", () => {
@@ -113,6 +131,9 @@ describe("sanity points", () => {
         expect(text(words(5), "md5")).toBe("about 2 months");
         expect(text(words(5), "pbkdf2")).toBe("about 1.5 million years");
         expect(text(words(6), "bcrypt")).toBe("about 23 billion years");
+        expect(text(words(6), "argon2id")).toBe("more than a trillion years");
+        expect(text(words(4), "argon2id")).toBe("about 59,000 years");
+        expect(text(words(5), "argon2id")).toBe("about 460 million years");
     });
 
     it("orders the methods by speed on this rig", () => {
@@ -137,7 +158,7 @@ const post = readFileSync(
     "utf8",
 );
 
-const BLOG_COLUMNS = ["md5", "sha1", "bcrypt", "pbkdf2"] as const;
+const BLOG_COLUMNS = ["md5", "sha1", "bcrypt", "pbkdf2", "argon2id"] as const;
 const BLOG_ROWS: ReadonlyArray<{ label: string; entropy: Entropy }> = [
     ...[4, 5, 6, 7].map((n) => ({ label: `${n} EFF words`, entropy: words(n) })),
     { label: "14-character password", entropy: passwordEntropy({ ...DEFAULT_PASSWORD_OPTIONS, length: 14 }) },
@@ -155,7 +176,7 @@ describe("the blog post table", () => {
     });
 
     it("has the header line built from the expected labels", () => {
-        const header = `| Secret | ${["MD5", "SHA-1", "bcrypt (cost 10)", `PBKDF2-SHA256 (${PBKDF2_ITERATIONS.toLocaleString("en-US")})`].join(" | ")} |`;
+        const header = `| Secret | ${["MD5", "SHA-1", "bcrypt (cost 10)", `PBKDF2-SHA256 (${PBKDF2_ITERATIONS.toLocaleString("en-US")})`, "Argon2id (Specops)"].join(" | ")} |`;
         expect(post.split("\n").map((l) => l.trimEnd())).toContain(header);
     });
 
@@ -190,6 +211,8 @@ describe("the blog post table", () => {
         expect(post).toContain(`${billions("md5")} billion guesses per second for MD5 and ${billions("sha1")} billion for SHA-1`);
         expect(post).toContain(`(about ${perCard("bcrypt")} guesses per second per card)`);
         expect(post).toContain(`(about ${perCard("pbkdf2")} per card)`);
+        expect(post).toContain(`${ARGON2ID_SPECOPS_RATE} Argon2id hashes per second on a system of ${ARGON2ID_SPECOPS_GPUS} RTX 5090 cards`);
+        expect(post).toContain(`(about ${storageMethod("argon2id").perGpuRate} per card)`);
         expect(post).toContain("cost 10 is 32 times slower");
         expect(2 ** (10 - 5)).toBe(32);
         expect(post).toContain("600,000 iterations is about 600 times slower");

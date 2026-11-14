@@ -35,7 +35,7 @@ function latestOf(a: string, b: string): string {
 const SITE_LAYOUT_CHANGED = '2026-10-24';
 // The password generator page links to its blog post once that post is
 // published, so its lastmod is the newer of its own last change and the post's.
-const PASSWORD_GENERATOR_CHANGED = '2026-11-13';
+const PASSWORD_GENERATOR_CHANGED = '2026-11-14';
 const passwordGeneratorPost = officeBlogPosts.find(post => post.slug === 'password-generator-passphrases-entropy');
 const passwordGeneratorLastModified = passwordGeneratorPost
     ? latestOf(PASSWORD_GENERATOR_CHANGED, passwordGeneratorPost.lastUpdated ?? passwordGeneratorPost.date)

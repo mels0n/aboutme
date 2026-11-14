@@ -14,6 +14,7 @@ import {
     generateCatchAllEmail, generatePlusAddressedEmail, generateRandomWordUsername, type RandomWordOptions,
 } from "../model/username";
 import { CheckboxField, NumberField, RangeField, TextField, focusRing } from "./controls";
+import { CrackTimeTable } from "./CrackTimeTable";
 import { OutputPanel } from "./OutputPanel";
 import { useSecret, type Generated } from "./use-secret";
 
@@ -33,7 +34,7 @@ export function PasswordPanel({ options, onChange }: PasswordPanelProps) {
 
     return (
         <div className="space-y-6">
-            <OutputPanel state={state} onRegenerate={regenerate} entropyNote="Counts every password your settings allow." showCrackTime />
+            <OutputPanel state={state} onRegenerate={regenerate} entropyNote="Counts every password your settings allow." />
             <div className="space-y-4 border-t border-border pt-4">
                 <RangeField label="Length" value={options.length} min={MIN_LENGTH} max={MAX_LENGTH} onChange={(length) => set({ length })} />
                 <fieldset className="space-y-1">
@@ -72,6 +73,7 @@ export function PasswordPanel({ options, onChange }: PasswordPanelProps) {
                     onChange={(avoidAmbiguous) => set({ avoidAmbiguous })}
                 />
             </div>
+            {state.status === "ready" && <CrackTimeTable entropy={state.entropy} />}
         </div>
     );
 }
@@ -98,7 +100,7 @@ export function PassphrasePanel({ options, onChange, words }: PassphrasePanelPro
 
     return (
         <div className="space-y-6">
-            <OutputPanel state={state} onRegenerate={regenerate} entropyNote="Counts every passphrase your settings allow." showCrackTime />
+            <OutputPanel state={state} onRegenerate={regenerate} entropyNote="Counts every passphrase your settings allow." />
             <div className="space-y-4 border-t border-border pt-4">
                 <RangeField label="Number of words" value={options.numWords} min={MIN_WORDS} max={MAX_WORDS} onChange={(numWords) => set({ numWords })} />
                 <div className={grid}>
@@ -115,6 +117,7 @@ export function PassphrasePanel({ options, onChange, words }: PassphrasePanelPro
                     <CheckboxField label="Include a number" checked={options.includeNumber} onChange={(includeNumber) => set({ includeNumber })} />
                 </div>
             </div>
+            {state.status === "ready" && <CrackTimeTable entropy={state.entropy} />}
         </div>
     );
 }

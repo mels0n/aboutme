@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { RIG_GPU_COUNT, crackTimeText, storageMethod } from "./crack-time";
+import { PBKDF2_ITERATIONS, RIG_GPU_COUNT, crackTimeText, storageMethod } from "./crack-time";
 import { passphraseEntropy, passwordEntropy } from "./entropy";
 import { DEFAULT_PASSPHRASE_OPTIONS, EFF_WORDLIST_SIZE, MAX_WORDS, MIN_WORDS } from "./passphrase";
 import { DEFAULT_PASSWORD_OPTIONS, MAX_LENGTH, MIN_LENGTH } from "./password";
@@ -58,6 +58,15 @@ describe("the stated numbers match the constants", () => {
     });
 });
 
+describe("the FAQ explains why storage methods differ", () => {
+    it("has the question and the fast-versus-slow reason", () => {
+        expect(faq).toContain("Why does the storage method change the crack time so much?");
+        expect(faq).toContain("built to be fast");
+        expect(faq).toContain("deliberately slow");
+        expect(faq).toContain(`(${PBKDF2_ITERATIONS.toLocaleString("en-US")} in the table; older sites often use far fewer)`);
+    });
+});
+
 describe("the FAQ crack-time answer matches the model", () => {
     const passphrase = passphraseEntropy(DEFAULT_PASSPHRASE_OPTIONS);
     const password = passwordEntropy(DEFAULT_PASSWORD_OPTIONS);
@@ -72,11 +81,12 @@ describe("the FAQ crack-time answer matches the model", () => {
         expect(answer).toContain(`${crackTimeText(passphrase, storageMethod("md5"))} against MD5`);
         expect(answer).toContain(`${crackTimeText(passphrase, storageMethod("pbkdf2"))} against PBKDF2-SHA256 with 600,000 iterations`);
         expect(answer).toContain(`${crackTimeText(passphrase, storageMethod("bcrypt"))} against bcrypt at cost 10`);
+        expect(answer).toContain(`${crackTimeText(passphrase, storageMethod("argon2id"))} against Argon2id`);
     });
 
-    it("states the default password time, which is the same for all three", () => {
-        const times = ["md5", "pbkdf2", "bcrypt"].map((id) => crackTimeText(password, storageMethod(id)));
+    it("states the default password time, which is the same for all four", () => {
+        const times = ["md5", "pbkdf2", "bcrypt", "argon2id"].map((id) => crackTimeText(password, storageMethod(id)));
         expect(new Set(times).size).toBe(1);
-        expect(answer).toContain(`The default 20-character password takes ${times[0]} against all three.`);
+        expect(answer).toContain(`The default 20-character password takes ${times[0]} against all four.`);
     });
 });

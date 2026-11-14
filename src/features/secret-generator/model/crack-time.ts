@@ -26,7 +26,7 @@ import { log2BigInt, type Entropy } from "./entropy";
  * Argon2id: Specops measured 490 Argon2id hashes per second on one eight-GPU
  * RTX 5090 system, as reported by CyberInsider
  * (https://cyberinsider.com/argon2-algorithm-dramatically-slows-password-cracking-by-high-end-gpus/).
- * Specops did not publish the Argon2 parameters. The per-card rate assumes the
+ * The report does not state the Argon2 parameters. The per-card rate assumes the
  * total splits evenly over the 8 cards: 490 / 8 = 61.25 H/s per GPU.
  *
  * Average time = (outputs / 2) / (rate x GPUs): on average an attacker finds
@@ -39,15 +39,24 @@ export const RIG_LABEL = "16 x RTX 5090";
 
 export type CrackMethodKind = "plaintext" | "benchmarked";
 
-export interface StorageMethod {
+interface StorageMethodBase {
     id: string;
     label: string;
     /** Who uses this, in a few words. */
     example: string;
-    /** Guesses per second for one GPU, or null for plain text, which has nothing to guess. */
-    perGpuRate: number | null;
-    kind: CrackMethodKind;
 }
+
+export type StorageMethod =
+    | (StorageMethodBase & {
+          kind: "plaintext";
+          /** Plain text has nothing to guess. */
+          perGpuRate: null;
+      })
+    | (StorageMethodBase & {
+          kind: "benchmarked";
+          /** Guesses per second for one GPU. */
+          perGpuRate: number;
+      });
 
 const BCRYPT_COST_5_RATE = 304.8e3;
 const BCRYPT_COST_10_RATE = BCRYPT_COST_5_RATE / 2 ** (10 - 5);
@@ -89,7 +98,7 @@ export const STORAGE_METHODS: readonly StorageMethod[] = [
     {
         id: "argon2id",
         label: "Argon2id",
-        example: "Bitwarden option; OWASP first choice. Rate measured by Specops, settings not published",
+        example: "OWASP first choice; Bitwarden option. Rate from Specops (settings not stated); lighter settings crack faster",
         perGpuRate: ARGON2ID_RATE,
         kind: "benchmarked",
     },
@@ -167,6 +176,5 @@ export function formatCrackTime(seconds: number): string {
 /** The "time" cell for one storage method and one entropy figure. */
 export function crackTimeText(entropy: Entropy, method: StorageMethod): string {
     if (method.kind === "plaintext") return NO_CRACKING_TEXT;
-    if (method.perGpuRate === null) return NO_CRACKING_TEXT;
     return formatCrackTime(averageCrackSeconds(entropy, method.perGpuRate));
 }

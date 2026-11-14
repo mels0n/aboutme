@@ -45,6 +45,21 @@ describe("storage methods", () => {
         expect(storageMethod("argon2id").perGpuRate).toBe(61.25);
     });
 
+    it("gives every benchmarked method a finite positive rate", () => {
+        for (const m of STORAGE_METHODS.filter((x) => x.kind !== "plaintext")) {
+            expect(Number.isFinite(m.perGpuRate), m.id).toBe(true);
+            expect(m.perGpuRate, m.id).toBeGreaterThan(0);
+        }
+    });
+
+    it("states the Argon2id source and that its settings are not stated", () => {
+        const example = storageMethod("argon2id").example;
+        expect(example).toContain("Specops");
+        expect(example).toContain("not stated");
+        expect(example).toContain("lighter settings crack faster");
+        expect(readFileSync(join(dirname(fileURLToPath(import.meta.url)), "faq.ts"), "utf8")).toContain("Specops");
+    });
+
     it("throws on an unknown id", () => {
         expect(() => storageMethod("nope")).toThrow(RangeError);
     });

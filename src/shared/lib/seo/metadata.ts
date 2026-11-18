@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const TITLE_SUFFIX = " | Christopher Melson";
 
 /** Titles past this length are cut off in search results. */
-const MAX_TITLE = 65;
+const MAX_TITLE = 60;
 
 const SITE_NAME = "Christopher Melson";
 const DEFAULT_IMAGE = { url: "/opengraph-image", width: 1200, height: 630 };

@@ -9,6 +9,7 @@ export const generativeToAgentic: BlogPost = {
     role: "Operational Architect",
     date: "2026-01-12",
     summary: "70% of banks are transforming operations with agentic AI, but 63% of banking executives name governance as their single biggest challenge. Here's the architectural framework for safe deployment.",
+    seoDescription: "70% of banks are adopting agentic AI, yet 63% of banking executives call governance their biggest challenge. An architectural framework for safe deployment.",
     polymorphicSummary: {
         executive: "Moving from GenAI to Agentic AI represents a massive efficiency opportunity but introduces existential risk. We must stop treating AI as a feature and start treating it as a Digital Employee requiring an Agentic Operating Model.",
         strategist: "Designing an Agentic Operating Model: A framework of Human-in-the-Loop Protocols and Agentic Governance Councils to ensure digital agents align with risk appetite and ethical standards.",

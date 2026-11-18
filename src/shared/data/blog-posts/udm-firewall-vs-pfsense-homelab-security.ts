@@ -11,6 +11,7 @@ export const udmFirewallVsPfSense: BlogPost = {
     lastUpdated: "2026-05-21",
     ogImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=630&fit=crop&q=80&auto=format",
     summary: "103,137 SSH attempts in 3 months is the real homelab threat baseline. Is your UniFi gateway enough, or do you need pfSense, CrowdSec, or Suricata? The data-driven answer.",
+    seoDescription: "103,137 SSH attempts in 3 months is the real homelab threat baseline. Is a UniFi gateway enough, or do you need pfSense, CrowdSec or Suricata? The data says.",
     polymorphicSummary: {
         executive: "The entire UniFi gateway product line ships a 3-major-version-old IDS engine (Suricata 4.0.0-dev vs. current 7.x), and the $99/year CyberSecure subscription adds rulesets but doesn't update the binary. The fix for most homelabs isn't a second firewall. It's CrowdSec's community threat intelligence, which pre-blocked 92% of attacks in controlled testing. Note: the original UniFi Express has no IDS/IPS at all.",
         strategist: "The UniFi vs. pfSense debate resolves into two clean architectures: any UniFi gateway as perimeter with behavioral add-on security (CrowdSec + fail2ban), or OPNsense as a full replacement with current Suricata 7.x. Running both in series creates double-NAT instability without security gain. The Cloud Gateway Fiber ($279, 5 Gbps IDS) is the value outlier if staying in the UniFi ecosystem: same limitations, better throughput than the UDM Pro at lower cost.",

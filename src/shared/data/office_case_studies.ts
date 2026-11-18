@@ -26,6 +26,8 @@ export interface OfficeCaseStudy {
     title: string;
     /** Search-result title when `title` runs past about 60 characters. */
     seoTitle?: string;
+    /** Meta description and social-card text when `summary.executive` runs past 160 characters. The page and its structured data keep the full summary on purpose. */
+    seoDescription?: string;
     summary: {
         executive: string;
         strategist: string;
@@ -50,6 +52,7 @@ export const officeCaseStudies: OfficeCaseStudy[] = [
         date: "2026-01-01",
         title: "The M&A Integration Gap: 'Auditable' Governance & DORA Compliance",
         seoTitle: "M&A Integration Gap: Auditable Governance and DORA",
+        seoDescription: "$1.3M+ M&A revenue gap closed through zero-cost restructuring, a perpetual startup made EU DORA-compliant, and 30% of Sales capacity returned to selling.",
         summary: {
             executive: "$1.3M+ M&A revenue gap closed via zero-cost restructuring. Perpetual startup converted to EU DORA-compliant function; 30% of Sales capacity returned to revenue generation.",
             strategist: "Designed the 'Two-Pillar' Target Operating Model (TOM), bifurcating 'Venue & API' (Machine) from 'GUI & UX' (Human) workflows. Solved critical visibility gaps via 'Transparent-by-Design' architecture.",
@@ -215,6 +218,7 @@ export const officeCaseStudies: OfficeCaseStudy[] = [
         date: "2026-01-03",
         title: "Systemic Collapse: The 'Data Sovereignty' Protocol & Shadow IT Elimination",
         seoTitle: "Systemic Collapse: Data Sovereignty and Shadow IT",
+        seoDescription: "Stabilized a business unit after 100% leadership attrition: removed Shadow IT and WhatsApp trading for zero regulatory risk, and cut attrition from 40% to 6%.",
         summary: {
             executive: "Stabilized a business unit in systemic collapse (100% leadership attrition). Engineered a 'Zero-Regulatory-Risk' environment by killing 'Shadow IT' & 'WhatsApp' trading. Reduced attrition from 40% to 6% via culture overhaul.",
             strategist: "Deployed a 'Mercenary Squad' strategy to bypass internal promotion paralysis. Divested the 'Toxic Asset' (NEST) to save the wider portfolio. Enforced Data Sovereignty to end 'Opinion-Based Management'.",

@@ -48,7 +48,7 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
     metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://chris.melson.us"),
     title: {
-        default: "Christopher Melson | Operational Architect for the Agentic Age",
+        default: "Christopher Melson | Operational Architect for Agentic AI",
         template: "%s | Christopher Melson"
     },
     description: "Operations executive closing M&A integration gaps, stabilizing distressed environments, and building resilient teams. Executive, Strategist, Engineer.",

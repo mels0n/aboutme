@@ -9,6 +9,7 @@ export const agenticShift: BlogPost = {
     role: "Operational Architect",
     date: "2026-01-14",
     summary: "The fundamental phase transition from SE 2.0 (Copilot) to SE 3.0 (Agentic). How to restructure the 'Two-Pizza Team' into the 'Human-Agent Pod' and manage the 'Cost of Context'.",
+    seoDescription: "The phase transition from SE 2.0 (Copilot) to SE 3.0 (Agentic): turning the Two-Pizza Team into a Human-Agent Pod and managing the Cost of Context.",
     polymorphicSummary: {
         executive: "The 'Cost of Code' is plummeting, but the 'Cost of Context' is rising. Winning in 2026 requires shifting capital from Headcount (Salary) to Compute (Inference) and managing the 'Shadow Board' of agentic advisors.",
         strategist: "The 'Two-Pizza Team' is obsolete. The new unit of production is the Human-Agent Pod: a nucleus of senior architects managing a fleet of specialized agents via the Model Context Protocol (MCP).",

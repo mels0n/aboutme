@@ -12,7 +12,7 @@ import {
     type JsonLdGraph,
 } from "./index";
 import { ids } from "./config";
-import { blogPostingNode, wordCount } from "./nodes";
+import { blogPostingNode, caseStudyNode, wordCount } from "./nodes";
 import type { PostInput } from "./schema";
 import { finalizeGraph, graphProblems } from "./validate";
 
@@ -220,6 +220,21 @@ describe("blog", () => {
         for (const item of [...officeBlogPosts, ...officeCaseStudies]) {
             expect((item.seoTitle ?? item.title).length, item.slug).toBeLessThanOrEqual(60);
         }
+    });
+
+    it("rejects a summary too long for a search result unless a short seoDescription is set", () => {
+        const long = "A".repeat(161);
+        expect(() => blogPostingNode({ ...post, summary: long })).toThrow(/seoDescription/);
+        expect(() => blogPostingNode({ ...post, summary: long, seoDescription: "Short description" })).not.toThrow();
+        expect(() => blogPostingNode({ ...post, summary: long, seoDescription: "B".repeat(161) })).toThrow(/seoDescription/);
+        expect(() => blogPostingNode({ ...post, summary: "C".repeat(160) })).not.toThrow();
+    });
+
+    it("rejects a case study whose executive summary is too long for a search result unless a seoDescription is set", () => {
+        const study = officeCaseStudies[0];
+        const summary = { ...study.summary, executive: "A".repeat(161) };
+        expect(() => caseStudyNode({ ...study, seoDescription: undefined, summary })).toThrow(/seoDescription/);
+        expect(() => caseStudyNode({ ...study, seoDescription: "Short description", summary })).not.toThrow();
     });
 
     it("rejects a post with a malformed date at build time", () => {

@@ -31,6 +31,7 @@ export const myNewPost: BlogPost = {
     role: "Operational Architect", // or relevant persona
     date: "YYYY-MM-DD", // Used for sorting (Newest First)
     summary: "Brief summary for the card view.",
+    seoDescription: "Shorter search description", // Required when summary is over 160 characters (the build fails otherwise). Used for the meta description and social cards; the page and structured data keep summary.
     keywords: ["optional", "topic keywords"], // Optional. Emitted as BlogPosting.keywords in the page structured data.
     polymorphicSummary: {
         executive: "Summary customized for Executive persona.",

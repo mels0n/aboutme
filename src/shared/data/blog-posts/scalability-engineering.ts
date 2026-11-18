@@ -10,6 +10,7 @@ export const scalabilityEngineering: BlogPost = {
     date: "2025-12-29",
     lastUpdated: "2026-05-19",
     summary: "Companies lose 20-30% of revenue annually to organizational silos, yet most treat scalability as a hiring problem. The Target Operating Model is the engineering schematic that changes that equation.",
+    seoDescription: "Silos cost companies 20-30% of revenue a year, yet most treat scalability as a hiring problem. The Target Operating Model is the schematic that fixes it.",
     polymorphicSummary: {
         executive: "True scalability means revenue grows faster than costs. The Target Operating Model (TOM) is the architectural blueprint that separates organizations that scale from ones that just grow, and the difference is worth 20-30% of annual revenue in recovered efficiency.",
         strategist: "The shift from Vertical Optimization to Horizontal Flow: redesigning the organization around Value Streams and Product-Centric Funding eliminates 'Organizational Technical Debt' and cuts cycle time by compressing the 70% of time currently trapped in handoff wait states.",

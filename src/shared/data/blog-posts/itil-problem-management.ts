@@ -9,6 +9,7 @@ export const itilProblemManagement: BlogPost = {
     role: "Operational Architect",
     date: "2026-05-19",
     summary: "83% of acquisitions fail to boost shareholder returns, and incompatible IT systems are a leading cause. Structured Problem Management disintegrates on Day 1 of any integration. Here is why, and how the Operational Architect rebuilds it before DORA compliance and downtime costs compound the damage.",
+    seoDescription: "83% of acquisitions fail to boost returns. Problem Management breaks on Day 1 of integration; here is how to rebuild it before DORA and downtime costs compound.",
     polymorphicSummary: {
         executive: "The integration clock starts the moment a deal closes, and IT chaos is the fastest route to thesis destruction. 83% of acquisitions fail to boost shareholder returns, and incompatible IT systems consistently rank among the top-three causes. The Operational Architect converts ITSM from a cost center into an integration guarantee, preventing the $300K/hour downtime exposure that accumulates when Problem Management collapses.",
         strategist: "When two organizations merge their IT estates, structured Problem Management (the discipline of preventing recurring incidents) is the first casualty. CMDB fragmentation, tribal knowledge loss, and competing SLA frameworks create a firefighting spiral that actively destroys integration value. This post details the specific failure modes and the two-stage framework (Stabilization → Harmonization) for rebuilding ITSM stability before DORA compliance exposure arrives.",

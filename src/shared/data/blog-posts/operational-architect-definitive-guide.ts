@@ -8,6 +8,7 @@ export const operationalArchitectGuide: BlogPost = {
     role: "Operational Architect",
     date: "2026-05-20",
     summary: "Failed transformations cost $2.3T/year globally. The Operational Architect is the hybrid executive role, fluent in Boardroom, Blueprint, and Engine Room, that closes the gap. Learn the Tri-Modal framework, Two-Pillar TOM, and how this role prevents the 70-90% transformation failure rate.",
+    seoDescription: "Failed transformations cost $2.3T a year. How the Operational Architect, fluent in Boardroom, Blueprint and Engine Room, closes the 70-90% failure gap.",
     polymorphicSummary: {
         executive: "Failed transformations cost $2.3 trillion per year. The Operational Architect closes the gap, returning $1.3M+ in revenue risk and achieving $36-50M in cost avoidance through the Tri-Modal framework and Zero-Cost Restructuring. Defined by measurable dollar outcomes, not deliverables.",
         strategist: "The Tri-Modal framework (Boardroom / Blueprint / Engine Room) and Two-Pillar TOM (Machine-Facing vs. Human-Facing workflows) are the structural tools that eliminate the Missing Middle, the accountability vacuum responsible for 32% of transformation failures. Full EU DORA compliance is a byproduct, not an overhead.",

@@ -2,7 +2,7 @@ import { pageMetadata } from "@/shared/lib/seo/metadata";
 import { HomeClient } from "./HomeClient";
 
 const PAGE = {
-    name: "Christopher Melson | Operational Architect for the Agentic Age",
+    name: "Christopher Melson | Operational Architect for Agentic AI",
     description: "Operations executive closing M&A integration gaps, stabilizing distressed environments, and building resilient teams. Executive, Strategist, Engineer.",
 };
 

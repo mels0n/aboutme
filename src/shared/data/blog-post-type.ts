@@ -11,6 +11,8 @@ export interface BlogPost {
     /** Never publish regardless of date, e.g. while a post is still being drafted. */
     draft?: boolean;
     summary: string;
+    /** Meta description when `summary` runs past 160 characters. The page keeps `summary`. */
+    seoDescription?: string;
     polymorphicSummary: {
         executive: string;
         strategist: string;

@@ -6,7 +6,7 @@ import { labGraph } from "@/shared/lib/structured-data";
 import { projectInputs } from "@/entities/project/model/structured-data";
 
 const LAB_TITLE = "The Lab: Cognitive Refactoring & Innovation";
-const LAB_DESCRIPTION = "A digital workspace dedicated to non-revenue-generating activities that yield high intellectual returns. The Lab is the 'Shadow IT' sector of the professional brand.";
+const LAB_DESCRIPTION = "A workspace for non-revenue projects with high intellectual returns: creative coding, design challenges and strategic gaming. The brand's 'Shadow IT' sector.";
 
 export const metadata = pageMetadata({ title: LAB_TITLE, description: LAB_DESCRIPTION, path: "/guide/lab" });
 

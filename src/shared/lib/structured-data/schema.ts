@@ -39,17 +39,29 @@ const searchTitleMessage = {
     path: ["seoTitle"],
 };
 
+/** Longest meta description a search result shows in full. */
+export const MAX_SEARCH_DESCRIPTION = 160;
+
+/** A description too long for a search result needs a shorter `seoDescription`; the build fails until it has one. */
+const descriptionFits = (description: string, seoDescription?: string) =>
+    (seoDescription ?? description).length <= MAX_SEARCH_DESCRIPTION;
+const searchDescriptionMessage = {
+    message: `description is over ${MAX_SEARCH_DESCRIPTION} characters: add a seoDescription of ${MAX_SEARCH_DESCRIPTION} or fewer`,
+    path: ["seoDescription"],
+};
+
 export const postSchema = z.object({
     slug: z.string().min(1),
     title: z.string().min(1),
     seoTitle: z.string().min(1).optional(),
     summary: z.string().min(1),
+    seoDescription: z.string().min(1).optional(),
     date: isoDate,
     lastUpdated: isoDate.optional(),
     ogImage: z.string().optional(),
     keywords: z.array(z.string().min(1)).optional(),
     content: z.string(),
-}).refine(fitsSearchResult, searchTitleMessage).refine((p) => p.lastUpdated === undefined || p.lastUpdated >= p.date, {
+}).refine(fitsSearchResult, searchTitleMessage).refine((p) => descriptionFits(p.summary, p.seoDescription), searchDescriptionMessage).refine((p) => p.lastUpdated === undefined || p.lastUpdated >= p.date, {
     message: "lastUpdated must not be earlier than date",
     path: ["lastUpdated"],
 });
@@ -59,6 +71,7 @@ export const caseStudySchema = z.object({
     slug: z.string().min(1),
     title: z.string().min(1),
     seoTitle: z.string().min(1).optional(),
+    seoDescription: z.string().min(1).optional(),
     date: isoDate,
     summary: z.object({ executive: z.string(), strategist: z.string() }),
     fullReport: z.object({
@@ -67,7 +80,7 @@ export const caseStudySchema = z.object({
         action: z.string(),
         result: z.string(),
     }),
-}).refine(fitsSearchResult, searchTitleMessage);
+}).refine(fitsSearchResult, searchTitleMessage).refine((c) => descriptionFits(c.summary.executive, c.seoDescription), searchDescriptionMessage);
 export type CaseStudyInput = z.infer<typeof caseStudySchema>;
 
 export const projectSchema = z.object({

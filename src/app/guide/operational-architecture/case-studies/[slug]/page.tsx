@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     return pageMetadata({
         title: study.seoTitle ?? study.title,
-        description: study.summary.executive,
+        description: study.seoDescription ?? study.summary.executive,
         path: `/guide/operational-architecture/case-studies/${study.slug}`,
         type: "article",
         publishedTime: study.date,

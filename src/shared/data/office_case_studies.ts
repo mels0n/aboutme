@@ -26,7 +26,7 @@ export interface OfficeCaseStudy {
     title: string;
     /** Search-result title when `title` runs past about 60 characters. */
     seoTitle?: string;
-    /** Meta description when `summary.executive` runs past 160 characters. */
+    /** Meta description and social-card text when `summary.executive` runs past 160 characters. The page and its structured data keep the full summary on purpose. */
     seoDescription?: string;
     summary: {
         executive: string;

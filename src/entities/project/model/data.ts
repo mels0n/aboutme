@@ -54,7 +54,7 @@ export const projects: ProjectData[] = [
     },
     {
         title: "Holiday Porch Lights",
-        description: "Calendar-driven holiday lighting in Home Assistant. A LIFX permanent outdoor strand runs LIFX's own moving themes while the porch bulbs cycle through matching colors. Each evening one rule decides the look: a manual pick, then a live STL CITY SC match, a holiday on the day, a youth club game, holiday lead-up days, an STL CITY game on the calendar, and finally white. A goal during a live match sets off fireworks. Paint the house throws any of 369 LIFX themes, or three custom colors, across everything, and one Fix button puts it all right.",
+        description: "Calendar-driven holiday lighting in Home Assistant. A LIFX permanent outdoor strand runs LIFX's own moving themes while the porch bulbs cycle through matching colors. Each evening one rule decides the look: a manual pick, then a live STL CITY SC match, a holiday on the day, a youth club game, holiday lead-up days, an STL CITY game on the calendar, and finally white. A goal during a live match sets off fireworks. Paint the house throws any LIFX theme, or three custom colors, across everything, and one Fix button puts it all right.",
         link: "github.com/mels0n/HA_holiday_porch_lights",
         image: "/holiday_porch.png",
         kpis: [{ label: "Tonight", value: "-" }, { label: "LIFX Themes", value: "369" }],
